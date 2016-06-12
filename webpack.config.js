@@ -2,14 +2,18 @@ var webpack = require('webpack')
 var path = require('path')
  
 module.exports = {
-  entry: './app/app.js',
-  output: { path: path.resolve(__dirname, 'dist'), filename: 'bundle.js' },
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-    alias: {
-      webworkify: 'webworkify-webpack'
-    }
-  },
+    entry: './app/app.js',
+    output: { 
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+        publicPath: 'dist/'
+    },
+    resolve: {
+        extensions: ['', '.js'],
+        alias: {
+            webworkify: 'webworkify-webpack'
+        }
+    },
   module: {
     loaders: [
       {
@@ -19,6 +23,10 @@ module.exports = {
         query: {
           presets: ['es2015']
         }
+      },
+      {
+          test: /\.scss/,
+          loader: 'style!css!sass'
       },
       {
         test: /\.json$/,

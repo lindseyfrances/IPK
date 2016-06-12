@@ -1,9 +1,7 @@
-#mapContainer {
-    width: 100%;
-    height: 100%;
-}
-button {
-    font-size: 20pt;
-    background: tomato;
-    color: white;
+@import 'components/map';
+
+body {
+    background: blue;
+    padding: 0;
+    margin: 0;
 }

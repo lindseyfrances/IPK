@@ -1,15 +1,16 @@
 import $ from 'jquery';
 var mapboxgl = require('mapbox-gl');
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiamNoYXJyeSIsImEiOiJjaW10ZWx0bzUwMjE4dmhtNDc0b29yNm9hIn0.pBgBlOL6YOGfKJbvCmTVPg';
-map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9'
-});
+console.log('map incoming');
+
 
 export default class Map {
     constructor(containerId) {
-        this.containerId = containerId;
+        mapboxgl.accessToken = 'pk.eyJ1IjoiamNoYXJyeSIsImEiOiJjaW10ZWx0bzUwMjE4dmhtNDc0b29yNm9hIn0.pBgBlOL6YOGfKJbvCmTVPg';
+        var map = new mapboxgl.Map({
+            container: containerId,
+            style: 'mapbox://styles/mapbox/light-v9'
+        });
     }
 
     display() {
