@@ -1,23 +1,48 @@
+// Client side modules
+import d3 from 'd3';
 import $ from 'jquery';
+import mapboxgl from 'mapbox-gl';
 
-// import styles
-//import 'style!css!sass!applicationStyles';
-//require('/components/app.scss');
-//require('./styles/app.scss');
-import './styles/app.scss';
+// Server side modules
 
+// Main styles
+import './styles/main.scss';
 
 // ------------------------------
 // COMPONENTS
 // ------------------------------
 import Map from './components/Map';
-
-console.log('loaded');
+import PointsOverlay from './components/PointsOverlay.js';
 
 var map = new Map('map');
-console.log('map instance', map);
-map.render();
-//console.log('stuff');
+setTimeout(() => {
+    console.log('flying!');
+}, 6000);
 
-//$('body').append('<p>woo</p>');
-//$('body').append('<button>hi</button>');
+$('button').click((e) => {
+    map.setCenter(-74.0193459, 40.6809955, 12);
+
+    // require.ensure() allows us to load dependencies only when we need them,
+    // meaning we can hold off on loading big data sets until they actually
+    // need to be displayed
+    require.ensure(['./data/out.json'], (require) => {
+        var data = require('./data/out.json');
+        var pointsOverlay = new PointsOverlay(map.map, map.canvasContainer, data);
+    });
+});
+console.log('bye');
+console.log('bye');
+
+//map.render()
+//map.render();
+
+//mapboxgl.accessToken = 'pk.eyJ1IjoiamNoYXJyeSIsImEiOiJjaW10ZWx0bzUwMjE4dmhtNDc0b29yNm9hIn0.pBgBlOL6YOGfKJbvCmTVPg';
+//var map = new mapboxgl.Map({
+    //container: 'map',
+    //style: 'mapbox://styles/mapbox/light-v9'
+//});
+
+//var map = new Map('map');
+//map.setCenter([]);
+//map.render();
+
