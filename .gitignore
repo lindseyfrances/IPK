@@ -1,5 +1,4 @@
 node_modules
 .DS_Store
 *.swp
-dist/bundle.js
-dist/1.bundle.js
+dist/*bundle.js
