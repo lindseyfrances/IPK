@@ -58,6 +58,31 @@ I found that there was an issue with the `babel` library, and it suggested
 switching to `babel-core`.  `babel-core` and `babel-loader` were approriately set up
 fixed this issue.
 
-####Note: don't track compiled files, it can mess with heroku deployment. Anything
-built by webpack should be ignored in version control
+####Note: don't track compiled files, it can mess with heroku deployment. 
+Anything built by webpack should be ignored in version control
+
+###File structure - so I can remember in a few weeks from now
+---
+|-- app/
+|   |-- components/
+|       |-- **components files go here**
+|   |-- data/
+|       |-- **all data that we want to use in the app goes here**
+|   |-- styles/
+|       |-- components/
+|           |-- **scss partials, make sure they're prefixed with _
+|       |-- main.scss - master sass file
+|   |-- app.js - app entry point
+|   |-- index.html - html template, bundle.js gets added by webpack
+|-- config/
+|   |-- **webpack config partials go here**
+|-- dist/
+|   |-- **webpack built files end up here, don't track this stuff**
+|-- node_modules - **don't track**
+|-- package.json
+|-- server.js - simple express server
+|-- webpack.config.js - grabs partials from `./config`
+
+
+
 
