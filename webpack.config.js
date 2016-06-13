@@ -27,7 +27,7 @@ module.exports = {
     },
     module: loaders,
     plugins: plugins,
-    devServer: {
+    devServer: process.env.NODE_ENV === 'production' ? null : {
         contentBase: './dist',
         hot: true
     }
