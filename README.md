@@ -63,8 +63,10 @@ Anything built by webpack should be ignored in version control
 
 ###File structure - so I can remember in a few weeks from now
 ---
-|-- app/
-|   |-- components/
+|-- app
+
+|   |-- components
+
 |       |-- **components files go here**
 |   |-- data/
 |       |-- **all data that we want to use in the app goes here**
