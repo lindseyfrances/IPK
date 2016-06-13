@@ -4,7 +4,6 @@ var loaders = require('./config/loaders');
 var plugins = require('./config/plugins');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-console.log(plugins);
 
 module.exports = {
     devtool: process.env.NODE_ENV === 'production' ? null : 'cheap-eval-source-map',

@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+console.log(__dirname);
 var configure = () => {
     var shared = [
         new webpack.HotModuleReplacementPlugin(),

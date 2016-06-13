@@ -33,16 +33,3 @@ $('button').click((e) => {
 console.log('bye');
 console.log('bye');
 
-//map.render()
-//map.render();
-
-//mapboxgl.accessToken = 'pk.eyJ1IjoiamNoYXJyeSIsImEiOiJjaW10ZWx0bzUwMjE4dmhtNDc0b29yNm9hIn0.pBgBlOL6YOGfKJbvCmTVPg';
-//var map = new mapboxgl.Map({
-    //container: 'map',
-    //style: 'mapbox://styles/mapbox/light-v9'
-//});
-
-//var map = new Map('map');
-//map.setCenter([]);
-//map.render();
-
