@@ -63,10 +63,9 @@ Anything built by webpack should be ignored in version control
 
 ###File structure - so I can remember in a few weeks from now
 ---
-|-- app
-
-|   |-- components
-
+```
+|-- app/
+|   |-- components/
 |       |-- **components files go here**
 |   |-- data/
 |       |-- **all data that we want to use in the app goes here**
@@ -84,7 +83,4 @@ Anything built by webpack should be ignored in version control
 |-- package.json
 |-- server.js - simple express server
 |-- webpack.config.js - grabs partials from `./config`
-
-
-
-
+```
