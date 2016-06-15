@@ -12,12 +12,12 @@ import './styles/main.scss';
 // COMPONENTS
 // ------------------------------
 import Map from './components/Map';
-import PointsOverlay from './components/PointsOverlay.js';
+//import PointsOverlay from './components/PointsOverlay.js';
+
+// LAYERS
+import Water from './components/Water';
 
 var map = new Map('map');
-setTimeout(() => {
-    console.log('flying!');
-}, 6000);
 
 $('button').click((e) => {
     map.setCenter(-74.0193459, 40.6809955, 12);
@@ -25,11 +25,28 @@ $('button').click((e) => {
     // require.ensure() allows us to load dependencies only when we need them,
     // meaning we can hold off on loading big data sets until they actually
     // need to be displayed
-    require.ensure(['./data/out.json'], (require) => {
-        var data = require('./data/out.json');
-        var pointsOverlay = new PointsOverlay(map.map, map.canvasContainer, data);
-    });
+    //require.ensure(['./data/out.json'], (require) => {
+        //var data = require('./data/out.json');
+        //map.addOverlay('WATER_QUALITY_COMPLAINTS', data);
+        ////var pointsOverlay = new PointsOverlay(map.map, map.canvasContainer, data);
+    //});
+    map.addOverlay('WATER_QUALITY_COMPLAINTS', 'http://localhost:8080/data/WATER_QUALITY_COMPLAINTS.json');
+    var reservoirs = require('./data/NYC_RESERVOIR_LOCATIONS.json');
+    map.addOverlay('NYC_RESERVOIR_LOCATIONS', reservoirs);
+
+    //var visible = true;
+    setTimeout(() => {
+        map.removeOverlay('NYC_RESERVOIR_LOCATIONS');
+    }, 10000);
+    //setInterval(() => {
+        //if (visible) {
+            //map.overlays['NYC_RESERVOIR_LOCATIONS'].hideLayer();
+        //} else {
+            //map.overlays['NYC_RESERVOIR_LOCATIONS'].showLayer();
+        //}
+        //visible = !visible;
+    //}, 2000);
+
 });
-console.log('bye');
-console.log('bye');
+
 

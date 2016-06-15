@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import PointsOverlay from './PointsOverlay';
 var mapboxgl = require('mapbox-gl');
 
 export class Map {
@@ -10,6 +11,8 @@ export class Map {
             container: containerId,
             style: 'mapbox://styles/mapbox/light-v9'
         });
+
+        this.overlays = {};
 
         // Ref to the container elt to be used by d3
         this.canvasContainer = this.map.getCanvasContainer();
@@ -24,17 +27,26 @@ export class Map {
         });
     }
 
+    // Creates a new instance of PointsOverlay,
+    addOverlay(overlayName, data) {
+        console.log('adding overlay');
+        this.overlays[overlayName] = new PointsOverlay(this.map, data);
+        console.log('current overlays', this.overlays);
+    }
+
+    // Completely remove the instance of PointsOverlay
+    // Sometimes it might be better to hide, rather
+    // than completely remove
+    removeOverlay(overlayName) {
+        console.log('removing overlay completely', overlayName);
+        this.overlays[overlayName].removeLayer();
+        this.overlays[overlayName].removeSource();
+        delete this.overlays[overlayName];
+    }
+
     onPan() {
         console.log('panning');
     }
-
-    //render() {
-        //console.log('render');
-        //this.map = new mapboxgl.Map({
-            //container: 'map',
-            //style: 'mapbox://styles/mapbox/light-v9'
-        //});
-    //}
 }
 
 export default Map;
