@@ -42,6 +42,7 @@ export class Map {
         this.overlays[overlayName].removeLayer();
         this.overlays[overlayName].removeSource();
         delete this.overlays[overlayName];
+        console.log(this.overlays);
     }
 
     onPan() {
