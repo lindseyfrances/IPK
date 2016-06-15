@@ -30,7 +30,8 @@ $('button').click((e) => {
         //map.addOverlay('WATER_QUALITY_COMPLAINTS', data);
         ////var pointsOverlay = new PointsOverlay(map.map, map.canvasContainer, data);
     //});
-    map.addOverlay('WATER_QUALITY_COMPLAINTS', 'http://localhost:8080/data/WATER_QUALITY_COMPLAINTS.json');
+    console.log(window.location.href);
+    map.addOverlay('WATER_QUALITY_COMPLAINTS', window.location.href + 'WATER_QUALITY_COMPLAINTS.json');
     var reservoirs = require('./data/NYC_RESERVOIR_LOCATIONS.json');
     map.addOverlay('NYC_RESERVOIR_LOCATIONS', reservoirs);
 
