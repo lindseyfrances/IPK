@@ -6,7 +6,7 @@ import axios from 'axios'
 var topojson = require('topojson');
 
 export default class PointsOverlay {
-    constructor(map, data) {
+    constructor(map, data, paint) {
         
         // Topojson data must be converted to geojson
         this.map = map;
@@ -14,6 +14,12 @@ export default class PointsOverlay {
         //this.layers = [];
         this.sourceName;
         this.fetching = false;
+        this.paint = paint || function() {
+            return {
+                'circle-radius': 10,
+                'circle-color': '#000000'
+            }
+        }
 
         var me = this;
         
@@ -46,6 +52,7 @@ export default class PointsOverlay {
 
     topoToGeojson(data) {
         var key = Object.keys(data.objects)[0];
+        console.log('topojson data', data);
         return topojson.feature(data, data.objects[key]);
     }
 
@@ -98,15 +105,32 @@ export default class PointsOverlay {
             id: title,
             type: 'circle',
             source: title,
+            interactive: true,
+            paint: this.paint()
+        });
+
+
+        // TODO Hover needs to be flexible to accept a filter parameter,
+        // and return an array with the approriate values
+        // Hover needs to 
+        this.map.addLayer({
+            id: title + '-hover',
+            type: 'circle',
+            source: title,
+            interactive: true,
+            filter: ['==', 'data', 'Taste/Odor, Chemical (QA2)'],
             paint: {
                 'circle-radius': 10,
-                'circle-color': '#fabfab'
+                'circle-color': '#aaaaaa'
             }
         });
+
     }
 
     removeLayer() {
+        console.log('points overlay source name', this.sourceName);
         this.map.removeLayer(this.sourceName);
+        this.map.removeLayer(this.sourceName + '-hover');
     }
 
     hideLayer() {

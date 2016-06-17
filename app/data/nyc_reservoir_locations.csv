@@ -1,22 +1,20 @@
-name,longitude,latitude,,,,
-Ashokan Reservoir,-74.2521195,41.9665264,,,,
-Schoharie Reservoir,-74.4613431,42.3642738,,,,
-Cannonsville Reservoir,-75.3444486,42.1151127,,,,
-Neversink Reservoir,-74.6903872,41.8496794,,,,
-Pepacton Reservoir,-74.9166087,42.094863,,,,
-Rondout Reservoir,-74.5109146,41.8300391,,,,
-Amawalk Reservoir,-73.7645303,41.3050267,,,,
-Bog Brook Reservoir,-73.5937801,41.4161806,,,,
-Cross River Reservoir,-73.6559196,41.2536113,,,,
-Croton Falls Reservoir,-73.6895638,41.37302,,,,
-Diverting Reservoir,-73.6386762,41.3836991,,,,
-East Branch Reservoir,-73.5863766,41.3987325,,,,
-Middle Branch Reservoir,-73.6620754,41.4047149,,,,
-Muscoot Reservoir,-73.7146243,41.2790884,,,,
-New Croton Reservoir,-73.8310109,41.2374889,,,,
-Titicus Reservoir,-73.6401981,41.3288711,,,,
-Boyds Corners Reservoir,-73.7575683,41.4598152,,,,
-Kensico Reservoir,-73.7735298,41.0989104,,,,
-West Branch Reservoir,-73.7271964,41.4191365,,,,
-,,,,,,
-,,,,,,
+name,longitude,latitude,popupcontent
+Ashokan Reservoir,-74.2521195,41.9665264,Ashokan Reservoir
+Schoharie Reservoir,-74.4613431,42.3642738,Schoharie Reservoir
+Cannonsville Reservoir,-75.3444486,42.1151127,Cannonsville Reservoir
+Neversink Reservoir,-74.6903872,41.8496794,Neversink Reservoir
+Pepacton Reservoir,-74.9166087,42.094863,Pepacton Reservoir
+Rondout Reservoir,-74.5109146,41.8300391,Rondout Reservoir
+Amawalk Reservoir,-73.7645303,41.3050267,Amawalk Reservoir
+Bog Brook Reservoir,-73.5937801,41.4161806,Bog Brook Reservoir
+Cross River Reservoir,-73.6559196,41.2536113,Cross River Reservoir
+Croton Falls Reservoir,-73.6895638,41.37302,Croton Falls Reservoir
+Diverting Reservoir,-73.6386762,41.3836991,Diverting Reservoir
+East Branch Reservoir,-73.5863766,41.3987325,East Branch Reservoir
+Middle Branch Reservoir,-73.6620754,41.4047149,Middle Branch Reservoir
+Muscoot Reservoir,-73.7146243,41.2790884,Muscoot Reservoir
+New Croton Reservoir,-73.8310109,41.2374889,New Croton Reservoir
+Titicus Reservoir,-73.6401981,41.3288711,Titicus Reservoir
+Boyds Corners Reservoir,-73.7575683,41.4598152,Boyds Corners Reservoir
+Kensico Reservoir,-73.7735298,41.0989104,Kensico Reservoir
+West Branch Reservoir,-73.7271964,41.4191365,West Branch Reservoir
