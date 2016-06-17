@@ -12,7 +12,7 @@ import configureStore from './store/configureStore';
 window.store = configureStore();
 var unsubscribe = store.subscribe(() => {
     // When the state changes...
-})
+});
 
 // Main styles
 import './styles/main.scss';
@@ -32,7 +32,7 @@ import Water from './components/Water';
 var startingLocation = {
     center: [-74.0193459, 40.6809955],
     zoom: 5
-}
+};
 var map = new Map('map', location);
 
 $('button').click((e) => {
@@ -55,7 +55,7 @@ $('button').click((e) => {
     };
 
     map.addOverlay('WATER_QUALITY_COMPLAINTS', window.location.href + 'data/WATER_QUALITY_COMPLAINTS.json');
-    var reservoirs = require('./data/NYC_RESERVOIR_LOCATIONS.json');
+    var reservoirs = require('./data/build/NYC_RESERVOIR_LOCATIONS.json');
     map.addOverlay('NYC_RESERVOIR_LOCATIONS', reservoirs);
 
     //var visible = true;
