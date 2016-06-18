@@ -5,6 +5,7 @@
 
 all:
 	rm -rf app/data/build/*
+	rm -rf dist/data/*
 
 	make app/data/build/WATER_QUALITY_COMPLAINTS.json
 	make app/data/build/NYC_RESERVOIR_LOCATIONS.json

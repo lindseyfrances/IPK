@@ -6,10 +6,18 @@ module.exports = {
     loaders: [
         {
             test: /\.js?$/,
-            loader: 'babel',
+            loader: 'babel-loader',
             exclude: /node_modules/,
             query: {
                 presets: ['es2015']
+            }
+        },
+        {
+            test: /\.jsx?$/,
+            loader: 'babel-loader',
+            exclude: /node_modules/,
+            query: {
+                presets: ['react', 'es2015', 'stage-2']
             }
         },
         {
@@ -45,4 +53,4 @@ module.exports = {
         loader: 'transform',
         query: 'brfs'
     }]
-} 
+}; 

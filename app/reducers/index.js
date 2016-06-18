@@ -1,9 +1,21 @@
 import $ from 'jquery';
-export const popupContentReducer = (state = '', action) => {
+export const popupReducer = (state = {}, action) => {
     switch(action.type) {
-        case 'CHANGE_POPUP_CONTENT':
-            $('#hover-popup').html(action.content);
-            return action.content;
+        case 'SHOW_POPUP':
+            return {
+                ...state,
+                visible: true
+            };
+        case 'SET_POPUP_CONTENT':
+            return {
+                ...state,
+                content: action.content
+            };
+        case 'HIDE_POPUP':
+            return {
+                ...state,
+                visible: false
+            };
         default:
             return state;
     }

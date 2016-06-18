@@ -43,7 +43,7 @@ export class Map {
             // Get features under mouse location (e.point)
             var features = this.map.queryRenderedFeatures(e.point, {
                 layers: Object.keys(this.overlays).map((item) => {
-                    return this.overlays[item].sourceName
+                    return this.overlays[item].sourceName;
                 })
             });
 
@@ -55,15 +55,17 @@ export class Map {
                 var feature = features[0];
                 var layerName = feature.layer.id;
 
-                if (feature.properties.hasPopupContent || true) {
-                    store.dispatch(actions.changePopupContent(feature.properties.name));
-                    $('#hover-popup')
-                        .css('left', e.point.x)
-                        .css('top', e.point.y)
-                        .show();
+                console.log(feature);
+                if (feature.properties.hasPopupContent) {
+                    var content = {
+                        content: feature.properties.popupContent,
+                        pos: e.point
+                    };
+                    store.dispatch(actions.setPopupContent(feature.properties.popupContent));
+                    store.dispatch(actions.showPopup());
                 }
             } else {
-                $('#hover-popup').hide();
+                store.dispatch(actions.hidePopup());
             }
         });
     }
