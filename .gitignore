@@ -2,5 +2,6 @@ node_modules
 .DS_Store
 *.swp
 app/data/build/*
+dist/data/*
 dist/*bundle.js
 dist/*.html
