@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test karma start",
-    "build": "webpack",
+    "build": "make all && webpack",
     "dev": "webpack-dev-server --progress --colors --inline",
     "start": "npm run build && node server.js"
   },
