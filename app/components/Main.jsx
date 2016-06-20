@@ -9,27 +9,45 @@ import Map from './Map';
 import HoverPopup from './HoverPopup';
 
 import Water from './Water';
+import * as actions from './../actions/index';
+
 class Main extends React.Component {
 
     componentDidMount() {
+        //var map = new Map('map', location);
+        var { dispatch } = this.props;
+
+        $('button').click((e) => {
+            dispatch(actions.changeMapPosition({
+                center: [-74.0193459, 40.6809955], 
+                zoom: 12,
+                pitch: 60, 
+                bearing: 60
+            }));
+
+            dispatch(actions.startAddOverlay({
+                id: 'WATER_QUALITY_COMPLAINTS',
+                type: 'point',
+                data: window.location.href + 'data/WATER_QUALITY_COMPLAINTS.json',
+                visible: true
+            }));
+            dispatch(actions.startAddOverlay({
+                id: 'NYC_RESERVOIR_LOCATIONS',
+                type: 'point',
+                data: window.location.href + 'data/NYC_RESERVOIR_LOCATIONS.json',
+                visible: true
+            }));
+        });
+    }
+    render() {
+        console.log(this.props);
         var startingLocation = {
             center: [-74.0193459, 40.6809955],
             zoom: 5
         };
-        var map = new Map('map', location);
-
-        $('button').click((e) => {
-            map.setCenter(-74.0193459, 40.6809955, 12, 60, 60);
-
-            map.addOverlay('WATER_QUALITY_COMPLAINTS', window.location.href + 'data/WATER_QUALITY_COMPLAINTS.json');
-            //var reservoirs = require('./data/build/NYC_RESERVOIR_LOCATIONS.json');
-            map.addOverlay('NYC_RESERVOIR_LOCATIONS', window.location.href + 'data/NYC_RESERVOIR_LOCATIONS.json');
-        });
-    }
-    render() {
         return (
             <div>
-                <div id='map'></div>
+                <Map containerId={'map'}/>
                 <button id='button'>click me</button>
                 <HoverPopup />
             </div>

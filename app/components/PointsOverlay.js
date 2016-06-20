@@ -1,90 +1,41 @@
 //import d3 from 'd3';
 import $ from 'jquery';
 import mapboxgl from 'mapbox-gl';
-import axios from 'axios'
+import axios from 'axios';
+import { connect } from 'react-redux';
 
 var topojson = require('topojson');
 
 export default class PointsOverlay {
-    constructor(map, data, paint) {
+    constructor(map, overlay, paint) {
         
         // Topojson data must be converted to geojson
         this.map = map;
         //this.sources = [];
         //this.layers = [];
-        this.sourceName;
+        this.sourceName = overlay.id;
         this.fetching = false;
         this.paint = paint || function() {
             return {
                 'circle-radius': 10,
                 'circle-color': '#000000'
-            }
-        }
+            };
+        };
 
         var me = this;
         
-        // We can either take a url pointing
-        // to some geojson data
-        // or take an object with the data directly
-        if (this.isUrl(data)) {
-            this.fetchData(data).then((res) => {
-                me.addSource(me.sourceName, me.data);
-                me.addLayer(me.sourceName);
-            }, (err) => {
-                // Were given an object, not a url
-                console.log('error fetching data', err);
-            });
-        } else {
-            console.log('data is not a url');
-            console.log(data);
-            this.sourceName = Object.keys(data.objects)[0];
-            this.data = this.topoToGeojson(data);
-            this.addSource(this.sourceName, this.data);
-            this.addLayer(this.sourceName, this.data);
-        }
-    }
-
-    isUrl(str) {
-        if (str.indexOf) {
-            return str.indexOf('http') >= -1;
-        }
+        console.log('data is not a url');
+        console.log(overlay.data);
+        //this.sourceName = Object.keys(overlay.data.objects)[0];
+        this.data = this.topoToGeojson(overlay.data);
+        this.addSource(this.sourceName, this.data);
+        this.addLayer(this.sourceName, this.data);
     }
 
     topoToGeojson(data) {
         var key = Object.keys(data.objects)[0];
         console.log('topojson data', data);
         return topojson.feature(data, data.objects[key]);
-    }
-
-    // If we're given a url, request data from the web
-    // when it comes back, save ref to data on properties
-    // return a promise so it's all chainable
-    fetchData(url) {
-        this.fetching = true;
-        var me = this;
-
-        // Return the promise so I can chain it 
-        return axios.get(url)
-            .then((res) => {
-                me.fetching = false;
-                
-                if (res.data.type === 'Topology') {
-                    // we got a Topjson object, so convert
-                    // to geojson
-                    var key = Object.keys(res.data.objects)[0];
-                    me.sourceName = key;
-                    //me.data = topojson.feature(res.data, res.data.objects[key])
-                    me.data = me.topoToGeojson(res.data);
-                    console.log(me.data);
-                } else {
-                    console.log('type does not equal topology');
-                    // we got geojson right off the bat
-                    me.data = res.data;
-                }
-            })
-            .catch((err) => {
-                console.log('error fetching data', err);
-            });
     }
 
     // Add's source to Mapboxgl Map
@@ -101,6 +52,10 @@ export default class PointsOverlay {
 
     // Draws the layer on the map
     addLayer(title) {
+        // TODO: Store layers on state
+        // maybe also store visible layers on state
+        //var { dispatch } = this.props;
+        //dispatch(addLayer(title));
         this.map.addLayer({
             id: title,
             type: 'circle',
@@ -109,10 +64,8 @@ export default class PointsOverlay {
             paint: this.paint()
         });
 
-
         // TODO Hover needs to be flexible to accept a filter parameter,
         // and return an array with the approriate values
-        // Hover needs to 
         this.map.addLayer({
             id: title + '-hover',
             type: 'circle',
@@ -124,7 +77,6 @@ export default class PointsOverlay {
                 'circle-color': '#aaaaaa'
             }
         });
-
     }
 
     removeLayer() {
@@ -142,3 +94,8 @@ export default class PointsOverlay {
     }
 }
 
+//export default connect((state) => {
+    //return {
+
+    //};
+//})(PointsOverlay);
