@@ -4,7 +4,8 @@ import mapboxgl from 'mapbox-gl';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-var topojson = require('topojson');
+import { topoToGeojson } from './../api/helpers';
+//var topojson = require('topojson');
 
 export default class PointsOverlay {
     constructor(map, overlay, paint) {
@@ -27,15 +28,9 @@ export default class PointsOverlay {
         console.log('data is not a url');
         console.log(overlay.data);
         //this.sourceName = Object.keys(overlay.data.objects)[0];
-        this.data = this.topoToGeojson(overlay.data);
+        this.data = topoToGeojson(overlay.data);
         this.addSource(this.sourceName, this.data);
         this.addLayer(this.sourceName, this.data);
-    }
-
-    topoToGeojson(data) {
-        var key = Object.keys(data.objects)[0];
-        console.log('topojson data', data);
-        return topojson.feature(data, data.objects[key]);
     }
 
     // Add's source to Mapboxgl Map

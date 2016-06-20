@@ -17,6 +17,15 @@ class Main extends React.Component {
         //var map = new Map('map', location);
         var { dispatch } = this.props;
 
+        setTimeout(function() {
+            dispatch(actions.startAddOverlay({
+                id: 'WBDHU8',
+                type: 'path',
+                data: window.location.href + 'data/WBDHU8.json',
+                visible:true
+            }));
+        }, 6000);
+
         $('button').click((e) => {
             dispatch(actions.changeMapPosition({
                 center: [-74.0193459, 40.6809955], 

@@ -1,11 +1,12 @@
 import $ from 'jquery';
 import _ from 'underscore';
-import PointsOverlay from './PointsOverlay';
 import * as actions from '../actions/index';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
+import PointsOverlay from './PointsOverlay';
+import PathOverlay from './PathOverlay';
 
 var mapboxgl = require('mapbox-gl');
 
@@ -22,7 +23,7 @@ class Map extends React.Component {
         });
         window.map = this.map;
 
-        //this.overlays = {};
+        this.overlays = [];
         //this.layers = [];
 
         this.initMouseMove();
@@ -49,8 +50,17 @@ class Map extends React.Component {
                 if (this.map.getSource(overlay.id)) {
                     console.log('Source exists, do nothing');
                 } else {
-                    new PointsOverlay(this.map, overlay);
-                    dispatch(actions.addLayer({ id: overlay.id, visible: true}));
+                    switch(overlay.type) {
+                        case 'point':
+                            this.overlays.push(new PointsOverlay(this.map, overlay));
+                            dispatch(actions.addLayer({ id: overlay.id, visible: true}));
+                            break;
+                        case 'path':
+                            this.overlays.push(new PathOverlay(this.map, overlay));
+                            break;
+                        default:
+                            break;
+                    }
                     //dispatch(actions.addLayer({
                         //id: overlay.id + '-hover',
                         //visible: false
