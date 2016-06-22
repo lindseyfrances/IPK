@@ -1,0 +1,30 @@
+.nav {
+    width: 100vw;
+    background-color: black;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+
+    .nav-right {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .nav-right:last-child {
+        padding-right: 10px;
+    }
+
+    p {
+        color: white;
+        padding-left: 10px;
+        font-size: 11pt;
+    }
+    button {
+        background-color: transparent;
+        color: white;
+        border: none;
+    }
+}

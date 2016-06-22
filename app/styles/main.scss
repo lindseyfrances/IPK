@@ -1,14 +1,8 @@
 @import 'components/map';
 @import 'components/points';
 @import 'components/hover-popup';
-
-button {
-    font-size: 24pt;
-    background: tomato;
-    position: absolute;
-    left: 10px;
-    top: 10px;
-}
+@import 'components/side-nav';
+@import 'components/nav';
 
 body {
     background: orange;

@@ -1,14 +1,16 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import { layerReducer, overlayReducer, mapReducer, popupReducer } from './../reducers/index';
+import { whereAmIReducer, sideNavReducer, layerReducer, overlayReducer, mapReducer, popupReducer } from './../reducers/index';
 
 const configure = (initialState = {}) => {
     var reducer = redux.combineReducers({
         popup: popupReducer,
         overlays: overlayReducer,
         map: mapReducer,
-        layers: layerReducer
+        layers: layerReducer,
+        sideNavOpen: sideNavReducer,
+        whereAmI: whereAmIReducer
     });
 
     var store = redux.createStore(reducer, initialState, redux.compose(

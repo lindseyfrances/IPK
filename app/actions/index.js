@@ -28,11 +28,11 @@ export const startAddOverlay = (overlay) => {
                     data: res.data
                 }));
             });
+        } else {
+            // If we were given raw data in the first place
+            dispatch(addOverlay(overlay));
+            return;
         }
-
-        // If we were given raw data in the first place
-        dispatch(addOverlay(overlay));
-        return;
     };
 };
 
@@ -47,10 +47,24 @@ export const addOverlay = (overlay) => {
     };
 };
 
+export const removeOverlay = (id) => {
+    return {
+        type: 'REMOVE_OVERLAY',
+        id
+    };
+};
+
 export const addLayer = (layer) => {
     return {
         type: 'ADD_LAYER',
         layer
+    };
+};
+
+export const removeLayer = (id) => {
+    return {
+        type: 'REMOVE_LAYER',
+        id
     };
 };
 
@@ -70,5 +84,18 @@ export const setPopupContent = (content) => {
     return {
         type: 'SET_POPUP_CONTENT',
         content
+    };
+};
+
+export const toggleSideNav = () => {
+    return {
+        type: 'TOGGLE_SIDE_NAV'
+    };
+};
+
+export const setWhereIAm = (loc) => {
+    return {
+        type: 'SET_WHERE_I_AM',
+        loc
     };
 };

@@ -1,15 +1,19 @@
 import { topoToGeojson } from './../api/helpers';
+import * as actions from './../actions/index';
 
 export default class PathOverlay {
-    constructor(map, overlay, paint) {
+    constructor(map, overlay, options ) {
         this.map = map;
         this.sourceName = overlay.id;
-        this.paint = paint || function() {
+        this.dispatch = options.dispatch || null;
+        this.hover = overlay.hover || false;
+        this.paint = options.paint || function() {
             return {
                 'fill-color': '#fabfab',
                 'fill-opacity': 0.3
             };
         };
+        
 
         this.data = topoToGeojson(overlay.data);
         this.addSource(this.sourceName, this.data);
@@ -41,31 +45,49 @@ export default class PathOverlay {
                 'line-width': 2
             }
         });
-        this.map.addLayer({
-            id: title + '-hover',
-            type: 'fill',
-            source: title,
-            paint: {
-                'fill-color': '#abfabf',
-                'fill-opacity': 0.3
-            },
-            filter: ['==', 'NAME', '']
-        });
+        if (this.dispatch) {
+            if (this.hover) {
+                this.map.addLayer({
+                    id: title + '-hover',
+                    type: 'fill',
+                    source: title,
+                    paint: {
+                        'fill-color': '#abfabf',
+                        'fill-opacity': 0.3
+                    },
+                    filter: ['==', 'NAME', '']
+                });
+                this.dispatch(actions.addLayer({
+                    id: this.sourceName + '-hover',
+                    visible: true
+                }));
+            }
+            this.dispatch(actions.addLayer({
+                id: this.sourceName + '-fill',
+                visible: true 
+            }));
+            this.dispatch(actions.addLayer({
+                id: this.sourceName + '-border',
+                visible: true 
+            }));
+        }
     }
 
     //init hover events
     initMouseMove() {
-        this.map.on('mousemove', (e) => {
-           var features = this.map.queryRenderedFeatures(e.point, {
-               layers: [this.sourceName + '-fill']
-           });
+        if (this.hover) {
+            this.map.on('mousemove', (e) => {
+               var features = this.map.queryRenderedFeatures(e.point, {
+                   layers: [this.sourceName + '-fill']
+               });
 
-           if (features.length) {
-               this.map.setFilter(this.sourceName + '-hover', ['==', 'NAME', features[0].properties.NAME]); 
-           } else {
-               this.map.setFilter(this.sourceName + '-hover', ['==', 'NAME', '']);
-           }
-        });
+               if (features.length) {
+                   this.map.setFilter(this.sourceName + '-hover', ['==', 'NAME', features[0].properties.NAME]); 
+               } else {
+                   this.map.setFilter(this.sourceName + '-hover', ['==', 'NAME', '']);
+               }
+            });
+        }
     }
 
     
