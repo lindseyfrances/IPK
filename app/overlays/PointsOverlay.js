@@ -1,16 +1,13 @@
-import $ from 'jquery';
-import mapboxgl from 'mapbox-gl';
-import axios from 'axios';
+//import mapboxgl from 'mapbox-gl';
+//import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { topoToGeojson } from './../api/helpers';
-import * as actions from './../actions/index';
+import { topoToGeojson } from 'app/api/helpers';
+import * as actions from 'app/actions/actions';
+import d3 from 'd3';
 
 export default class PointsOverlay {
     constructor(map, source, layer) {
-        
-        // Topojson data must be converted to geojson
-        console.log('inside PointsOverlay', source, layer);
         this.map = map;
         this.name = source.id;
         this.source = source;
@@ -39,9 +36,12 @@ export default class PointsOverlay {
     }
 
     removeSource() {
-        this.map.removeSource(this.sourceName);
+        this.map.removeSource(this.name);
     }
 
+    fitBounds() {
+        this.map.fitBounds(d3.geo.bounds(this.data));
+    }
     // Draws the layer on the map
     addLayer(title) {
         // TODO: Store layers on state
@@ -75,21 +75,21 @@ export default class PointsOverlay {
     }
 
     removeLayer() {
-        console.log('points overlay source name', this.sourceName);
-        this.map.removeLayer(this.sourceName);
-        this.map.removeLayer(this.sourceName + '-hover');
+        console.log('points overlay source name', this.name);
+        this.map.removeLayer(this.name);
+        this.map.removeLayer(this.name+ '-hover');
         //this.dispatch(actions.removeLayer({
-            //id: this.sourceName
+            //id: this.name
         //}));
         //this.dispatch(actions.removeLayer({
-            //id: this.sourceName + '-hover'
+            //id: this.name+ '-hover'
         //}));
     }
 
     //initMouseMove() {
         //this.map.on('mousemove', (e) => {
             //var features = this.map.queryRenderedFeatures(e.point, {
-                //layers: [this.sourceName]
+                //layers: [this.name]
             //});
 
             //if (features.length) {

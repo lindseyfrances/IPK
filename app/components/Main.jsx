@@ -4,14 +4,12 @@ import mapboxgl from 'mapbox-gl';
 import * as redux from 'redux';
 import { connect } from 'react-redux';
 
-import Map from './Map';
+import Map from 'app/components/Map';
 //import PointsOverlay from './components/PointsOverlay.js';
-import HoverPopup from './HoverPopup';
-import SideNav from './SideNav';
-import Nav from './Nav';
+import HoverPopup from 'app/components/HoverPopup';
+import Nav from 'app/components/Nav';
 
-import Water from './Water';
-import * as actions from './../actions/index';
+import * as actions from 'app/actions/actions';
 
 class Main extends React.Component {
 

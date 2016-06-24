@@ -4,6 +4,7 @@ var loaders = require('./config/loaders');
 var plugins = require('./config/plugins');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.PWD = process.cwd();
 
 module.exports = {
     devtool: process.env.NODE_ENV === 'production' ? null : 'cheap-eval-source-map',
@@ -14,15 +15,17 @@ module.exports = {
         './app/app.jsx'
     ],
     output: { 
-        path: path.join(__dirname, 'dist'),
+        path: path.join(process.env.PWD, 'dist'),
         filename: 'bundle.js'
         //publicPath: 'dist/'
     },
     resolve: {
-        extensions: ['', '.js', '.jsx'],
+        root: __dirname,
         alias: {
-            'webworkify': 'webworkify-webpack'
-        }
+            'webworkify': 'webworkify-webpack',
+            app: 'app',
+        },
+        extensions: ['', '.js', '.jsx']
     },
     module: loaders,
     plugins: plugins,

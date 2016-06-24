@@ -1,7 +1,7 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import { whereAmIReducer, sideNavReducer, layerReducer, overlayReducer, mapReducer, popupReducer } from './../reducers/index';
+import { whereAmIReducer, sideNavReducer, layerReducer, overlayReducer, mapReducer, popupReducer } from 'app/reducers/reducers';
 
 const configure = (initialState = {}) => {
     var reducer = redux.combineReducers({

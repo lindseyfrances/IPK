@@ -1,7 +1,7 @@
 import axios from 'axios';
-import contentPageLocations from './../api/contentPageLocations';
+import contentPageLocations from 'app/models/contentPageLocations';
 
-export default class PageController {
+export default class PageModel {
     constructor() {
         this.water;
         this.soil;
@@ -10,7 +10,7 @@ export default class PageController {
     waterConstructor() {
         console.log(contentPageLocations);
         if (!this.water) {
-            var dataUrls = ['https://s3.amazonaws.com/no-free-lunch-data/WBDHU8.json','https://s3.amazonaws.com/no-free-lunch-data/NYC_RESERVOIR_LOCATIONS.json', 'https://s3.amazonaws.com/no-free-lunch-data/WATER_QUALITY_COMPLAINTS.json'];
+            var dataUrls = ['https://s3.amazonaws.com/no-free-lunch-data/WBDHU8.json','https://s3.amazonaws.com/no-free-lunch-data/NYC_RESERVOIR_LOCATIONS.json', 'https://s3.amazonaws.com/no-free-lunch-data/WATER_QUALITY_COMPLAINTS.json', 'https://s3.amazonaws.com/no-free-lunch-data/NYC_RESERVOIRS.json'];
 
             var data = {};
             var dataNames = [];

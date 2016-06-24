@@ -11,6 +11,7 @@ all:
 	make app/data/build/WATER_QUALITY_COMPLAINTS.json
 	make app/data/build/NYC_RESERVOIR_LOCATIONS.json
 	make app/data/build/WBDHU8.json
+	make app/data/build/NYC_RESERVOIRS.json
 
 app/data/build/WATER_QUALITY_COMPLAINTS.json: app/data/src/WATER_QUALITY_COMPLAINTS.csv
 	mkdir -p $(dir $@)
@@ -20,9 +21,8 @@ app/data/build/WATER_QUALITY_COMPLAINTS.json: app/data/src/WATER_QUALITY_COMPLAI
 		-o $@\
 		-p \
 		-- $<
-	cp app/data/build/WATER_QUALITY_COMPLAINTS.json dist/data/WATER_QUALITY_COMPLAINTS.json
-	aws s3api put-object --bucket no-free-lunch-data --key WATER_QUALITY_COMPLAINTS.json --body app/data/build/WATER_QUALITY_COMPLAINTS.json
-	aws s3api put-object-acl --bucket no-free-lunch-data --key WATER_QUALITY_COMPLAINTS.json --acl public-read
+	aws s3api put-object --bucket no-free-lunch-data --key $(@F) --body $@
+	aws s3api put-object-acl --bucket no-free-lunch-data --key $(@F) --acl public-read
 
 app/data/build/NYC_RESERVOIR_LOCATIONS.json: app/data/src/NYC_RESERVOIR_LOCATIONS.csv
 	mkdir -p $(dir $@)
@@ -32,9 +32,8 @@ app/data/build/NYC_RESERVOIR_LOCATIONS.json: app/data/src/NYC_RESERVOIR_LOCATION
 		-o $@\
 		-p \
 		-- $<
-	cp app/data/build/NYC_RESERVOIR_LOCATIONS.json dist/data/NYC_RESERVOIR_LOCATIONS.json
-	aws s3api put-object --bucket no-free-lunch-data --key NYC_RESERVOIR_LOCATIONS.json --body app/data/build/NYC_RESERVOIR_LOCATIONS.json
-	aws s3api put-object-acl --bucket no-free-lunch-data --key NYC_RESERVOIR_LOCATIONS.json --acl public-read
+	aws s3api put-object --bucket no-free-lunch-data --key $(@F) --body $@
+	aws s3api put-object-acl --bucket no-free-lunch-data --key $(@F) --acl public-read
 
 app/data/build/WBDHU8.shp: app/data/src/WBDShape/WBDHU8.shp
 	mkdir -p $(dir $@)
@@ -51,9 +50,28 @@ app/data/build/WBDHU8.json: app/data/build/WBDHU8.shp
 		--simplify-proportion=0.01\
 		-p \
 		-- $<
-	cp $@ dist/data/WBDHU8.json
-	aws s3api put-object --bucket no-free-lunch-data --key WBDHU8.json --body app/data/build/WBDHU8.json
-	aws s3api put-object-acl --bucket no-free-lunch-data --key WBDHU8.json --acl public-read
+	aws s3api put-object --bucket no-free-lunch-data --key $(@F) --body $@
+	aws s3api put-object-acl --bucket no-free-lunch-data --key $(@F) --acl public-read
+
+app/data/build/NYC_RESERVOIRS.shp: app/data/src/NYC_RESERVOIRS/NYC_RESERVOIRS.shp
+	mkdir -p $(dir $@)
+	ogr2ogr \
+		-f 'ESRI Shapefile' \
+		-s_srs EPSG:26918 \
+		-t_srs EPSG:4326 \
+		$@ \
+		$<
+
+app/data/build/NYC_RESERVOIRS.json: app/data/build/NYC_RESERVOIRS.shp
+	mkdir -p $(dir $@)
+	node_modules/.bin/topojson \
+		-o $@ \
+		-e app/data/src/NYC_RESERVOIR_LOCATIONS.csv \
+		--id-property=NAME,name \
+		-p popupContent=popupContent \
+		-- $<
+	aws s3api put-object --bucket no-free-lunch-data --key $(@F) --body $@
+	aws s3api put-object-acl --bucket no-free-lunch-data --key $(@F) --acl public-read
 
 # vim:ft=make
 #

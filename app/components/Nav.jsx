@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setWhereIAm } from './../actions/index';
-//import { toggleNav } from './../actions/index';
+import { setWhereIAm } from 'app/actions/actions';
 
-var rightArrow = require('./../images/rightarrow.png');
-var leftArrow = require('./../images/leftarrow.png');
+//var rightArrow = require('./../images/rightarrow.png');
+//import rightArrow from './../images/rightarrow.png');
+//var leftArrow = require('./../images/leftarrow.png');
 class Nav extends React.Component {
     handleArrow(e) {
         var { dispatch, whereAmI } = this.props;
@@ -80,6 +80,9 @@ class Nav extends React.Component {
                 <div className='nav-left'>
                     <button id='back' onClick={this.handleArrow.bind(this)}>&lt;&lt;</button>
                     <button id='next' onClick={this.handleArrow.bind(this)}>&gt;&gt;</button>
+                </div>
+                <div className='nav-middle'>
+                    <p>Instructions: Click on 'Water' to the right, then click the arrows on the left side of the nav bar</p>
                 </div>
                 <div className='nav-right'>
                     <p className='layer' onClick={this.handleClick.bind(this)}>Soil</p>
