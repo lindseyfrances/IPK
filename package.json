@@ -6,7 +6,6 @@
   "scripts": {
     "test": "NODE_ENV=test karma start",
     "build": "webpack",
-    "deploy": "make all && git push heroku full-react:master",
     "dev": "webpack-dev-server --progress --colors --inline",
     "start": "npm run build && node server.js"
   },
