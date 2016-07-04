@@ -41,7 +41,7 @@ class Map extends React.Component {
         var { whereAmI, containerId, map, dispatch } = this.props;
         this.elt = ReactDOM.findDOMNode();
         this.pageModel = new PageModel();
-        mapboxgl.accessToken = 'pk.eyJ1IjoiamNoYXJyeSIsImEiOiJjaW10ZWx0bzUwMjE4dmhtNDc0b29yNm9hIn0.pBgBlOL6YOGfKJbvCmTVPg';
+        mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
         this.map = new mapboxgl.Map({
             container: containerId,
             style: 'mapbox://styles/mapbox/light-v9',
@@ -300,5 +300,3 @@ export default connect((state) => {
         whereAmI: state.whereAmI
     };
 })(Map);
-
-

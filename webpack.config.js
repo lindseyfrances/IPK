@@ -2,9 +2,11 @@ var webpack = require('webpack');
 var path = require('path');
 var loaders = require('./config/loaders');
 var plugins = require('./config/plugins');
+var envFile = require('node-env-file');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 process.env.PWD = process.cwd();
+
 
 module.exports = {
     devtool: process.env.NODE_ENV === 'production' ? null : 'cheap-eval-source-map',

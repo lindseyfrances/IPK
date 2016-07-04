@@ -1,45 +1,41 @@
-var expect = require('expect');
-var reducers = require('./../../reducers/index');
+import expect from 'expect';
+import * as reducers from 'app/reducers/reducers';
 
-var df = require('deep-freeze-strict');
+import df from 'deep-freeze-strict';
+//var df = require('deep-freeze-strict');
 
 describe('Reducers', () => {
-    describe('layerReducer', () => {
-        it('should properly remove layers when action is dispatched', () => {
-
-            var layers = {
-                'TEST_LAYER': true,
-                'ANOTHER_LAYER': false
-            };
-
-            var action = {
-                type: 'REMOVE_LAYER',
-                id: 'TEST_LAYER'
-            };
-
-            var res = reducers.layerReducer(layers, action);
-
-            expect(res['TEST_LAYER']).toEqual(undefined);
-            expect(res['ANOTHER_LAYER']).toEqual(false);
-        });
-
-        it('should add layer', () => {
-            var layers = {
-                'TEST_LAYER': true
+    describe('whereAmI Reducer', () => {
+        it('should change where I am', () => {
+            var state = {
+                layer: 'water',
+                page: 3
             };
             var action = {
-                type: 'ADD_LAYER',
-                layer: {
-                    id: 'LAYER_TO_ADD',
-                    visible: true
+                type: 'SET_WHERE_I_AM',
+                loc: {
+                    layer: 'none',
+                    page: 1
                 }
             };
 
-            var res = reducers.layerReducer(df(layers), df(action));
-
-            expect(res['TEST_LAYER']).toEqual(true);
-            expect(res['LAYER_TO_ADD']).toEqual(true);
+            var res = reducers.whereAmIReducer(state, action);
+            expect(res).toEqual(action.loc);
         });
     });
 
+    describe('mapReducer', () => {
+        it('should change location', () => {
+            var action = {
+                type: 'CHANGE_MAP_POSITION',
+                position: {
+                    center: [-30, 25],
+                    zoom: 12
+                }
+            };
+            var res = reducers.mapReducer(null, action);
+            
+            expect(res).toEqual(action.position);
+        });
+    });
 });

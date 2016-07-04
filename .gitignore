@@ -5,3 +5,4 @@ npm-debug.log
 app/data/build/*
 dist/*bundle.js
 dist/*.html
+config/*.env

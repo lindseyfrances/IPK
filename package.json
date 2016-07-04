@@ -43,6 +43,7 @@
     "jquery": "3.0.0",
     "json-loader": "0.5.4",
     "mapbox-gl": "0.20.0",
+    "node-env-file": "^0.1.8",
     "node-sass": "3.7.0",
     "react": "15.1.0",
     "react-dom": "^15.1.0",
