@@ -44,7 +44,7 @@ export class Landing extends React.Component {
         return (
             <div>
                 <video id='bgvid' autoPlay loop>
-                    {/*<source src="https://s3.amazonaws.com/no-free-lunch-data/flyoverny.mp4" type="video/mp4" />*/}
+                    <source src="https://s3.amazonaws.com/no-free-lunch-data/flyoverny.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
                 <LandingPage page={this.state.pageNumber} goToMap={this.goToMap} switchToNextPage={this.handleNextPage} />
