@@ -2,6 +2,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
+import router from 'app/router/index';
 
 // REDUX
 import configure from './store/configureStore';
@@ -20,7 +21,7 @@ import './styles/main.scss';
 ReactDOM.render(
     <div>
         <Provider store={store}>
-            <Main />
+            {router}
         </Provider>
     </div>,
     document.getElementById('app')

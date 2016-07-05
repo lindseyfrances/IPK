@@ -1,11 +1,15 @@
+@import 'base/variables';
+
 @import 'components/map';
 @import 'components/points';
 @import 'components/hover-popup';
 @import 'components/side-nav';
 @import 'components/nav';
+@import 'components/landing-page';
 
 body {
-    background: orange;
+    background: black;
     padding: 0;
     margin: 0;
 }
+

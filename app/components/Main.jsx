@@ -14,53 +14,21 @@ import * as actions from 'app/actions/actions';
 class Main extends React.Component {
 
     componentDidMount() {
-        //var map = new Map('map', location);
         var { whereAmI, dispatch } = this.props;
         var startingLocation = {
             center: [-76.51, 43],
             zoom: 6.5
         };
-
         dispatch(actions.changeMapPosition(startingLocation));
-
-        //setTimeout(function() {
-            //dispatch(actions.startAddOverlay({
-                //id: 'WBDHU8',
-                //type: 'path',
-                //data: window.location.href + 'data/WBDHU8.json',
-                //visible:true,
-                //hover: false
-
-            //}));
-        //}, 6000);
-
-            //dispatch(actions.setWhereIAm({
-                //...whereAmI,
-                //page: whereAmI.page++
-            //}));
-            //dispatch(actions.changeMapPosition({
-                //center: [-74.0193459, 40.6809955], 
-                //zoom: 12,
-                //pitch: 60, 
-                //bearing: 60
-            //}));
-            //dispatch(actions.startAddOverlay({
-                //id: 'WATER_QUALITY_COMPLAINTS',
-                //type: 'point',
-                //data: window.location.href + 'data/WATER_QUALITY_COMPLAINTS.json',
-                //visible: true,
-                //hover: true
-            //}));
-            //dispatch(actions.startAddOverlay({
-                //id: 'NYC_RESERVOIR_LOCATIONS',
-                //type: 'point',
-                //data: window.location.href + 'data/NYC_RESERVOIR_LOCATIONS.json',
-                //visible: true,
-                //hover: true
-            //}));
     }
     render() {
         var { dispatch } = this.props;
+        const renderOverlay = () => {
+            return (
+                <div className='page-overlay'>
+                </div>
+            );
+        }
         return (
             <div>
                 <Map containerId={'map'} />

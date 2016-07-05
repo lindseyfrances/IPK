@@ -20,8 +20,6 @@
  *      to break the map state out of react
  *****************************************************/
 
-//import $ from 'jquery';
-//import _ from 'underscore';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -65,10 +63,10 @@ class Map extends React.Component {
     initMap() {
         var { dispatch } = this.props;
         console.log('map loaded');
-        dispatch(actions.setWhereIAm({
-            layer: 'none',
-            page: 0
-        }));
+        //dispatch(actions.setWhereIAm({
+            //layer: 'none',
+            //page: 0
+        //}));
     }
 
     // When a user clicks on a layer title in the nav bar
