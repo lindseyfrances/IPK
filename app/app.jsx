@@ -4,12 +4,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import router from 'app/router/index';
 
+
 // REDUX
 import configure from './store/configureStore';
 var store = configure();
 //window.store = store;
 
-import Main from './components/Main';
+//import Main from './components/Main';
 
 // I know this is bad practice, housing the store globally
 // but for now it makes my life easier

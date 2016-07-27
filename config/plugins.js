@@ -12,7 +12,6 @@ process.env.PWD = process.cwd();
 try {
     envFile(path.join(process.env.PWD, 'config/' + process.env.NODE_ENV + '.env'));
 } catch(e) {
-    console.log(e);
 }
 
 // Returns a concatenated list of plugins depending on 

@@ -38,6 +38,15 @@ module.exports = {
             loader: 'url-loader?limit=8192'
         },
         {
+            test: /aws-sdk/,
+            loaders: [
+                'transform?aws-sdk/dist-tools/transform'
+            ] 
+        },
+        //{
+            //test: /\.json$/, loaders: ['json']
+        //},
+        {
             test: /\.js$/,
             include: path.resolve('../node_modules/mapbox-gl/js/render/painter/use_program.js'),
             loader: 'transform/cacheable?brfs'

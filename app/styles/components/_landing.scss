@@ -1,0 +1,26 @@
+.full-page {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.landing {
+    h1, p {
+        color: $landing-text-color;
+    }
+}
+
+.landing-title {
+    color: $landing-text-color;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 2rem 0 2rem;
+    
+    h1 {
+        margin: 0;
+    }
+    p {
+        margin-top: 10px;
+    }
+}

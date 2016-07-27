@@ -1,0 +1,38 @@
+.card {
+    color: white;
+    height: 30vh;
+    flex-basis: 50%;
+	display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    transition: opacity 0.2s, width 1s, height 1s, top 1s, left 1s;
+
+	h1, p {
+		color: white;
+	}
+
+    .card-content {
+        padding: 0 2rem 0 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+    }
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+.card-hover:hover {
+    opacity: 0.7;
+    /*transform: scale(1.05);*/
+}

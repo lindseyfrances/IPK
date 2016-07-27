@@ -7,11 +7,11 @@ import * as actions from 'app/actions/actions';
 import d3 from 'd3';
 
 export default class PointsOverlay {
-    constructor(map, source, layer) {
+    constructor(map, layer) {
         this.map = map;
-        this.name = source.id;
-        this.source = source;
-        this.layer = layer;
+        this.name = layer.key;
+        //this.source = source || null;
+        this.layer = layer || null;
         this.isVisible = false;
         this.paint = function() {
             return {
@@ -21,9 +21,10 @@ export default class PointsOverlay {
         };
 
         //this.sourceName = Object.keys(overlay.data.objects)[0];
-        this.data = topoToGeojson(source.data);
+        this.data = topoToGeojson(layer.data);
         this.addSource(this.name, this.data);
         this.addLayer(this.name, this.data);
+        this.fitBounds();
         ////this.initMouseMove();
     }
 
@@ -53,10 +54,7 @@ export default class PointsOverlay {
             type: 'circle',
             source: title,
             interactive: true,
-            paint: this.paint(),
-            layout: {
-                "visibility": "none"
-            }
+            paint: this.paint()
         });
 
         // TODO Hover needs to be flexible to accept a filter parameter,
@@ -111,6 +109,7 @@ export default class PointsOverlay {
 
     showLayer() {
         this.map.setLayoutProperty(this.name, 'visibility', 'visible');
+        this.fitBounds();
     }
 }
 

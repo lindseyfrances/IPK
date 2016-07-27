@@ -3,26 +3,27 @@ import * as actions from 'app/actions/actions';
 import d3 from 'd3';
 
 export default class PathOverlay {
-    constructor(map, source, layer, options = {}) {
-        console.log(source);
+    constructor(map, layer, options = {}) {
+        console.log(layer);
         this.map = map;
-        this.name = source.id;
-        this.source = source;
+        this.name = layer.key;
+        //this.source = source || null;
         this.layer = layer;
         this.layers = [];
         this.isVisible = false;
         this.hover = options.hover || false;
         this.paint = options.paint || function() {
             return {
-                'fill-color': '#fabfab',
+                'fill-color': '#751aff',
                 'fill-opacity': 0.3
             };
         };
         
 
-        this.data = topoToGeojson(source.data);
+        this.data = topoToGeojson(layer.data);
         this.addSource(this.name, this.data);
         this.addLayer(this.name, this.data);
+        this.fitBounds();
         //this.initMouseMove();
     }
 
@@ -53,7 +54,7 @@ export default class PathOverlay {
             type: 'line',
             source: title,
             paint: {
-                'line-color': '#abfabf',
+                'line-color': '#290066',
                 'line-width': 2
             }
         });
@@ -72,6 +73,7 @@ export default class PathOverlay {
         this.layers.forEach((layer) => {
             this.map.setLayoutProperty(layer, 'visibility', 'visible');
         });
+        this.fitBounds();
     }
 
     //init hover events

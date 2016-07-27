@@ -1,23 +1,20 @@
 .side-nav {
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.6);
+    color: lightgrey;
     display: flex;
+    flex-direction: column;
     height: 100vh;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
+    /*align-items: center;*/
+    /*justify-content: space-between;*/
+    position: fixed;
     top: 0px;
-    left: -100px;
+    right: -100px;
+    width: 280px;
 
-    .button-container {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 3;
-    }
+    transition: right 0.5s;
 
-    button {
-        width: 100px;
-        font-size: 16pt;
-        color: white;
+    img {
+        margin-left: 0.5rem;
     }
 
     transition: left 0.3s;

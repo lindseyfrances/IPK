@@ -1,3 +1,13 @@
+/*
+ *  Notes:
+ *      To get AWS to work with Webpack see 'chrisradek commented on Apr 20'
+ *      at this link - https://github.com/aws/aws-sdk-js/issues/603
+ *
+ *      Mapbox GL also struggles to work with Webpack and require
+ *      a few special loaders
+ *
+ */
+
 var webpack = require('webpack');
 var path = require('path');
 var loaders = require('./config/loaders');
@@ -16,9 +26,12 @@ module.exports = {
         'webpack/hot/dev-server',
         './app/app.jsx'
     ],
+    node: {
+        fs: 'empty'
+    },
     output: { 
         path: path.join(process.env.PWD, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
         //publicPath: 'dist/'
     },
     resolve: {

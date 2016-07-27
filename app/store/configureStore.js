@@ -1,7 +1,7 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import { whereAmIReducer, sideNavReducer, layerReducer, overlayReducer, mapReducer, popupReducer } from 'app/reducers/reducers';
+import { appLocationReducer, loadingReducer, dataReducer, layersReducer, visibleLayersReducer, sideNavReducer, layerListsReducer, layerReducer, overlayReducer, mapReducer, popupReducer } from 'app/reducers/reducers';
 
 const configure = (initialState = {}) => {
     var reducer = redux.combineReducers({
@@ -10,7 +10,12 @@ const configure = (initialState = {}) => {
         map: mapReducer,
         layers: layerReducer,
         sideNavOpen: sideNavReducer,
-        whereAmI: whereAmIReducer
+        appLocation: appLocationReducer,
+        isLoading: loadingReducer,
+        visibleLayers: visibleLayersReducer,
+        allData: dataReducer,
+        allLayers: layersReducer,
+        layerLists: layerListsReducer
     });
 
     var store = redux.createStore(reducer, initialState, redux.compose(

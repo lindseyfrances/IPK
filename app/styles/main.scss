@@ -6,10 +6,25 @@
 @import 'components/side-nav';
 @import 'components/nav';
 @import 'components/landing-page';
+@import 'components/landing';
+@import 'components/layer-checkbox';
+@import 'components/layer-list';
+@import 'components/card';
+@import 'components/card-list';
 
 body {
-    background: black;
+    font-family: Georgia;
+    background: lightgrey;
     padding: 0;
     margin: 0;
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    width: 100vw;
+    height: 100vh;
 }
 

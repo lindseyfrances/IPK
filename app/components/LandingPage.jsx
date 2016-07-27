@@ -1,8 +1,5 @@
 import React from 'react';
 export class LandingPage extends React.Component {
-    goToMap() {
-
-    }
     renderPage() {
         var { page, switchToNextPage, goToMap } = this.props;
         switch(page) {
@@ -42,8 +39,14 @@ export class LandingPage extends React.Component {
 
     render() {
         return (
-            <div>
-                {this.renderPage()}
+            <div className='landing-title full-page'>
+                <div>
+                    <h1>No Free Lunch</h1>
+                    <p>Food and the City</p>
+                </div>
+                <div>
+                    <p>A geographical exploration of artists, activists, and local companies dedicated to improving the food system throughout New York City</p>
+                </div>
             </div>
         );
     }

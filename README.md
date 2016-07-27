@@ -49,6 +49,10 @@ We also need to alias webworkify-webpack
 
 There's a strange issue where if using versions of `webworkify-webpack` other than *1.0.6*, an error is thrown in the browser - `Cannot read property "call" of undefined` - which is resolved by locking in webworkify to version *1.0.6*
 
+NOTE: keep an eye on the version of React - everything works with 15.1.0, but
+had to upgrade to 15.2.1 to introduce ReactCSSTransitionGroup. Fingers crossed
+nothing break
+
 ####Babel install - a few issues:
 Originally I followed Babel's setup instructions, which had me installing `babel`
 directly - i.e. npm install `babel`, but apparently the functionality has shifted

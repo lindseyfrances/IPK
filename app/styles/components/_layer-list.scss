@@ -1,0 +1,32 @@
+.layer-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255,255,255,0.4);
+
+    h1, h2 {
+        padding-left: 1rem;
+        cursor: pointer;
+    }
+}
+
+.lists-enter {
+    opacity: 0.01;
+    height: 0;
+}
+
+.lists-enter.lists-enter-active {
+    scale: 1;
+    opacity: 1;
+    transition: all 0.5s ease-in;
+}
+
+.lists-leave {
+    opacity: 1;
+    height: auto;
+}
+
+.lists-leave.lists-leave-active {
+    opacity: 0.01;
+    height: 0;
+    transition: all 0.5s ease-out;
+}

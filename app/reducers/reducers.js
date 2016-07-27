@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import _ from 'underscore';
-export const mapReducer = (state = {center: [-74.0193459, 40.6809955], zoom: 5}, action) => {
+export const mapReducer = (state = {center: [-74.0193459, 40.6809955], zoom: 10}, action) => {
     switch (action.type) {
         case 'CHANGE_MAP_POSITION':
             return {
@@ -12,27 +12,94 @@ export const mapReducer = (state = {center: [-74.0193459, 40.6809955], zoom: 5},
     }
 };
 
-export const layerReducer = (state = {}, action) => {
+export const loadingReducer = (state = false, action) => {
     switch (action.type) {
-        case 'ADD_LAYER':
-            //console.log('inside reducer', layer);
-            var layer = {};
-            layer[action.layer.id] = {
-                id: action.layer.id,
-                visible: action.layer.visible
-            };
+        case 'START_LOADING':
+            return true;
+        case 'STOP_LOADING':
+            return false;
+        default:
+            return state;
+    }
+};
+
+export const visibleLayersReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'ADD_VISIBLE_LAYER':
+            return state.concat(action.key);
+        case 'REMOVE_VISIBLE_LAYER':
+            return state.filter((val, index, arr) => {
+                return val !== action.key;
+            });
+        default:
+            return state;
+    }
+};
+
+export const dataReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'ADD_DATA':
+            console.log(action);
+            console.log(Object.assign({}, state, {[action.key]: action.data}));
+            return Object.assign({}, state, {[action.key]: action.data});
+        default:
+            return state;
+    }
+};
+
+export const layerListsReducer = (state = {soil: false, water: false, distribution: false, energy: false, economics: false, labor: false, agriculture: false}, action) => {
+    switch(action.type) {
+        case 'TOGGLE_LAYER_LIST':
             return {
                 ...state,
-                ...layer
+                [action.name]: !state[action.name]
             };
-        case 'REMOVE_LAYER':
-            var newState = {};
-            for (var key in state) {
-                if (key !== action.id) {
-                    newState[key] = state[key];
+        default:
+            return state;
+    }
+};
+
+export const layersReducer = (state = {soil: [], water: [], distribution: [], energy: [], economics: [], labor: [], agriculture: []}, action) => {
+    switch (action.type) {
+        case 'ADD_ASSOCIATED_LAYER':
+            return {
+                ...state,
+                [action.layerName]: state[action.layerName].concat({key: action.key, name: action.objectName})
+            };
+        default:
+            return state;
+    }
+};
+
+export const layerReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'ADD_MAP_LAYER': 
+            return {
+                ...state,
+                [action.key]: {
+                    key: action.key,
+                    data: null,
+                    visible: false,
+                    name: action.name
                 }
-            }
-            return newState;
+            };
+        case 'TOGGLE_MAP_LAYER':
+            return {
+                ...state,
+                [action.key]: {
+                    ...state[action.key],
+                    visible: !state[action.key].visible
+                }
+            };
+        case 'ADD_DATA_TO_MAP_LAYER':
+            return {
+                ...state,
+                [action.key]: {
+                    ...state[action.key],
+                    data: action.data,
+                    visible: true
+                }
+            };
         default:
             return state;
     }
@@ -94,9 +161,9 @@ export const sideNavReducer = (state = false, action) => {
     }
 };
 
-export const whereAmIReducer = (state = {layer: 'none', page: 0}, action) => {
+export const appLocationReducer = (state = {layer: 'none', page: 0}, action) => {
     switch(action.type) {
-        case 'SET_WHERE_I_AM':
+        case 'SET_APP_LOCATION':
             return action.loc;
         default:
             return state;

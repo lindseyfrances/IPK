@@ -24,6 +24,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
+import _ from 'underscore';
 
 import * as actions from 'app/actions/actions';
 
@@ -36,15 +37,23 @@ import PageModel from 'app/models/PageModel';
 
 class Map extends React.Component {
     componentDidMount() {
-        var { whereAmI, containerId, map, dispatch } = this.props;
+        var { appLocation, containerId, map, dispatch } = this.props;
         this.elt = ReactDOM.findDOMNode();
         this.pageModel = new PageModel();
         mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
+
+        var bounds = [
+            [-74.277191,40.482993],
+            [-73.688049,40.925446]
+        ];
+
         this.map = new mapboxgl.Map({
             container: containerId,
-            style: 'mapbox://styles/mapbox/light-v9',
+            style: 'mapbox://styles/mapbox/outdoors-v9',
             center: map.center,
-            zoom: map.zoom
+            zoom: map.zoom,
+            pitch: 30,
+            //maxBounds: bounds
         });
 
         this.map.on('load', () => {
@@ -75,7 +84,7 @@ class Map extends React.Component {
     // then the data will already be stored so we just display what 
     // needs displaying
     initLayer() {
-        var { whereAmI, map, layers, overlays, dispatch } = this.props;
+        var { appLocation, map, overlays, dispatch } = this.props;
         var that = this;
 
         // Start off with a clean slate for this layer
@@ -89,7 +98,7 @@ class Map extends React.Component {
         // Initialize new layer 
         // construct page structure if necessary
         // Figure out which layer we're on
-        switch (whereAmI.layer) {
+        switch (appLocation.layer) {
             case 'water':
                 if (!this.pageModel.water) {
                     this.pageModel.waterConstructor().then(page => {
@@ -104,8 +113,8 @@ class Map extends React.Component {
                             }
                         });
                         that.overlays.forEach((overlay) => {
-                            console.log(overlay);
-                            if (overlay.layer.visibleOnPage === whereAmI.page && overlay.layer.associatedLayer === whereAmI.layer) {
+                            //console.log(overlay);
+                            if (overlay.layer.visibleOnPage === appLocation.page && overlay.layer.associatedLayer === appLocation.layer) {
                                 overlay.showLayer();
                             }
                         });
@@ -113,8 +122,8 @@ class Map extends React.Component {
                 } else {
                     // show overlays for page 0
                     that.overlays.forEach((overlay) => {
-                        console.log(overlay);
-                        if (overlay.layer.visibleOnPage === whereAmI.page && overlay.layer.associatedLayer === whereAmI.layer) {
+                        //console.log(overlay);
+                        if (overlay.layer.visibleOnPage === appLocation.page && overlay.layer.associatedLayer === appLocation.layer) {
                             overlay.showLayer();
                         }
                     });
@@ -124,16 +133,15 @@ class Map extends React.Component {
             case 'soil':
                 break;
         }
-        console.log('overlays are ', this.overlays);
     }
 
     updateLayer() {
-        var { whereAmI } = this.props;
+        var { appLocation } = this.props;
         var boundingPositions = [];
-        console.log('update data');
+        //console.log('update data');
         this.overlays.forEach((overlay) => {
-            if (overlay.layer.visibleOnPage === whereAmI.page && overlay.layer.associatedLayer === whereAmI.layer) {
-                console.log('should show this layer', overlay);
+            if (overlay.layer.visibleOnPage === appLocation.page && overlay.layer.associatedLayer === appLocation.layer) {
+                //console.log('should show this layer', overlay);
                 if (overlay.fitBounds) {
                     overlay.fitBounds();
                 }
@@ -156,61 +164,60 @@ class Map extends React.Component {
         });
     }
 
-    componentDidUpdate(prevProps) {
-        var { whereAmI, map, overlays, dispatch } = this.props;
-        console.log(prevProps);
-
-        //if (_.isEqual(whereAmI, prevProps.whereAmI)) return;
-
-        // if the current map position doesn't match
-        // what's in the store, then move back to the stored location
-        if (map.center !== this.map.getCenter()) {
-            this.setMapPosition();
-        }
-
-        // Upon initialization, when the user hasn't selected a layer
-        // just set the map to it's home position
-        if (whereAmI.layer === 'none') {
-            console.log('layer = none, nothing to do');
-            this.setMapPosition();
-            return;
-        }
-
-        // If the user initialized a layer, i.e. the layer isn't 'none',
-        // then check what page we're on
-        if (whereAmI.page === 0) {  // <-- we're on the first page, initialize
-            this.initLayer();
-        } else {    // <-- we're not on the first page!
-            this.updateLayer();
-        }
-
-
-        return;
-        // if we're at page 0, reset things
-        //if (whereAmI.page === 0) {
-        //this.initLayer();
-        //return;
-        //}
-        //else {
-        //if (overlays.length) {
-        //overlays.forEach((overlay) => {
-        //if (this.map.getSource(overlay.id)) {
-        //console.log('Source exists, do nothing');
-        //} else {
-        //switch(overlay.type) {
-        //case 'point':
-        //this.overlays[overlay.id] = new PointsOverlay(this.map, overlay,{ dispatch: dispatch });
-        //break;
-        //case 'path':
-        //this.overlays[overlay.id] = new PathOverlay(this.map, overlay, {dispatch: dispatch, hover: false });
-        //break;
-        //default:
-        //break;
-        //}
-        //}
+    componentWillReceiveProps(newProps) {
+        //var { layers } = this.props;
+        //var newLayers = newProps.layers;
+        //Object.keys(layers).forEach((key) => {
+            //if(layers[key].visible !== newLayers[key].visible) {
+                //console.log('diff', key);
+            //}
         //});
-        //}
-        //}
+    }
+
+    // Less than ideal implementation since this component will update
+    // when new data is added or when visibleLayers changes,
+    // which are two distinct calls.  I need access to the data,
+    // but didn't want to store data on visibleLayers, as to prevent
+    // duplication of data
+    componentDidUpdate(prevProps) {
+        var { visibleLayers, allData } = this.props;
+        var previousLayers = prevProps.visibleLayers;
+
+        // find symmetrical difference visibleLayers array
+        // see method below
+        var diff = symDiff(previousLayers, visibleLayers);
+
+        var that = this;
+        if (diff.length > 0) {
+            // We only want to change the visibility of the items in diff
+            diff.forEach((l) => {
+                if (that.layers[l]) {
+                    // We've already created an overlay for this layer, so
+                    // simply show or hide it
+
+                    // Is the diff layer visible or not?
+                    // if visibleLayers no longer contains
+                    // the layer we're interested in, hide it
+                    // otherwise show it
+                    if (visibleLayers.indexOf(l) === -1) {
+                        that.layers[l].overlay.hideLayer();
+                    } else {
+                        that.layers[l].overlay.showLayer();
+                    }
+                } else {
+                    // The overlay hasn't yet been created, so create it
+                    // This is kind of dumb, but due to how topojson creates
+                    // datastructures, we have to pull out the name of the file 
+                    // without the path or the extension, and use that as
+                    // a prop on the datastructure
+                    var geometriesName = l.split('/')[1].split('.')[0];
+                    that.layers[l] = {
+                        key: l,
+                        overlay: (allData[l].objects[geometriesName].geometries[0].type === 'Polygon') ? new PathOverlay(that.map, {key: l, data: allData[l]}) : new PointsOverlay(that.map, {key: l, data: allData[l]})
+                    };
+                }
+            });
+        }
     }
 
     render() {
@@ -224,77 +231,106 @@ class Map extends React.Component {
     // needs to be instantiated with specific
     // data, or requires certain elements to exist,
     // it's safe to do it here
-    initMouseMove() {
-        // When the mouse moves, check for
-        // features, which we'll often just respond
-        // to by showing a popup display,
-        // but the possibilities are quite endless
-        var { dispatch } = this.props;
-        this.map.on('mousemove', (e) => {
-            var { layers } = this.props;
+    //initMouseMove() {
+        //// When the mouse moves, check for
+        //// features, which we'll often just respond
+        //// to by showing a popup display,
+        //// but the possibilities are quite endless
+        //var { dispatch } = this.props;
+        //this.map.on('mousemove', (e) => {
+            //var { layers } = this.props;
 
-            // Get features under mouse location (e.point)
-            if (layers) {
-                var features = this.map.queryRenderedFeatures(e.point, {
-                    layers: Object.keys(layers)
-                });
-            }
+            //// Get features under mouse location (e.point)
+            //if (layers) {
+                //var features = this.map.queryRenderedFeatures(e.point, {
+                    //layers: Object.keys(layers)
+                //});
+            //}
 
-            // If we've found some features...
-            // TODO: trigger redux action letting the app know
-            // that a feature has been hovered over
-            if (features.length) {
-                // Grab the first one
-                var feature = features[0];
-                //var layerName = feature.layer.id;
+            //// If we've found some features...
+            //// TODO: trigger redux action letting the app know
+            //// that a feature has been hovered over
+            //if (features.length) {
+                //// Grab the first one
+                //var feature = features[0];
+                ////var layerName = feature.layer.id;
 
-                console.log(feature);
-                if (feature.properties.hasPopupContent) {
-                    var content = {
-                        content: feature.properties.popupContent,
-                        pos: e.point
-                    };
-                    dispatch(actions.setPopupContent(feature.properties.popupContent));
-                } else {
-                    dispatch(actions.hidePopup());
-                }
-            } else {
-                dispatch(actions.hidePopup());
-            }
-        });
-    }
-
-    // Reset the center of the map
-    // Simply utilize mapbox gl flyTo, which smoothly
-    // flies to new location
-
-    // Creates a new instance of PointsOverlay,
-    //addOverlay(overlayName, data, paintFunc) {
-    //console.log('adding overlay');
-    //this.overlays[overlayName] = new PointsOverlay(this.map, data);
-    //console.log('current overlays', this.overlays);
+                ////console.log(feature);
+                //if (feature.properties.hasPopupContent) {
+                    //var content = {
+                        //content: feature.properties.popupContent,
+                        //pos: e.point
+                    //};
+                    //dispatch(actions.setPopupContent(feature.properties.popupContent));
+                //} else {
+                    //dispatch(actions.hidePopup());
+                //}
+            //} else {
+                //dispatch(actions.hidePopup());
+            //}
+        //});
     //}
 
-    // Completely remove the instance of PointsOverlay
-    // Sometimes it might be better to hide, rather
-    // than completely remove
-    //removeOverlay(overlayName) {
-    //console.log('removing overlay completely', overlayName);
-    //this.overlays[overlayName].removeLayer();
-    //this.overlays[overlayName].removeSource();
-    //delete this.overlays[overlayName];
-    //}
-
-    //onPan() {
-    //console.log('panning');
-    //}
 }
 
-export default connect((state) => {
+function mapStateToProps(state) {
     return {
-        map: state.map,
-        //overlays: state.overlays,
-        //layers: state.layers,
-        whereAmI: state.whereAmI
+        map:state.map,
+        appLocation: state.appLocation,
+        visibleLayers: state.visibleLayers,
+        allData: state.allData
     };
-})(Map);
+}
+
+export default connect(mapStateToProps)(Map);
+
+// See - http://stackoverflow.com/questions/30834946/trying-to-solve-symmetric-difference-using-javascript
+function symDiff() {
+    var sets = [], result = [], LocalSet;
+    if (typeof Set === "function") {
+        try {
+            // test to see if constructor supports iterable arg
+            var temp = new Set([1,2,3]);
+            if (temp.size === 3) {
+                LocalSet = Set;
+            }
+        } catch(e) {}
+    }
+    if (!LocalSet) {
+        // use teeny polyfill for Set
+        LocalSet = function(arr) {
+            this.has = function(item) {
+                return arr.indexOf(item) !== -1;
+            };
+        };
+    }
+    // make copy of arguments into an array
+    var args = Array.prototype.slice.call(arguments, 0);
+    // put each array into a set for easy lookup
+    args.forEach(function(arr) {
+        sets.push(new LocalSet(arr));
+    });
+    // now see which elements in each array are unique 
+    // e.g. not contained in the other sets
+    args.forEach(function(array, arrayIndex) {
+        // iterate each item in the array
+        array.forEach(function(item) {
+            var found = false;
+            // iterate each set (use a plain for loop so it's easier to break)
+            for (var setIndex = 0; setIndex < sets.length; setIndex++) {
+                // skip the set from our own array
+                if (setIndex !== arrayIndex) {
+                    if (sets[setIndex].has(item)) {
+                        // if the set has this item
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (!found) {
+                result.push(item);
+            }
+        });
+    });
+    return result;
+}
