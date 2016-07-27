@@ -7,7 +7,8 @@
     "test": "NODE_ENV=test karma start",
     "build": "webpack",
     "dev": "webpack-dev-server --progress --colors --inline",
-    "start": "npm run build && node server.js"
+    "start": "npm run build && node server.js",
+    "prod": "NODE_ENV=production webpack && node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -47,7 +48,7 @@
     "mapbox-gl": "0.20.0",
     "node-env-file": "0.1.8",
     "node-sass": "3.7.0",
-    "react": "15.2.1",
+    "react": "15.1.0",
     "react-addons-css-transition-group": "15.2.1",
     "react-addons-transition-group": "15.2.1",
     "react-dom": "15.1.0",
