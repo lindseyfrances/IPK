@@ -40,12 +40,12 @@ var configure = () => {
 
     // Prod plugins here
     var prod = [
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false,
-            },
-        }),
-        new webpack.optimize.OccurenceOrderPlugin()
+        //new webpack.optimize.UglifyJsPlugin({
+            //compressor: {
+                //warnings: false,
+            //},
+        //}),
+        //new webpack.optimize.OccurenceOrderPlugin()
     ];
 
     // Pick which plugins to return
