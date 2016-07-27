@@ -2,6 +2,7 @@ import axios from 'axios';
 import _ from 'underscore';
 import { TextDecoder } from 'text-encoding';
 import creds from 'app/creds/creds';
+
 var AWS = require('aws-sdk');
 AWS.config.update({accessKeyId: creds.AWS_ACCESS_KEY, secretAccessKey: creds.AWS_SECRET_KEY});
 var s3 = new AWS.S3();
