@@ -49,8 +49,6 @@
     "node-env-file": "0.1.8",
     "node-sass": "3.7.0",
     "react": "15.1.0",
-    "react-addons-css-transition-group": "15.2.1",
-    "react-addons-transition-group": "15.2.1",
     "react-dom": "15.1.0",
     "react-motion": "^0.4.4",
     "react-redux": "4.4.5",
