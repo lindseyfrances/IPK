@@ -34,10 +34,10 @@ export class Landing extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
+        //window.addEventListener('scroll', this.handleScroll);
     }
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
+        //window.removeEventListener('scroll', this.handleScroll);
     }
 
     handleNextPage() {
