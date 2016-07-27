@@ -1,8 +1,9 @@
 import axios from 'axios';
 import _ from 'underscore';
 import { TextDecoder } from 'text-encoding';
+import creds from 'app/creds/creds';
 var AWS = require('aws-sdk');
-AWS.config.update({accessKeyId: "AKIAIZD7EULPUK2JTS7Q", secretAccessKey: "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"});
+AWS.config.update({accessKeyId: creds.AWS_ACCESS_KEY, secretAccessKey: creds.AWS_SECRET_KEY});
 var s3 = new AWS.S3();
 
 export const startLoading = () => {

@@ -3,6 +3,7 @@ npm-debug.log
 .DS_Store
 *.swp
 app/data/build/*
+app/creds/*
 dist/*bundle.js
 dist/*.html
 config/*.env
