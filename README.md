@@ -63,6 +63,7 @@ switching to `babel-core`.  `babel-core` and `babel-loader` were approriately se
 fixed this issue.
 
 ####Note: don't track compiled files, it can mess with heroku deployment. 
+####Double NOTE: Uglifying through webpack breaks aws-sdk...dont do it for now
 Anything built by webpack should be ignored in version control
 
 ###File structure - so I can remember in a few weeks from now
