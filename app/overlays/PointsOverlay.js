@@ -20,12 +20,14 @@ export default class PointsOverlay {
             };
         };
 
-        //this.sourceName = Object.keys(overlay.data.objects)[0];
-        this.data = topoToGeojson(layer.data);
+        // Convert the data to Geojson if we recieve Topojson, otherwise leave
+        // it alone
+        this.data = layer.data.type === 'Topology' ? topoToGeojson(layer.data) : layer.data;
         this.addSource(this.name, this.data);
         this.addLayer(this.name, this.data);
+
+        // Fit bounds on first creation
         this.fitBounds();
-        ////this.initMouseMove();
     }
 
     // Add's source to Mapboxgl Map
@@ -41,7 +43,16 @@ export default class PointsOverlay {
     }
 
     fitBounds() {
-        this.map.fitBounds(d3.geo.bounds(this.data));
+        // Only fit bounds if we have more than one item in the feature
+        // collection
+        // Otherwise, just fly to the location of the point object
+        if (this.data.features.length > 1) {
+           this.map.fitBounds(d3.geo.bounds(this.data));
+        } else if (this.data.features.length === 1) {
+            this.map.flyTo({
+                center: this.data.features[0].geometry.coordinates
+            });
+        }
     }
     // Draws the layer on the map
     addLayer(title) {

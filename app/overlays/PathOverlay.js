@@ -20,7 +20,9 @@ export default class PathOverlay {
         };
         
 
-        this.data = topoToGeojson(layer.data);
+        console.log('Path overlay layer', layer);
+        this.data = layer.data.type === 'Topology' ? topoToGeojson(layer.data) : layer.data;
+        console.log(this.data);
         this.addSource(this.name, this.data);
         this.addLayer(this.name, this.data);
         this.fitBounds();

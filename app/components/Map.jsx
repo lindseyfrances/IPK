@@ -210,11 +210,20 @@ class Map extends React.Component {
                     // datastructures, we have to pull out the name of the file 
                     // without the path or the extension, and use that as
                     // a prop on the datastructure
-                    var geometriesName = l.split('/')[1].split('.')[0];
-                    that.layers[l] = {
-                        key: l,
-                        overlay: (allData[l].objects[geometriesName].geometries[0].type === 'Polygon') ? new PathOverlay(that.map, {key: l, data: allData[l]}) : new PointsOverlay(that.map, {key: l, data: allData[l]})
-                    };
+                    console.log(l);
+                    if (allData[l].type === 'Topology') {
+                        var geometriesName = l.split('/')[1].split('.')[0];
+                        that.layers[l] = {
+                            key: l,
+                            overlay: (allData[l].objects[geometriesName].geometries[0].type === 'Polygon') ? new PathOverlay(that.map, {key: l, data: allData[l]}) : new PointsOverlay(that.map, {key: l, data: allData[l]})
+                        };
+                    } else {
+                        var geometryType = allData[l].features[0].geometry.type;
+                        that.layers[l] = {
+                            key: l,
+                            overlay: geometryType === 'Point' ? new PointsOverlay(that.map, {key: l, data: allData[l]}) : new PathOverlay(that.map, {key: l, data: allData[l] } )
+                        };
+                    }
                 }
             });
         }
