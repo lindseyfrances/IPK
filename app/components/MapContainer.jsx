@@ -9,6 +9,7 @@ import Map from 'app/components/Map';
 import HoverPopup from 'app/components/HoverPopup';
 import Nav from 'app/components/Nav';
 import SideNav from 'app/components/SideNav';
+import ProjectList from 'app/components/ProjectList';
 
 
 import * as actions from 'app/actions/actions';
@@ -17,45 +18,13 @@ class MapContainer extends React.Component {
 
     componentDidMount() {
         var { appLocation, dispatch } = this.props;
-        //var startingLocation = {
-            //center: [-76.51, 43],
-            //zoom: 14
-        //};
 
+        //dispatch(actions.startAddMapLayers());
 
-        dispatch(actions.startAddMapLayers());
-
-        //dispatch(actions.changeMapPosition(startingLocation));
-        //var layers = {
-            //NYC_RESERVOIRS: {
-                //name: 'NYC Reservoirs',
-                //id: 'NYC_RESERVOIRS',
-                //dataUrl: 'https://s3.amazonaws.com/no-free-lunch-data/data/NYC_RESERVOIRS.json',
-                //data: null
-            //},
-            //WBDHU8: {
-                //name: 'NYState Watershed Boundaries',
-                //id: 'WBDHU8',
-                //dataUrl: 'https://s3.amazonaws.com/no-free-lunch-data/data/WBDHU8.json',
-                //data: null
-            //},
-            //WATER_QUALITY_COMPLAINTS: {
-                //name: '311 Water Quality Complaints',
-                //id: 'WATER_QUALITY_COMPLAINTS',
-                //dataUrl: 'https://s3.amazonaws.com/no-free-lunch-data/WATER_QUALITY_COMPLAINTS.json',
-                //data: null
-            //}
-        //};
-        //dispatch(actions.addNavLayers(layers));
     }
     render() {
-        var { dispatch, isLoading } = this.props;
-        const renderOverlay = () => {
-            return (
-                <div className='page-overlay'>
-                </div>
-            );
-        };
+        var { dispatch, isLoading, projects, currentCategory } = this.props;
+        console.log('re-render');
 
         const displayLoadingScreen = function() {
             if (isLoading) {
@@ -67,9 +36,33 @@ class MapContainer extends React.Component {
             }
             else return;
         };
+
+        const shouldShowMap = function() {
+            // look through projects, find the first item
+            // that has the same category as the currently
+            // selected category, then look up
+            // if it has map coords.  If not
+            // show the secondary content page
+            let firstPrj;
+            Object.keys(projects).some((prj) => {
+                firstPrj = prj;
+                return projects[prj].category === currentCategory;
+            });
+
+            if (!projects[firstPrj].latitude) {
+                return false;
+            } else {
+                return true;
+            }
+        };
+
+        var showMap = shouldShowMap();
+        console.log(showMap);
+
         return (
             <div>
-                <Map containerId={'map'} />
+                <Map shouldShow={showMap} containerId={'map'} />
+                <ProjectList  shouldShow={!showMap}/>
                 <SideNav />
                 {/*<Nav />*/}
                 <HoverPopup />
@@ -82,7 +75,9 @@ class MapContainer extends React.Component {
 export default connect((state) => {
     return {
         appLocation: state.appLocation,
-        isLoading: state.isLoading
+        isLoading: state.isLoading,
+        projects: state.projects,
+        currentCategory: state.currentCategory
     };
 })(MapContainer);
 /*

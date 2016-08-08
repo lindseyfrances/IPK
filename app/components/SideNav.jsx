@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 
 import { toggleSideNav } from './../actions/actions';
 import LayerList from 'app/components/LayerList';
+import NavItem from 'app/components/NavItem';
+
+import * as actions from 'app/actions/actions';
 
 var rightArrow = require('./../images/rightarrow.png');
 var leftArrow = require('./../images/leftarrow.png');
@@ -15,15 +18,12 @@ class SideNav extends React.Component {
         this.width = 280;
     }
 
-    componentDidMount() {
-    }
-
     componentDidUpdate() {
         this.width = this.refs.sideNav.offsetWidth;
     }
 
     render() {
-        var { dispatch, sideNavOpen, allLayers } = this.props;
+        var { dispatch, sideNavOpen, categories, projects, currentCategory } = this.props;
 
         
         // set left position of side bar, 'style' expects
@@ -35,17 +35,32 @@ class SideNav extends React.Component {
         }
 
         var renderLayerLists = () => {
-            return Object.keys(allLayers).map((l) => {
-                return <LayerList key={l} title={l} items={allLayers[l]} />;
+            return categories.map((cat) => {
+                return <LayerList key={cat} title={cat} category={cat} />;
             });
+        };
+
+        const renderProjectItemsByCategory = function() {
+            if (currentCategory === '') {
+                return categories.map((cat) => {
+                    return <div key={cat} onClick={() => {dispatch(actions.setCurrentCategory(cat));}}>{cat}</div>;
+                });
+            }
+            let filteredProjects = [];
+            Object.keys(projects).forEach((prj) => {
+                if (projects[prj].category === currentCategory) {
+                    filteredProjects.push(<NavItem key={prj} title={projects[prj].name} id={projects[prj].id} />);
+                }
+            });
+
+            return filteredProjects;
         };
 
         return (
             <div className='side-nav' style={this.leftPos} ref='sideNav'>
-                <div className='side-nav-open' onClick={() => { dispatch(toggleSideNav()); }}>
-                    {/*<img src={whichArrow()} />*/}
-                </div>
-                {renderLayerLists()}
+                {currentCategory !== '' && <button onClick={() => {dispatch(actions.setCurrentCategory(''));}}>Back</button>}
+                <h1>{currentCategory}</h1>
+                {renderProjectItemsByCategory()}
             </div>
         );
     }
@@ -54,6 +69,8 @@ class SideNav extends React.Component {
 export default connect((state) => {
     return {
         sideNavOpen: state.sideNavOpen,
-        allLayers: state.allLayers
+        categories: state.categories,
+        projects: state.projects,
+        currentCategory: state.currentCategory
     };
 })(SideNav);

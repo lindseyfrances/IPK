@@ -27,6 +27,7 @@ import mapboxgl from 'mapbox-gl';
 import _ from 'underscore';
 
 import * as actions from 'app/actions/actions';
+import { filterProjectsByCategory } from 'app/api/helpers.js';
 
 // Types of overlays
 import PointsOverlay from 'app/overlays/PointsOverlay';
@@ -41,6 +42,7 @@ class Map extends React.Component {
         this.elt = ReactDOM.findDOMNode();
         this.pageModel = new PageModel();
         mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
+        this.visibleProjects = [];
 
         var bounds = [
             [-74.277191,40.482993],
@@ -70,8 +72,8 @@ class Map extends React.Component {
     }
 
     initMap() {
-        var { dispatch } = this.props;
-        console.log('map loaded');
+        //var { dispatch } = this.props;
+        //console.log('map loaded');
         //dispatch(actions.setWhereIAm({
             //layer: 'none',
             //page: 0
@@ -164,7 +166,7 @@ class Map extends React.Component {
         });
     }
 
-    componentWillReceiveProps(newProps) {
+    //componentWillReceiveProps(newProps) {
         //var { layers } = this.props;
         //var newLayers = newProps.layers;
         //Object.keys(layers).forEach((key) => {
@@ -172,66 +174,138 @@ class Map extends React.Component {
                 //console.log('diff', key);
             //}
         //});
-    }
+    //}
 
     // Less than ideal implementation since this component will update
     // when new data is added or when visibleLayers changes,
     // which are two distinct calls.  I need access to the data,
     // but didn't want to store data on visibleLayers, as to prevent
     // duplication of data
+    //componentDidUpdate(prevProps) {
+        //var { visibleLayers, allData } = this.props;
+        //var previousLayers = prevProps.visibleLayers;
+
+        //// find symmetrical difference visibleLayers array
+        //// see method below
+        //var diff = symDiff(previousLayers, visibleLayers);
+
+        //var that = this;
+        //if (diff.length > 0) {
+            //// We only want to change the visibility of the items in diff
+            //diff.forEach((l) => {
+                //if (that.layers[l]) {
+                    //// We've already created an overlay for this layer, so
+                    //// simply show or hide it
+
+                    //// Is the diff layer visible or not?
+                    //// if visibleLayers no longer contains
+                    //// the layer we're interested in, hide it
+                    //// otherwise show it
+                    //if (visibleLayers.indexOf(l) === -1) {
+                        //that.layers[l].overlay.hideLayer();
+                    //} else {
+                        //that.layers[l].overlay.showLayer();
+                    //}
+                //} else {
+                    //// The overlay hasn't yet been created, so create it
+                    //// This is kind of dumb, but due to how topojson creates
+                    //// datastructures, we have to pull out the name of the file 
+                    //// without the path or the extension, and use that as
+                    //// a prop on the datastructure
+                    //console.log(l);
+                    //if (allData[l].type === 'Topology') {
+                        //var geometriesName = l.split('/')[1].split('.')[0];
+                        //that.layers[l] = {
+                            //key: l,
+                            //overlay: (allData[l].objects[geometriesName].geometries[0].type === 'Polygon') ? new PathOverlay(that.map, {key: l, data: allData[l]}) : new PointsOverlay(that.map, {key: l, data: allData[l]})
+                        //};
+                    //} else {
+                        //var geometryType = allData[l].features[0].geometry.type;
+                        //that.layers[l] = {
+                            //key: l,
+                            //overlay: geometryType === 'Point' ? new PointsOverlay(that.map, {key: l, data: allData[l]}) : new PathOverlay(that.map, {key: l, data: allData[l] } )
+                        //};
+                    //}
+                //}
+            //});
+        //}
+    //}
+    
     componentDidUpdate(prevProps) {
-        var { visibleLayers, allData } = this.props;
-        var previousLayers = prevProps.visibleLayers;
+        var { shouldShow, projects, currentCategory, hoveredProject } = this.props;
 
-        // find symmetrical difference visibleLayers array
-        // see method below
-        var diff = symDiff(previousLayers, visibleLayers);
+        // If the map is hidden, then don't do anything
+        if (!shouldShow) {
+            return;
+        }
 
-        var that = this;
-        if (diff.length > 0) {
-            // We only want to change the visibility of the items in diff
-            diff.forEach((l) => {
-                if (that.layers[l]) {
-                    // We've already created an overlay for this layer, so
-                    // simply show or hide it
-
-                    // Is the diff layer visible or not?
-                    // if visibleLayers no longer contains
-                    // the layer we're interested in, hide it
-                    // otherwise show it
-                    if (visibleLayers.indexOf(l) === -1) {
-                        that.layers[l].overlay.hideLayer();
-                    } else {
-                        that.layers[l].overlay.showLayer();
-                    }
-                } else {
-                    // The overlay hasn't yet been created, so create it
-                    // This is kind of dumb, but due to how topojson creates
-                    // datastructures, we have to pull out the name of the file 
-                    // without the path or the extension, and use that as
-                    // a prop on the datastructure
-                    console.log(l);
-                    if (allData[l].type === 'Topology') {
-                        var geometriesName = l.split('/')[1].split('.')[0];
-                        that.layers[l] = {
-                            key: l,
-                            overlay: (allData[l].objects[geometriesName].geometries[0].type === 'Polygon') ? new PathOverlay(that.map, {key: l, data: allData[l]}) : new PointsOverlay(that.map, {key: l, data: allData[l]})
-                        };
-                    } else {
-                        var geometryType = allData[l].features[0].geometry.type;
-                        that.layers[l] = {
-                            key: l,
-                            overlay: geometryType === 'Point' ? new PointsOverlay(that.map, {key: l, data: allData[l]}) : new PathOverlay(that.map, {key: l, data: allData[l] } )
-                        };
-                    }
+        // If the category changed, then remove any visible
+        // projects before adding the new ones
+        if (currentCategory !== prevProps.currentCategory) {
+            console.log('current category changed');
+            this.visibleProjects.forEach((src) => {
+                if (this.map.getLayer(src)) {
+                    this.map.removeLayer(src);
+                }
+                if (this.map.getSource(src)) {
+                    this.map.removeSource(src);
                 }
             });
+
+            // If the map is visible, get the projects
+            // corresponding to the current category
+            var filteredProjects = filterProjectsByCategory(projects, currentCategory);
+
+            // For each project, add a layer
+            // and capture a reference to it on
+            // the component (so the layer can be 
+            // identified and removed later)
+            filteredProjects.forEach((project) => {
+                this.visibleProjects.push(project.id);
+                this.map.addSource(project.id, {
+                    type: 'geojson',
+                    data: {
+                        type:'FeatureCollection',
+                        features: [
+                            {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [project.longitude, project.latitude]
+                                }
+                            }
+                        ]
+                    }
+                });
+                this.map.addLayer({
+                    id: project.id,
+                    type: 'circle',
+                    interactive: true,
+                    source: project.id,
+                    paint: {
+                        'circle-radius': 10,
+                        'circle-color': '#000000'
+                    }
+                });
+            });
+
+        }
+        // Check if any projects are hovered over
+        
+        if (hoveredProject !== prevProps.hoveredProject) {
+            if (hoveredProject === '') {
+                this.map.setPaintProperty(prevProps.hoveredProject, 'circle-color', '#000000');
+            } else {
+                this.map.setPaintProperty(hoveredProject, 'circle-color', '#abcabc');
+            }
+
         }
     }
 
     render() {
+        var { shouldShow } = this.props;
         return (
-            <div id='map'></div>
+            <div style={{opacity: shouldShow ? 1 : 0}} id='map'></div>
         );
     }
 
@@ -287,12 +361,26 @@ function mapStateToProps(state) {
         map:state.map,
         appLocation: state.appLocation,
         visibleLayers: state.visibleLayers,
-        allData: state.allData
+        allData: state.allData,
+        projects: state.projects,
+        currentCategory: state.currentCategory,
+        hoveredProject: state.hoveredProject
     };
 }
 
 export default connect(mapStateToProps)(Map);
 
+// See - http://stackoverflow.com/questions/4025893/how-to-check-identical-array-in-most-efficient-way
+function arraysEqual(arr1, arr2) {
+    if(arr1.length !== arr2.length)
+        return false;
+    for(var i = arr1.length; i--;) {
+        if(arr1[i] !== arr2[i])
+            return false;
+    }
+
+    return true;
+}
 // See - http://stackoverflow.com/questions/30834946/trying-to-solve-symmetric-difference-using-javascript
 function symDiff() {
     var sets = [], result = [], LocalSet;

@@ -296,3 +296,43 @@ export const setStartingLayer = (id) => {
         id
     };
 };
+
+
+// Moving away from getting data from amazon s3 
+// and moving towards having all data in a csv
+// which could easily be moved to a database in the 
+// future
+export const initializeProjectList = (projects) => {
+    return {
+        type: 'INITIALIZE_PROJECT_LIST',
+        projects
+    };
+};
+
+export const initializeCategories = (projects) => {
+    return {
+        type: 'INITIALIZE_CATEGORIES',
+        projects
+    };
+};
+
+export const setCurrentCategory = (cat) => {
+    return {
+        type: 'SET_CURRENT_CATEGORY',
+        cat
+    };
+};
+
+export const setHoverProject = (id) => {
+    return {
+        type: 'SET_HOVERED_PROJECT',
+        id
+    };
+};
+
+export const removeHoverProject = (id) => {
+    return {
+        type: 'REMOVE_HOVERED_PROJECT',
+        id
+    };
+};

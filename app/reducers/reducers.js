@@ -47,7 +47,7 @@ export const dataReducer = (state = {}, action) => {
     }
 };
 
-export const layerListsReducer = (state = {soil: false, water: false, distribution: false, energy: false, economics: false, labor: false, agriculture: false}, action) => {
+export const layerListsReducer = (state = {}, action) => {
     switch(action.type) {
         case 'TOGGLE_LAYER_LIST':
             return {
@@ -171,3 +171,58 @@ export const appLocationReducer = (state = {layer: 'none', page: 0}, action) => 
 };
 
 
+export const projectsReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'INITIALIZE_PROJECT_LIST':
+            var newState = {};
+            action.projects.forEach((prj) => {
+                newState[prj.id] = prj;
+            });
+            return newState;
+        case 'ADD_PROJECT':
+            return {...state, [action.project.id]: action.project};
+        //case 'REMOVE_PROJECT':
+            //return state.filter((prj, i) => {
+                //return prj.id !== action.id;
+            //});
+        default:
+            return state;
+    }
+};
+
+export const categoriesReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'INITIALIZE_CATEGORIES':
+            let cat = [];
+            action.projects.forEach((prj) => {
+                if (cat.indexOf(prj.category) !== -1) {
+                    return;
+                } else {
+                    cat.push(prj.category);
+                }
+            });
+            return cat;
+        default:
+            return state;
+    }
+};
+
+export const currentCategoryReducer = (state = '', action) => {
+    switch (action.type) {
+        case 'SET_CURRENT_CATEGORY':
+            return action.cat;
+        default:
+            return state;
+    }
+};
+
+export const hoveredProjectReducer = (state = '', action) => {
+    switch(action.type) {
+        case 'SET_HOVERED_PROJECT':
+            return action.id;
+        case 'REMOVE_HOVERED_PROJECT':
+            return '';
+        default:
+            return state;
+    }
+};

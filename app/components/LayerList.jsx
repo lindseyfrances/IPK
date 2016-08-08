@@ -20,6 +20,9 @@ class LayerList extends React.Component {
     componentDidMount() {
         var { dispatch } = this.props;
 
+        this.filteredProjects = [];
+
+
     }
 
     componentDidUpdate() {
@@ -32,14 +35,14 @@ class LayerList extends React.Component {
     }
 
     getDefaultStyles() {
-        var { items, title, layerLists } = this.props;
+        var { title, layerLists } = this.props;
         var shouldShowChildren = layerLists[title];
 
         if (shouldShowChildren) {
             return items.map((item) => {
                 return {
-                    ...item,
-                    data: item.name,
+                    key: item,
+                    data: item,
                     style: {
                         height: 0,
                         opacity: 0
@@ -58,8 +61,8 @@ class LayerList extends React.Component {
         if (shouldShowChildren) {
             return items.map((item) => {
                 return {
-                    ...item,
-                    data: item.name,
+                    key: item,
+                    data: item,
                     style: {
                         height: spring(40),
                         opacity: spring(1)
@@ -94,7 +97,7 @@ class LayerList extends React.Component {
         var renderListItems = () => {
             if (items !== [] && shouldShowChildren) {
                 return items.map((item) => {
-                    return <LayerCheckBox name={item.name} layerKey={item.key} key={item.key} />;
+                    return <LayerCheckBox name={item} layerKey={item} key={item} />;
                 });
             }
         };

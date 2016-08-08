@@ -34,7 +34,7 @@ class Card extends React.Component {
     goToMap(e) {
         e.stopPropagation();
         var { dispatch, id } = this.props;
-        dispatch(actions.toggleLayerList(id));
+        dispatch(actions.setCurrentCategory(id));
         hashHistory.push('/map');
     }
 
@@ -56,6 +56,7 @@ class Card extends React.Component {
                 zIndex: '10',
                 top: '0px',
                 left: '0px',
+                backgroundColor: 'purple'
             };
         } else {
             this.styles = {
@@ -63,7 +64,8 @@ class Card extends React.Component {
                 width: '50%',
                 position: 'relative',
                 height: '30vh',
-                zIndex: '0'
+                zIndex: '0',
+                backgroundColor: 'transparent'
             };
         }
 
