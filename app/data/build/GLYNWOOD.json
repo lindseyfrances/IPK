@@ -1,0 +1,20 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Glynwood",
+        "popupContent": "Glynwood",
+        "hasPopupContent": "TRUE"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.8674944,
+          41.4536387
+        ]
+      }
+    }
+  ]
+}
