@@ -37,12 +37,12 @@ module.exports = {
             test: /\.(png|jpg)$/, 
             loader: 'url-loader?limit=8192'
         },
-        {
-            test: /aws-sdk/,
-            loaders: [
-                'transform?aws-sdk/dist-tools/transform'
-            ] 
-        },
+        //{
+            //test: /aws-sdk/,
+            //loaders: [
+                //'transform?aws-sdk/dist-tools/transform'
+            //] 
+        //},
         {
             test: /\.js$/,
             include: path.resolve('../node_modules/mapbox-gl/js/render/painter/use_program.js'),

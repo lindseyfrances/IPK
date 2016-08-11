@@ -9,7 +9,7 @@ import Map from 'app/components/Map';
 import HoverPopup from 'app/components/HoverPopup';
 import Nav from 'app/components/Nav';
 import SideNav from 'app/components/SideNav';
-import ProjectList from 'app/components/ProjectList';
+import ProjectPanel from 'app/components/ProjectPanel';
 
 
 import * as actions from 'app/actions/actions';
@@ -17,9 +17,7 @@ import * as actions from 'app/actions/actions';
 class MapContainer extends React.Component {
 
     componentDidMount() {
-        var { appLocation, dispatch } = this.props;
-
-        //dispatch(actions.startAddMapLayers());
+        var { dispatch } = this.props;
 
     }
     render() {
@@ -38,6 +36,14 @@ class MapContainer extends React.Component {
         };
 
         const shouldShowMap = function() {
+
+            if (currentCategory === '') {
+                return false;
+            }
+            // TODO: This is pretty inefficient, but 
+            // the project list is small enough that it won't really
+            // make a difference
+            
             // look through projects, find the first item
             // that has the same category as the currently
             // selected category, then look up
@@ -49,7 +55,7 @@ class MapContainer extends React.Component {
                 return projects[prj].category === currentCategory;
             });
 
-            if (!projects[firstPrj].latitude) {
+            if (projects[firstPrj].mappable === 'N') {
                 return false;
             } else {
                 return true;
@@ -61,10 +67,14 @@ class MapContainer extends React.Component {
 
         return (
             <div>
-                <Map shouldShow={showMap} containerId={'map'} />
-                <ProjectList  shouldShow={!showMap}/>
-                <SideNav />
-                {/*<Nav />*/}
+                <div className='page-container'> 
+                    <SideNav />
+                    <div className='content-container'>
+                        <ProjectPanel shouldShow={!showMap}/>
+                        <Map shouldShow={showMap} containerId={'map'} />
+                    </div>
+                </div>
+
                 <HoverPopup />
                 {displayLoadingScreen()}
             </div>
@@ -74,7 +84,6 @@ class MapContainer extends React.Component {
 
 export default connect((state) => {
     return {
-        appLocation: state.appLocation,
         isLoading: state.isLoading,
         projects: state.projects,
         currentCategory: state.currentCategory

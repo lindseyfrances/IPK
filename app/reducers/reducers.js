@@ -130,22 +130,28 @@ export const overlayReducer = (state = [], action) => {
     }
 };
 
-export const popupReducer = (state = {content: '', visible: false}, action) => {
+export const popupReducer = (state = {visible: false}, action) => {
     switch(action.type) {
-        case 'SHOW_POPUP':
-            return {
-                ...state,
-                visible: true
-            };
-        case 'SET_POPUP_CONTENT':
-            return {
-                content: action.content,
-                visible: true
-            };
+        //case 'SHOW_POPUP':
+            //return {
+                //...state,
+                //visible: true
+            //};
+        //case 'SET_POPUP_CONTENT':
+            //return {
+                //content: action.content,
+                //visible: true
+            //};
         case 'HIDE_POPUP':
             return {
                 ...state,
                 visible: false
+            };
+        case 'SHOW_POPUP_WITH_PROJECT':
+            return {
+                visible: true,
+                currentProject: action.id,
+                point: action.point
             };
         default:
             return state;

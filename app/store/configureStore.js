@@ -6,16 +6,8 @@ import { hoveredProjectReducer, currentCategoryReducer, categoriesReducer, proje
 const configure = (initialState = {}) => {
     var reducer = redux.combineReducers({
         popup: popupReducer,
-        overlays: overlayReducer,
         map: mapReducer,
-        layers: layerReducer,
-        sideNavOpen: sideNavReducer,
-        appLocation: appLocationReducer,
         isLoading: loadingReducer,
-        visibleLayers: visibleLayersReducer,
-        allData: dataReducer,
-        allLayers: layersReducer,
-        layerLists: layerListsReducer,
         projects: projectsReducer,
         categories: categoriesReducer,
         currentCategory: currentCategoryReducer,

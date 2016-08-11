@@ -1,5 +1,13 @@
 #hover-popup {
-    position: absolute;
-    top: 200px;
-    left: 100px;
+    position: fixed;
+    z-index: 100;
+    background-color: $purple-color-with-opacity;
+    visibility: hidden;
+    border-radius: 10px;
+
+    h2, p {
+        padding: 1rem;
+        font-size: 1rem;
+        color: white;
+    }
 }

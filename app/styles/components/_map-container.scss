@@ -1,0 +1,9 @@
+.page-container {
+    display: flex;
+    flex-direction: row;
+    
+    .content-container {
+        position: relative;
+        flex-grow: 2;
+    }
+}

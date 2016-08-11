@@ -10,20 +10,32 @@ class NavItem extends React.Component {
     }
 
     handleMouseOver(e) {
-        var { dispatch, id } = this.props;
+        var { dispatch, id, shouldShowPopup } = this.props;
         dispatch(actions.setHoverProject(id));
-        this._elt.style.opacity = 0.5;
+        if (shouldShowPopup) {
+            dispatch(actions.showPopupWithProject(id, {x: e.clientX, y: e.clientY}));
+        }
     }
     handleMouseOut(e) {
-        var { dispatch, id } = this.props;
-        dispatch(actions.removeHoverProject(id));
-        this._elt.style.opacity = 1;
+        var { dispatch, id, shouldShowPopup } = this.props;
+        dispatch(actions.removeHoverProject());
+        if (shouldShowPopup) {
+            dispatch(actions.hidePopup());
+        }
     }
     render() {
-        var { title } = this.props;
+        var { title, hovered } = this.props;
+
+        const chooseClass = function() {
+            if (hovered) {
+                return 'nav-item nav-item-hovered';
+            } else {
+                return 'nav-item';
+            }
+        };
 
         return (
-            <div onMouseOver={this.handleMouseOver.bind(this)} onMouseOut={this.handleMouseOut.bind(this)} ref={(c) => { this._elt = c;}}>{title}</div>
+            <p className={chooseClass()} onMouseOver={this.handleMouseOver.bind(this)} onMouseOut={this.handleMouseOut.bind(this)}>{title}</p>
         );
     }
 }

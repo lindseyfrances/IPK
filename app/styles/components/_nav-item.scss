@@ -1,0 +1,13 @@
+.nav-item {
+    /*width: 100%;*/
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.nav-item-hovered {
+    background-color: $purple-color;
+}
+
+.nav-item:hover {
+    opacity: 0.5;
+}

@@ -31,9 +31,9 @@ var configure = () => {
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-                MAPBOXGL_ACCESS_TOKEN: JSON.stringify(process.env.MAPBOXGL_ACCESS_TOKEN),
-                AWS_ACCESS_KEY: JSON.stringify(process.env.AWS_ACCESS_KEY),
-                AWS_SECRET_KEY: JSON.stringify(process.env.AWS_SECRET_KEY)
+                MAPBOXGL_ACCESS_TOKEN: JSON.stringify(process.env.MAPBOXGL_ACCESS_TOKEN)
+                //AWS_ACCESS_KEY: JSON.stringify(process.env.AWS_ACCESS_KEY),
+                //AWS_SECRET_KEY: JSON.stringify(process.env.AWS_SECRET_KEY)
             }
         })
     ];

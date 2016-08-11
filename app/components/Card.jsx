@@ -1,16 +1,8 @@
 import React from 'react';
-import * as redux from 'redux';
-import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
-import * as actions from 'app/actions/actions';
 
 class Card extends React.Component {
     constructor(props) {
         super(props);
-
-        this.handleClick = this.handleClick.bind(this);
-        this.handleCloseButton = this.handleCloseButton.bind(this);
-        this.goToMap = this.goToMap.bind(this);
 
         this.styles = {
             backgroundImage: 'url('+this.props.imgSrc+')',
@@ -33,9 +25,7 @@ class Card extends React.Component {
 
     goToMap(e) {
         e.stopPropagation();
-        var { dispatch, id } = this.props;
-        dispatch(actions.setCurrentCategory(id));
-        hashHistory.push('/map');
+        this.props.goToMap(this.props.id);
     }
 
     render() {
@@ -79,15 +69,15 @@ class Card extends React.Component {
                     <div className='card-content column'>
                         <p>{cardContent}</p>
                         <div className='row'>
-                            <button onClick={this.handleCloseButton} >Close</button>
-                            <button onClick={this.goToMap}>Go to map</button>
+                            <button onClick={this.handleCloseButton.bind(this)} >Close</button>
+                            <button onClick={this.goToMap.bind(this)}>Go to map</button>
                         </div>
                     </div>
                 );
             }
         };
         return (
-            <div style={this.styles} className={selectClasses()} ref={(c) => {this._elt = c;}} onClick={this.handleClick}>
+            <div style={this.styles} className={selectClasses()} ref={(c) => {this._elt = c;}} onClick={this.handleClick.bind(this)}>
                 <h1 className='card-text'>{capitalizeFirstLetter(cardTitle)}</h1>
                 {renderButtons()}
             </div>
@@ -95,9 +85,9 @@ class Card extends React.Component {
     }
 }
 
-var capitalizeFirstLetter = (str) => {
+const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 
-export default connect()(Card);
+export default Card;

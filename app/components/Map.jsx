@@ -29,18 +29,15 @@ import _ from 'underscore';
 import * as actions from 'app/actions/actions';
 import { filterProjectsByCategory } from 'app/api/helpers.js';
 
-// Types of overlays
-import PointsOverlay from 'app/overlays/PointsOverlay';
-import PathOverlay from 'app/overlays/PathOverlay';
-
-// Page controller
-import PageModel from 'app/models/PageModel';
-
 class Map extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.displayProjects = this.displayProjects.bind(this);
+    }
     componentDidMount() {
         var { appLocation, containerId, map, dispatch } = this.props;
         this.elt = ReactDOM.findDOMNode();
-        this.pageModel = new PageModel();
         mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
         this.visibleProjects = [];
 
@@ -58,102 +55,26 @@ class Map extends React.Component {
             //maxBounds: bounds
         });
 
+        this.mapLoaded = false;
         this.map.on('load', () => {
-            this.initMap();
+            this.mapLoaded = true;
+            if (this.props.currentCategory === '') {
+                return;
+            }
+            let filteredProjects = filterProjectsByCategory(this.props.projects, this.props.currentCategory);
+            console.log('map did load with projects', filteredProjects);
+            this.displayProjects(filteredProjects);
         });
         // TODO: FOr dev purposes ONLY!
         window.map = this.map;
 
-        this.overlays = [];
-        this.layers = {};
-        this.visibleLayers = [];
+        // initialize Mouse Move fn
+        this.initMouseMove();
 
-        //this.initMouseMove();
     }
 
     initMap() {
-        //var { dispatch } = this.props;
-        //console.log('map loaded');
-        //dispatch(actions.setWhereIAm({
-            //layer: 'none',
-            //page: 0
-        //}));
-    }
-
-    // When a user clicks on a layer title in the nav bar
-    // this get fired to set up the necessary data
-    // If they've visited that layer before,
-    // then the data will already be stored so we just display what 
-    // needs displaying
-    initLayer() {
-        var { appLocation, map, overlays, dispatch } = this.props;
-        var that = this;
-
-        // Start off with a clean slate for this layer
-        // hide (don't remove!) all current overlays and layers
-        if (this.overlays.length >= 1) {
-            this.overlays.forEach((overlay) => {
-                overlay.hideLayer();
-            });
-        }
-
-        // Initialize new layer 
-        // construct page structure if necessary
-        // Figure out which layer we're on
-        switch (appLocation.layer) {
-            case 'water':
-                if (!this.pageModel.water) {
-                    this.pageModel.waterConstructor().then(page => {
-                        Object.keys(page.sources).forEach((sourceName) => {
-                            var source = page.sources[sourceName];
-                            var layer = page.layers[sourceName];
-
-                            if (source.type === 'Point') {
-                                that.overlays.push(new PointsOverlay(that.map, source, layer));
-                            } else if (source.type === 'Polygon') {
-                                that.overlays.push(new PathOverlay(that.map, source, layer));
-                            }
-                        });
-                        that.overlays.forEach((overlay) => {
-                            //console.log(overlay);
-                            if (overlay.layer.visibleOnPage === appLocation.page && overlay.layer.associatedLayer === appLocation.layer) {
-                                overlay.showLayer();
-                            }
-                        });
-                    });
-                } else {
-                    // show overlays for page 0
-                    that.overlays.forEach((overlay) => {
-                        //console.log(overlay);
-                        if (overlay.layer.visibleOnPage === appLocation.page && overlay.layer.associatedLayer === appLocation.layer) {
-                            overlay.showLayer();
-                        }
-                    });
-
-                }
-                break;
-            case 'soil':
-                break;
-        }
-    }
-
-    updateLayer() {
-        var { appLocation } = this.props;
-        var boundingPositions = [];
-        //console.log('update data');
-        this.overlays.forEach((overlay) => {
-            if (overlay.layer.visibleOnPage === appLocation.page && overlay.layer.associatedLayer === appLocation.layer) {
-                //console.log('should show this layer', overlay);
-                if (overlay.fitBounds) {
-                    overlay.fitBounds();
-                }
-                overlay.showLayer();
-            } else {
-                overlay.hideLayer();
-            }
-        });
-        // We need to grab the corresponding data from an external 'master'
-        // source to tell the app what to do on each specfic layer / page
+        console.log('map loaded');
     }
 
     setMapPosition() {
@@ -166,81 +87,88 @@ class Map extends React.Component {
         });
     }
 
-    //componentWillReceiveProps(newProps) {
-        //var { layers } = this.props;
-        //var newLayers = newProps.layers;
-        //Object.keys(layers).forEach((key) => {
-            //if(layers[key].visible !== newLayers[key].visible) {
-                //console.log('diff', key);
-            //}
-        //});
-    //}
+    displayProjects(filteredProjects) {
+        // For each project, add a layer
+        // and capture a reference to it on
+        // the component (so the layer can be 
+        // identified and removed later)
+        filteredProjects.forEach((project) => {
+            this.visibleProjects.push(project.id);
+            switch (project.pointType) {
+                case 'point':
+                    this.map.addSource(project.id, {
+                        type: 'geojson',
+                        data: {
+                            type:'FeatureCollection',
+                            features: [
+                                {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [project.longitude, project.latitude]
+                                    }
+                                }
+                            ]
+                        }
+                    });
+                    this.map.addLayer({
+                        id: project.id,
+                        type: 'circle',
+                        interactive: true,
+                        source: project.id,
+                        paint: {
+                            'circle-radius': 5,
+                            'circle-color': '#000000'
+                        }
+                    });
+                    break;
+                case 'points':
+                    let locations = JSON.parse(project.locations);
+                    console.log(project.id, locations);
+                    let geojsonSrc = {
+                        type: 'geojson',
+                        data: {
+                            type: 'FeatureCollection',
+                            features: locations.map((loc) => {
+                                return {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: [loc.lon, loc.lat]
+                                    }
+                                };
+                            })
+                        }
+                    };
+                    this.map.addSource(project.id, geojsonSrc);
+                    this.map.addLayer({
+                        id: project.id,
+                        type: 'circle',
+                        interactive: true,
+                        source: project.id,
+                        paint: {
+                            'circle-radius': 5,
+                            'circle-color': '#000000'
+                        }
+                    });
+                    break;
+            }
+        });
+    }
 
-    // Less than ideal implementation since this component will update
-    // when new data is added or when visibleLayers changes,
-    // which are two distinct calls.  I need access to the data,
-    // but didn't want to store data on visibleLayers, as to prevent
-    // duplication of data
-    //componentDidUpdate(prevProps) {
-        //var { visibleLayers, allData } = this.props;
-        //var previousLayers = prevProps.visibleLayers;
-
-        //// find symmetrical difference visibleLayers array
-        //// see method below
-        //var diff = symDiff(previousLayers, visibleLayers);
-
-        //var that = this;
-        //if (diff.length > 0) {
-            //// We only want to change the visibility of the items in diff
-            //diff.forEach((l) => {
-                //if (that.layers[l]) {
-                    //// We've already created an overlay for this layer, so
-                    //// simply show or hide it
-
-                    //// Is the diff layer visible or not?
-                    //// if visibleLayers no longer contains
-                    //// the layer we're interested in, hide it
-                    //// otherwise show it
-                    //if (visibleLayers.indexOf(l) === -1) {
-                        //that.layers[l].overlay.hideLayer();
-                    //} else {
-                        //that.layers[l].overlay.showLayer();
-                    //}
-                //} else {
-                    //// The overlay hasn't yet been created, so create it
-                    //// This is kind of dumb, but due to how topojson creates
-                    //// datastructures, we have to pull out the name of the file 
-                    //// without the path or the extension, and use that as
-                    //// a prop on the datastructure
-                    //console.log(l);
-                    //if (allData[l].type === 'Topology') {
-                        //var geometriesName = l.split('/')[1].split('.')[0];
-                        //that.layers[l] = {
-                            //key: l,
-                            //overlay: (allData[l].objects[geometriesName].geometries[0].type === 'Polygon') ? new PathOverlay(that.map, {key: l, data: allData[l]}) : new PointsOverlay(that.map, {key: l, data: allData[l]})
-                        //};
-                    //} else {
-                        //var geometryType = allData[l].features[0].geometry.type;
-                        //that.layers[l] = {
-                            //key: l,
-                            //overlay: geometryType === 'Point' ? new PointsOverlay(that.map, {key: l, data: allData[l]}) : new PathOverlay(that.map, {key: l, data: allData[l] } )
-                        //};
-                    //}
-                //}
-            //});
-        //}
-    //}
-    
     componentDidUpdate(prevProps) {
         var { shouldShow, projects, currentCategory, hoveredProject } = this.props;
+
+        // If the map hasn't loaded yet, do nothing
+        if (!this.mapLoaded) {
+            return;
+        }
 
         // If the map is hidden, then don't do anything
         if (!shouldShow) {
             return;
         }
 
-        // If the category changed, then remove any visible
-        // projects before adding the new ones
         if (currentCategory !== prevProps.currentCategory) {
             console.log('current category changed');
             this.visibleProjects.forEach((src) => {
@@ -256,47 +184,20 @@ class Map extends React.Component {
             // corresponding to the current category
             var filteredProjects = filterProjectsByCategory(projects, currentCategory);
 
-            // For each project, add a layer
-            // and capture a reference to it on
-            // the component (so the layer can be 
-            // identified and removed later)
-            filteredProjects.forEach((project) => {
-                this.visibleProjects.push(project.id);
-                this.map.addSource(project.id, {
-                    type: 'geojson',
-                    data: {
-                        type:'FeatureCollection',
-                        features: [
-                            {
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates: [project.longitude, project.latitude]
-                                }
-                            }
-                        ]
-                    }
-                });
-                this.map.addLayer({
-                    id: project.id,
-                    type: 'circle',
-                    interactive: true,
-                    source: project.id,
-                    paint: {
-                        'circle-radius': 10,
-                        'circle-color': '#000000'
-                    }
-                });
-            });
+            console.log('map did update with projects', filteredProjects);
+            this.displayProjects(filteredProjects);
 
         }
+
         // Check if any projects are hovered over
-        
         if (hoveredProject !== prevProps.hoveredProject) {
-            if (hoveredProject === '') {
+            if (prevProps.hoveredProject !== '') {
                 this.map.setPaintProperty(prevProps.hoveredProject, 'circle-color', '#000000');
-            } else {
-                this.map.setPaintProperty(hoveredProject, 'circle-color', '#abcabc');
+                this.map.setPaintProperty(prevProps.hoveredProject, 'circle-radius', 5);
+            } 
+            if (hoveredProject) {
+                this.map.setPaintProperty(hoveredProject, 'circle-color', '#551A8B');
+                this.map.setPaintProperty(hoveredProject, 'circle-radius', 15);
             }
 
         }
@@ -305,7 +206,7 @@ class Map extends React.Component {
     render() {
         var { shouldShow } = this.props;
         return (
-            <div style={{opacity: shouldShow ? 1 : 0}} id='map'></div>
+            <div style={{visibility: shouldShow ? 'visible' : 'hidden'}} id='map'></div>
         );
     }
 
@@ -314,51 +215,42 @@ class Map extends React.Component {
     // needs to be instantiated with specific
     // data, or requires certain elements to exist,
     // it's safe to do it here
-    //initMouseMove() {
-        //// When the mouse moves, check for
-        //// features, which we'll often just respond
-        //// to by showing a popup display,
-        //// but the possibilities are quite endless
-        //var { dispatch } = this.props;
-        //this.map.on('mousemove', (e) => {
+    initMouseMove() {
+        // When the mouse moves, check for
+        // features, which we'll often just respond
+        // to by showing a popup display,
+        // but the possibilities are quite endless
+        var { dispatch, projects, popup } = this.props;
+        this.map.on('mousemove', (e) => {
             //var { layers } = this.props;
 
-            //// Get features under mouse location (e.point)
-            //if (layers) {
-                //var features = this.map.queryRenderedFeatures(e.point, {
-                    //layers: Object.keys(layers)
-                //});
-            //}
+            // Get features under mouse location (e.point)
+            var features = this.map.queryRenderedFeatures(e.point, { layers: this.visibleProjects });
 
-            //// If we've found some features...
-            //// TODO: trigger redux action letting the app know
-            //// that a feature has been hovered over
-            //if (features.length) {
-                //// Grab the first one
-                //var feature = features[0];
-                ////var layerName = feature.layer.id;
+            // If we've found some features...
+            if (features.length) {
+                // Grab the first one
+                var feature = features[0];
 
-                ////console.log(feature);
-                //if (feature.properties.hasPopupContent) {
-                    //var content = {
-                        //content: feature.properties.popupContent,
-                        //pos: e.point
-                    //};
-                    //dispatch(actions.setPopupContent(feature.properties.popupContent));
-                //} else {
-                    //dispatch(actions.hidePopup());
-                //}
-            //} else {
-                //dispatch(actions.hidePopup());
-            //}
-        //});
-    //}
+                // does this feature exist in the project list?
+                if (projects[feature.layer.id]) {
+
+                    dispatch(actions.showPopupWithProject(feature.layer.id, e.point));
+                    dispatch(actions.setHoverProject(feature.layer.id));
+                }
+            } else {
+                dispatch(actions.hidePopup());
+                dispatch(actions.removeHoverProject());
+            }
+        });
+    }
 
 }
 
 function mapStateToProps(state) {
     return {
         map:state.map,
+        popup: state.popup,
         appLocation: state.appLocation,
         visibleLayers: state.visibleLayers,
         allData: state.allData,

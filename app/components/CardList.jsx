@@ -5,6 +5,8 @@ import { hashHistory } from 'react-router';
 
 import Card from 'app/components/Card';
 
+import * as actions from 'app/actions/actions';
+
 class CardList extends React.Component {
     constructor(props) {
         super(props);
@@ -14,6 +16,14 @@ class CardList extends React.Component {
         };
 
         this.handleCardClick = this.handleCardClick.bind(this);
+        this.goToMap = this.goToMap.bind(this);
+    }
+
+    goToMap(category) {
+        var { dispatch } = this.props;
+
+        dispatch(actions.setCurrentCategory(category));
+        hashHistory.push('/map');
     }
 
     handleCardClick(cardId) {
@@ -29,7 +39,7 @@ class CardList extends React.Component {
             var posCounter = 0;
             return categories.map((cat, i) => {
                 var selected = this.state.selectedCard == cat ? true : false;
-                return <Card selected={selected} posId={posCounter++} id={cat} onCardClick={this.handleCardClick} cardTitle={cat} key={i} />;
+                return <Card selected={selected} posId={posCounter++} id={cat} onCardClick={this.handleCardClick} goToMap={this.goToMap} cardTitle={cat} key={i} />;
             });
         };
         return (

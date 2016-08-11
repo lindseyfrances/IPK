@@ -2,13 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { toggleSideNav } from './../actions/actions';
-import LayerList from 'app/components/LayerList';
 import NavItem from 'app/components/NavItem';
 
 import * as actions from 'app/actions/actions';
+import { filterProjectsByCategory } from 'app/api/helpers';
 
-var rightArrow = require('./../images/rightarrow.png');
-var leftArrow = require('./../images/leftarrow.png');
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
@@ -23,43 +21,35 @@ class SideNav extends React.Component {
     }
 
     render() {
-        var { dispatch, sideNavOpen, categories, projects, currentCategory } = this.props;
+        var { dispatch, sideNavOpen, categories, projects, currentCategory, hoveredProject } = this.props;
 
-        
-        // set left position of side bar, 'style' expects
-        // an object of css styles
-        //this.leftPos = sideNavOpen ?  { right: 0 } : { right: -this.width + 50 + 'px' };
-        this.leftPos = {right: 0};
-        function whichArrow() {
-            return sideNavOpen ? rightArrow : leftArrow;
-        }
-
-        var renderLayerLists = () => {
-            return categories.map((cat) => {
-                return <LayerList key={cat} title={cat} category={cat} />;
-            });
-        };
-
+        // Either display the top level list of categories,
+        // or the list of projects corresponding to whatever
+        // category was selected
         const renderProjectItemsByCategory = function() {
+
+            // If currentCategory === '', show the list of selectable
+            // categories
             if (currentCategory === '') {
                 return categories.map((cat) => {
-                    return <div key={cat} onClick={() => {dispatch(actions.setCurrentCategory(cat));}}>{cat}</div>;
+                    return <p className='menu-item' key={cat} onClick={() => {dispatch(actions.setCurrentCategory(cat));}}>{cat}</p>;
                 });
             }
-            let filteredProjects = [];
-            Object.keys(projects).forEach((prj) => {
-                if (projects[prj].category === currentCategory) {
-                    filteredProjects.push(<NavItem key={prj} title={projects[prj].name} id={projects[prj].id} />);
-                }
-            });
 
-            return filteredProjects;
+            // If a category has been selected - Filter projects by category
+            let filteredProjects = filterProjectsByCategory(projects, currentCategory);
+            return filteredProjects.map((prj) => {
+                return <NavItem shouldShowPopup={prj.mappable === 'Y'} hovered={hoveredProject === prj.id} key={prj.id} title={prj.name} id={prj.id} />;
+            });
         };
 
+        // Only render back button if currentCategory is not an empty string
+        // Conditionally render Nav header based on current Category
+        // if necessary, render projects by filtering them
         return (
-            <div className='side-nav' style={this.leftPos} ref='sideNav'>
-                {currentCategory !== '' && <button onClick={() => {dispatch(actions.setCurrentCategory(''));}}>Back</button>}
-                <h1>{currentCategory}</h1>
+            <div className='side-nav' ref='sideNav'>
+                {currentCategory !== '' && <button className='menu-back-btn' onClick={() => {dispatch(actions.setCurrentCategory(''));}}>x</button>}
+                <h1 className='menu-header'>{currentCategory || 'Select a Category'}</h1>
                 {renderProjectItemsByCategory()}
             </div>
         );
@@ -71,6 +61,7 @@ export default connect((state) => {
         sideNavOpen: state.sideNavOpen,
         categories: state.categories,
         projects: state.projects,
-        currentCategory: state.currentCategory
+        currentCategory: state.currentCategory,
+        hoveredProject: state.hoveredProject
     };
 })(SideNav);
