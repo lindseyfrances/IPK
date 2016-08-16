@@ -30,6 +30,18 @@
         display: flex;
         flex-direction: row;
     }
+    
+    button {
+        border: none;
+        color: white;
+        background: transparent;
+        font-size: 12pt;
+    }
+    .card-close-btn {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+    }
 }
 
 .card-hover:hover {

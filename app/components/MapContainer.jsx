@@ -5,7 +5,6 @@ import * as redux from 'redux';
 import { connect } from 'react-redux';
 
 import Map from 'app/components/Map';
-//import PointsOverlay from './components/PointsOverlay.js';
 import HoverPopup from 'app/components/HoverPopup';
 import Nav from 'app/components/Nav';
 import SideNav from 'app/components/SideNav';
@@ -21,7 +20,7 @@ class MapContainer extends React.Component {
 
     }
     render() {
-        var { dispatch, isLoading, projects, currentCategory } = this.props;
+        var { dispatch, isLoading, projects, currentCategory, selectedProject, categoriesDescriptors } = this.props;
         console.log('re-render');
 
         const displayLoadingScreen = function() {
@@ -65,13 +64,30 @@ class MapContainer extends React.Component {
         var showMap = shouldShowMap();
         console.log(showMap);
 
+        const renderProjectPanel = function() {
+            if (selectedProject !== '') {
+                return <ProjectPanel dispatch={dispatch} selectedProject={projects[selectedProject]} currentCategory={currentCategory} shouldShow={true}/>;
+            } else {
+                return;
+            }
+        };
         return (
             <div>
                 <div className='page-container'> 
                     <SideNav />
                     <div className='content-container'>
-                        <ProjectPanel shouldShow={!showMap}/>
                         <Map shouldShow={showMap} containerId={'map'} />
+                        <div className='no-map' style={{visibility: showMap ? 'hidden' : 'visible'}}>
+                            <img src={require('app/images/bg1.png')} />
+                            {(() => {
+                                    if (currentCategory === '') {
+                                        return <h1>No Free Lunch</h1>;
+                                    } else {
+                                        return <p>{categoriesDescriptors[currentCategory]}</p>;
+                                    }
+                                })()}
+                        </div>
+                        {renderProjectPanel()}
                     </div>
                 </div>
 
@@ -86,7 +102,9 @@ export default connect((state) => {
     return {
         isLoading: state.isLoading,
         projects: state.projects,
-        currentCategory: state.currentCategory
+        currentCategory: state.currentCategory,
+        selectedProject: state.selectedProject,
+        categoriesDescriptors: state.categoriesDescriptors
     };
 })(MapContainer);
 /*

@@ -88,7 +88,15 @@ export class Landing extends React.Component {
         return (
             <div className='landing'>
                 <div className='landing-P1 page'>
-                    <LandingPage />
+                    <div className='landing-title full-page'>
+                        <div>
+                            <h1>No Free Lunch</h1>
+                            <p>Food and the City</p>
+                        </div>
+                        <div>
+                            <p>A geographical exploration of artists, activists, and local companies dedicated to improving the food system throughout New York City</p>
+                        </div>
+                    </div>
                 </div>
                 <div className='landing-P2 page' ref={(e) => {return this.p2 = e;}}>
                     <h1>Select a category to start exploring</h1>

@@ -11,14 +11,10 @@ class HoverPopup extends React.Component {
         var { visible, point } = this.props.popup;
 
         let prj = projects[currentProject];
-        if (prj) {
-            
-        }
 
         if (this._elt) {
             let w = this._elt.offsetWidth;
             let h = this._elt.offsetHeight;
-            //this._elt.style.visible = 'hidden';
 
             let lo = 0;
             if ($('.content-container')[0]) {
@@ -42,17 +38,6 @@ class HoverPopup extends React.Component {
         let prj = projects[currentProject];
         
         let pos = {};
-
-        //if (point) {
-            //pos = {
-                //top: point.y - 100,
-                //left: point.x + lo
-            //};
-        //}
-
-        //this.style = {
-            //visibility: visible ? 'visible' : 'hidden'
-        //};
 
         return (
             <div id='hover-popup' ref={(c) => {this._elt = c;}}>

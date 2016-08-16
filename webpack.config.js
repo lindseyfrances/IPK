@@ -13,6 +13,8 @@ var path = require('path');
 var loaders = require('./config/loaders');
 var plugins = require('./config/plugins');
 var envFile = require('node-env-file');
+var precss = require('precss');
+var autoprefixer = require('autoprefixer');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 process.env.PWD = process.cwd();
@@ -43,6 +45,9 @@ module.exports = {
         extensions: ['', '.js', '.jsx']
     },
     module: loaders,
+    postcss: function() {
+        return [require('autoprefixer'), require('precss')];
+    },
     plugins: plugins,
     devServer: process.env.NODE_ENV === 'production' ? null : {
         contentBase: './dist',

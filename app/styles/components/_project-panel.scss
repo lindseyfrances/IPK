@@ -1,0 +1,21 @@
+.project-panel {
+    position:absolute;
+    top: 0;
+    left: 0;
+    background-color: #292929;
+    width: 100%;
+    height: 100%;
+
+    h1, h2, p {
+        color: $body-font-color;
+        padding: 1rem 1rem 1rem 1rem;
+    }
+
+    .project-panel-back-btn {
+        position: absolute;
+        color: white;
+        background: transparent;
+        font-size: 12pt;
+        border: none;
+    }
+}

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import _ from 'underscore';
 import { TextDecoder } from 'text-encoding';
-
 //var AWS = require('aws-sdk');
 //AWS.config.update({accessKeyId: process.env.AWS_ACCESS_KEY, secretAccessKey: process.env.AWS_SECRET_KEY});
 //var s3 = new AWS.S3();
@@ -304,10 +303,35 @@ export const initializeProjectList = (projects) => {
     };
 };
 
-export const initializeCategories = (projects) => {
+const addCategory = (category) => {
     return {
-        type: 'INITIALIZE_CATEGORIES',
-        projects
+        type: 'ADD_CATEGORY',
+        category
+    };
+};
+const addCategoryDescriptor = (category, descriptor) => {
+    return {
+        type: 'ADD_CATEGORY_DESCRIPTOR',
+        category,
+        descriptor
+    };
+};
+
+export const initializeCategories = (projects) => {
+    return (dispatch, getState) => {
+        let cats = [];
+        let descs = {};
+        let categoriesDescriptors = require('app/data/build/categoriesdescriptors.json');
+        projects.forEach((prj) => {
+            if (cats.indexOf(prj.category) === -1) {
+                cats.push(prj.category);
+                dispatch(addCategory(prj.category));
+            } 
+            if (descs[prj.category] === null || descs[prj.category] === undefined) {
+                descs[prj.category] = categoriesDescriptors[prj.category];
+                dispatch(addCategoryDescriptor(prj.category, descs[prj.category]));
+            }
+        });
     };
 };
 
@@ -342,5 +366,18 @@ export const showPopupWithProject = (id, point) => {
 export const hidePopup = () => {
     return {
         type: 'HIDE_POPUP'
+    };
+};
+
+export const setSelectedProject = (id) => {
+    return {
+        type: 'SET_SELECTED_PROJECT',
+        id
+    };
+};
+
+export const clearSelectedProject = () => {
+    return {
+        type: 'CLEAR_SELECTED_PROJECT'
     };
 };

@@ -5,9 +5,10 @@
 }
 
 .nav-item-hovered {
-    background-color: $purple-color;
+    background-color: white;
+    color: $purple-color;
 }
 
 .nav-item:hover {
-    opacity: 0.5;
+    /*opacity: 0.5;*/
 }

@@ -1,40 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import * as actions from 'app/actions/actions';
 
-export class ProjectPanel extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+export const ProjectPanel = function(props) {
+    var { dispatch, shouldShow, currentCategory, selectedProject } = props;
 
-    componentWillUnmount() {
-        console.log('component unmouting');
-    }
+    return (
+        <div className='project-panel' style={{visibility: shouldShow ? 'visible' : 'hidden'}}>
+            <button className='project-panel-back-btn' onClick={() => {dispatch(actions.clearSelectedProject());}}>x</button>
+            <h1>{selectedProject.name}</h1>
+            <a className='link' href={selectedProject.link}>Learn more</a>
+            <p>{selectedProject.description}</p>
+        </div> 
+    );
+};
 
-    render() {
-        var { shouldShow, currentCategory } = this.props;
-
-        if (currentCategory === '') {
-        }
-
-        const renderContent = function() {
-            if (currentCategory === '') {
-                return <h1 className='centered-text'>No Free Lunch</h1>;
-            } else {
-                return (
-                    <h1>Project Panel</h1>
-                );
-            }
-        };
-        return (
-            <div className='project-list' style={{visibility: shouldShow ? 'visible' : 'hidden'}}>
-                {renderContent()}
-            </div> 
-        );
-    }
-}
-
-export default connect((state) => {
-    return {
-        currentCategory: state.currentCategory
-    };
-})(ProjectPanel);
+export default ProjectPanel;

@@ -13,12 +13,23 @@
 @import 'components/layer-list';
 @import 'components/card';
 @import 'components/card-list';
+@import 'components/project-panel';
 
 body {
     font-family: Georgia;
     background: $page-background-color;
     padding: 0;
     margin: 0;
+}
+
+a {
+    color: $link-color;
+    text-decoration: none;
+    padding: 1rem;
+}
+
+button {
+    cursor: pointer;
 }
 
 .loading-screen {

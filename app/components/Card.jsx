@@ -69,7 +69,7 @@ class Card extends React.Component {
                     <div className='card-content column'>
                         <p>{cardContent}</p>
                         <div className='row'>
-                            <button onClick={this.handleCloseButton.bind(this)} >Close</button>
+                            <button className='card-close-btn' onClick={this.handleCloseButton.bind(this)} >x</button>
                             <button onClick={this.goToMap.bind(this)}>Go to map</button>
                         </div>
                     </div>

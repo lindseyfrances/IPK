@@ -48,7 +48,10 @@ class SideNav extends React.Component {
         // if necessary, render projects by filtering them
         return (
             <div className='side-nav' ref='sideNav'>
-                {currentCategory !== '' && <button className='menu-back-btn' onClick={() => {dispatch(actions.setCurrentCategory(''));}}>x</button>}
+                {currentCategory !== '' && <button className='menu-back-btn' onClick={() => {
+                    dispatch(actions.setCurrentCategory(''));
+                    dispatch(actions.clearSelectedProject());
+                    }}>x</button>}
                 <h1 className='menu-header'>{currentCategory || 'Select a Category'}</h1>
                 {renderProjectItemsByCategory()}
             </div>
