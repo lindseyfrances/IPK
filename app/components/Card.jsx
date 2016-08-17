@@ -5,10 +5,10 @@ class Card extends React.Component {
         super(props);
 
         this.styles = {
-            backgroundImage: 'url('+this.props.imgSrc+')',
+            //backgroundImage: 'url('+this.props.imgSrc+')',
             height: '30vh',
             width: '50%',
-            backgroundColor: 'rgb('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')',
+            //backgroundColor: 'rgb('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')',
         };
     }
 
@@ -46,7 +46,7 @@ class Card extends React.Component {
                 zIndex: '10',
                 top: '0px',
                 left: '0px',
-                backgroundColor: 'purple'
+                //backgroundColor: 'purple'
             };
         } else {
             this.styles = {
@@ -55,7 +55,7 @@ class Card extends React.Component {
                 position: 'relative',
                 height: '30vh',
                 zIndex: '0',
-                backgroundColor: 'transparent'
+                //backgroundColor: 'transparent'
             };
         }
 
@@ -70,7 +70,7 @@ class Card extends React.Component {
                         <p>{cardContent}</p>
                         <div className='row'>
                             <button className='card-close-btn' onClick={this.handleCloseButton.bind(this)} >x</button>
-                            <button onClick={this.goToMap.bind(this)}>Go to map</button>
+                            <button onClick={this.goToMap.bind(this)}>View Projects</button>
                         </div>
                     </div>
                 );
