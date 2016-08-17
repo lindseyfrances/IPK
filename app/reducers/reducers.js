@@ -1,11 +1,17 @@
 import $ from 'jquery';
 import _ from 'underscore';
+import projects from 'app/data/build/projectlist.csv';
 export const mapReducer = (state = {center: [-74.0193459, 40.6809955], zoom: 10}, action) => {
     switch (action.type) {
-        case 'CHANGE_MAP_POSITION':
+        case 'SET_MAP_CENTER':
             return {
                 ...state,
-                ...action.position
+                center: action.center
+            };
+        case 'SET_MAP_BOUNDS':
+            return {
+                ...state,
+                bounds: action.bounds
             };
         default:
             return state;

@@ -32,7 +32,7 @@
 
     .menu-item {
         cursor: pointer;
-        border: 1px solid dimgrey;
+        border-bottom: 1px solid $purple-color-with-opacity;
         transition: all 0.5s;
     }
     .menu-item:hover {

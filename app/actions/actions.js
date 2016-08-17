@@ -1,6 +1,7 @@
 import axios from 'axios';
 import _ from 'underscore';
 import { TextDecoder } from 'text-encoding';
+import d3 from 'd3';
 //var AWS = require('aws-sdk');
 //AWS.config.update({accessKeyId: process.env.AWS_ACCESS_KEY, secretAccessKey: process.env.AWS_SECRET_KEY});
 //var s3 = new AWS.S3();
@@ -17,12 +18,65 @@ export const stopLoading = () => {
     };
 };
 
-//export const changeMapPosition = (position) => {
-    //return {
-        //type: 'CHANGE_MAP_POSITION',
-        //position
-    //};
-//};
+export const setMapCenter = (center) => {
+    return {
+        type: 'SET_MAP_CENTER',
+        center
+    };
+};
+export const setMapBounds = (bounds) => {
+    return {
+        type: 'SET_MAP_BOUNDS',
+        bounds
+    };
+};
+
+// Public function
+// finds project with associated ID, gets position
+// then dispatches actions to the store
+export const setMapCenterOnProject = (id) => {
+    return (dispatch, getState) => {
+        let project = getState().projects[id];
+        switch (project.pointType) {
+            case 'points':
+                let lonSum = 0;
+                let latSum = 0;
+                let locations = JSON.parse(project.locations);
+                locations.forEach((loc) => {
+                    lonSum += parseFloat(loc.lon);
+                    latSum += parseFloat(loc.lat);
+                });
+                let lon = lonSum / locations.length;
+                let lat = latSum / locations.length;
+
+                let geojsonSrc = {
+                    type: 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: locations.map((loc) => {
+                            return {
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [loc.lon, loc.lat]
+                                }
+                            };
+                        })
+                    }
+                };
+
+                let bounds = d3.geo.bounds(geojsonSrc.data);
+                dispatch(setMapBounds(bounds));
+                break;
+            case 'point':
+                let center = [project.longitude, project.latitude];
+                dispatch(setMapCenter(center));
+                break;
+            default:
+                break;
+        }
+    };
+};
 
 //export const startAddOverlay = (overlay) => {
     //return (dispatch, getState) => {

@@ -42,7 +42,6 @@ class HoverPopup extends React.Component {
         return (
             <div id='hover-popup' ref={(c) => {this._elt = c;}}>
                 <h2>{prj && prj.name}</h2>
-                <p>{prj && prj.description}</p>
             </div>
         );
     }

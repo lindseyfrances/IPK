@@ -21,14 +21,15 @@ class NavItem extends React.Component {
         dispatch(actions.setHoverProject(id));
         if (shouldShowPopup) {
             // Figure out where the top left of the content container is
-            dispatch(actions.showPopupWithProject(id, {x: 150, y: 200}));
+            //dispatch(actions.showPopupWithProject(id, {x: 150, y: 200}));
+            dispatch(actions.setMapCenterOnProject(id));
         }
     }
     handleMouseOut(e) {
         var { dispatch, id, shouldShowPopup } = this.props;
         dispatch(actions.removeHoverProject());
         if (shouldShowPopup) {
-            dispatch(actions.hidePopup());
+            //dispatch(actions.hidePopup());
         }
     }
     render() {

@@ -70,6 +70,7 @@ class Map extends React.Component {
 
         // initialize Mouse Move fn
         this.initMouseMove();
+        this.initMouseClick();
 
     }
 
@@ -77,6 +78,11 @@ class Map extends React.Component {
         console.log('map loaded');
     }
 
+    setMapBounds() {
+        var { map } = this.props;
+        this.map.fitBounds(map.bounds);
+
+    }
     setMapPosition() {
         var { map } = this.props;
         this.map.flyTo({
@@ -124,7 +130,6 @@ class Map extends React.Component {
                     break;
                 case 'points':
                     let locations = JSON.parse(project.locations);
-                    console.log(project.id, locations);
                     let geojsonSrc = {
                         type: 'geojson',
                         data: {
@@ -157,11 +162,19 @@ class Map extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        var { shouldShow, projects, currentCategory, hoveredProject } = this.props;
+        var { shouldShow, projects, currentCategory, hoveredProject, map } = this.props;
 
         // If the map hasn't loaded yet, do nothing
         if (!this.mapLoaded) {
             return;
+        }
+
+        if (!_.isEqual(prevProps.map.center, map.center)) {
+            // Map center has changed
+            this.setMapPosition();
+        }
+        if (!_.isEqual(prevProps.map.bounds, map.bounds)) {
+            this.setMapBounds();
         }
 
         // If the map is hidden, then don't do anything
@@ -210,6 +223,19 @@ class Map extends React.Component {
         );
     }
 
+    initMouseClick() {
+        var { dispatch } = this.props;
+        this.map.on('mousedown', (e) => {
+            console.log(e);
+            var features = this.map.queryRenderedFeatures(e.point, { layers: this.visibleProjects });
+            if (features.length > 0) {
+                var prjId = features[0].layer.id;
+                dispatch(actions.setSelectedProject(prjId));
+                dispatch(actions.hidePopup());
+            }
+        });
+    }
+
     // Initialize any mouse events on the map
     // upon initial load.  Unless an event
     // needs to be instantiated with specific
@@ -249,14 +275,15 @@ class Map extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        map:state.map,
+        map: state.map,
         popup: state.popup,
         appLocation: state.appLocation,
         visibleLayers: state.visibleLayers,
         allData: state.allData,
         projects: state.projects,
         currentCategory: state.currentCategory,
-        hoveredProject: state.hoveredProject
+        hoveredProject: state.hoveredProject,
+
     };
 }
 
