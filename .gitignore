@@ -7,6 +7,4 @@ app/data/build/*.dbf
 app/data/build/*.prj
 app/data/build/*.shx
 app/creds/*
-dist/*bundle.js
-dist/*.html
 config/*.env
