@@ -1,14 +1,38 @@
-.nav-item {
+.nav-item, .top-nav-item {
     /*width: 100%;*/
     cursor: pointer;
     transition: all 0.5s;
+    font-size: 0.7rem;
+    margin: 0;
+    padding: 0.7rem;
+    color: white;
 }
 
-.nav-item-hovered {
+.nav-item-toggled {
     background-color: white;
     color: $purple-color;
 }
 
 .nav-item:hover {
-    /*opacity: 0.5;*/
+    opacity: 0.5;
+}
+
+.top-nav-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    .top-nav-img {
+        margin: 3px;
+        padding: 0;
+        border: none;
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .nav-item {
+        font-size: 8pt;
+    }
 }

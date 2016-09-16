@@ -1,5 +1,5 @@
 {
-  "name": "mapbox-gl-ipk",
+  "name": "no-free-lunch",
   "version": "1.0.0",
   "description": "",
   "engines": {
@@ -11,7 +11,8 @@
     "build": "NODE_ENV=production webpack",
     "dev": "webpack-dev-server --progress --colors --inline",
     "start": "node server.js",
-    "prod": "NODE_ENV=production webpack && node server.js"
+    "prod": "NODE_ENV=production webpack && node server.js",
+    "doc": "./node_modules/.bin/jsdoc -c ./jsdoc.conf.json -r"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "deep-freeze-strict": "^1.1.1",
     "eslint": "2.12.0",
     "expect": "^1.20.1",
+    "jsdoc": "git+https://github.com/jsdoc3/jsdoc.git",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
     "karma-mocha": "^1.0.1",
@@ -48,6 +50,7 @@
     "file-loader": "0.9.0",
     "html-webpack-plugin": "2.21.0",
     "jquery": "3.0.0",
+    "jsdoc-webpack-plugin": "0.0.1",
     "json-loader": "0.5.4",
     "mapbox-gl": "0.20.0",
     "node-env-file": "0.1.8",

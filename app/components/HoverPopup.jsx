@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import Link from 'app/components/Link';
 
 class HoverPopup extends React.Component {
 
@@ -42,6 +43,9 @@ class HoverPopup extends React.Component {
         return (
             <div id='hover-popup' ref={(c) => {this._elt = c;}}>
                 <h2>{prj && prj.name}</h2>
+                <Link dest={prj && prj.link}>Website</Link>
+                <button>I want to get involved</button>
+                <p><strong>Keywords:</strong> {prj && prj.keywords.join(', ')}</p>
             </div>
         );
     }

@@ -20,8 +20,10 @@ class MapContainer extends React.Component {
 
     }
     render() {
-        var { dispatch, isLoading, projects, currentCategory, selectedProject, categoriesDescriptors } = this.props;
+        var { categories, dispatch, isLoading, projects, currentCategory, selectedProject, categoriesDescriptors } = this.props;
         console.log('re-render');
+
+        let topNavItems = ['filter', 'labels'];
 
         const displayLoadingScreen = function() {
             if (isLoading) {
@@ -34,36 +36,6 @@ class MapContainer extends React.Component {
             else return;
         };
 
-        const shouldShowMap = function() {
-
-            if (currentCategory === '') {
-                return false;
-            }
-            // TODO: This is pretty inefficient, but 
-            // the project list is small enough that it won't really
-            // make a difference
-            
-            // look through projects, find the first item
-            // that has the same category as the currently
-            // selected category, then look up
-            // if it has map coords.  If not
-            // show the secondary content page
-            let firstPrj;
-            Object.keys(projects).some((prj) => {
-                firstPrj = prj;
-                return projects[prj].category === currentCategory;
-            });
-
-            if (projects[firstPrj].mappable === 'N') {
-                return false;
-            } else {
-                return true;
-            }
-        };
-
-        var showMap = shouldShowMap();
-        console.log(showMap);
-
         const renderProjectPanel = function() {
             if (selectedProject !== '') {
                 return <ProjectPanel dispatch={dispatch} selectedProject={projects[selectedProject]} currentCategory={currentCategory} shouldShow={true}/>;
@@ -74,20 +46,11 @@ class MapContainer extends React.Component {
         return (
             <div>
                 <div className='page-container'> 
-                    <SideNav />
+                    {/*<SideNav />*/}
                     <div className='content-container'>
-                        <Map shouldShow={showMap} containerId={'map'} />
-                        <div className='no-map' style={{visibility: showMap ? 'hidden' : 'visible'}}>
-                            <img src={require('app/images/bg1.png')} />
-                            {(() => {
-                                    if (currentCategory === '') {
-                                        return <h1>No Free Lunch</h1>;
-                                    } else {
-                                        return <p>{categoriesDescriptors[currentCategory]}</p>;
-                                    }
-                                })()}
-                        </div>
-                        {renderProjectPanel()}
+                        <Map containerId={'map'} />
+                        <Nav pos='bottom' leftHeader='Categories' items={categories}/>
+                        <Nav leftHeader='Map Options' items={topNavItems} pos='top'/>
                     </div>
                 </div>
 
@@ -104,8 +67,22 @@ export default connect((state) => {
         projects: state.projects,
         currentCategory: state.currentCategory,
         selectedProject: state.selectedProject,
+        categories: state.categories,
         categoriesDescriptors: state.categoriesDescriptors
     };
 })(MapContainer);
 /*
 */
+/*
+                        <div className='no-map' style={{visibility: showMap ? 'hidden' : 'visible'}}>
+                            <img src={require('app/images/bg1.png')} />
+                            {(() => {
+                                    if (currentCategory === '') {
+                                        return <h1>No Free Lunch</h1>;
+                                    } else {
+                                        return <p>{categoriesDescriptors[currentCategory]}</p>;
+                                    }
+                                })()}
+                        </div>
+                        {renderProjectPanel()}
+                        */

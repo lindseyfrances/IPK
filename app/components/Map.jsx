@@ -27,19 +27,32 @@ import mapboxgl from 'mapbox-gl';
 import _ from 'underscore';
 
 import * as actions from 'app/actions/actions';
-import { filterProjectsByCategory } from 'app/api/helpers.js';
+import { filterListByProperty } from 'app/api/helpers.js';
 
 class Map extends React.Component {
     constructor(props) {
         super(props);
 
-        this.displayProjects = this.displayProjects.bind(this);
+        //this.displayProjects = this.displayProjects.bind(this);
+        this.showProjects = this.showProjects.bind(this);
+        this.allLayers = [];
+        this.projectsDiff = [];
+        this.initMouseMove = this.initMouseMove.bind(this);
+        this.layerGroups = {};
+        this.connections = [];
+        this.initializeLayers = this.initializeLayers.bind(this);
+        this.initializeGroups = this.initializeGroups.bind(this);
+        this.initializePolylines = this.initializePolylines.bind(this);
+        this.circleRad = 10;
+        this.circleColor = '#33cc33';
+        this.groups = {};
+        window.m = this;
     }
     componentDidMount() {
         var { appLocation, containerId, map, dispatch } = this.props;
         this.elt = ReactDOM.findDOMNode();
         mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
-        this.visibleProjects = [];
+        this.visibleLayers = [];
 
         var bounds = [
             [-74.277191,40.482993],
@@ -58,14 +71,14 @@ class Map extends React.Component {
         this.mapLoaded = false;
         this.map.on('load', () => {
             this.mapLoaded = true;
-            if (this.props.currentCategory === '') {
-                return;
-            }
-            let filteredProjects = filterProjectsByCategory(this.props.projects, this.props.currentCategory);
-            console.log('map did load with projects', filteredProjects);
-            this.displayProjects(filteredProjects);
+            this.initializeGroups();
+            this.initializeLayers();
+            this.initializePolylines();
+            //if (this.props.currentCategory === '') {
+                //return;
+            //}
         });
-        // TODO: FOr dev purposes ONLY!
+        // XXX: For dev purposes ONLY!
         window.map = this.map;
 
         // initialize Mouse Move fn
@@ -74,15 +87,16 @@ class Map extends React.Component {
 
     }
 
-    initMap() {
-        console.log('map loaded');
-    }
+    //initMap() {
+        //console.log('map loaded');
+    //}
 
     setMapBounds() {
         var { map } = this.props;
         this.map.fitBounds(map.bounds);
 
     }
+
     setMapPosition() {
         var { map } = this.props;
         this.map.flyTo({
@@ -93,76 +107,260 @@ class Map extends React.Component {
         });
     }
 
-    displayProjects(filteredProjects) {
-        // For each project, add a layer
-        // and capture a reference to it on
-        // the component (so the layer can be 
-        // identified and removed later)
-        filteredProjects.forEach((project) => {
-            this.visibleProjects.push(project.id);
-            switch (project.pointType) {
-                case 'point':
-                    this.map.addSource(project.id, {
-                        type: 'geojson',
-                        data: {
-                            type:'FeatureCollection',
-                            features: [
-                                {
-                                    type: 'Feature',
-                                    geometry: {
-                                        type: 'Point',
-                                        coordinates: [project.longitude, project.latitude]
+    // Not a great implementation, pretty sloppy
+    // O2 complexity, and tons of checks
+    initializeGroups() {
+        console.log('initializing all groups');
+        let { projects } = this.props;
+        Object.keys(projects).forEach(key => {
+            let project = projects[key];
+            let category = project.category;
+            let id = project.id;
+
+            if (project.pointType === 'point' || project.pointType === 'points') {
+
+                // For each project, loop through all other projects
+                Object.keys(projects).forEach(k => {
+                    let p2 = projects[k];
+                    // If we're not looking at the same project
+                    if (key !== k) {
+                        // and if they're the same category
+                        if (p2.category === category) {
+                            // and if they have a keyword in common...
+                            let connection = false;
+                            if(project.keywords.length > 0) {
+                                project.keywords.forEach(keyword => {
+                                    if (p2.keywords.indexOf(keyword) !== -1) {
+                                        connection = true;
                                     }
+                                });
+                                // If we've found a connection
+                                if (connection) {
+                                    this.connections.push([id, p2.id]);
                                 }
-                            ]
+                            }
                         }
-                    });
-                    this.map.addLayer({
-                        id: project.id,
-                        type: 'circle',
-                        interactive: true,
-                        source: project.id,
-                        paint: {
-                            'circle-radius': 5,
-                            'circle-color': '#000000'
-                        }
-                    });
-                    break;
-                case 'points':
-                    let locations = JSON.parse(project.locations);
-                    let geojsonSrc = {
-                        type: 'geojson',
-                        data: {
-                            type: 'FeatureCollection',
-                            features: locations.map((loc) => {
-                                return {
-                                    type: 'Feature',
-                                    geometry: {
-                                        type: 'Point',
-                                        coordinates: [loc.lon, loc.lat]
-                                    }
-                                };
-                            })
-                        }
-                    };
-                    this.map.addSource(project.id, geojsonSrc);
-                    this.map.addLayer({
-                        id: project.id,
-                        type: 'circle',
-                        interactive: true,
-                        source: project.id,
-                        paint: {
-                            'circle-radius': 5,
-                            'circle-color': '#000000'
-                        }
-                    });
-                    break;
+                    }
+                });
+
+                if (this.layerGroups[category]) {
+                    this.layerGroups[category].push(id);
+                    this.layerGroups[category].push(id+'-text');
+                } else {
+                    this.layerGroups[category] = [id];
+                    this.layerGroups[category].push(id+'-text');
+                }
             }
         });
     }
 
+    initializeLayers() {
+        console.log('initializing all layers');
+        let { projects } = this.props;
+
+        Object.keys(this.layerGroups).forEach(key => {
+            let group = this.layerGroups[key];
+
+            // For each group of projects...
+            group.forEach(featureId => {
+                if (projects[featureId]) {
+                    let project = projects[featureId];
+                    let category = project.category;
+                    let id = project.id;
+
+                    this.allLayers.push(id);
+                    switch (project.pointType) {
+                        case 'point':
+                            this.map.addSource(id, {
+                                type: 'geojson',
+                                data: {
+                                    type:'FeatureCollection',
+                                    features: [
+                                        {
+                                            type: 'Feature',
+                                            geometry: {
+                                                type: 'Point',
+                                                coordinates: [project.longitude, project.latitude]
+                                            },
+                                            properties: {
+                                                title: project.name
+                                            }
+                                        }
+                                    ]
+                                }
+                            });
+                            this.map.addLayer({
+                                id: id,
+                                type: 'circle',
+                                interactive: true,
+                                source: id,
+                                paint: {
+                                    'circle-radius': this.circleRad,
+                                    'circle-color': this.circleColor
+                                },
+                                layout: {
+                                    visibility: 'none'
+                                }
+                            });
+                            this.map.addLayer({
+                                id: id + '-text',
+                                type: 'symbol',
+                                interactive: true,
+                                source: id,
+                                layout: {
+                                    visibility: 'none',
+                                    "text-field": "{title}",
+                                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                                    "text-offset": [1, 0],
+                                    "text-anchor": "left"
+                                }
+                            });
+                            break;
+                        case 'points':
+                            let locations = JSON.parse(project.locations);
+                            let geojsonSrc = {
+                                type: 'geojson',
+                                data: {
+                                    type: 'FeatureCollection',
+                                    features: locations.map((loc) => {
+                                        return {
+                                            type: 'Feature',
+                                            geometry: {
+                                                type: 'Point',
+                                                coordinates: [loc.lon, loc.lat]
+                                            },
+                                            properties: {
+                                                title: project.name
+                                            }
+                                        };
+                                    })
+                                }
+                            };
+                            this.map.addSource(id, geojsonSrc);
+                            this.map.addLayer({
+                                id: id,
+                                type: 'circle',
+                                interactive: true,
+                                source: id,
+                                paint: {
+                                    'circle-radius': this.circleRad,
+                                    'circle-color': this.circleColor
+                                },
+                                layout: {
+                                    visibility: 'none'
+                                }
+                            });
+                            this.map.addLayer({
+                                id: id + '-text',
+                                type: 'symbol',
+                                interactive: true,
+                                source: id,
+                                layout: {
+                                    visibility: 'none',
+                                    "text-field": "{title}",
+                                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                                    "text-offset": [1, 0],
+                                    "text-anchor": "left"
+                                }
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+        });
+    }
+
+    initializePolylines() {
+        console.log('initializeing all lines');
+        let { projects } = this.props;
+        this.connections.forEach(con => {
+            let p1 = projects[con[0]];
+            let p2 = projects[con[1]];
+
+            let origin = [p1.longitude, p1.latitude];
+            let destination = [p2.longitude, p2.latitude];
+            var line = {
+                type: 'FeatureCollection',
+                features: [{
+                    type: 'Feature',
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: [
+                            origin,
+                            destination
+                        ]
+                    }
+                }]
+            };
+
+            let conName = con[0] + con[1];
+            this.map.addSource(conName, {
+                type: 'geojson',
+                data: line
+            });
+
+            this.map.addLayer({
+                id: conName,
+                source: conName,
+                type: 'line',
+                paint: {
+                    'line-width': 0.5,
+                    'line-color': '#555555'
+                },
+                layout: {
+                    visibility: 'none'
+                }
+            });
+
+            // Add this line to it's layerGroup
+            this.layerGroups[p1.category].push(conName);
+        });
+    }
+
+    showProjects(prevProps) {
+        console.log('show projects');
+        let { categories, projects } = this.props;
+        let previousCategories = prevProps.categories;
+
+        let visibleCategories = Object.keys(categories).filter(key => {
+            return categories[key];
+        });
+
+        let filteredProjects = filterListByProperty(projects, 'category', visibleCategories);
+        this.hoverableLayers = filteredProjects.map(prj => {
+            return prj.id;
+        });
+
+        // Projects are to be removed if their category was visible
+        // last update, but is now not visible
+        let removableCategories = Object.keys(previousCategories).filter(key => {
+            if (categories[key] === false && previousCategories[key] === true) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        this.visibleLayers = [];
+        visibleCategories.forEach(cat => {
+            let layers = this.layerGroups[cat];
+            layers.forEach(l => {
+                this.map.setLayoutProperty(l, 'visibility', 'visible');
+            });
+        });
+
+        removableCategories.forEach(cat => {
+            let layers = this.layerGroups[cat];
+            layers.forEach(l => {
+                this.map.setLayoutProperty(l, 'visibility', 'none');
+            });
+        });
+    }
+
     componentDidUpdate(prevProps) {
-        var { shouldShow, projects, currentCategory, hoveredProject, map } = this.props;
+        var { categories, projects, map } = this.props;
 
         // If the map hasn't loaded yet, do nothing
         if (!this.mapLoaded) {
@@ -177,49 +375,53 @@ class Map extends React.Component {
             this.setMapBounds();
         }
 
-        // If the map is hidden, then don't do anything
-        if (!shouldShow) {
-            return;
+        //let currentCategories = Object.keys(categories).filter((key) => {
+            //return categories[key] === true ? true : false;
+        //});
+        //let filteredProjects = filterListByProperty(projects, 'category', currentCategories);
+        //this.showProjects(filteredProjects);
+        if (!_.isEqual(prevProps.categories, categories)) {
+            this.showProjects(prevProps);
         }
+        //this.displayProjects(filteredProjects);
+        //this.projectsDiff = symDiff(this.projectsDiff, filteredProjects);
 
-        if (currentCategory !== prevProps.currentCategory) {
-            console.log('current category changed');
-            this.visibleProjects.forEach((src) => {
-                if (this.map.getLayer(src)) {
-                    this.map.removeLayer(src);
-                }
-                if (this.map.getSource(src)) {
-                    this.map.removeSource(src);
-                }
-            });
+        //if (currentCategory !== prevProps.currentCategory) {
+            //console.log('current category changed');
+            //this.visibleProjects.forEach((src) => {
+                //if (this.map.getLayer(src)) {
+                    //this.map.removeLayer(src);
+                //}
+                //if (this.map.getSource(src)) {
+                    //this.map.removeSource(src);
+                //}
+            //});
 
-            // If the map is visible, get the projects
-            // corresponding to the current category
-            var filteredProjects = filterProjectsByCategory(projects, currentCategory);
+            //// If the map is visible, get the projects
+            //// corresponding to the current category
 
-            console.log('map did update with projects', filteredProjects);
-            this.displayProjects(filteredProjects);
+            //console.log('map did update with projects', filteredProjects);
+            //this.displayProjects(filteredProjects);
 
-        }
+        //}
 
         // Check if any projects are hovered over
-        if (hoveredProject !== prevProps.hoveredProject) {
-            if (prevProps.hoveredProject !== '') {
-                this.map.setPaintProperty(prevProps.hoveredProject, 'circle-color', '#000000');
-                this.map.setPaintProperty(prevProps.hoveredProject, 'circle-radius', 5);
-            } 
-            if (hoveredProject) {
-                this.map.setPaintProperty(hoveredProject, 'circle-color', '#551A8B');
-                this.map.setPaintProperty(hoveredProject, 'circle-radius', 15);
-            }
+        //if (hoveredProject !== prevProps.hoveredProject) {
+            //if (prevProps.hoveredProject !== '') {
+                //this.map.setPaintProperty(prevProps.hoveredProject, 'circle-color', '#000000');
+                //this.map.setPaintProperty(prevProps.hoveredProject, 'circle-radius', 5);
+            //} 
+            //if (hoveredProject) {
+                //this.map.setPaintProperty(hoveredProject, 'circle-color', '#551A8B');
+                //this.map.setPaintProperty(hoveredProject, 'circle-radius', 15);
+            //}
 
-        }
+        //}
     }
 
     render() {
-        var { shouldShow } = this.props;
         return (
-            <div style={{visibility: shouldShow ? 'visible' : 'hidden'}} id='map'></div>
+            <div id='map'></div>
         );
     }
 
@@ -227,11 +429,11 @@ class Map extends React.Component {
         var { dispatch } = this.props;
         this.map.on('mousedown', (e) => {
             console.log(e);
-            var features = this.map.queryRenderedFeatures(e.point, { layers: this.visibleProjects });
+            var features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers});
             if (features.length > 0) {
                 var prjId = features[0].layer.id;
                 dispatch(actions.setSelectedProject(prjId));
-                dispatch(actions.hidePopup());
+                //dispatch(actions.hidePopup());
             }
         });
     }
@@ -246,27 +448,42 @@ class Map extends React.Component {
         // features, which we'll often just respond
         // to by showing a popup display,
         // but the possibilities are quite endless
-        var { dispatch, projects, popup } = this.props;
+        var { dispatch, projects } = this.props;
         this.map.on('mousemove', (e) => {
+            var { popup } = this.props;
             //var { layers } = this.props;
 
             // Get features under mouse location (e.point)
-            var features = this.map.queryRenderedFeatures(e.point, { layers: this.visibleProjects });
+            var features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers});
 
             // If we've found some features...
             if (features.length) {
                 // Grab the first one
                 var feature = features[0];
+                let layerId = feature.layer.id;
 
                 // does this feature exist in the project list?
-                if (projects[feature.layer.id]) {
-
-                    dispatch(actions.showPopupWithProject(feature.layer.id, e.point));
-                    dispatch(actions.setHoverProject(feature.layer.id));
+                if (projects[layerId]) {
+                    // If the previous project is different from the current
+                    // project, then show the popup
+                    if (popup.currentProject !== layerId) {
+                        this.hoveredProjectId = layerId;
+                        dispatch(actions.showPopupWithProject(layerId, e.point));
+                        this.map.setPaintProperty(layerId, 'circle-color', '#000000');
+                        this.map.setPaintProperty(layerId, 'circle-radius', this.circleRad + 10);
+                    }
+                    //dispatch(actions.setHoverProject(feature.layer.id));
                 }
             } else {
-                dispatch(actions.hidePopup());
-                dispatch(actions.removeHoverProject());
+                if (popup.visible === true) {
+                    dispatch(actions.hidePopup());
+                    if (this.hoveredProjectId) {
+                        this.map.setPaintProperty(this.hoveredProjectId, 'circle-color', this.circleColor);
+                        this.map.setPaintProperty(this.hoveredProjectId, 'circle-radius', this.circleRad);
+                        this.hoveredProjectId = null;
+                    }
+                    //dispatch(actions.removeHoverProject());
+                }
             }
         });
     }
@@ -277,12 +494,13 @@ function mapStateToProps(state) {
     return {
         map: state.map,
         popup: state.popup,
-        appLocation: state.appLocation,
-        visibleLayers: state.visibleLayers,
-        allData: state.allData,
+        categories: state.categories,
+        //appLocation: state.appLocation,
+        //visibleLayers: state.visibleLayers,
+        //allData: state.allData,
         projects: state.projects,
-        currentCategory: state.currentCategory,
-        hoveredProject: state.hoveredProject,
+        //currentCategory: state.currentCategory,
+        //hoveredProject: state.hoveredProject,
 
     };
 }

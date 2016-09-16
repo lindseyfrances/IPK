@@ -140,8 +140,9 @@ export const popupReducer = (state = {visible: false}, action) => {
     switch(action.type) {
         case 'HIDE_POPUP':
             return {
-                ...state,
-                visible: false
+                visible: false,
+                currentProject: '',
+                point: {}
             };
         case 'SHOW_POPUP_WITH_PROJECT':
             return {
@@ -178,6 +179,11 @@ export const projectsReducer = (state = {}, action) => {
         case 'INITIALIZE_PROJECT_LIST':
             var newState = {};
             action.projects.forEach((prj) => {
+                if (prj.keywords) {
+                    prj.keywords = prj.keywords.split(',').map(s => s.trim());
+                } else {
+                    prj.keywords = [];
+                }
                 newState[prj.id] = prj;
             });
             return newState;
@@ -192,20 +198,46 @@ export const projectsReducer = (state = {}, action) => {
     }
 };
 
-export const categoriesReducer = (state = [], action) => {
+//export const selectedCategoriesReudcer = (state = [], action) => {
+    //switch (action.type) {
+        //case 'SELECT_CATEGORY':
+            //return [
+                //...state,
+                //action.category
+            //];
+        //case 'REMOVE_SELECTED_CATEGORY':
+            //return state.filter((cat) => {
+                //return action.cat === cat ? false : true;
+            //});
+        //default:
+            //return state;
+    //}
+//};
+
+export const categoriesReducer = (state = {}, action) => {
     switch (action.type) {
         case 'INITIALIZE_CATEGORIES':
-            let cat = [];
+            let cat = {};
             action.projects.forEach((prj) => {
-                if (cat.indexOf(prj.category) !== -1) {
+                if (cat[prj.category]) {
                     return;
                 } else {
-                    cat.push(prj.category);
+                    cat[prj.category] = false;
                 }
             });
             return cat;
         case 'ADD_CATEGORY':
-            return [...state, action.category];
+            return {
+                ...state,
+                [action.category]: false
+            };
+            //return [...state, action.category];
+        case 'TOGGLE_CATEGORY':
+            let toggled = !state[action.category];
+            return {
+                ...state,
+                [action.category]: !state[action.category]
+            };
         default:
             return state;
     }

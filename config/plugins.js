@@ -49,11 +49,12 @@ var configure = () => {
     ];
 
     // Pick which plugins to return
-    if (process.env.NODE_ENV === 'production') {
-        return shared.concat(prod);
-    } else {
-        return shared.concat(dev);
-    }
+    return process.env.NODE_ENV === 'production' ? shared.concat(prod) : shared.concat(dev);
+    //if (process.env.NODE_ENV === 'production') {
+        //return shared.concat(prod);
+    //} else {
+        //return shared.concat(dev);
+    //}
 };
 
 module.exports = configure();

@@ -371,6 +371,13 @@ const addCategoryDescriptor = (category, descriptor) => {
     };
 };
 
+export const toggleCategory = (category) => {
+    return {
+        type: 'TOGGLE_CATEGORY',
+        category
+    };
+};
+
 export const initializeCategories = (projects) => {
     return (dispatch, getState) => {
         let cats = [];

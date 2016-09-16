@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { toggleSideNav } from './../actions/actions';
-import NavItem from 'app/components/NavItem';
+import NavItemCategory from 'app/components/NavItemCategory';
 
 import * as actions from 'app/actions/actions';
-import { filterProjectsByCategory } from 'app/api/helpers';
+import { filterListByProperty } from 'app/api/helpers';
 
 class SideNav extends React.Component {
     constructor(props) {
@@ -37,7 +37,7 @@ class SideNav extends React.Component {
             }
 
             // If a category has been selected - Filter projects by category
-            let filteredProjects = filterProjectsByCategory(projects, currentCategory);
+            let filteredProjects = filterListByProperty(projects, 'category', currentCategory);
             return filteredProjects.map((prj) => {
                 return <NavItem shouldShowPopup={prj.mappable === 'Y'} hovered={hoveredProject === prj.id} key={prj.id} title={prj.name} id={prj.id} />;
             });
