@@ -29,11 +29,11 @@ class Nav extends React.Component {
         var navItems = function() {
             if (pos === 'bottom') {
                 return Object.keys(items).map((key) => {
-                    return <NavItemCategory toggled={items[key]} title={key} key={key} />;
+                    return <NavItemCategory title={key} key={key} />;
                 });
             } else {
                 return items.map(i => {
-                    return <TopNavItem title={i} toggled={false} key={i} image={i === 'filter' ? require('../images/rightarrow.png') : null} />;
+                    return <TopNavItem title={i} key={i} image={i === 'filter' ? require('../images/rightarrow.png') : null} />;
                 });
             }
         };
@@ -75,7 +75,7 @@ class Nav extends React.Component {
 export default connect((state) => {
     return {
         //categories: state.categories,
-        projects: state.projects,
-        selectedCategories: state.currentCategories
+        //projects: state.projects
+        //selectedCategories: state.currentCategories
     };
 })(Nav);

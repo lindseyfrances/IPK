@@ -29,113 +29,6 @@ export const loadingReducer = (state = false, action) => {
     }
 };
 
-//export const visibleLayersReducer = (state = [], action) => {
-    //switch (action.type) {
-        //case 'ADD_VISIBLE_LAYER':
-            //return state.concat(action.key);
-        //case 'REMOVE_VISIBLE_LAYER':
-            //return state.filter((val, index, arr) => {
-                //return val !== action.key;
-            //});
-        //default:
-            //return state;
-    //}
-//};
-
-//export const dataReducer = (state = {}, action) => {
-    //switch (action.type) {
-        //case 'ADD_DATA':
-            //console.log(action);
-            //console.log(Object.assign({}, state, {[action.key]: action.data}));
-            //return Object.assign({}, state, {[action.key]: action.data});
-        //default:
-            //return state;
-    //}
-//};
-
-//export const layerListsReducer = (state = {}, action) => {
-    //switch(action.type) {
-        //case 'TOGGLE_LAYER_LIST':
-            //return {
-                //...state,
-                //[action.name]: !state[action.name]
-            //};
-        //default:
-            //return state;
-    //}
-//};
-
-//export const layersReducer = (state = {soil: [], water: [], distribution: [], energy: [], economics: [], labor: [], agriculture: []}, action) => {
-    //switch (action.type) {
-        //case 'ADD_ASSOCIATED_LAYER':
-            //return {
-                //...state,
-                //[action.layerName]: state[action.layerName].concat({key: action.key, name: action.objectName})
-            //};
-        //default:
-            //return state;
-    //}
-//};
-
-//export const layerReducer = (state = {}, action) => {
-    //switch (action.type) {
-        //case 'ADD_MAP_LAYER': 
-            //return {
-                //...state,
-                //[action.key]: {
-                    //key: action.key,
-                    //data: null,
-                    //visible: false,
-                    //name: action.name
-                //}
-            //};
-        //case 'TOGGLE_MAP_LAYER':
-            //return {
-                //...state,
-                //[action.key]: {
-                    //...state[action.key],
-                    //visible: !state[action.key].visible
-                //}
-            //};
-        //case 'ADD_DATA_TO_MAP_LAYER':
-            //return {
-                //...state,
-                //[action.key]: {
-                    //...state[action.key],
-                    //data: action.data,
-                    //visible: true
-                //}
-            //};
-        //default:
-            //return state;
-    //}
-//};
-
-//export const overlayReducer = (state = [], action) => {
-    //switch (action.type) {
-        //case 'ADD_OVERLAY':
-            //// If the overlay item already exists in the state
-            //// dont' add it again
-            //var alreadyExists = false;
-            //state.forEach((overlay) => {
-                //if (_.isEqual(overlay, action.overlay)) {
-                    //alreadyExists = true;
-                //}
-            //});
-            //if (alreadyExists) return state;
-            //return [
-                //...state,
-                //action.overlay
-            //];
-        //case 'REMOVE_OVERLAY':
-            //return state.filter((overlay) => {
-                //return overlay.id !== action.id;
-            //});
-        //default:
-            //return state;
-    //}
-//};
-
 export const popupReducer = (state = {visible: false}, action) => {
     switch(action.type) {
         case 'HIDE_POPUP':
@@ -164,15 +57,6 @@ export const sideNavReducer = (state = false, action) => {
     }
 };
 
-//export const appLocationReducer = (state = {layer: 'none', page: 0}, action) => {
-    //switch(action.type) {
-        //case 'SET_APP_LOCATION':
-            //return action.loc;
-        //default:
-            //return state;
-    //}
-//};
-
 
 export const projectsReducer = (state = {}, action) => {
     switch (action.type) {
@@ -197,22 +81,6 @@ export const projectsReducer = (state = {}, action) => {
             return state;
     }
 };
-
-//export const selectedCategoriesReudcer = (state = [], action) => {
-    //switch (action.type) {
-        //case 'SELECT_CATEGORY':
-            //return [
-                //...state,
-                //action.category
-            //];
-        //case 'REMOVE_SELECTED_CATEGORY':
-            //return state.filter((cat) => {
-                //return action.cat === cat ? false : true;
-            //});
-        //default:
-            //return state;
-    //}
-//};
 
 export const categoriesReducer = (state = {}, action) => {
     switch (action.type) {
@@ -282,6 +150,15 @@ export const selectedProjectReducer = (state = '', action) => {
             return action.id;
         case 'CLEAR_SELECTED_PROJECT':
             return '';
+        default:
+            return state;
+    }
+};
+
+export const showLabelsReducer = (state = true, action) => {
+    switch (action.type) {
+        case 'TOGGLE_MAP_LABELS':
+            return !state;
         default:
             return state;
     }

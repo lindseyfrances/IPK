@@ -17,10 +17,9 @@ class MapContainer extends React.Component {
 
     componentDidMount() {
         var { dispatch } = this.props;
-
     }
     render() {
-        var { categories, dispatch, isLoading, projects, currentCategory, selectedProject, categoriesDescriptors } = this.props;
+        var { categories, dispatch, isLoading } = this.props;
         console.log('re-render');
 
         let topNavItems = ['filter', 'labels'];
@@ -36,16 +35,16 @@ class MapContainer extends React.Component {
             else return;
         };
 
-        const renderProjectPanel = function() {
-            if (selectedProject !== '') {
-                return <ProjectPanel dispatch={dispatch} selectedProject={projects[selectedProject]} currentCategory={currentCategory} shouldShow={true}/>;
-            } else {
-                return;
-            }
-        };
+        //const renderProjectPanel = function() {
+            //if (selectedProject !== '') {
+                //return <ProjectPanel dispatch={dispatch} selectedProject={projects[selectedProject]} currentCategory={currentCategory} shouldShow={true}/>;
+            //} else {
+                //return;
+            //}
+        //};
         return (
             <div>
-                <div className='page-container'> 
+                <div className='page-container'>
                     {/*<SideNav />*/}
                     <div className='content-container'>
                         <Map containerId={'map'} />
@@ -64,11 +63,11 @@ class MapContainer extends React.Component {
 export default connect((state) => {
     return {
         isLoading: state.isLoading,
-        projects: state.projects,
-        currentCategory: state.currentCategory,
-        selectedProject: state.selectedProject,
+        //projects: state.projects,
+        //currentCategory: state.currentCategory,
+        //selectedProject: state.selectedProject,
         categories: state.categories,
-        categoriesDescriptors: state.categoriesDescriptors
+        //categoriesDescriptors: state.categoriesDescriptors
     };
 })(MapContainer);
 /*

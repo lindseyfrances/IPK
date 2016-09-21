@@ -2,9 +2,6 @@ import axios from 'axios';
 import _ from 'underscore';
 import { TextDecoder } from 'text-encoding';
 import d3 from 'd3';
-//var AWS = require('aws-sdk');
-//AWS.config.update({accessKeyId: process.env.AWS_ACCESS_KEY, secretAccessKey: process.env.AWS_SECRET_KEY});
-//var s3 = new AWS.S3();
 
 export const startLoading = () => {
     return {
@@ -440,5 +437,11 @@ export const setSelectedProject = (id) => {
 export const clearSelectedProject = () => {
     return {
         type: 'CLEAR_SELECTED_PROJECT'
+    };
+};
+
+export const toggleMapLabels = () => {
+    return {
+        type: 'TOGGLE_MAP_LABELS'
     };
 };

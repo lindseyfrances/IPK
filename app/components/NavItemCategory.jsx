@@ -13,16 +13,16 @@ class NavItemCategory extends React.Component {
     }
 
     handleClick(e) {
-        var { dispatch, title, toggled } = this.props;
+        var { dispatch, title, toggled, categories } = this.props;
         console.log('clicked', title);
         dispatch(actions.toggleCategory(title));
     }
 
     render() {
-        var { title, toggled} = this.props;
+        var { title, toggled, categories } = this.props;
 
         const chooseClass = function() {
-            if (toggled) {
+            if (categories[title] === true) {
                 return 'nav-item nav-item-toggled';
             } else {
                 return 'nav-item';
@@ -37,4 +37,8 @@ class NavItemCategory extends React.Component {
     }
 }
 
-export default connect()(NavItemCategory);
+export default connect((state) => {
+    return {
+        categories: state.categories
+    };
+})(NavItemCategory);

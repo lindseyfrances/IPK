@@ -43,9 +43,13 @@ class Map extends React.Component {
         this.initializeLayers = this.initializeLayers.bind(this);
         this.initializeGroups = this.initializeGroups.bind(this);
         this.initializePolylines = this.initializePolylines.bind(this);
+        this.toggleLabels = this.toggleLabels.bind(this);
+        this.getVisibleCategories = this.getVisibleCategories.bind(this);
         this.circleRad = 10;
         this.circleColor = '#33cc33';
         this.groups = {};
+
+        // XXX: DEV PURPOSES ONLY
         window.m = this;
     }
     componentDidMount() {
@@ -87,14 +91,9 @@ class Map extends React.Component {
 
     }
 
-    //initMap() {
-        //console.log('map loaded');
-    //}
-
     setMapBounds() {
         var { map } = this.props;
         this.map.fitBounds(map.bounds);
-
     }
 
     setMapPosition() {
@@ -151,6 +150,27 @@ class Map extends React.Component {
                     this.layerGroups[category].push(id+'-text');
                 }
             }
+        });
+        console.log('layer group', this.layerGroups);
+    }
+
+    toggleLabels() {
+        let { showLabels } = this.props;
+        let visibleCategories = this.getVisibleCategories();
+
+        // Need an array that has ONLY the -text layers
+        console.log('should toggle labels', showLabels);
+
+        visibleCategories.forEach((cat) => {
+            this.layerGroups[cat].forEach((layer) => {
+                if (layer.indexOf('-text') !== -1) {
+                    if (showLabels === false) {
+                        this.map.setLayoutProperty(layer, 'visibility', 'none');
+                    } else {
+                        this.map.setLayoutProperty(layer, 'visibility', 'visible');
+                    }
+                }
+            });
         });
     }
 
@@ -319,14 +339,22 @@ class Map extends React.Component {
         });
     }
 
-    showProjects(prevProps) {
-        console.log('show projects');
-        let { categories, projects } = this.props;
-        let previousCategories = prevProps.categories;
-
-        let visibleCategories = Object.keys(categories).filter(key => {
+    getVisibleCategories() {
+        let { categories } = this.props;
+        return Object.keys(categories).filter(key => {
             return categories[key];
         });
+    }
+
+    showProjects(prevProps) {
+        console.log('show projects');
+        let { categories, projects, showLabels } = this.props;
+        let previousCategories = prevProps.categories;
+
+        let visibleCategories = this.getVisibleCategories();
+        //Object.keys(categories).filter(key => {
+            //return categories[key];
+        //});
 
         let filteredProjects = filterListByProperty(projects, 'category', visibleCategories);
         this.hoverableLayers = filteredProjects.map(prj => {
@@ -347,7 +375,13 @@ class Map extends React.Component {
         visibleCategories.forEach(cat => {
             let layers = this.layerGroups[cat];
             layers.forEach(l => {
-                this.map.setLayoutProperty(l, 'visibility', 'visible');
+                if (showLabels) {
+                    this.map.setLayoutProperty(l, 'visibility', 'visible');
+                } else {
+                    if (l.indexOf('-text') === -1) {
+                        this.map.setLayoutProperty(l, 'visibility', 'visible');
+                    }
+                }
             });
         });
 
@@ -360,8 +394,11 @@ class Map extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        var { categories, projects, map } = this.props;
+        var { categories, projects, map, showLabels } = this.props;
 
+        if (prevProps.showLabels !== showLabels) {
+            this.toggleLabels();
+        }
         // If the map hasn't loaded yet, do nothing
         if (!this.mapLoaded) {
             return;
@@ -375,48 +412,9 @@ class Map extends React.Component {
             this.setMapBounds();
         }
 
-        //let currentCategories = Object.keys(categories).filter((key) => {
-            //return categories[key] === true ? true : false;
-        //});
-        //let filteredProjects = filterListByProperty(projects, 'category', currentCategories);
-        //this.showProjects(filteredProjects);
         if (!_.isEqual(prevProps.categories, categories)) {
             this.showProjects(prevProps);
         }
-        //this.displayProjects(filteredProjects);
-        //this.projectsDiff = symDiff(this.projectsDiff, filteredProjects);
-
-        //if (currentCategory !== prevProps.currentCategory) {
-            //console.log('current category changed');
-            //this.visibleProjects.forEach((src) => {
-                //if (this.map.getLayer(src)) {
-                    //this.map.removeLayer(src);
-                //}
-                //if (this.map.getSource(src)) {
-                    //this.map.removeSource(src);
-                //}
-            //});
-
-            //// If the map is visible, get the projects
-            //// corresponding to the current category
-
-            //console.log('map did update with projects', filteredProjects);
-            //this.displayProjects(filteredProjects);
-
-        //}
-
-        // Check if any projects are hovered over
-        //if (hoveredProject !== prevProps.hoveredProject) {
-            //if (prevProps.hoveredProject !== '') {
-                //this.map.setPaintProperty(prevProps.hoveredProject, 'circle-color', '#000000');
-                //this.map.setPaintProperty(prevProps.hoveredProject, 'circle-radius', 5);
-            //} 
-            //if (hoveredProject) {
-                //this.map.setPaintProperty(hoveredProject, 'circle-color', '#551A8B');
-                //this.map.setPaintProperty(hoveredProject, 'circle-radius', 15);
-            //}
-
-        //}
     }
 
     render() {
@@ -499,6 +497,7 @@ function mapStateToProps(state) {
         //visibleLayers: state.visibleLayers,
         //allData: state.allData,
         projects: state.projects,
+        showLabels: state.showLabels
         //currentCategory: state.currentCategory,
         //hoveredProject: state.hoveredProject,
 
