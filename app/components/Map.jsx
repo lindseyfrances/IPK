@@ -74,6 +74,7 @@ class Map extends React.Component {
 
         this.mapLoaded = false;
         this.map.on('load', () => {
+            dispatch(actions.stopLoading());
             this.mapLoaded = true;
             this.initializeGroups();
             this.initializeLayers();
@@ -465,14 +466,25 @@ class Map extends React.Component {
                     // If the previous project is different from the current
                     // project, then show the popup
                     if (popup.currentProject !== layerId) {
+
+                        // If we move directly from one project to another,
+                        // resize circle of previous project
+                        if (popup.currentProject) {
+                            this.map.setPaintProperty(popup.currentProject, 'circle-color', this.circleColor);
+                            this.map.setPaintProperty(popup.currentProject, 'circle-radius', this.circleRad);
+                        }
+
+                        // Save layerId grabbed from map (i.e. project we're
+                        // hoving over), and make it's circle larger
                         this.hoveredProjectId = layerId;
                         dispatch(actions.showPopupWithProject(layerId, e.point));
                         this.map.setPaintProperty(layerId, 'circle-color', '#000000');
                         this.map.setPaintProperty(layerId, 'circle-radius', this.circleRad + 10);
                     }
-                    //dispatch(actions.setHoverProject(feature.layer.id));
                 }
             } else {
+                // If no features were found, only do something if the popup is
+                // visible
                 if (popup.visible === true) {
                     dispatch(actions.hidePopup());
                     if (this.hoveredProjectId) {
@@ -480,7 +492,6 @@ class Map extends React.Component {
                         this.map.setPaintProperty(this.hoveredProjectId, 'circle-radius', this.circleRad);
                         this.hoveredProjectId = null;
                     }
-                    //dispatch(actions.removeHoverProject());
                 }
             }
         });

@@ -7,10 +7,11 @@
     align-items: left;
     z-index: 100;
     /*background-color: $purple-color-with-opacity;*/
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(40, 40, 40, 1);
     visibility: hidden;
     border-radius: 5px;
     max-width: 300px;
+    padding: 0.5rem;
     h2, p, a, button {
         /*padding-left: 0.5rem;*/
         /*padding-right: 0.5rem;*/
@@ -22,14 +23,42 @@
         font-size: 1rem;
     }
 
+    .hover-popup-bg {
+        height: 100%;
+        width: 100%;
+        filter: blur(3px);
+    }
     h2, p {
         color: white;
     }
+    h2 {
+        text-align: center;
+    }
+
+    .hover-section {
+        display: flex;
+        align-items: center;
+        > h4:first-child {
+            border-right: 1px solid white;
+            color: white;
+            padding: 0.3rem;
+            align-items: center;
+        }
+
+        p {
+            color: white;
+            font-size: 0.8rem;
+        }
+    }
 
     button {
-        background-color: white;
+        background: transparent;
+        color: $link-color;
+        font-size: 15pt;
+        position: absolute;
+        top: 0;
+        right: 0;
         height: auto;
         border: none;
-        color: black;
     }
 }

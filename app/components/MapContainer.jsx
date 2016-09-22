@@ -17,7 +17,9 @@ class MapContainer extends React.Component {
 
     componentDidMount() {
         var { dispatch } = this.props;
+        dispatch(actions.startLoading());
     }
+
     render() {
         var { categories, dispatch, isLoading } = this.props;
         console.log('re-render');
@@ -28,24 +30,16 @@ class MapContainer extends React.Component {
             if (isLoading) {
                 return (
                     <div className='loading-screen'>
-                        <h1 style={{color: 'white'}}>Loading data</h1>
+                        <div className='loader'></div>
                     </div>
                 );
             }
             else return;
         };
 
-        //const renderProjectPanel = function() {
-            //if (selectedProject !== '') {
-                //return <ProjectPanel dispatch={dispatch} selectedProject={projects[selectedProject]} currentCategory={currentCategory} shouldShow={true}/>;
-            //} else {
-                //return;
-            //}
-        //};
         return (
             <div>
                 <div className='page-container'>
-                    {/*<SideNav />*/}
                     <div className='content-container'>
                         <Map containerId={'map'} />
                         <Nav pos='bottom' leftHeader='Categories' items={categories}/>

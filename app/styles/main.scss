@@ -15,6 +15,7 @@
 @import 'components/card-list';
 @import 'components/project-panel';
 @import 'components/link';
+@import 'components/loading-screen';
 
 body {
     font-family: Georgia;
@@ -33,12 +34,4 @@ button {
     cursor: pointer;
 }
 
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0,0,0,0.5);
-    width: 100vw;
-    height: 100vh;
-}
 

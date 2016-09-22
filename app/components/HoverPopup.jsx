@@ -37,15 +37,21 @@ class HoverPopup extends React.Component {
         var { popup, projects } = this.props;
         var { visible, currentProject, point } = popup;
         let prj = projects[currentProject];
-        
         let pos = {};
 
         return (
             <div id='hover-popup' ref={(c) => {this._elt = c;}}>
                 <h2>{prj && prj.name}</h2>
                 <Link dest={prj && prj.link}>Website</Link>
-                <button>I want to get involved</button>
-                <p><strong>Keywords:</strong> {prj && prj.keywords.join(', ')}</p>
+                <div className='hover-section'>
+                    <h4>About&nbsp;</h4>
+                    <p>{prj && prj.shortDesc}</p>
+                </div>
+                <div className='hover-section'>
+                    <h4>Keywords</h4>
+                    <p>{prj && prj.keywords.join(', ')}</p>
+                </div>
+                <button title='Save project for later'>+</button>
             </div>
         );
     }
