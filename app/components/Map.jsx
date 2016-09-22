@@ -38,6 +38,7 @@ class Map extends React.Component {
         this.allLayers = [];
         this.projectsDiff = [];
         this.initMouseMove = this.initMouseMove.bind(this);
+        this.initMapZoom = this.initMapZoom.bind(this);
         this.layerGroups = {};
         this.connections = [];
         this.initializeLayers = this.initializeLayers.bind(this);
@@ -45,7 +46,7 @@ class Map extends React.Component {
         this.initializePolylines = this.initializePolylines.bind(this);
         this.toggleLabels = this.toggleLabels.bind(this);
         this.getVisibleCategories = this.getVisibleCategories.bind(this);
-        this.circleRad = 10;
+        this.circleRad = 4;
         this.circleColor = '#33cc33';
         this.groups = {};
 
@@ -53,10 +54,16 @@ class Map extends React.Component {
         window.m = this;
     }
     componentDidMount() {
-        var { appLocation, containerId, map, dispatch } = this.props;
+        var { appLocation, containerId, map, categories, dispatch } = this.props;
         this.elt = ReactDOM.findDOMNode();
         mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
         this.visibleLayers = [];
+
+        // Create category colors
+        this.categoryColors = {};
+        Object.keys(categories).forEach((cat) => {
+            this.categoryColors[cat] = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+        });
 
         var bounds = [
             [-74.277191,40.482993],
@@ -65,7 +72,7 @@ class Map extends React.Component {
 
         this.map = new mapboxgl.Map({
             container: containerId,
-            style: 'mapbox://styles/mapbox/outdoors-v9',
+            style: 'mapbox://styles/mapbox/light-v9',
             center: map.center,
             zoom: map.zoom,
             pitch: 30,
@@ -89,7 +96,7 @@ class Map extends React.Component {
         // initialize Mouse Move fn
         this.initMouseMove();
         this.initMouseClick();
-
+        this.initMapZoom();
     }
 
     setMapBounds() {
@@ -110,7 +117,6 @@ class Map extends React.Component {
     // Not a great implementation, pretty sloppy
     // O2 complexity, and tons of checks
     initializeGroups() {
-        console.log('initializing all groups');
         let { projects } = this.props;
         Object.keys(projects).forEach(key => {
             let project = projects[key];
@@ -152,7 +158,6 @@ class Map extends React.Component {
                 }
             }
         });
-        console.log('layer group', this.layerGroups);
     }
 
     toggleLabels() {
@@ -160,7 +165,6 @@ class Map extends React.Component {
         let visibleCategories = this.getVisibleCategories();
 
         // Need an array that has ONLY the -text layers
-        console.log('should toggle labels', showLabels);
 
         visibleCategories.forEach((cat) => {
             this.layerGroups[cat].forEach((layer) => {
@@ -176,7 +180,6 @@ class Map extends React.Component {
     }
 
     initializeLayers() {
-        console.log('initializing all layers');
         let { projects } = this.props;
 
         Object.keys(this.layerGroups).forEach(key => {
@@ -217,7 +220,7 @@ class Map extends React.Component {
                                 source: id,
                                 paint: {
                                     'circle-radius': this.circleRad,
-                                    'circle-color': this.circleColor
+                                    'circle-color': this.categoryColors[project.category]
                                 },
                                 layout: {
                                     visibility: 'none'
@@ -265,7 +268,7 @@ class Map extends React.Component {
                                 source: id,
                                 paint: {
                                     'circle-radius': this.circleRad,
-                                    'circle-color': this.circleColor
+                                    'circle-color': this.categoryColors[project.category]
                                 },
                                 layout: {
                                     visibility: 'none'
@@ -294,7 +297,6 @@ class Map extends React.Component {
     }
 
     initializePolylines() {
-        console.log('initializeing all lines');
         let { projects } = this.props;
         this.connections.forEach(con => {
             let p1 = projects[con[0]];
@@ -348,7 +350,6 @@ class Map extends React.Component {
     }
 
     showProjects(prevProps) {
-        console.log('show projects');
         let { categories, projects, showLabels } = this.props;
         let previousCategories = prevProps.categories;
 
@@ -427,7 +428,6 @@ class Map extends React.Component {
     initMouseClick() {
         var { dispatch } = this.props;
         this.map.on('mousedown', (e) => {
-            console.log(e);
             var features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers});
             if (features.length > 0) {
                 var prjId = features[0].layer.id;
@@ -437,6 +437,11 @@ class Map extends React.Component {
         });
     }
 
+    initMapZoom() {
+        this.map.on('zoom', (e) => {
+            console.log(this.map.getZoom());
+        });
+    }
     // Initialize any mouse events on the map
     // upon initial load.  Unless an event
     // needs to be instantiated with specific
@@ -470,7 +475,7 @@ class Map extends React.Component {
                         // If we move directly from one project to another,
                         // resize circle of previous project
                         if (popup.currentProject) {
-                            this.map.setPaintProperty(popup.currentProject, 'circle-color', this.circleColor);
+                            this.map.setPaintProperty(popup.currentProject, 'circle-color', this.categoryColors[projects[popup.currentProject].category]);
                             this.map.setPaintProperty(popup.currentProject, 'circle-radius', this.circleRad);
                         }
 
@@ -488,7 +493,7 @@ class Map extends React.Component {
                 if (popup.visible === true) {
                     dispatch(actions.hidePopup());
                     if (this.hoveredProjectId) {
-                        this.map.setPaintProperty(this.hoveredProjectId, 'circle-color', this.circleColor);
+                        this.map.setPaintProperty(this.hoveredProjectId, 'circle-color', this.categoryColors[projects[this.hoveredProjectId].category]);
                         this.map.setPaintProperty(this.hoveredProjectId, 'circle-radius', this.circleRad);
                         this.hoveredProjectId = null;
                     }
