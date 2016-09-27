@@ -7,7 +7,7 @@
  *      on the store - then watched for those
  *      changes to update what's visible
  *      on the map, it get's messy trying to account
- *      for map movement as well as what 
+ *      for map movement as well as what
  *      should be displayed at any given moment
  *
  *      Instead, we store the 'location' of the user
@@ -304,6 +304,16 @@ class Map extends React.Component {
 
             let origin = [p1.longitude, p1.latitude];
             let destination = [p2.longitude, p2.latitude];
+
+            if (p1.pointType === 'points') {
+                let loc = JSON.parse(p1.locations);
+                origin = [loc[0].lon, loc[0].lat];
+            }
+
+            if (p2.pointType === 'points') {
+                let loc = JSON.parse(p2.locations);
+                destination = [loc[0].lon, loc[0].lat];
+            }
             var line = {
                 type: 'FeatureCollection',
                 features: [{
