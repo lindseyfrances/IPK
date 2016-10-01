@@ -111,9 +111,9 @@ export class Landing extends React.Component {
                 </div>
                 <div className='landing-p2 full-page' ref={(e) => {return this.p1 = e;}}>
                     <div>
-                        <button onClick={() => {this.goTo('story');}}>What is the food system?</button>
+                        {/*<button onClick={() => {this.goTo('story');}}>What is the food system?</button>*/}
                         <button onClick={() => {this.goTo('map');}}>How can you get involved?</button>
-                        <button onClick={() => {this.goTo('impact');}}>Measure your impact.</button>
+                        {/*<button onClick={() => {this.goTo('impact');}}>Measure your impact.</button>*/}
                     </div>
                     {/*<CardList />*/}
                 </div>
