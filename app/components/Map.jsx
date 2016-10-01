@@ -406,7 +406,7 @@ class Map extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        var { categories, projects, map, showLabels } = this.props;
+        var { categories, projects, map, showLabels, projectListActive } = this.props;
 
         if (prevProps.showLabels !== showLabels) {
             this.toggleLabels();
@@ -426,6 +426,24 @@ class Map extends React.Component {
 
         if (!_.isEqual(prevProps.categories, categories)) {
             this.showProjects(prevProps);
+        }
+
+        if(prevProps.projectListActive !== projectListActive) {
+            let prj = projects[projectListActive];
+            let loc;
+            if (prj.pointType === 'points') {
+                let locations = JSON.parse(prj.locations);
+
+                loc = [locations[0].lon, locations[0].lat];
+            } else {
+                loc = [prj.longitude, prj.latitude];
+            }
+            this.map.flyTo({
+                center: loc,
+                zoom: 13,
+                pitch: map.pitch || 0,
+                bearing: map.bearing || 0
+            });
         }
     }
 
@@ -449,7 +467,7 @@ class Map extends React.Component {
 
     initMapZoom() {
         this.map.on('zoom', (e) => {
-            console.log(this.map.getZoom());
+            //console.log(this.map.getZoom());
         });
     }
     // Initialize any mouse events on the map
@@ -511,7 +529,6 @@ class Map extends React.Component {
             }
         });
     }
-
 }
 
 function mapStateToProps(state) {
@@ -523,9 +540,9 @@ function mapStateToProps(state) {
         //visibleLayers: state.visibleLayers,
         //allData: state.allData,
         projects: state.projects,
-        showLabels: state.showLabels
+        showLabels: state.showLabels,
         //currentCategory: state.currentCategory,
-        //hoveredProject: state.hoveredProject,
+        projectListActive: state.projectListActive,
 
     };
 }

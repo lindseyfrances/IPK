@@ -133,9 +133,11 @@ export const currentCategoryReducer = (state = '', action) => {
 };
 
 
-export const hoveredProjectReducer = (state = '', action) => {
+// Reducer to handle mousing over a ProjectList item
+// It should trigger the map to move to the project with the corresponding id
+export const projectListActiveReducer = (state = '', action) => {
     switch(action.type) {
-        case 'SET_HOVERED_PROJECT':
+        case 'MOVE_TO_PROJECT':
             return action.id;
         case 'REMOVE_HOVERED_PROJECT':
             return '';

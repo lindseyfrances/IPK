@@ -9,6 +9,7 @@ import HoverPopup from 'app/components/HoverPopup';
 import Nav from 'app/components/Nav';
 import SideNav from 'app/components/SideNav';
 import ProjectPanel from 'app/components/ProjectPanel';
+import ProjectList from 'app/components/ProjectList';
 
 
 import * as actions from 'app/actions/actions';
@@ -44,6 +45,7 @@ class MapContainer extends React.Component {
                         <Map containerId={'map'} />
                         <Nav pos='bottom' leftHeader='Categories' items={categories}/>
                         <Nav leftHeader='Map Options' items={topNavItems} pos='top'/>
+                        <ProjectList />
                     </div>
                 </div>
 

@@ -1,7 +1,7 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import { showLabelsReducer, selectedProjectReducer, hoveredProjectReducer, currentCategoryReducer, categoriesReducer, categoriesDescriptorsReducer, projectsReducer, loadingReducer, mapReducer, popupReducer } from 'app/reducers/reducers';
+import { showLabelsReducer, selectedProjectReducer, projectListActiveReducer, currentCategoryReducer, categoriesReducer, categoriesDescriptorsReducer, projectsReducer, loadingReducer, mapReducer, popupReducer } from 'app/reducers/reducers';
 
 const configure = (initialState = {}) => {
     var reducer = redux.combineReducers({
@@ -12,7 +12,7 @@ const configure = (initialState = {}) => {
         categories: categoriesReducer,
         categoriesDescriptors: categoriesDescriptorsReducer,
         currentCategory: currentCategoryReducer,
-        hoveredProject: hoveredProjectReducer,
+        projectListActive: projectListActiveReducer,
         selectedProject: selectedProjectReducer,
         showLabels: showLabelsReducer
     });

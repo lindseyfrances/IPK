@@ -445,3 +445,10 @@ export const toggleMapLabels = () => {
         type: 'TOGGLE_MAP_LABELS'
     };
 };
+
+export const moveToProject = (id) => {
+    return {
+        type: 'MOVE_TO_PROJECT',
+        id
+    };
+};

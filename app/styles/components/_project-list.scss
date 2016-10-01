@@ -1,0 +1,17 @@
+.project-list {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    height: auto;
+    max-width: 200px;
+
+    li {
+        color: black;
+        cursor: pointer;
+        transition: all 0.5s;
+        font-size: 10pt;
+    }
+    li:hover {
+        color: $purple-color;
+    }
+}
