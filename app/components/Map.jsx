@@ -409,34 +409,20 @@ class Map extends React.Component {
             let lines = this.lineGroups[cat];
             if (layers && layers.length !== 0) {
                 layers.forEach(l => {
-                    if (mapDisplay.labels) {
-                        this.map.setLayoutProperty(l, 'visibility', 'visible');
-                    } else {
-                        if (l.indexOf('-text') === -1) {
-                            this.map.setLayoutProperty(l, 'visibility', 'visible');
-                        }
-                    }
+                    this.map.setLayoutProperty(l, 'visibility', 'visible');
                 });
             }
             if (labels && labels.length !== 0) {
                 labels.forEach(l => {
                     if (mapDisplay.labels) {
                         this.map.setLayoutProperty(l, 'visibility', 'visible');
-                    } else {
-                        if (l.indexOf('-text') === -1) {
-                            this.map.setLayoutProperty(l, 'visibility', 'visible');
-                        }
                     }
                 });
             }
             if (lines && lines.length !== 0) {
                 lines.forEach(l => {
-                    if (mapDisplay.labels) {
+                    if (mapDisplay.connections) {
                         this.map.setLayoutProperty(l, 'visibility', 'visible');
-                    } else {
-                        if (l.indexOf('-text') === -1) {
-                            this.map.setLayoutProperty(l, 'visibility', 'visible');
-                        }
                     }
                 });
             }
