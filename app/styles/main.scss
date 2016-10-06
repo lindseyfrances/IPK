@@ -17,6 +17,7 @@
 @import 'components/link';
 @import 'components/loading-screen';
 @import 'components/project-list';
+@import 'components/menu';
 
 body {
     font-family: Georgia;
@@ -35,4 +36,10 @@ button {
     cursor: pointer;
 }
 
+.blurred {
+    transition: filter 0.5s;
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+    -moz-filter: blur(3px);
+}
 

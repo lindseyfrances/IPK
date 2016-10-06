@@ -1,7 +1,12 @@
 import $ from 'jquery';
 import _ from 'underscore';
 import projects from 'app/data/build/projectlist.csv';
-export const mapReducer = (state = {center: [-74.0193459, 40.6809955], zoom: 10}, action) => {
+export const mapReducer = (state = {
+    center: [-74.0193459, 40.6809955],
+    zoom: 10,
+    pitch: 0,
+    bearing: 0
+}, action) => {
     switch (action.type) {
         case 'SET_MAP_CENTER':
             return {
@@ -157,9 +162,42 @@ export const selectedProjectReducer = (state = '', action) => {
     }
 };
 
-export const showLabelsReducer = (state = true, action) => {
+export const mapDisplayReducer = (state = {
+    labels: false,
+    connections: true
+}, action) => {
+    switch (action.type) {
+        case 'TOGGLE_MAP_DISPLAY':
+            return {
+                ...state,
+                [action.labelName]: !state[action.labelName]
+            };
+        default:
+            return state;
+    }
+};
+
+export const showLabelsReducer = (state = false, action) => {
     switch (action.type) {
         case 'TOGGLE_MAP_LABELS':
+            return !state;
+        default:
+            return state;
+    }
+};
+
+export const showLinesReducer = (state = true, action) => {
+    switch (action.type) {
+        case 'TOGGLE_MAP_LINES':
+            return !state;
+        default:
+            return state;
+    }
+};
+
+export const menuReducer = (state = false, action) => {
+    switch (action.type) {
+        case 'TOGGLE_MENU':
             return !state;
         default:
             return state;

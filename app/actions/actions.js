@@ -446,9 +446,28 @@ export const toggleMapLabels = () => {
     };
 };
 
+export const toggleMapLines = () => {
+    return {
+        type: 'TOGGLE_MAP_LINES'
+    };
+};
+
 export const moveToProject = (id) => {
     return {
         type: 'MOVE_TO_PROJECT',
         id
+    };
+};
+
+export const toggleMapDisplay = (labelName) => {
+    return {
+        type: 'TOGGLE_MAP_DISPLAY',
+        labelName
+    };
+};
+
+export const toggleMenu = () => {
+    return {
+        type: 'TOGGLE_MENU'
     };
 };

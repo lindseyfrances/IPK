@@ -40,6 +40,8 @@ class Map extends React.Component {
         this.initMouseMove = this.initMouseMove.bind(this);
         this.initMapZoom = this.initMapZoom.bind(this);
         this.layerGroups = {};
+        this.labelGroups = {};
+        this.lineGroups = {};
         this.connections = [];
         this.initializeLayers = this.initializeLayers.bind(this);
         this.initializeGroups = this.initializeGroups.bind(this);
@@ -75,7 +77,7 @@ class Map extends React.Component {
             style: 'mapbox://styles/mapbox/light-v9',
             center: map.center,
             zoom: map.zoom,
-            pitch: 30,
+            pitch: map.pitch,
             //maxBounds: bounds
         });
 
@@ -151,29 +153,45 @@ class Map extends React.Component {
 
                 if (this.layerGroups[category]) {
                     this.layerGroups[category].push(id);
-                    this.layerGroups[category].push(id+'-text');
+                    this.labelGroups[category].push(id+'-text');
                 } else {
                     this.layerGroups[category] = [id];
-                    this.layerGroups[category].push(id+'-text');
+                    this.labelGroups[category] = [id+'-text'];
                 }
             }
         });
     }
 
     toggleLabels() {
-        let { showLabels } = this.props;
+        let { mapDisplay } = this.props;
         let visibleCategories = this.getVisibleCategories();
 
         // Need an array that has ONLY the -text layers
 
         visibleCategories.forEach((cat) => {
-            this.layerGroups[cat].forEach((layer) => {
+            this.labelGroups[cat].forEach((layer) => {
                 if (layer.indexOf('-text') !== -1) {
-                    if (showLabels === false) {
+                    if (mapDisplay.labels === false) {
                         this.map.setLayoutProperty(layer, 'visibility', 'none');
                     } else {
                         this.map.setLayoutProperty(layer, 'visibility', 'visible');
                     }
+                }
+            });
+        });
+    }
+
+    toggleLines() {
+        console.log('toggle lines');
+        let { mapDisplay } = this.props;
+        let visibleCategories = this.getVisibleCategories();
+
+        visibleCategories.forEach((cat) => {
+            this.lineGroups[cat].forEach((layer) => {
+                if (mapDisplay.connections === false) {
+                    this.map.setLayoutProperty(layer, 'visibility', 'none');
+                } else {
+                    this.map.setLayoutProperty(layer, 'visibility', 'visible');
                 }
             });
         });
@@ -348,7 +366,11 @@ class Map extends React.Component {
             });
 
             // Add this line to it's layerGroup
-            this.layerGroups[p1.category].push(conName);
+            if (this.lineGroups[p1.category]) {
+                this.lineGroups[p1.category].push(conName);
+            } else {
+                this.lineGroups[p1.category] = [conName];
+            }
         });
     }
 
@@ -360,13 +382,10 @@ class Map extends React.Component {
     }
 
     showProjects(prevProps) {
-        let { categories, projects, showLabels } = this.props;
+        let { categories, projects, mapDisplay } = this.props;
         let previousCategories = prevProps.categories;
 
         let visibleCategories = this.getVisibleCategories();
-        //Object.keys(categories).filter(key => {
-            //return categories[key];
-        //});
 
         let filteredProjects = filterListByProperty(projects, 'category', visibleCategories);
         this.hoverableLayers = filteredProjects.map(prj => {
@@ -386,30 +405,75 @@ class Map extends React.Component {
         this.visibleLayers = [];
         visibleCategories.forEach(cat => {
             let layers = this.layerGroups[cat];
-            layers.forEach(l => {
-                if (showLabels) {
-                    this.map.setLayoutProperty(l, 'visibility', 'visible');
-                } else {
-                    if (l.indexOf('-text') === -1) {
+            let labels = this.labelGroups[cat];
+            let lines = this.lineGroups[cat];
+            if (layers && layers.length !== 0) {
+                layers.forEach(l => {
+                    if (mapDisplay.labels) {
                         this.map.setLayoutProperty(l, 'visibility', 'visible');
+                    } else {
+                        if (l.indexOf('-text') === -1) {
+                            this.map.setLayoutProperty(l, 'visibility', 'visible');
+                        }
                     }
-                }
-            });
+                });
+            }
+            if (labels && labels.length !== 0) {
+                labels.forEach(l => {
+                    if (mapDisplay.labels) {
+                        this.map.setLayoutProperty(l, 'visibility', 'visible');
+                    } else {
+                        if (l.indexOf('-text') === -1) {
+                            this.map.setLayoutProperty(l, 'visibility', 'visible');
+                        }
+                    }
+                });
+            }
+            if (lines && lines.length !== 0) {
+                lines.forEach(l => {
+                    if (mapDisplay.labels) {
+                        this.map.setLayoutProperty(l, 'visibility', 'visible');
+                    } else {
+                        if (l.indexOf('-text') === -1) {
+                            this.map.setLayoutProperty(l, 'visibility', 'visible');
+                        }
+                    }
+                });
+            }
         });
 
         removableCategories.forEach(cat => {
             let layers = this.layerGroups[cat];
-            layers.forEach(l => {
-                this.map.setLayoutProperty(l, 'visibility', 'none');
-            });
+            let labels = this.labelGroups[cat];
+            let lines = this.lineGroups[cat];
+            if (layers && layers.length !== 0) {
+                layers.forEach(l => {
+                    this.map.setLayoutProperty(l, 'visibility', 'none');
+                });
+            }
+            if (labels && labels.length !== 0) {
+                labels.forEach(l => {
+                    this.map.setLayoutProperty(l, 'visibility', 'none');
+                });
+            }
+            if (lines && lines.length !== 0) {
+                lines.forEach(l => {
+                    this.map.setLayoutProperty(l, 'visibility', 'none');
+                });
+            }
         });
     }
 
     componentDidUpdate(prevProps) {
-        var { categories, projects, map, showLabels, projectListActive } = this.props;
+        var { categories, projects, map, mapDisplay, projectListActive } = this.props;
 
-        if (prevProps.showLabels !== showLabels) {
-            this.toggleLabels();
+        if (!_.isEqual(prevProps.mapDisplay, mapDisplay)) {
+            if (prevProps.mapDisplay.labels !== mapDisplay.labels) {
+                this.toggleLabels();
+            }
+            if (prevProps.mapDisplay.connections !== mapDisplay.connections) {
+                this.toggleLines();
+            }
         }
         // If the map hasn't loaded yet, do nothing
         if (!this.mapLoaded) {
@@ -440,7 +504,7 @@ class Map extends React.Component {
             }
             this.map.flyTo({
                 center: loc,
-                zoom: 13,
+                zoom: 13.5,
                 pitch: map.pitch || 0,
                 bearing: map.bearing || 0
             });
@@ -465,9 +529,19 @@ class Map extends React.Component {
         });
     }
 
+    // If the map zooms beyond a threshold value,
+    // then show the labels,
+    // otherwise hide them
     initMapZoom() {
+        const { dispatch } = this.props;
         this.map.on('zoom', (e) => {
-            //console.log(this.map.getZoom());
+            let { mapDisplay } = this.props;
+            let zoom = this.map.getZoom();
+            if (zoom >= 12 && mapDisplay.labels === false) {
+                dispatch(actions.toggleMapDisplay('labels'));
+            } else if (zoom < 12 && mapDisplay.labels === true) {
+                dispatch(actions.toggleMapDisplay('labels'));
+            }
         });
     }
     // Initialize any mouse events on the map
@@ -540,10 +614,11 @@ function mapStateToProps(state) {
         //visibleLayers: state.visibleLayers,
         //allData: state.allData,
         projects: state.projects,
-        showLabels: state.showLabels,
+        //shouldShowLabels: state.shouldShowLabels,
+        //shouldShowLines: state.shouldShowLines,
+        mapDisplay: state.mapDisplay,
         //currentCategory: state.currentCategory,
-        projectListActive: state.projectListActive,
-
+        projectListActive: state.projectListActive
     };
 }
 
@@ -586,7 +661,7 @@ function symDiff() {
     args.forEach(function(arr) {
         sets.push(new LocalSet(arr));
     });
-    // now see which elements in each array are unique 
+    // now see which elements in each array are unique
     // e.g. not contained in the other sets
     args.forEach(function(array, arrayIndex) {
         // iterate each item in the array

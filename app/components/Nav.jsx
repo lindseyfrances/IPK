@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setWhereIAm } from 'app/actions/actions';
+//import { setWhereIAm } from 'app/actions/actions';
+import { toggleMenu } from 'app/actions/actions';
 
 import NavItemCategory from 'app/components/NavItemCategory';
 import TopNavItem from 'app/components/TopNavItem';
@@ -10,6 +11,17 @@ import TopNavItem from 'app/components/TopNavItem';
 //import rightArrow from './../images/rightarrow.png');
 //var leftArrow = require('./../images/leftarrow.png');
 class Nav extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleMenuClick = this.handleMenuClick.bind(this);
+    }
+
+
+    handleMenuClick() {
+        const { dispatch } = this.props;
+        dispatch(toggleMenu());
+    }
 
     render() {
         var { pos, leftHeader, items, dispatch } = this.props;
@@ -26,30 +38,34 @@ class Nav extends React.Component {
             };
         }
 
-        var navItems = function() {
-            if (pos === 'bottom') {
-                return Object.keys(items).map((key) => {
-                    return <NavItemCategory title={key} key={key} />;
-                });
-            } else {
-                return items.map(i => {
-                    return <TopNavItem title={i} key={i} image={i === 'filter' ? require('../images/rightarrow.png') : null} />;
-                });
+        // Render either top nav bar or bottom nav bar
+        var navItems = () => {
+            switch (pos) {
+                case 'bottom':
+                    return Object.keys(items).map((key) => {
+                        return <NavItemCategory title={key} key={key} />;
+                    });
+                case 'top':
+                    return items.map(i => {
+                        return <TopNavItem title={i} key={i} image={i === 'filter' ? require('../images/rightarrow.png') : null} />;
+                    });
+                default:
+                    return;
             }
         };
 
-        var renderRightBar = function() {
+        var renderRightBar = () => {
             switch (pos) {
                 case 'top':
                     return (
                         <div className='nav-right'>
-                            <img src={require('../images/Menu-100.png')} />
+                            <img onClick={this.handleMenuClick} src={require('../images/Menu-100.png')} />
                         </div>
                     );
                     break;
                 case 'bottom':
                     return (
-                        <div className='nav-right'>
+                        <div className='nav-right nav-right-bottom'>
                             <h4>Your Impact</h4>
                             <img src={require('../images/progress-bar-type-1.png')} />
                         </div>
@@ -72,10 +88,4 @@ class Nav extends React.Component {
     }
 }
 
-export default connect((state) => {
-    return {
-        //categories: state.categories,
-        //projects: state.projects
-        //selectedCategories: state.currentCategories
-    };
-})(Nav);
+export default connect()(Nav);

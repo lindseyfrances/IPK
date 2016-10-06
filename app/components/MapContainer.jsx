@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTransitionGroup from 'react-addons-transition-group';
 import $ from 'jquery';
 import mapboxgl from 'mapbox-gl';
 import * as redux from 'redux';
@@ -10,22 +11,33 @@ import Nav from 'app/components/Nav';
 import SideNav from 'app/components/SideNav';
 import ProjectPanel from 'app/components/ProjectPanel';
 import ProjectList from 'app/components/ProjectList';
+import Menu from 'app/components/Menu';
+
 
 
 import * as actions from 'app/actions/actions';
 
 class MapContainer extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleCloseMenu = this.handleCloseMenu.bind(this);
+    }
 
     componentDidMount() {
         var { dispatch } = this.props;
         dispatch(actions.startLoading());
     }
 
+    handleCloseMenu() {
+        const { dispatch } = this.props;
+        dispatch(actions.toggleMenu());
+    }
     render() {
-        var { categories, dispatch, isLoading } = this.props;
+        var { categories, dispatch, isLoading, menu } = this.props;
         console.log('re-render');
 
-        let topNavItems = ['filter', 'labels'];
+        let topNavItems = ['filter', 'labels', 'connections'];
 
         const displayLoadingScreen = function() {
             if (isLoading) {
@@ -38,9 +50,11 @@ class MapContainer extends React.Component {
             else return;
         };
 
+        let pageClass = menu ? 'page-container blurred' : 'page-container';
+        console.log(menu);
         return (
             <div>
-                <div className='page-container'>
+                <div className={pageClass}>
                     <div className='content-container'>
                         <Map containerId={'map'} />
                         <Nav pos='bottom' leftHeader='Categories' items={categories}/>
@@ -51,6 +65,9 @@ class MapContainer extends React.Component {
 
                 <HoverPopup />
                 {displayLoadingScreen()}
+                <ReactTransitionGroup>
+                    {menu && <Menu handleClose={this.handleCloseMenu}/>}
+                </ReactTransitionGroup>
             </div>
         );
     }
@@ -63,6 +80,7 @@ export default connect((state) => {
         //currentCategory: state.currentCategory,
         //selectedProject: state.selectedProject,
         categories: state.categories,
+        menu: state.menu
         //categoriesDescriptors: state.categoriesDescriptors
     };
 })(MapContainer);
