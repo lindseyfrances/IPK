@@ -2,6 +2,9 @@ node_modules
 npm-debug.log
 .DS_Store
 *.swp
+dist/bundle.js
+dist/*.png
+dist/index.html
 app/data/build/*.shp
 app/data/build/*.dbf
 app/data/build/*.prj
