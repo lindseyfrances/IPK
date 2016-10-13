@@ -6,10 +6,10 @@ import * as actions from 'app/actions/actions';
 class ProjectItem extends React.Component {
     constructor(props) {
         super(props);
-        this.handleMouseEnter = this.handleMouseEnter.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleMouseEnter(e) {
+    handleClick(e) {
         const { dispatch, project } = this.props;
         e.preventDefault();
         dispatch(actions.moveToProject(project.id));
@@ -19,7 +19,7 @@ class ProjectItem extends React.Component {
 
         return (
             <li>
-                <p onMouseEnter={this.handleMouseEnter}>{project.name}</p>
+                <p onClick={this.handleClick}>{project.name}</p>
             </li>
         );
     }
