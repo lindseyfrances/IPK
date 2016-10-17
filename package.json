@@ -46,17 +46,21 @@
     "html-webpack-plugin": "2.21.0",
     "url-loader": "0.5.7",
     "webpack": "1.13.1"
+    "jsdoc-webpack-plugin": "0.0.1",
+    "json-loader": "0.5.4",
+    "postcss-loader": "^0.10.0",
+    "precss": "^1.4.0",
+    "node-env-file": "0.1.8",
+    "node-sass": "3.7.0",
+    "text-encoding": "^0.6.0",
+    "transform-loader": "^0.2.3",
+    "webpack-dev-server": "1.14.1",
+    "webworkify-webpack": "1.0.6"
   },
   "dependencies": {
     "express": "4.13.4",
     "jquery": "3.0.0",
-    "jsdoc-webpack-plugin": "0.0.1",
-    "json-loader": "0.5.4",
     "mapbox-gl": "0.20.0",
-    "node-env-file": "0.1.8",
-    "node-sass": "3.7.0",
-    "postcss-loader": "^0.10.0",
-    "precss": "^1.4.0",
     "react": "^15.3.2",
     "react-addons-transition-group": "^15.3.2",
     "react-dom": "15.1.0",
@@ -65,13 +69,6 @@
     "react-router": "2.5.2",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0",
-    "sass-loader": "3.2.0",
-    "style-loader": "0.13.1",
-    "text-encoding": "^0.6.0",
-    "topojson": "1.6.26",
-    "transform-loader": "^0.2.3",
     "underscore": "1.8.3",
-    "webpack-dev-server": "1.14.1",
-    "webworkify-webpack": "1.0.6"
   }
 }
