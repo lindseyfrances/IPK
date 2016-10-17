@@ -45,7 +45,7 @@
     "file-loader": "0.9.0",
     "html-webpack-plugin": "2.21.0",
     "url-loader": "0.5.7",
-    "webpack": "1.13.1"
+    "webpack": "1.13.1",
     "jsdoc-webpack-plugin": "0.0.1",
     "json-loader": "0.5.4",
     "postcss-loader": "^0.10.0",
