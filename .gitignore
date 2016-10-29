@@ -8,3 +8,4 @@ app/data/build/*.prj
 app/data/build/*.shx
 app/creds/*
 config/*.env
+*notes*
