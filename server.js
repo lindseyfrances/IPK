@@ -1,9 +1,14 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-var creds  = require('./app/creds/creds.js');
 
-var MONGO_DB_URI = process.env.PROD_MONGODB ? process.env.PROD_MONGODB : creds.MONGO_DB_URI;
+var MONGO_DB_URI = '';
+if (process.env.PROD_MONGODB) {
+    MONGO_DB_URI = process.env.PROD_MONGODB;
+} else {
+    var creds  = require('./app/creds/creds.js');
+    MONGO_DB_URI = creds.MONGO_DB_URI;
+}
 
 console.log(MONGO_DB_URI);
 
