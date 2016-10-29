@@ -14,7 +14,7 @@ try {
 } catch(e) {
 }
 
-// Returns a concatenated list of plugins depending on 
+// Returns a concatenated list of plugins depending on
 // whether environment is development or production
 var configure = () => {
 
@@ -31,7 +31,8 @@ var configure = () => {
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-                MAPBOXGL_ACCESS_TOKEN: JSON.stringify(process.env.MAPBOXGL_ACCESS_TOKEN)
+                MAPBOXGL_ACCESS_TOKEN: JSON.stringify(process.env.MAPBOXGL_ACCESS_TOKEN),
+                MONGO_DB_URL: JSON.stringify(process.env.MONGO_DB_URL)
                 //AWS_ACCESS_KEY: JSON.stringify(process.env.AWS_ACCESS_KEY),
                 //AWS_SECRET_KEY: JSON.stringify(process.env.AWS_SECRET_KEY)
             }
