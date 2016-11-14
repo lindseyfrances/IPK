@@ -21,8 +21,22 @@ module.exports = {
             }
         },
         {
+            test: /\.js?$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: 'eslint-loader'
+        },
+        {
+            test: /\.jsx?$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: 'eslint-loader'
+        },
+        {
             test: /\.scss/,
             loader: 'style-loader!css-loader!postcss-loader!sass'
+        },
+        {
+            test: /\.css/,
+            loader: 'style-loader!css-loader!postcss-loader'
         },
         {
             test: /\.json$/,
@@ -34,14 +48,14 @@ module.exports = {
         },
         {
 
-            test: /\.(png|jpg)$/, 
+            test: /\.(png|jpg)$/,
             loader: 'url-loader?limit=8192'
         },
         //{
             //test: /aws-sdk/,
             //loaders: [
                 //'transform?aws-sdk/dist-tools/transform'
-            //] 
+            //]
         //},
         {
             test: /\.js$/,
@@ -64,4 +78,4 @@ module.exports = {
         loader: 'transform',
         query: 'brfs'
     }]
-}; 
+};

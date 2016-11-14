@@ -12,7 +12,7 @@ class ProjectItem extends React.Component {
     handleClick(e) {
         const { dispatch, project } = this.props;
         e.preventDefault();
-        dispatch(actions.moveToProject(project.id));
+        dispatch(actions.moveToProject(project._id));
     }
     render() {
         const { project } = this.props;
@@ -24,5 +24,10 @@ class ProjectItem extends React.Component {
         );
     }
 }
+
+ProjectItem.propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    project: React.PropTypes.object.isRequired
+};
 
 export default connect()(ProjectItem);

@@ -1,19 +1,21 @@
+/* global document window */
 import React from 'react';
-import * as redux from 'redux';
+// import * as redux from 'redux';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
+// import { hashHistory } from 'react-router';
+import { Link } from 'react-router';
 import $ from 'jquery';
 
-import * as actions from 'app/actions/actions';
-import LandingPage from 'app/components/LandingPage';
+// import * as actions from 'app/actions/actions';
+// import LandingPage from 'app/components/LandingPage';
 
-import CardList from 'app/components/CardList';
+// import CardList from 'app/components/CardList';
 export class Landing extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            pageNumber: 1 
+            pageNumber: 1
         };
 
         this.handleNextPage = this.handleNextPage.bind(this);
@@ -24,19 +26,22 @@ export class Landing extends React.Component {
         this.currentTop = 0;
     }
 
-    //goToMap(startingLayer) {
-        //var { dispatch } = this.props;
-
-        //hashHistory.push('/map');
-        //dispatch(actions.setWhereIAm({
-            //layer: startingLayer,
-            //page: 0
-        //}));
-    //}
-
     componentDidMount() {
         //window.addEventListener('scroll', this.handleScroll);
     }
+
+    componentDidUpdate(prevPros, prevState) {
+        const { pageNumber } = this.state;
+
+        if (pageNumber !== prevState.pageNumber) {
+            const nextElt = document.getElementsByClassName(`landing-P${pageNumber}`)[0];
+            this.currentTop = nextElt.offsetTop;
+            $('body').animate({
+                scrollTop: nextElt.offsetTop
+            }, 1000);
+        }
+    }
+
     componentWillUnmount() {
         //window.removeEventListener('scroll', this.handleScroll);
     }
@@ -47,20 +52,9 @@ export class Landing extends React.Component {
         });
     }
 
-    componentDidUpdate(prevPros, prevState) {
-        var { pageNumber } = this.state;
-        
-        if (pageNumber !== prevState.pageNumber) {
-            var nextElt = document.getElementsByClassName('landing-P'+pageNumber)[0];
-            this.currentTop = nextElt.offsetTop;
-            $('body').animate({
-                scrollTop: nextElt.offsetTop
-            }, 1000);
-        }
-    }
 
-    handleScroll(e) {
-        var { pageNumber } = this.state;
+    handleScroll() {
+        const { pageNumber } = this.state;
 
         if (window.scrollY - this.currentTop > 100 && pageNumber < document.getElementsByClassName('page').length) {
             this.setState({
@@ -84,12 +78,12 @@ export class Landing extends React.Component {
         }, time + 10);
     }
 
-    goToMap() {
-        hashHistory.push('/map');
-    }
-    goTo(loc) {
-        hashHistory.push('/'+loc);
-    }
+    // goToMap() {
+    //     hashHistory.push('/map');
+    // }
+    // goTo(loc) {
+    //     hashHistory.push('/'+loc);
+    // }
 
     // Render Cards
     render() {
@@ -98,7 +92,7 @@ export class Landing extends React.Component {
                 <div className='landing-p1'>
                     <div className='landing-title full-page'>
                         <div className='bg'>
-                            <img className='landing-bg' src='http://travelnoire.com/wp-content/uploads/2014/12/o-NEW-YORK-CITY-WRITER-facebook.jpg' />
+                            <img className='landing-bg' src='http://travelnoire.com/wp-content/uploads/2014/12/o-NEW-YORK-CITY-WRITER-facebook.jpg' alt='homepage background' />
                         </div>
                         <div>
                             <h1>No Free Lunch</h1>
@@ -109,11 +103,12 @@ export class Landing extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className='landing-p2 full-page' ref={(e) => {return this.p1 = e;}}>
+                <div className='landing-p2 full-page' ref={(e) => { this.p1 = e; }}>
                     <div>
                         {/*<button onClick={() => {this.goTo('story');}}>What is the food system?</button>*/}
-                        <button onClick={() => {this.goTo('map');}}>How can you get involved?</button>
+                        {/*<button onClick={() => {this.goTo('map');}}>How can you get involved?</button>*/}
                         {/*<button onClick={() => {this.goTo('impact');}}>Measure your impact.</button>*/}
+                        <Link to='/map'>Map</Link>
                     </div>
                     {/*<CardList />*/}
                 </div>

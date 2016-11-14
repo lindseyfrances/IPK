@@ -1,11 +1,11 @@
 import React from 'react';
-import { hashHistory, Router, Route, IndexRoute } from 'react-router';
+import { browserHistory, Router, Route, IndexRoute } from 'react-router';
 
 import MapContainer from 'app/components/MapContainer';
 import Landing from 'app/components/Landing';
 
 export default (
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
         <Route path='/'>
             <Route path='/map' component={MapContainer} />
             <IndexRoute component={Landing} />

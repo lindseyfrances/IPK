@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactTransitionGroup from 'react-addons-transition-group';
-import $ from 'jquery';
-import mapboxgl from 'mapbox-gl';
-import * as redux from 'redux';
+// import $ from 'jquery';
+// import mapboxgl from 'mapbox-gl';
+// import * as redux from 'redux';
 import { connect } from 'react-redux';
 
 import Map from 'app/components/Map';
 import HoverPopup from 'app/components/HoverPopup';
 import Nav from 'app/components/Nav';
-import SideNav from 'app/components/SideNav';
-import ProjectPanel from 'app/components/ProjectPanel';
+// import SideNav from 'app/components/SideNav';
+// import ProjectPanel from 'app/components/ProjectPanel';
 import ProjectList from 'app/components/ProjectList';
 import Menu from 'app/components/Menu';
-
+import AddItemForm from 'app/components/AddItemForm';
 
 
 import * as actions from 'app/actions/actions';
@@ -21,44 +21,67 @@ class MapContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            showForm: false
+        };
+
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
+        this.handleOpenForm = this.handleOpenForm.bind(this);
+        this.handleCloseForm = this.handleCloseForm.bind(this);
     }
 
     componentDidMount() {
-        var { dispatch } = this.props;
+        const { dispatch } = this.props;
         dispatch(actions.startLoading());
     }
 
     handleCloseMenu() {
         const { dispatch } = this.props;
         dispatch(actions.toggleMenu());
+        this.setState({
+            showForm: false
+        });
     }
-    render() {
-        var { categories, dispatch, isLoading, menu } = this.props;
-        console.log('re-render');
 
-        let topNavItems = ['filter', 'labels', 'connections'];
+    handleOpenForm(e) {
+        e.preventDefault();
+        this.setState({
+            showForm: true
+        });
+    }
+
+    handleCloseForm(e) {
+        e.preventDefault();
+        this.setState({
+            showForm: false
+        });
+    }
+
+    render() {
+        const { categories, isLoading, menu } = this.props;
+        //console.log('re-render');
+
+        const topNavItems = ['filter', 'labels', 'connections'];
 
         const displayLoadingScreen = function() {
             if (isLoading) {
                 return (
                     <div className='loading-screen'>
-                        <div className='loader'></div>
+                        <div className='loader' />
                     </div>
                 );
             }
-            else return;
+            return false;
         };
 
-        let pageClass = menu ? 'page-container blurred' : 'page-container';
-        console.log(menu);
+        const pageClass = menu ? 'page-container blurred' : 'page-container';
         return (
             <div>
                 <div className={pageClass}>
                     <div className='content-container'>
                         <Map containerId={'map'} />
-                        <Nav pos='bottom' leftHeader='Categories' items={categories}/>
-                        <Nav leftHeader='Map Options' items={topNavItems} pos='top'/>
+                        <Nav pos='bottom' leftHeader='Categories' items={categories} />
+                        <Nav leftHeader='Map Options' items={topNavItems} pos='top' />
                         <ProjectList />
                     </div>
                 </div>
@@ -66,12 +89,20 @@ class MapContainer extends React.Component {
                 <HoverPopup />
                 {displayLoadingScreen()}
                 <ReactTransitionGroup>
-                    {menu && <Menu handleClose={this.handleCloseMenu}/>}
+                    {menu && <Menu handleClose={this.handleCloseMenu} handleOpenForm={this.handleOpenForm} />}
                 </ReactTransitionGroup>
+                {this.state.showForm && <AddItemForm handleCloseForm={this.handleCloseForm} />}
             </div>
         );
     }
 }
+
+MapContainer.propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    categories: React.PropTypes.object.isRequired,
+    menu: React.PropTypes.bool.isRequired,
+    isLoading: React.PropTypes.bool
+};
 
 export default connect((state) => {
     return {

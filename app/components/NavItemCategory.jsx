@@ -1,7 +1,7 @@
 import React from 'react';
-import { TransitionMotion, StaggeredMotion, spring } from 'react-motion';
+// import { TransitionMotion, StaggeredMotion, spring } from 'react-motion';
 import { connect } from 'react-redux';
-import $ from 'jquery';
+// import $ from 'jquery';
 
 import * as actions from 'app/actions/actions';
 
@@ -13,20 +13,20 @@ class NavItemCategory extends React.Component {
     }
 
     handleClick(e) {
-        var { dispatch, title, toggled, categories } = this.props;
+        const { dispatch, title } = this.props;
+        e.preventDefault();
         console.log('clicked', title);
         dispatch(actions.toggleCategory(title));
     }
 
     render() {
-        var { title, toggled, categories } = this.props;
+        const { title, categories } = this.props;
 
         const chooseClass = function() {
             if (categories[title] === true) {
                 return 'nav-item nav-item-toggled';
-            } else {
-                return 'nav-item';
             }
+            return 'nav-item';
         };
 
         return (
@@ -36,6 +36,12 @@ class NavItemCategory extends React.Component {
         );
     }
 }
+
+NavItemCategory.propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    title: React.PropTypes.string.isRequired,
+    categories: React.PropTypes.array.isRequired
+};
 
 export default connect((state) => {
     return {

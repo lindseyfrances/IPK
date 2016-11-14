@@ -1,3 +1,4 @@
+/* global window */
 /****************************************************
  *  Map component
  *      This component manages it's own state
@@ -25,9 +26,8 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import mapboxgl from 'mapbox-gl';
 import _ from 'underscore';
-
 import * as actions from 'app/actions/actions';
-import { filterListByProperty } from 'app/api/helpers.js';
+import { filterListByProperty } from 'app/api/helpers';
 
 class Map extends React.Component {
     constructor(props) {
@@ -46,38 +46,40 @@ class Map extends React.Component {
         this.initializeLayers = this.initializeLayers.bind(this);
         this.initializeGroups = this.initializeGroups.bind(this);
         this.initializePolylines = this.initializePolylines.bind(this);
+        this.updateMapData = this.updateMapData.bind(this);
         this.toggleLabels = this.toggleLabels.bind(this);
         this.getVisibleCategories = this.getVisibleCategories.bind(this);
         this.circleRad = 4;
         this.circleColor = '#33cc33';
         this.groups = {};
+        this.categoryColors = {};
 
         // XXX: DEV PURPOSES ONLY
         window.m = this;
     }
     componentDidMount() {
-        var { appLocation, containerId, map, categories, dispatch } = this.props;
-        this.elt = ReactDOM.findDOMNode();
+        const { containerId, map, dispatch } = this.props;
+        this.elt = ReactDOM.findDOMNode(); //eslint-disable-line
         mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
         this.visibleLayers = [];
 
         // Create category colors
-        this.categoryColors = {};
-        Object.keys(categories).forEach((cat) => {
-            this.categoryColors[cat] = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
-        });
+        //this.categoryColors = {};
+        //Object.keys(categories).forEach((cat) => {
+            //this.categoryColors[cat] = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+        //});
 
-        var bounds = [
-            [-74.277191,40.482993],
-            [-73.688049,40.925446]
-        ];
+        // const bounds = [
+        //     [-74.277191, 40.482993],
+        //     [-73.688049, 40.925446]
+        // ];
 
         this.map = new mapboxgl.Map({
             container: containerId,
             style: 'mapbox://styles/mapbox/light-v9',
             center: map.center,
             zoom: map.zoom,
-            pitch: map.pitch,
+            pitch: map.pitch
             //maxBounds: bounds
         });
 
@@ -85,9 +87,7 @@ class Map extends React.Component {
         this.map.on('load', () => {
             dispatch(actions.stopLoading());
             this.mapLoaded = true;
-            this.initializeGroups();
-            this.initializeLayers();
-            this.initializePolylines();
+            this.updateMapData();
             //if (this.props.currentCategory === '') {
                 //return;
             //}
@@ -96,18 +96,84 @@ class Map extends React.Component {
         window.map = this.map;
 
         // initialize Mouse Move fn
-        this.initMouseMove();
-        this.initMouseClick();
         this.initMapZoom();
     }
 
-    setMapBounds() {
-        var { map } = this.props;
-        this.map.fitBounds(map.bounds);
+    componentDidUpdate(prevProps) {
+        const { categories, projects, map, mapDisplay, projectListActive, dataIsLoading } = this.props;
+
+        // If the map hasn't loaded yet, do nothing
+        if (!this.mapLoaded) {
+            return;
+        }
+
+        if (!_.isEqual(prevProps.dataIsLoading, dataIsLoading) && dataIsLoading === true) {
+            console.log('update map data');
+            this.updateMapData();
+        }
+
+        // If the map display settings (i.e. labels or connections)
+        // have changed, toggle those things
+        if (!_.isEqual(prevProps.mapDisplay, mapDisplay)) {
+            if (prevProps.mapDisplay.labels !== mapDisplay.labels) {
+                this.toggleLabels();
+            }
+            if (prevProps.mapDisplay.connections !== mapDisplay.connections) {
+                this.toggleLines();
+            }
+        }
+
+        if (!_.isEqual(prevProps.projects, projects)) {
+            console.log('projects changed');
+        }
+
+        // If the projects change...initialize them
+
+        // The map center has changed
+        //if (!_.isEqual(prevProps.map.center, map.center)) {
+            //// Map center has changed
+            //this.setMapPosition();
+        //}
+
+        // The map has moved, so set map bounds
+        //if (!_.isEqual(prevProps.map.bounds, map.bounds)) {
+            //this.setMapBounds();
+        //}
+
+        // Categories have changed, so update what's shown
+        if (!_.isEqual(prevProps.categories, categories)) {
+            this.showProjects(prevProps);
+        }
+
+        // TODO: What is this?
+        // if the project is selected from the list - it becomes 'active',
+        // thus zooming the map to that location, the the active project
+        // changes, zoom to the new one
+        // TODO: Fix issue where if you click the same project twice,
+        // it won't take you back the second time
+        // Maybe have projectListActive be set to zero when the map is panned
+        // or zoomed
+        if (prevProps.projectListActive !== projectListActive) {
+            const prj = projects[projectListActive];
+            let loc;
+            if (prj.pointType === 'points') {
+                const locations = prj.locations;
+
+                loc = [locations[0].lon, locations[0].lat];
+            } else {
+                loc = [prj.longitude, prj.latitude];
+            }
+            this.map.flyTo({
+                center: loc,
+                zoom: 13.5,
+                pitch: map.pitch || 0,
+                bearing: map.bearing || 0
+            });
+        }
     }
 
     setMapPosition() {
-        var { map } = this.props;
+        const { map } = this.props;
         this.map.flyTo({
             center: map.center,
             zoom: map.zoom,
@@ -115,100 +181,43 @@ class Map extends React.Component {
             bearing: map.bearing || 0
         });
     }
-
-    // Not a great implementation, pretty sloppy
-    // O2 complexity, and tons of checks
-    initializeGroups() {
-        let { projects } = this.props;
-        Object.keys(projects).forEach(key => {
-            let project = projects[key];
-            let category = project.category;
-            let id = project.id;
-
-            if (project.pointType === 'point' || project.pointType === 'points') {
-
-                // For each project, loop through all other projects
-                Object.keys(projects).forEach(k => {
-                    let p2 = projects[k];
-                    // If we're not looking at the same project
-                    if (key !== k) {
-                        // and if they're the same category
-                        if (p2.category === category) {
-                            // and if they have a keyword in common...
-                            let connection = false;
-                            if(project.keywords.length > 0) {
-                                project.keywords.forEach(keyword => {
-                                    if (p2.keywords.indexOf(keyword) !== -1) {
-                                        connection = true;
-                                    }
-                                });
-                                // If we've found a connection
-                                if (connection) {
-                                    this.connections.push([id, p2.id]);
-                                }
-                            }
-                        }
-                    }
-                });
-
-                if (this.layerGroups[category]) {
-                    this.layerGroups[category].push(id);
-                    this.labelGroups[category].push(id+'-text');
-                } else {
-                    this.layerGroups[category] = [id];
-                    this.labelGroups[category] = [id+'-text'];
-                }
-            }
-        });
+    setMapBounds() {
+        const { map } = this.props;
+        this.map.fitBounds(map.bounds);
     }
 
-    toggleLabels() {
-        let { mapDisplay } = this.props;
-        let visibleCategories = this.getVisibleCategories();
-
-        // Need an array that has ONLY the -text layers
-
-        visibleCategories.forEach((cat) => {
-            this.labelGroups[cat].forEach((layer) => {
-                if (layer.indexOf('-text') !== -1) {
-                    if (mapDisplay.labels === false) {
-                        this.map.setLayoutProperty(layer, 'visibility', 'none');
-                    } else {
-                        this.map.setLayoutProperty(layer, 'visibility', 'visible');
-                    }
-                }
-            });
-        });
-    }
-
-    toggleLines() {
-        console.log('toggle lines');
-        let { mapDisplay } = this.props;
-        let visibleCategories = this.getVisibleCategories();
-
-        visibleCategories.forEach((cat) => {
-            this.lineGroups[cat].forEach((layer) => {
-                if (mapDisplay.connections === false) {
-                    this.map.setLayoutProperty(layer, 'visibility', 'none');
-                } else {
-                    this.map.setLayoutProperty(layer, 'visibility', 'visible');
-                }
-            });
+    getVisibleCategories() {
+        const { categories } = this.props;
+        return Object.keys(categories).filter((key) => {
+            return categories[key];
         });
     }
 
     initializeLayers() {
-        let { projects } = this.props;
+        const { projects } = this.props;
 
-        Object.keys(this.layerGroups).forEach(key => {
-            let group = this.layerGroups[key];
+        // Clear all layers out of the map
+        this.allLayers.forEach((id) => {
+            if (this.map.getLayer(id)) {
+                this.map.removeLayer(id);
+            }
+            if (this.map.getLayer(`${id}-text`)) {
+                this.map.removeLayer(`${id}-text`);
+            }
+            if (this.map.getSource(id)) {
+                this.map.removeSource(id);
+            }
+        });
+        this.allLayers = [];
+        Object.keys(this.layerGroups).forEach((key) => {
+            const group = this.layerGroups[key];
 
             // For each group of projects...
-            group.forEach(featureId => {
+            group.forEach((featureId) => {
                 if (projects[featureId]) {
-                    let project = projects[featureId];
-                    let category = project.category;
-                    let id = project.id;
+                    const project = projects[featureId];
+                    // const category = project.category;
+                    const id = project._id;
 
                     this.allLayers.push(id);
                     switch (project.pointType) {
@@ -216,7 +225,7 @@ class Map extends React.Component {
                             this.map.addSource(id, {
                                 type: 'geojson',
                                 data: {
-                                    type:'FeatureCollection',
+                                    type: 'FeatureCollection',
                                     features: [
                                         {
                                             type: 'Feature',
@@ -232,7 +241,7 @@ class Map extends React.Component {
                                 }
                             });
                             this.map.addLayer({
-                                id: id,
+                                id,
                                 type: 'circle',
                                 interactive: true,
                                 source: id,
@@ -245,22 +254,22 @@ class Map extends React.Component {
                                 }
                             });
                             this.map.addLayer({
-                                id: id + '-text',
+                                id: `${id}-text`,
                                 type: 'symbol',
                                 interactive: true,
                                 source: id,
                                 layout: {
                                     visibility: 'none',
-                                    "text-field": "{title}",
-                                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-                                    "text-offset": [1, 0],
-                                    "text-anchor": "left"
+                                    'text-field': '{title}',
+                                    'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                                    'text-offset': [1, 0],
+                                    'text-anchor': 'left'
                                 }
                             });
                             break;
-                        case 'points':
-                            let locations = JSON.parse(project.locations);
-                            let geojsonSrc = {
+                        case 'points': {
+                            const locations = project.locations;
+                            const geojsonSrc = {
                                 type: 'geojson',
                                 data: {
                                     type: 'FeatureCollection',
@@ -280,7 +289,7 @@ class Map extends React.Component {
                             };
                             this.map.addSource(id, geojsonSrc);
                             this.map.addLayer({
-                                id: id,
+                                id,
                                 type: 'circle',
                                 interactive: true,
                                 source: id,
@@ -293,19 +302,20 @@ class Map extends React.Component {
                                 }
                             });
                             this.map.addLayer({
-                                id: id + '-text',
+                                id: `${id}-text`,
                                 type: 'symbol',
                                 interactive: true,
                                 source: id,
                                 layout: {
                                     visibility: 'none',
-                                    "text-field": "{title}",
-                                    "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-                                    "text-offset": [1, 0],
-                                    "text-anchor": "left"
+                                    'text-field': '{title}',
+                                    'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                                    'text-offset': [1, 0],
+                                    'text-anchor': 'left'
                                 }
                             });
                             break;
+                        }
                         default:
                             break;
                     }
@@ -315,24 +325,24 @@ class Map extends React.Component {
     }
 
     initializePolylines() {
-        let { projects } = this.props;
-        this.connections.forEach(con => {
-            let p1 = projects[con[0]];
-            let p2 = projects[con[1]];
+        const { projects } = this.props;
+        this.connections.forEach((con) => {
+            const p1 = projects[con[0]];
+            const p2 = projects[con[1]];
 
             let origin = [p1.longitude, p1.latitude];
             let destination = [p2.longitude, p2.latitude];
 
             if (p1.pointType === 'points') {
-                let loc = JSON.parse(p1.locations);
+                const loc = p1.locations;
                 origin = [loc[0].lon, loc[0].lat];
             }
 
             if (p2.pointType === 'points') {
-                let loc = JSON.parse(p2.locations);
+                const loc = p2.locations;
                 destination = [loc[0].lon, loc[0].lat];
             }
-            var line = {
+            const line = {
                 type: 'FeatureCollection',
                 features: [{
                     type: 'Feature',
@@ -346,7 +356,7 @@ class Map extends React.Component {
                 }]
             };
 
-            let conName = con[0] + con[1];
+            const conName = con[0] + con[1];
             this.map.addSource(conName, {
                 type: 'geojson',
                 data: line
@@ -374,53 +384,142 @@ class Map extends React.Component {
         });
     }
 
-    getVisibleCategories() {
-        let { categories } = this.props;
-        return Object.keys(categories).filter(key => {
-            return categories[key];
+    toggleLabels() {
+        const { mapDisplay } = this.props;
+        const visibleCategories = this.getVisibleCategories();
+
+        // Need an array that has ONLY the -text layers
+
+        visibleCategories.forEach((cat) => {
+            this.labelGroups[cat].forEach((layer) => {
+                if (layer.indexOf('-text') !== -1) {
+                    if (mapDisplay.labels === false) {
+                        this.map.setLayoutProperty(layer, 'visibility', 'none');
+                    } else {
+                        this.map.setLayoutProperty(layer, 'visibility', 'visible');
+                    }
+                }
+            });
         });
     }
 
+    toggleLines() {
+        //console.log('toggle lines');
+        const { mapDisplay } = this.props;
+        const visibleCategories = this.getVisibleCategories();
+
+        visibleCategories.forEach((cat) => {
+            this.lineGroups[cat].forEach((layer) => {
+                if (mapDisplay.connections === false) {
+                    this.map.setLayoutProperty(layer, 'visibility', 'none');
+                } else {
+                    this.map.setLayoutProperty(layer, 'visibility', 'visible');
+                }
+            });
+        });
+    }
+
+    initializeGroups() {
+        const { projects } = this.props;
+        //console.log(projects);
+        this.connections = [];
+        this.layerGroups = {};
+        this.labelGroups = {};
+        Object.keys(projects).forEach((key) => {
+            const project = projects[key];
+            const category = project.category;
+            const id = project._id;
+
+            if (project.pointType === 'point' || project.pointType === 'points') {
+                // For each project, loop through all other projects
+                Object.keys(projects).forEach((k) => {
+                    const p2 = projects[k];
+                    // If we're not looking at the same project
+                    if (key !== k) {
+                        // and if they're the same category
+                        if (p2.category === category) {
+                            // and if they have a keyword in common...
+                            let connection = false;
+                            if (project.keywords.length > 0) {
+                                project.keywords.forEach((keyword) => {
+                                    if (p2.keywords.indexOf(keyword) !== -1) {
+                                        connection = true;
+                                    }
+                                });
+                                // If we've found a connection
+                                if (connection) {
+                                    this.connections.push([id, p2._id]);
+                                }
+                            }
+                        }
+                    }
+                });
+
+                if (this.layerGroups[category]) {
+                    this.layerGroups[category].push(id);
+                    this.labelGroups[category].push(`${id}-text`);
+                } else {
+                    this.layerGroups[category] = [id];
+                    this.labelGroups[category] = [`${id}-text`];
+                }
+            }
+        });
+    }
+
+    updateMapData() {
+        console.log('map data updated');
+        const { categories } = this.props;
+        Object.keys(categories).forEach((cat) => {
+            this.categoryColors[cat] = '#000000'.replace(/0/g, () => { return (~~(Math.random() * 16)).toString(16); });
+        });
+
+        // Must happen in this order!
+        this.initializeGroups();
+        this.initializeLayers();
+        //this.initializePolylines();
+        this.initMouseMove();
+        this.initMouseClick();
+    }
+
     showProjects(prevProps) {
-        let { categories, projects, mapDisplay } = this.props;
-        let previousCategories = prevProps.categories;
+        const { categories, projects, mapDisplay } = this.props;
+        const previousCategories = prevProps.categories;
 
-        let visibleCategories = this.getVisibleCategories();
+        const visibleCategories = this.getVisibleCategories();
 
-        let filteredProjects = filterListByProperty(projects, 'category', visibleCategories);
-        this.hoverableLayers = filteredProjects.map(prj => {
-            return prj.id;
+        const filteredProjects = filterListByProperty(projects, 'category', visibleCategories);
+        this.hoverableLayers = filteredProjects.map((prj) => {
+            return prj._id;
         });
 
         // Projects are to be removed if their category was visible
         // last update, but is now not visible
-        let removableCategories = Object.keys(previousCategories).filter(key => {
+        const removableCategories = Object.keys(previousCategories).filter((key) => {
             if (categories[key] === false && previousCategories[key] === true) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         });
 
         this.visibleLayers = [];
-        visibleCategories.forEach(cat => {
-            let layers = this.layerGroups[cat];
-            let labels = this.labelGroups[cat];
-            let lines = this.lineGroups[cat];
+        visibleCategories.forEach((cat) => {
+            const layers = this.layerGroups[cat];
+            const labels = this.labelGroups[cat];
+            const lines = this.lineGroups[cat];
             if (layers && layers.length !== 0) {
-                layers.forEach(l => {
+                layers.forEach((l) => {
                     this.map.setLayoutProperty(l, 'visibility', 'visible');
                 });
             }
             if (labels && labels.length !== 0) {
-                labels.forEach(l => {
+                labels.forEach((l) => {
                     if (mapDisplay.labels) {
                         this.map.setLayoutProperty(l, 'visibility', 'visible');
                     }
                 });
             }
             if (lines && lines.length !== 0) {
-                lines.forEach(l => {
+                lines.forEach((l) => {
                     if (mapDisplay.connections) {
                         this.map.setLayoutProperty(l, 'visibility', 'visible');
                     }
@@ -428,89 +527,64 @@ class Map extends React.Component {
             }
         });
 
-        removableCategories.forEach(cat => {
-            let layers = this.layerGroups[cat];
-            let labels = this.labelGroups[cat];
-            let lines = this.lineGroups[cat];
+        removableCategories.forEach((cat) => {
+            const layers = this.layerGroups[cat];
+            const labels = this.labelGroups[cat];
+            const lines = this.lineGroups[cat];
             if (layers && layers.length !== 0) {
-                layers.forEach(l => {
+                layers.forEach((l) => {
                     this.map.setLayoutProperty(l, 'visibility', 'none');
                 });
             }
             if (labels && labels.length !== 0) {
-                labels.forEach(l => {
+                labels.forEach((l) => {
                     this.map.setLayoutProperty(l, 'visibility', 'none');
                 });
             }
             if (lines && lines.length !== 0) {
-                lines.forEach(l => {
+                lines.forEach((l) => {
                     this.map.setLayoutProperty(l, 'visibility', 'none');
                 });
             }
         });
     }
 
-    componentDidUpdate(prevProps) {
-        var { categories, projects, map, mapDisplay, projectListActive } = this.props;
-
-        if (!_.isEqual(prevProps.mapDisplay, mapDisplay)) {
-            if (prevProps.mapDisplay.labels !== mapDisplay.labels) {
-                this.toggleLabels();
-            }
-            if (prevProps.mapDisplay.connections !== mapDisplay.connections) {
-                this.toggleLines();
-            }
-        }
-        // If the map hasn't loaded yet, do nothing
-        if (!this.mapLoaded) {
-            return;
-        }
-
-        if (!_.isEqual(prevProps.map.center, map.center)) {
-            // Map center has changed
-            this.setMapPosition();
-        }
-        if (!_.isEqual(prevProps.map.bounds, map.bounds)) {
-            this.setMapBounds();
-        }
-
-        if (!_.isEqual(prevProps.categories, categories)) {
-            this.showProjects(prevProps);
-        }
-
-        if(prevProps.projectListActive !== projectListActive) {
-            let prj = projects[projectListActive];
-            let loc;
-            if (prj.pointType === 'points') {
-                let locations = JSON.parse(prj.locations);
-
-                loc = [locations[0].lon, locations[0].lat];
-            } else {
-                loc = [prj.longitude, prj.latitude];
-            }
-            this.map.flyTo({
-                center: loc,
-                zoom: 13.5,
-                pitch: map.pitch || 0,
-                bearing: map.bearing || 0
-            });
-        }
-    }
-
-    render() {
-        return (
-            <div id='map'></div>
-        );
-    }
 
     initMouseClick() {
-        var { dispatch } = this.props;
+        const { dispatch, projects, selectedProject, map } = this.props;
         this.map.on('mousedown', (e) => {
-            var features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers});
+            const features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers });
             if (features.length > 0) {
-                var prjId = features[0].layer.id;
+                const prjId = features[0].layer.id;
+                const prj = projects[prjId];
+                console.log(prjId, projects[prjId].name);
+
+                // TODO: Show Edit panel
+                // TODO: Show connections for the selected project, and change
+                // it's layer color
+                this.map.setPaintProperty(prjId, 'circle-color', '#654321');
+                this.map.setPaintProperty(prjId, 'circle-radius', this.circleRad + 10);
                 dispatch(actions.setSelectedProject(prjId));
-                //dispatch(actions.hidePopup());
+                dispatch(actions.hidePopup());
+
+                let loc;
+                if (prj.pointType === 'points') {
+                    const locations = JSON.parse(prj.locations);
+
+                    loc = [locations[0].lon, locations[0].lat];
+                } else {
+                    loc = [prj.longitude, prj.latitude];
+                }
+                this.map.flyTo({
+                    center: loc,
+                    zoom: 13.5,
+                    pitch: map.pitch || 0,
+                    bearing: map.bearing || 0
+                });
+            } else if (features.length === 0 && selectedProject !== '' && typeof selectedProject !== 'undefined') {
+                this.map.setPaintProperty(selectedProject, 'circle-color', '#000000');
+                this.map.setPaintProperty(selectedProject, 'circle-radius', this.circleRad);
+                dispatch(actions.setSelectedProject(''));
             }
         });
     }
@@ -520,9 +594,9 @@ class Map extends React.Component {
     // otherwise hide them
     initMapZoom() {
         const { dispatch } = this.props;
-        this.map.on('zoom', (e) => {
-            let { mapDisplay } = this.props;
-            let zoom = this.map.getZoom();
+        this.map.on('zoom', () => {
+            const { mapDisplay } = this.props;
+            const zoom = this.map.getZoom();
             if (zoom >= 12 && mapDisplay.labels === false) {
                 dispatch(actions.toggleMapDisplay('labels'));
             } else if (zoom < 12 && mapDisplay.labels === true) {
@@ -536,30 +610,32 @@ class Map extends React.Component {
     // data, or requires certain elements to exist,
     // it's safe to do it here
     initMouseMove() {
+        // If there's already a mouse handler...
+
         // When the mouse moves, check for
         // features, which we'll often just respond
         // to by showing a popup display,
         // but the possibilities are quite endless
-        var { dispatch, projects } = this.props;
+        const { dispatch, projects } = this.props;
         this.map.on('mousemove', (e) => {
-            var { popup } = this.props;
+            const { popup } = this.props;
+            //console.log('moved');
             //var { layers } = this.props;
 
             // Get features under mouse location (e.point)
-            var features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers});
+            const features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers });
 
             // If we've found some features...
             if (features.length) {
                 // Grab the first one
-                var feature = features[0];
-                let layerId = feature.layer.id;
+                const feature = features[0];
+                const layerId = feature.layer.id;
 
                 // does this feature exist in the project list?
                 if (projects[layerId]) {
                     // If the previous project is different from the current
                     // project, then show the popup
                     if (popup.currentProject !== layerId) {
-
                         // If we move directly from one project to another,
                         // resize circle of previous project
                         if (popup.currentProject) {
@@ -589,7 +665,26 @@ class Map extends React.Component {
             }
         });
     }
+
+    render() {
+        return (
+            <div id='map' />
+        );
+    }
 }
+
+Map.propTypes = {
+    map: React.PropTypes.object,
+    popup: React.PropTypes.bool,
+    categories: React.PropTypes.object.isRequired,
+    projects: React.PropTypes.object,
+    mapDisplay: React.PropTypes.object,
+    projectListActive: React.PropTypes.bool,
+    dataIsLoading: React.PropTypes.bool,
+    containerId: React.PropTypes.string,
+    dispatch: React.PropTypes.func.isRequired,
+    selectedProject: React.PropTypes.string
+};
 
 function mapStateToProps(state) {
     return {
@@ -604,70 +699,9 @@ function mapStateToProps(state) {
         //shouldShowLines: state.shouldShowLines,
         mapDisplay: state.mapDisplay,
         //currentCategory: state.currentCategory,
-        projectListActive: state.projectListActive
+        projectListActive: state.projectListActive,
+        dataIsLoading: state.dataIsLoading
     };
 }
 
 export default connect(mapStateToProps)(Map);
-
-// See - http://stackoverflow.com/questions/4025893/how-to-check-identical-array-in-most-efficient-way
-function arraysEqual(arr1, arr2) {
-    if(arr1.length !== arr2.length)
-        return false;
-    for(var i = arr1.length; i--;) {
-        if(arr1[i] !== arr2[i])
-            return false;
-    }
-
-    return true;
-}
-// See - http://stackoverflow.com/questions/30834946/trying-to-solve-symmetric-difference-using-javascript
-function symDiff() {
-    var sets = [], result = [], LocalSet;
-    if (typeof Set === "function") {
-        try {
-            // test to see if constructor supports iterable arg
-            var temp = new Set([1,2,3]);
-            if (temp.size === 3) {
-                LocalSet = Set;
-            }
-        } catch(e) {}
-    }
-    if (!LocalSet) {
-        // use teeny polyfill for Set
-        LocalSet = function(arr) {
-            this.has = function(item) {
-                return arr.indexOf(item) !== -1;
-            };
-        };
-    }
-    // make copy of arguments into an array
-    var args = Array.prototype.slice.call(arguments, 0);
-    // put each array into a set for easy lookup
-    args.forEach(function(arr) {
-        sets.push(new LocalSet(arr));
-    });
-    // now see which elements in each array are unique
-    // e.g. not contained in the other sets
-    args.forEach(function(array, arrayIndex) {
-        // iterate each item in the array
-        array.forEach(function(item) {
-            var found = false;
-            // iterate each set (use a plain for loop so it's easier to break)
-            for (var setIndex = 0; setIndex < sets.length; setIndex++) {
-                // skip the set from our own array
-                if (setIndex !== arrayIndex) {
-                    if (sets[setIndex].has(item)) {
-                        // if the set has this item
-                        found = true;
-                        break;
-                    }
-                }
-            }
-            if (!found) {
-                result.push(item);
-            }
-        });
-    });
-    return result;
-}

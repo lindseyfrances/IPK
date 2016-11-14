@@ -32,7 +32,7 @@ var configure = () => {
             'process.env': {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV),
                 MAPBOXGL_ACCESS_TOKEN: JSON.stringify(process.env.MAPBOXGL_ACCESS_TOKEN),
-                MONGO_DB_URL: JSON.stringify(process.env.MONGO_DB_URL)
+                MONGO_DB_URI: JSON.stringify(process.env.MONGO_DB_URI)
                 //AWS_ACCESS_KEY: JSON.stringify(process.env.AWS_ACCESS_KEY),
                 //AWS_SECRET_KEY: JSON.stringify(process.env.AWS_SECRET_KEY)
             }
@@ -51,11 +51,6 @@ var configure = () => {
 
     // Pick which plugins to return
     return process.env.NODE_ENV === 'production' ? shared.concat(prod) : shared.concat(dev);
-    //if (process.env.NODE_ENV === 'production') {
-        //return shared.concat(prod);
-    //} else {
-        //return shared.concat(dev);
-    //}
 };
 
 module.exports = configure();

@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { findDOMNode } from 'react-dom';
-import { toggleMenu } from 'app/actions/actions';
 
 export class Menu extends React.Component {
     componentWillEnter(callback) {
@@ -12,7 +10,7 @@ export class Menu extends React.Component {
         elt.style.webkitTransition = 'right 0.5s';
         elt.style.right = '0px';
 
-        setTimeout(function() {
+        setTimeout(() => {
             callback();
         }, 500);
     }
@@ -20,20 +18,26 @@ export class Menu extends React.Component {
     componentWillLeave(callback) {
         const elt = findDOMNode(this);
         elt.style.right = '-200px';
-        setTimeout(function() {
+        setTimeout(() => {
             callback();
         }, 500);
     }
 
     render() {
-        const { handleClose } = this.props;
+        const { handleClose, handleOpenForm } = this.props;
         return (
             <div className='menu'>
                 <p>menu</p>
-                <button onClick={handleClose}>X</button>
+                <button onClick={handleOpenForm}>Add to the Map</button>
+                <button className='close-menu-btn' onClick={handleClose}>X</button>
             </div>
         );
     }
 }
+
+Menu.propTypes = {
+    handleClose: React.PropTypes.func.isRequired,
+    handleOpenForm: React.PropTypes.func.isRequired
+};
 
 export default Menu;

@@ -1,6 +1,6 @@
-import $ from 'jquery';
-import _ from 'underscore';
-import projects from 'app/data/build/projectlist.csv';
+// import $ from 'jquery';
+// import _ from 'underscore';
+//import projects from 'app/data/build/projectlist.csv';
 export const mapReducer = (state = {
     center: [-74.0193459, 40.6809955],
     zoom: 10,
@@ -34,8 +34,17 @@ export const loadingReducer = (state = false, action) => {
     }
 };
 
-export const popupReducer = (state = {visible: false}, action) => {
-    switch(action.type) {
+export const dataLoadingReducer = (state = false, action) => {
+    switch (action.type) {
+        case 'LOADING_DATA':
+            return action.isLoading;
+        default:
+            return state;
+    }
+};
+
+export const popupReducer = (state = { visible: false }, action) => {
+    switch (action.type) {
         case 'HIDE_POPUP':
             return {
                 visible: false,
@@ -54,7 +63,7 @@ export const popupReducer = (state = {visible: false}, action) => {
 };
 
 export const sideNavReducer = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case 'TOGGLE_SIDE_NAV':
             return !state;
         default:
@@ -65,19 +74,20 @@ export const sideNavReducer = (state = false, action) => {
 
 export const projectsReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'INITIALIZE_PROJECT_LIST':
-            var newState = {};
+        case 'INITIALIZE_PROJECT_LIST': {
+            const newState = {};
             action.projects.forEach((prj) => {
                 if (prj.keywords) {
-                    prj.keywords = prj.keywords.split(',').map(s => s.trim());
+                    prj.keywords = prj.keywords.split(',').map(s => s.trim()); // eslint-disable-line
                 } else {
-                    prj.keywords = [];
+                    prj.keywords = [];      // eslint-disable-line
                 }
-                newState[prj.id] = prj;
+                newState[prj._id] = prj;
             });
             return newState;
+        }
         case 'ADD_PROJECT':
-            return {...state, [action.project.id]: action.project};
+            return { ...state, [action.project._id]: action.project };
         //case 'REMOVE_PROJECT':
             //return state.filter((prj, i) => {
                 //return prj.id !== action.id;
@@ -89,28 +99,29 @@ export const projectsReducer = (state = {}, action) => {
 
 export const categoriesReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'INITIALIZE_CATEGORIES':
-            let cat = {};
+        case 'INITIALIZE_CATEGORIES': {
+            const cat = {};
             action.projects.forEach((prj) => {
                 if (cat[prj.category]) {
                     return;
-                } else {
-                    cat[prj.category] = false;
                 }
+                cat[prj.category] = false;
             });
             return cat;
-        case 'ADD_CATEGORY':
+        }
+        case 'ADD_CATEGORY': {
             return {
                 ...state,
                 [action.category]: false
             };
-            //return [...state, action.category];
-        case 'TOGGLE_CATEGORY':
-            let toggled = !state[action.category];
+        }
+        case 'TOGGLE_CATEGORY': {
+            // let toggled = !state[action.category];
             return {
                 ...state,
                 [action.category]: !state[action.category]
             };
+        }
         default:
             return state;
     }
@@ -141,7 +152,7 @@ export const currentCategoryReducer = (state = '', action) => {
 // Reducer to handle mousing over a ProjectList item
 // It should trigger the map to move to the project with the corresponding id
 export const projectListActiveReducer = (state = '', action) => {
-    switch(action.type) {
+    switch (action.type) {
         case 'MOVE_TO_PROJECT':
             return action.id;
         case 'REMOVE_HOVERED_PROJECT':

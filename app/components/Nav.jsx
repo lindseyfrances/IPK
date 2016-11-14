@@ -7,9 +7,10 @@ import { toggleMenu } from 'app/actions/actions';
 import NavItemCategory from 'app/components/NavItemCategory';
 import TopNavItem from 'app/components/TopNavItem';
 
-//var rightArrow = require('./../images/rightarrow.png');
-//import rightArrow from './../images/rightarrow.png');
-//var leftArrow = require('./../images/leftarrow.png');
+const rightArrow = require('../images/rightarrow.png');
+const menuIcon = require('../images/Menu-100.png');
+const progressBarImg = require('../images/progress-bar-type-1.png');
+
 class Nav extends React.Component {
     constructor(props) {
         super(props);
@@ -24,7 +25,7 @@ class Nav extends React.Component {
     }
 
     render() {
-        var { pos, leftHeader, items, dispatch } = this.props;
+        const { pos, leftHeader, items } = this.props;
         let style = {};
         if (pos === 'top') {
             style = {
@@ -39,38 +40,38 @@ class Nav extends React.Component {
         }
 
         // Render either top nav bar or bottom nav bar
-        var navItems = () => {
+        const navItems = () => {
             switch (pos) {
                 case 'bottom':
                     return Object.keys(items).map((key) => {
                         return <NavItemCategory title={key} key={key} />;
                     });
                 case 'top':
-                    return items.map(i => {
-                        return <TopNavItem title={i} key={i} image={i === 'filter' ? require('../images/rightarrow.png') : null} />;
+                    return items.map((i) => {
+                        return <TopNavItem title={i} key={i} image={i === 'filter' ? rightArrow : null} />;
                     });
                 default:
-                    return;
+                    return [];
             }
         };
 
-        var renderRightBar = () => {
+        const renderRightBar = () => {
             switch (pos) {
                 case 'top':
                     return (
                         <div className='nav-right'>
-                            <img onClick={this.handleMenuClick} src={require('../images/Menu-100.png')} />
+                            <img onClick={this.handleMenuClick} src={menuIcon} alt='menu icon' />
                         </div>
                     );
-                    break;
                 case 'bottom':
                     return (
                         <div className='nav-right nav-right-bottom'>
                             <h4>Your Impact</h4>
-                            <img src={require('../images/progress-bar-type-1.png')} />
+                            <img src={progressBarImg} alt='progress bar' />
                         </div>
                     );
-                    break;
+                default:
+                    return <div />;
             }
         };
 
@@ -87,5 +88,12 @@ class Nav extends React.Component {
         );
     }
 }
+
+Nav.propTypes = {
+    pos: React.PropTypes.string.isRequired,
+    leftHeader: React.PropTypes.string.isRequired,
+    items: React.PropTypes.array.isRequired,
+    dispatch: React.PropTypes.func.isRequired
+};
 
 export default connect()(Nav);

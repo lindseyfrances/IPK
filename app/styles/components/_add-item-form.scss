@@ -1,0 +1,60 @@
+.add-item-form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: transparent;
+
+    form {
+        background-color: black;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    input {
+        height: 1.4rem;
+        font-size: 1rem;
+        border: none;
+        padding-left: 0.5rem;
+    }
+
+    label {
+        color: white;
+        margin-top: 1rem;
+        margin-bottom: 3px;
+        font-size: 1rem;
+    }
+
+    select {
+        border: none;
+        border-radius: 0px;
+        font-size: 0.8rem;
+        height: 1.4rem;
+        margin: 3px 0 3px 0;
+        max-width: 300px;
+    }
+
+    .row {
+        button {
+            width: 50%;
+            padding: 0;
+            height: 30px;
+            border: none;
+            background-color: black;
+            color: white;
+
+            transition: all 0.5s;
+        }
+
+        button:hover {
+            background-color: white;
+            color: black;
+        }
+    }
+}
+

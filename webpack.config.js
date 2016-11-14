@@ -19,10 +19,9 @@ var autoprefixer = require('autoprefixer');
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 process.env.PWD = process.cwd();
 
-
 module.exports = {
     devtool: process.env.NODE_ENV === 'production' ? null : 'cheap-eval-source-map',
-    entry: process.env.NODE_ENV === 'production' ? 
+    entry: process.env.NODE_ENV === 'production' ?
         './app/app.jsx' : [
         'webpack-dev-server/client?http://localhost:8080',
         'webpack/hot/dev-server',
@@ -31,7 +30,7 @@ module.exports = {
     node: {
         fs: 'empty'
     },
-    output: { 
+    output: {
         path: path.join(process.env.PWD, 'dist'),
         filename: 'bundle.js',
         //publicPath: 'dist/'
@@ -49,29 +48,10 @@ module.exports = {
         return [require('autoprefixer'), require('precss')];
     },
     plugins: plugins,
-    //devServer: {
-        //proxy: {
-            //'/**': {  //catch all requests
-                //target: '/index.html',  //default target
-                //secure: false,
-                //bypass: function(req, res, opt){
-                    ////your custom code to check for any exceptions
-                    ////console.log('bypass check', {req: req, res:res, opt: opt});
-                    //if(req.path.indexOf('/api') !== -1){
-                        //res.send('hi');
-                        //return '/';
-                    //}
-
-                    //if (req.headers.accept.indexOf('html') !== -1) {
-                        //return '/index.html';
-                    //}
-                //}
-            //}
-        //}
-    //}
     devServer: process.env.NODE_ENV === 'production' ? null : {
         contentBase: './dist',
         hot: true,
+        historyApiFallback: true,
         proxy: [ {
             path: '/api/*',
             target: 'http://localhost:3000'

@@ -6,6 +6,12 @@ app/data/build/*.shp
 app/data/build/*.dbf
 app/data/build/*.prj
 app/data/build/*.shx
+data/
 app/creds/*
+tmp/
+server/creds
 config/*.env
 *notes*
+NFLData.json
+*.log
+server_copy.js

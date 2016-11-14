@@ -1,15 +1,15 @@
+/* global document */
 // Client side modules
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import router from 'app/router/index';
-
-// Just grab the action I need
-import { initializeProjectList, initializeCategories } from 'app/actions/actions';
-
-// REDUX
+import * as actions from 'app/actions/actions';
+import 'react-select/dist/react-select.css';        //React Select Styles
 import configure from './store/configureStore';
-var store = configure();
+import './styles/main.scss';                        // Main Styles
+
+const store = configure();
 //window.store = store;
 
 //import Main from './components/Main';
@@ -18,14 +18,11 @@ var store = configure();
 // but for now it makes my life easier
 //window.store = configureStore();
 
-
-// Main styles
-import './styles/main.scss';
-
 // Initialize project list upon app start
-import projectList from 'app/data/build/projectlist.csv';
-store.dispatch(initializeProjectList(projectList));
-store.dispatch(initializeCategories(projectList));
+//import projectList from 'app/data/build/projectlist.csv';
+//store.dispatch(initializeProjectList(projectList));
+//store.dispatch(initializeCategories(projectList));
+store.dispatch(actions.initializeProjectListFromDB());
 
 ReactDOM.render(
     <div>

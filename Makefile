@@ -13,6 +13,15 @@ all:
 	make app/data/build/NYC_RESERVOIRS.json
 	make app/data/build/GLYNWOOD.json
 
+project-list.csv:
+	mkdir -p app/data/build
+	curl https://docs.google.com/spreadsheets/d/1CGNouKuZKuqV6YaLAyA5jnXHLx9AfQjDRV6qsN1kgUM/export?format=csv > app/data/build/$@
+
+rebuild-database:
+	node data/src/NFLcsvTojson.js
+	cat data/build/NFLData.json
+	mongoimport -h ds153845.mlab.com:53845 -d heroku_92qnwwbg -c mapitems -u sleepy-reaches -p iAnTEbULatEckend --file data/build/NFLData.json --jsonArray
+
 app/data/build/WATER_QUALITY_COMPLAINTS.json: app/data/src/WATER_QUALITY_COMPLAINTS.csv
 	mkdir -p $(dir $@)
 	node_modules/.bin/topojson \

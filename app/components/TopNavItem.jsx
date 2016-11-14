@@ -1,7 +1,10 @@
+/* eslint
+    "jsx-a11y/img-has-alt": "off"
+*/
 import React from 'react';
-import { TransitionMotion, StaggeredMotion, spring } from 'react-motion';
+// import { TransitionMotion, StaggeredMotion, spring } from 'react-motion';
 import { connect } from 'react-redux';
-import $ from 'jquery';
+// import $ from 'jquery';
 
 import * as actions from 'app/actions/actions';
 
@@ -13,7 +16,7 @@ class TopNavItem extends React.Component {
 
     handleClick(e) {
         e.preventDefault();
-        let { dispatch, title } = this.props;
+        const { dispatch, title } = this.props;
         switch (title) {
             case 'labels':
                 //dispatch(actions.toggleMapLabels());
@@ -33,11 +36,11 @@ class TopNavItem extends React.Component {
     }
 
     render() {
-        var { title, image, mapDisplay } = this.props;
+        const { title, image, mapDisplay } = this.props;
 
-        let shouldHighlight = mapDisplay[title];
+        // const shouldHighlight = mapDisplay[title];
         // TODO: Fix class assignment to be more flexible
-        let cls =  mapDisplay[title] ? 'top-nav-item top-nav-item-active' : 'top-nav-item';
+        const cls = mapDisplay[title] ? 'top-nav-item top-nav-item-active' : 'top-nav-item';
 
         return (
             <div className={cls} onClick={this.handleClick}>
@@ -47,6 +50,13 @@ class TopNavItem extends React.Component {
         );
     }
 }
+
+TopNavItem.propTypes = {
+    dispatch: React.PropTypes.func.isRequired,
+    title: React.PropTypes.string.isRequired,
+    image: React.PropTypes.string,
+    mapDisplay: React.PropTypes.object.isRequired
+};
 
 export default connect((state) => {
     return {
