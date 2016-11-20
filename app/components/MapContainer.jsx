@@ -58,7 +58,7 @@ class MapContainer extends React.Component {
     }
 
     render() {
-        const { categories, isLoading, menu } = this.props;
+        const { categories, isLoading, menu, popup } = this.props;
         //console.log('re-render');
 
         const topNavItems = ['filter', 'labels', 'connections'];
@@ -86,7 +86,7 @@ class MapContainer extends React.Component {
                     </div>
                 </div>
 
-                <HoverPopup />
+                {popup.visible && <HoverPopup />}
                 {displayLoadingScreen()}
                 <ReactTransitionGroup>
                     {menu && <Menu handleClose={this.handleCloseMenu} handleOpenForm={this.handleOpenForm} />}
@@ -101,7 +101,8 @@ MapContainer.propTypes = {
     dispatch: React.PropTypes.func.isRequired,
     categories: React.PropTypes.object.isRequired,
     menu: React.PropTypes.bool.isRequired,
-    isLoading: React.PropTypes.bool
+    isLoading: React.PropTypes.bool,
+    popup: React.PropTypes.object.isRequired
 };
 
 export default connect((state) => {
@@ -111,7 +112,8 @@ export default connect((state) => {
         //currentCategory: state.currentCategory,
         //selectedProject: state.selectedProject,
         categories: state.categories,
-        menu: state.menu
+        menu: state.menu,
+        popup: state.popup
         //categoriesDescriptors: state.categoriesDescriptors
     };
 })(MapContainer);

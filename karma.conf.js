@@ -2,7 +2,8 @@ var webpackConfig = require('./webpack.config.js');
 module.exports = function(config) {
     config.set({
         browsers: ['Chrome'],
-        singleRun: true,
+        singleRun: false,
+        autoWatch: true,
         frameworks: ['mocha'],
         files: [
             'node_modules/jquery/dist/jquery.min.js',

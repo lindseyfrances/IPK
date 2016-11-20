@@ -19,8 +19,8 @@ export class Landing extends React.Component {
         };
 
         this.handleNextPage = this.handleNextPage.bind(this);
-        this.goToMap = this.goToMap.bind(this);
-        this.goTo = this.goTo.bind(this);
+        // this.goToMap = this.goToMap.bind(this);
+        // this.goTo = this.goTo.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
         this.removeScrollHandler = this.removeScrollHandler.bind(this);
         this.currentTop = 0;

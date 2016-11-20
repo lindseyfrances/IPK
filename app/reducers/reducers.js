@@ -77,11 +77,6 @@ export const projectsReducer = (state = {}, action) => {
         case 'INITIALIZE_PROJECT_LIST': {
             const newState = {};
             action.projects.forEach((prj) => {
-                if (prj.keywords) {
-                    prj.keywords = prj.keywords.split(',').map(s => s.trim()); // eslint-disable-line
-                } else {
-                    prj.keywords = [];      // eslint-disable-line
-                }
                 newState[prj._id] = prj;
             });
             return newState;
@@ -92,6 +87,20 @@ export const projectsReducer = (state = {}, action) => {
             //return state.filter((prj, i) => {
                 //return prj.id !== action.id;
             //});
+        case 'UPDATE_PROJECT': {
+            const currentPrj = state[action.id];
+            const updatedPrj = { ...currentPrj };
+            Object.keys(action.updates).forEach((prop) => {
+                updatedPrj[prop] = action.updates[prop];
+            });
+
+            return {
+                ...state,
+                [action.id]: {
+                    ...updatedPrj
+                }
+            };
+        }
         default:
             return state;
     }

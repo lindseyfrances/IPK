@@ -92,7 +92,10 @@ class Nav extends React.Component {
 Nav.propTypes = {
     pos: React.PropTypes.string.isRequired,
     leftHeader: React.PropTypes.string.isRequired,
-    items: React.PropTypes.array.isRequired,
+    items: React.PropTypes.oneOfType([
+        React.PropTypes.object,
+        React.PropTypes.array
+    ]).isRequired,
     dispatch: React.PropTypes.func.isRequired
 };
 

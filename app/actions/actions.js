@@ -1,6 +1,4 @@
 import axios from 'axios';
-// import _ from 'underscore';
-// import { TextDecoder } from 'text-encoding';
 import d3 from 'd3';
 
 export const startLoading = () => {
@@ -36,15 +34,7 @@ export const setMapCenterOnProject = (id) => {
         const project = getState().projects[id];
         switch (project.pointType) {
             case 'points': {
-                // let lonSum = 0;
-                // let latSum = 0;
                 const locations = JSON.parse(project.locations);
-                // locations.forEach((loc) => {
-                //     lonSum += parseFloat(loc.lon);
-                //     latSum += parseFloat(loc.lat);
-                // });
-                // const lon = lonSum / locations.length;
-                // const lat = latSum / locations.length;
 
                 const geojsonSrc = {
                     type: 'geojson',
@@ -94,17 +84,11 @@ export const initializeProjectList = (projects) => {
 export const initializeCategories = (projects) => {
     return (dispatch) => {
         const cats = [];
-        //let descs = {};
-        //let categoriesDescriptors = require('../../data/build/categoriesdescriptors.json');
         projects.forEach((prj) => {
             if (cats.indexOf(prj.category) === -1) {
                 cats.push(prj.category);
                 dispatch(addCategory(prj.category));
             }
-            //if (descs[prj.category] === null || descs[prj.category] === undefined) {
-                //descs[prj.category] = categoriesDescriptors[prj.category];
-                //dispatch(addCategoryDescriptor(prj.category, descs[prj.category]));
-            //}
         });
     };
 };
@@ -122,21 +106,12 @@ export const initializeProjectListFromDB = () => {
     return (dispatch) => {
         dispatch(dataIsLoading(true));
         axios.get('/api/mapitems').then((response) => {
-            console.log(response);
             dispatch(initializeProjectList(response.data));
             dispatch(initializeCategories(response.data));
             dispatch(dataIsLoading(false));
         });
     };
 };
-
-// const addCategoryDescriptor = (category, descriptor) => {
-//     return {
-//         type: 'ADD_CATEGORY_DESCRIPTOR',
-//         category,
-//         descriptor
-//     };
-// };
 
 export const toggleCategory = (category) => {
     return {
@@ -237,13 +212,22 @@ export const startAddItem = (data) => {
 };
 
 // TODO: Implement this!!!!
-export const updateProject = (id, updates) => {
+export const startUpdateProject = (id, updates) => {
     return (dispatch) => {
         console.log(updates);
         axios.post(`api/mapitem/${id}/update`, updates)
             .then((response) => {
                 console.log(response);
+                dispatch(updateProject(id, updates));
                 dispatch(stopLoading());
             });
+    };
+};
+
+export const updateProject = (id, updates) => {
+    return {
+        type: 'UPDATE_PROJECT',
+        id,
+        updates
     };
 };

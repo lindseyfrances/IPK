@@ -3,7 +3,7 @@ module.exports = mongoose.Schema({
     name: String,
     id: String,
     category: String,
-    keywords: String,
+    keywords: Array,
     categoryDisplay: String,
     link: String,
     pointType: String,

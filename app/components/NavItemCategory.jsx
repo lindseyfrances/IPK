@@ -40,7 +40,7 @@ class NavItemCategory extends React.Component {
 NavItemCategory.propTypes = {
     dispatch: React.PropTypes.func.isRequired,
     title: React.PropTypes.string.isRequired,
-    categories: React.PropTypes.array.isRequired
+    categories: React.PropTypes.object.isRequired
 };
 
 export default connect((state) => {

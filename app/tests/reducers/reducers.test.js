@@ -1,124 +1,44 @@
+/* global describe it beforeEach */
 import expect from 'expect';
 import * as reducers from 'app/reducers/reducers';
 
 import df from 'deep-freeze-strict';
 
-//var df = require('deep-freeze-strict');
-
 describe('Reducers', () => {
-    //describe('whereAmI Reducer', () => {
-        //it('should change where I am', () => {
-            //var state = {
-                //layer: 'water',
-                //page: 3
-            //};
-            //var action = {
-                //type: 'SET_WHERE_I_AM',
-                //loc: {
-                    //layer: 'none',
-                    //page: 1
-                //}
-            //};
+    describe('projectsReducer', () => {
+        let projects = {};
 
-            //var res = reducers.whereAmIReducer(state, action);
-            //expect(res).toEqual(action.loc);
-        //});
-    //});
+        beforeEach(() => {
+            projects = { '581e9f369f13a2b8530f5d99': { _id: '581e9f369f13a2b8530f5d99', name: 'The Brooklyn Food Coalition', id: 'prj4', category: 'Community Activism', keywords: [], categoryDisplay: 'Community Activism', link: 'http://brooklynfoodcoalition.org/', pointType: 'point', locationType: 'HQ', latitude: 40.673388, longitude: -73.9701312, mappable: 'Y', address: '17 Eastern Parkway, 5th Floor, Brooklyn, NY 11238', description: 'The Brooklyn Food Coalition helps people with strategies, resources and practical solutions for building a healthy, resilient and sustainable life.', notes: '', shortDesc: 'The Brooklyn Food Coalition helps people with strategies, resources and practical solutions for building a healthy, resilient and sustainable life.', connections: ['581e9f369f13a2b8530f5d99', '581e9f369f13a2b8530f5d8d', '581e9f369f13a2b8530f5d90', '581e9f369f13a2b8530f5d8e', '581e9f369f13a2b8530f5d92'], locations: [''] } };
+        });
 
-    describe('data reducer', () => {
-        it('should add data', () => {
-            var state = {initialKey: {aProp: 'aVal', anotherProp: 1}};
-            var data = {someProp: 'someVal', otherProp: 3};
-            var action = {
-                type: 'ADD_DATA',
-                key: 'someKey',
-                data: data
+        it('should update project properties', () => {
+            const action = {
+                type: 'UPDATE_PROJECT',
+                id: '581e9f369f13a2b8530f5d99',
+                updates: {
+                    connections: ['1234', '5678'],
+                    notes: 'a new note',
+                    mappable: 'N'
+                }
             };
 
-            var res = reducers.dataReducer(df(state), df(action));
-            console.log(res[action.key]);        
+            const res = reducers.projectsReducer(df(projects), df(action));
+            expect(res[action.id].connections).toEqual(action.updates.connections);
+            expect(res[action.id].notes).toEqual(action.updates.notes);
+        });
 
-            console.log(res.initialKey);
-            expect(res[action.key]).toEqual(action.data);
+        it('should initialize project list', () => {
+            const prjsFromMongo = Object.keys(projects).map((id) => {
+                return projects[id];
+            });
+            const action = {
+                type: 'INITIALIZE_PROJECT_LIST',
+                projects: prjsFromMongo
+            };
 
-            expect(res.initialKey.aProp).toBe('aVal');
+            const res = reducers.projectsReducer(df({}), df(action));
+            expect(res).toEqual(projects);
         });
     });
-
-    describe('layerReducer', () => {
-        it('should add map layer', () => {
-            var layers = {
-                someLayer: {
-                    key: 'someLayer',
-                    visible: false
-                },
-                anotherLayer: {
-                    key: 'anotherLayer',
-                    visible: true
-                }
-            };
-            var action = {
-                type: 'ADD_MAP_LAYER',
-                key: 'aThirdLayer',
-                name: 'a third layer name'
-            };
-
-            var res = reducers.layerReducer(df(layers), df(action));
-            
-            expect(res.aThirdLayer).toExist();
-            expect(res.someLayer.visible).toBe(false);
-        });
-
-        it('should update state on toggleLayer', () => {
-            var layers = {
-                someLayer: {
-                    key: 'someLayer',
-                    visible: false
-                },
-                anotherLayer: {
-                    key: 'anotherLayer',
-                    visible: true
-                }
-            };
-            var action = {
-                type: 'TOGGLE_MAP_LAYER',
-                key: 'someLayer',
-            };
-
-            var res = reducers.layerReducer(df(layers), df(action));
-            
-            expect(res.someLayer.visible).toEqual(true);
-        });
-
-        it('should toggle layer off on toggle when layer is currently visible', () => {
-            var layers = {
-                someLayer: {
-                    key: 'someLayer',
-                    visible: true
-                }
-            };
-            var action = {
-                type: 'TOGGLE_MAP_LAYER',
-                key: 'someLayer',
-            };
-
-            var res = reducers.layerReducer(df(layers), df(action));
-            
-            expect(res.someLayer.visible).toEqual(false);
-        });
-    });
-    //describe('mapReducer', () => {
-        //it('should change location', () => {
-            //var action = {
-                //type: 'CHANGE_MAP_POSITION',
-                //position: {
-                    //center: [-30, 25],
-                    //zoom: 12
-                //}
-            //};
-            //var res = reducers.mapReducer(null, action);
-            
-            //expect(res).toEqual(action.position);
-        //});
-    //});
 });

@@ -10,7 +10,6 @@ class ProjectList extends React.Component {
     render() {
         const { categories, projects } = this.props;
 
-        console.log('pojrectList', categories);
         const visibleCategories = Object.keys(categories).filter((key) => {
             // categories[key] holds a boolean value denoting whether it's
             // visible or not
@@ -40,7 +39,7 @@ class ProjectList extends React.Component {
 
 ProjectList.propTypes = {
     projects: React.PropTypes.object.isRequired,
-    categories: React.PropTypes.array.isRequired
+    categories: React.PropTypes.object.isRequired
 };
 
 export default connect((state) => {

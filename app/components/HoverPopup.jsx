@@ -1,3 +1,6 @@
+/* eslint
+    "react/no-did-mount-set-state": "off"
+*/
 import React from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
@@ -19,6 +22,26 @@ class HoverPopup extends React.Component {
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.cancelEdit = this.cancelEdit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        const { popup, projects } = this.props;
+        const { currentProject } = popup;
+        const prj = projects[currentProject];
+
+        // Do not set state if there are no projects in the list yet
+        if (Object.getOwnPropertyNames(projects).length === 0) {
+            return;
+        }
+
+        // Set starting values for Select element
+        const values = prj.connections.map((con) => {
+            return { value: con, label: projects[con].name };
+        });
+        console.log(values);
+        this.setState({
+            selectValues: values
+        });
     }
 
     componentDidUpdate(prevProps) {
@@ -63,10 +86,15 @@ class HoverPopup extends React.Component {
         if (prevProject !== '' && currentProject === '') {
             // We've hovered off a project, so set editing to false
             // XXX: This has a bad smell...
+            // Shoudlnt' be updating state inside componentDidUpdate
             this.setState({         // eslint-disable-line
                 editing: false
             });
         }
+
+        // selectValues = prj.connections.map((con) => {
+        //     return { value: con, label: projects[con].name };
+        // });
     }
 
     handleEdit(e) {
@@ -98,7 +126,7 @@ class HoverPopup extends React.Component {
         const updates = {
             connections: selectValues.map((val) => { return val.value; })
         };
-        dispatch(actions.updateProject(currentProject, updates));
+        dispatch(actions.startUpdateProject(currentProject, updates));
     }
 
     render() {
@@ -123,6 +151,10 @@ class HoverPopup extends React.Component {
             }).map((key) => {
                 return { value: projects[key]._id, label: projects[key].name };
             });
+
+            // selectValues = prj.connections.map((con) => {
+            //     return { value: con, label: projects[con].name };
+            // });
             if (editing) {
                 return (
                     <div>
