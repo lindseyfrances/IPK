@@ -123,6 +123,9 @@ class HoverPopup extends React.Component {
         const { dispatch, popup } = this.props;
         const { currentProject } = popup;
         e.preventDefault();
+        this.setState({
+            editing: false
+        });
         const updates = {
             connections: selectValues.map((val) => { return val.value; })
         };

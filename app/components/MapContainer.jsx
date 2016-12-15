@@ -13,6 +13,7 @@ import Nav from 'app/components/Nav';
 import ProjectList from 'app/components/ProjectList';
 import Menu from 'app/components/Menu';
 import AddItemForm from 'app/components/AddItemForm';
+import Impact from 'app/components/Impact';
 
 
 import * as actions from 'app/actions/actions';
@@ -58,7 +59,7 @@ class MapContainer extends React.Component {
     }
 
     render() {
-        const { categories, isLoading, menu, popup } = this.props;
+        const { categories, isLoading, menu, popup, impactOpen } = this.props;
         //console.log('re-render');
 
         const topNavItems = ['filter', 'labels', 'connections'];
@@ -74,7 +75,10 @@ class MapContainer extends React.Component {
             return false;
         };
 
-        const pageClass = menu ? 'page-container blurred' : 'page-container';
+        let pageClass = 'page-container';
+        if (menu || impactOpen) {
+            pageClass += ' blurred';
+        }
         return (
             <div>
                 <div className={pageClass}>
@@ -92,6 +96,7 @@ class MapContainer extends React.Component {
                     {menu && <Menu handleClose={this.handleCloseMenu} handleOpenForm={this.handleOpenForm} />}
                 </ReactTransitionGroup>
                 {this.state.showForm && <AddItemForm handleCloseForm={this.handleCloseForm} />}
+                <Impact open={impactOpen} />
             </div>
         );
     }
@@ -102,7 +107,8 @@ MapContainer.propTypes = {
     categories: React.PropTypes.object.isRequired,
     menu: React.PropTypes.bool.isRequired,
     isLoading: React.PropTypes.bool,
-    popup: React.PropTypes.object.isRequired
+    popup: React.PropTypes.object.isRequired,
+    impactOpen: React.PropTypes.bool.isRequired
 };
 
 export default connect((state) => {
@@ -113,7 +119,8 @@ export default connect((state) => {
         //selectedProject: state.selectedProject,
         categories: state.categories,
         menu: state.menu,
-        popup: state.popup
+        popup: state.popup,
+        impactOpen: state.impactOpen
         //categoriesDescriptors: state.categoriesDescriptors
     };
 })(MapContainer);

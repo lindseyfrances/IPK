@@ -23,6 +23,19 @@ export const mapReducer = (state = {
     }
 };
 
+export const impactScreenReducer = (state = false, action) => {
+    switch (action.type) {
+        case 'TOGGLE_IMPACT':
+            return !state;
+        case 'CLOSE_IMPACT':
+            return false;
+        case 'OPEN_IMPACT':
+            return true;
+        default:
+            return state;
+    }
+};
+
 export const loadingReducer = (state = false, action) => {
     switch (action.type) {
         case 'START_LOADING':

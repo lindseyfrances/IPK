@@ -56,6 +56,7 @@ class Map extends React.Component {
         this.circleColor = '#33cc33';
         this.groups = {};
         this.categoryColors = {};
+        this.hoverableLayers = [];
 
         this.mouseState = {
             isDragging: false,
@@ -202,7 +203,15 @@ class Map extends React.Component {
         this.map.fitBounds(map.bounds);
     }
 
-    clearConnections(prj) {
+
+    getVisibleCategories() {
+        const { categories } = this.props;
+        return Object.keys(categories).filter((key) => {
+            return categories[key];
+        });
+    }
+
+    clearConnections() {
         console.log('should clear connections');
         this.connections.forEach((conName) => {
             if (this.map.getSource(conName)) {
@@ -283,13 +292,6 @@ class Map extends React.Component {
             // } else {
             //     this.lineGroups[p1.category] = [conName];
             // }
-        });
-    }
-
-    getVisibleCategories() {
-        const { categories } = this.props;
-        return Object.keys(categories).filter((key) => {
-            return categories[key];
         });
     }
 
@@ -653,9 +655,10 @@ class Map extends React.Component {
             const { selectedProject } = this.props;
             const features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers });
 
-            console.log('is dragging state on mouseup',this.mouseState.isDragging);
+            console.log('is dragging state on mouseup', this.mouseState.isDragging);
 
             if (features.length) {
+                console.log(features);
                 const prjId = features[0].layer.id;
                 const prj = projects[prjId];
 
@@ -697,6 +700,7 @@ class Map extends React.Component {
     initMouseClick() {
         // const { dispatch, projects, map } = this.props;
         this.map.on('mousedown', (e) => {
+            e.stopPropagation();
             // const { selectedProject } = this.props;
             // const features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers });
             // console.log('on mousedown');

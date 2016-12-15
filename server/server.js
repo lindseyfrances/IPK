@@ -15,6 +15,8 @@ const PORT = process.env.PORT || 3000;
 // working directory to an ENV variable to reference
 // a static directory containing data files
 process.env.PWD = process.cwd();
+console.log(process.env.PWD);
+console.log(apiController);
 
 app.use(express.static('dist'));
 //app.use(express.static(process.env.PWD + '/static'));

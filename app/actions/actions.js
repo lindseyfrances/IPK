@@ -200,6 +200,18 @@ export const toggleMenu = () => {
     };
 };
 
+export const toggleImpact = () => {
+    return {
+        type: 'TOGGLE_IMPACT'
+    };
+};
+
+export const closeImpact = () => {
+    return {
+        type: 'CLOSE_IMPACT'
+    };
+};
+
 export const startAddItem = (data) => {
     return (dispatch) => {
         dispatch(startLoading());

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 //import { setWhereIAm } from 'app/actions/actions';
-import { toggleMenu } from 'app/actions/actions';
+import { toggleMenu, toggleImpact } from 'app/actions/actions';
 
 import NavItemCategory from 'app/components/NavItemCategory';
 import TopNavItem from 'app/components/TopNavItem';
@@ -16,12 +16,18 @@ class Nav extends React.Component {
         super(props);
 
         this.handleMenuClick = this.handleMenuClick.bind(this);
+        this.toggleImpactScreen = this.toggleImpactScreen.bind(this);
     }
 
 
     handleMenuClick() {
         const { dispatch } = this.props;
         dispatch(toggleMenu());
+    }
+
+    toggleImpactScreen() {
+        const { dispatch } = this.props;
+        dispatch(toggleImpact());
     }
 
     render() {
@@ -65,7 +71,7 @@ class Nav extends React.Component {
                     );
                 case 'bottom':
                     return (
-                        <div className='nav-right nav-right-bottom'>
+                        <div className='nav-right nav-right-bottom' onClick={this.toggleImpactScreen}>
                             <h4>Your Impact</h4>
                             <img src={progressBarImg} alt='progress bar' />
                         </div>
