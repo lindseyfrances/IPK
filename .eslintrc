@@ -30,14 +30,15 @@
         "import/no-unresolved": "off",
         "no-console": "off",
         "react/jsx-indent-props": ["error", 4],
-        "arrow-body-style": ["error", "always"],
+        "arrow-body-style": ["error", "as-needed"],
+        "arrow-parens": ["error", "as-needed"],
         "jsx-a11y/no-static-element-interactions": 0,
         "react/prefer-stateless-function": "off",
         "import/extensions": [1, {"js": "never", "jsx": "never", "json": "always"}],
         "no-underscore-dangle": "off",
         "no-bitwise": "off",
         "no-lonely-if": "off",
-        "no-plusplus": [1, {"allowForLoopAfterthoughts": true}],
+        "no-plusplus": "off",
         "no-use-before-define": "off"
     }
 }

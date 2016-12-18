@@ -5,7 +5,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import router from 'app/router/index';
 import * as actions from 'app/actions/actions';
-import 'react-select/dist/react-select.css';        //React Select Styles
+// import 'react-select/dist/react-select.css';        //React Select Styles
 import configure from './store/configureStore';
 import './styles/main.scss';                        // Main Styles
 

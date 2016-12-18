@@ -1,7 +1,7 @@
 import React from 'react';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router';
 
-import MapContainer from 'app/components/MapContainer';
+import MapContainer from 'app/components/Map/MapContainer';
 import Landing from 'app/components/Landing';
 
 export default (

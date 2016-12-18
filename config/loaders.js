@@ -20,16 +20,16 @@ module.exports = {
                 presets: ['react', 'es2015', 'stage-2']
             }
         },
-        {
-            test: /\.js?$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'eslint-loader'
-        },
-        {
-            test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'eslint-loader'
-        },
+        // {
+        //     test: /\.js?$/,
+        //     exclude: /(node_modules|bower_components)/,
+        //     loader: 'eslint-loader'
+        // },
+        // {
+        //     test: /\.jsx?$/,
+        //     exclude: /(node_modules|bower_components)/,
+        //     loader: 'eslint-loader'
+        // },
         {
             test: /\.scss/,
             loader: 'style-loader!css-loader!postcss-loader!sass'
