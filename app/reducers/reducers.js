@@ -23,6 +23,22 @@ export const mapReducer = (state = {
     }
 };
 
+export const adminReducer = (state = {
+    isAdmin: false,
+    ids: []
+}, action) => {
+    switch (action.type) {
+        case 'IS_ADMIN': {
+            return {
+                isAdmin: true,
+                ids: action.ids
+            };
+        }
+        default:
+            return state;
+    }
+};
+
 export const impactScreenReducer = (state = false, action) => {
     switch (action.type) {
         case 'TOGGLE_IMPACT':

@@ -1,5 +1,6 @@
 .impact-container {
     position: fixed;
+    overflow-y: scroll;
     z-index:100;
     height: 100vh;
     width: 100vw;
@@ -23,12 +24,22 @@
 
 
 .impact {
-    position: relative;
+    position: absolute;
     background-color: $sandy-blue;
     width: 80vw;
-    height: 80vh;
+    top: 100px;
+
+    .light-button {
+        float: right;
+        width: 25%;
+        margin: 1rem;
+    }
 
     transition: all 0.5s ease-in-out;
+
+    .impact-content {
+        padding: 1rem;
+    }
 
     .back-button {
         position: absolute;
@@ -54,5 +65,42 @@
 
     h1, h2, h3, p {
         color: white;
+    }
+
+    .impact-list {
+        padding: 0;
+        margin: 0;
+
+
+        .impact-item {
+            background-color: $sandy-white;
+            position: relative;
+            list-style: none;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+
+            button {
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+            input {
+                width: 30px;
+            }
+            &>div {
+                flex-basis: 50%;
+                padding: 0.3rem;
+
+                &:last-child {
+                    // border-left: 1px solid $sandy-blue;
+                }
+            }
+
+            h3, p, span {
+                color: $sandy-blue;
+            }
+        }
     }
 }

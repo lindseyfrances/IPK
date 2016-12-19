@@ -6,12 +6,13 @@ import { connect } from 'react-redux';
 import { TransitionMotion, spring } from 'react-motion';
 
 // import { setWhereIAm } from 'app/actions/actions';
-import { toggleMenu, toggleImpact } from 'app/actions/actions';
+import { toggleMenu } from 'app/actions/actions';
 
 import NavItem from 'app/components/Nav/NavItem';
 import SearchBar from 'app/components/SearchBar';
 import Filter from 'app/components/Nav/Filter';
-import NavItemCategory from 'app/components/Nav/NavItemCategory';
+import BottomNavItem from 'app/components/Nav/BottomNavItem';
+// import NavItemCategory from 'app/components/Nav/NavItemCategory';
 // import TopNavItem from 'app/components/TopNavItem';
 
 // const rightArrow = require('../images/rightarrow.png');
@@ -22,21 +23,38 @@ class Nav extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            bottomNavState: ''
+        };
+
         this.handleMenuClick = this.handleMenuClick.bind(this);
-        this.toggleImpactScreen = this.toggleImpactScreen.bind(this);
+        // this.toggleImpactScreen = this.toggleImpactScreen.bind(this);
+        this.handleNavItemClick = this.handleNavItemClick.bind(this);
+        this.bottomNavWillLeave = this.bottomNavWillLeave.bind(this);
     }
 
     getChildren() {
-        const { bottomNavContent, categories } = this.props;
-        switch (bottomNavContent) {
+        const { categories } = this.props;
+        const { bottomNavState } = this.state;
+        switch (bottomNavState) {
             case 'filter':
-                return categories;
+                return Object.keys(categories).map(cat => ({ ...categories[cat], title: cat, type: 'category' }));
+            case 'menu':
+                return [
+                    { title: 'item1', visible: false, type: 'menu' },
+                    { title: 'item2', visible: false, type: 'menu' },
+                    { title: 'item3', visible: false, type: 'menu' }
+                ];
             default:
                 return {};
         }
     }
 
     bottomNavWillLeave() {
+        const { bottomNavState } = this.state;
+        if (bottomNavState) {
+            return {};
+        }
         return {
             height: spring(0), //spring(0, presets.gentle),
             opacity: spring(0)
@@ -48,12 +66,16 @@ class Nav extends React.Component {
             // Array
             if (children.length) {
                 return children.map(child => ({
-                    key: child,
+                    key: child.title,
                     style: {
                         height: 0,
                         opacity: 0
                     },
                     data: child
+                    // {
+                    //     title: child.title,
+                    //     toggled: child.visible
+                    // }
                 }));
             }
             // Object
@@ -63,10 +85,11 @@ class Nav extends React.Component {
                     height: 0,
                     opacity: 0
                 },
-                data: {
-                    title: child,
-                    toggled: children[child].visible
-                }
+                data: children[child]
+                // {
+                //     title: child,
+                //     toggled: children[child].visible
+                // }
             }));
         }
 
@@ -78,12 +101,16 @@ class Nav extends React.Component {
             // Array
             if (children.length) {
                 return children.map(child => ({
-                    key: child,
+                    key: child.title,
                     style: {
                         height: spring(30),
                         opacity: spring(1)
                     },
                     data: child
+                    // {
+                    //     title: child.title,
+                    //     toggled: child.visible
+                    // }
                 }));
             }
 
@@ -93,10 +120,11 @@ class Nav extends React.Component {
                     height: spring(30),
                     opacity: spring(1)
                 },
-                data: {
-                    title: child,
-                    toggled: children[child].visible
-                }
+                data: children[child]
+                // {
+                //     title: child,
+                //     toggled: children[child].visible
+                // }
             }));
         }
 
@@ -117,34 +145,60 @@ class Nav extends React.Component {
         // dispatch(actions.setMapDisplay())
     }
 
-    toggleImpactScreen() {
-        const { dispatch } = this.props;
-        dispatch(toggleImpact());
-    }
+    // toggleImpactScreen() {
+    //     const { dispatch } = this.props;
+    //     dispatch(toggleImpact());
+    // }
 
     handleMenuClick() {
         const { dispatch } = this.props;
         dispatch(toggleMenu());
     }
 
+    handleNavItemClick(key) {
+        console.log('nav item clicked', key);
+        switch (key) {
+            case 'filter':
+                this.setState({
+                    bottomNavState: this.state.bottomNavState === 'filter' ? '' : 'filter'
+                });
+                break;
+            case 'menu':
+                this.setState({
+                    bottomNavState: this.state.bottomNavState === 'menu' ? '' : 'menu'
+                });
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
-        const { bottomNavContent } = this.props;
+        // const { bottomNavContent } = this.props;
+        const { bottomNavState } = this.state;
+        const { toggleImpact } = this.props;
         const navItems = [
             {
-                component: <Filter key='filter' />
+                component: <Filter key='filter' />,
+                key: 'filter',
+                onClick: () => { this.handleNavItemClick('filter'); }
             },
             {
-                component: <p key='contribute'>Contribute</p>
+                component: <p key='contribute'>Contribute</p>,
+                key: 'contribute',
+                onClick: () => { this.handleNavItemClick('contribute'); }
             },
             {
-                component: <p key='menu'>Menu</p>
+                component: <p key='menu'>Menu</p>,
+                key: 'menu',
+                onClick: () => { this.handleNavItemClick('menu'); }
             }
         ];
 
         const bottomNavChildren = this.getChildren();
 
         let bottomNavClass = 'nav-bottom';
-        if (bottomNavContent === '') {
+        if (bottomNavState === '') {
             bottomNavClass += ' closed';
         }
         return (
@@ -154,13 +208,13 @@ class Nav extends React.Component {
                         <h4>Map Options</h4>
                         <div className='items'>
                             {navItems.map((item, idx) =>
-                                <NavItem key={idx} item={item} />
+                                <NavItem key={idx} item={item} toggled={item.key === bottomNavState} handleClick={item.onClick} />
                             )}
                         </div>
                     </div>
                     <div className='nav-right'>
                         <SearchBar />
-                        <div className='nav-impact' onClick={this.toggleImpactScreen}>
+                        <div className='nav-impact' onClick={toggleImpact}>
                             <h4>Your Impact</h4>
                             <img src={progressBarImg} alt='progress bar' />
                         </div>
@@ -176,7 +230,7 @@ class Nav extends React.Component {
                     {interpolatedStyles =>
                         <div className={bottomNavClass}>
                             {interpolatedStyles.map(({ key, style, data }) =>
-                                <NavItemCategory title={data.title} toggled={data.toggled} key={key} style={style} />
+                                <BottomNavItem title={data.title} toggled={data.visible} key={key} style={style} type={data.type} />
                             )}
                         </div>
                     }
@@ -194,8 +248,9 @@ Nav.propTypes = {
     //     React.PropTypes.array
     // ]).isRequired,
     dispatch: React.PropTypes.func.isRequired,
-    bottomNavContent: React.PropTypes.string.isRequired,
-    categories: React.PropTypes.object.isRequired
+    // bottomNavContent: React.PropTypes.string.isRequired,
+    categories: React.PropTypes.object.isRequired,
+    toggleImpact: React.PropTypes.func
 };
 
 export default connect(state => ({

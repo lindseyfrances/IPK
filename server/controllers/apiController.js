@@ -2,17 +2,16 @@ const dbController = require('./dbController');
 const bodyParser = require('body-parser');
 
 const jsonParser = bodyParser.json();
-// const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 module.exports = function(app) {
     app.get('/api/mapitems', (req, res) => {
-        dbController.emit('findAllMapItems', (items) => {
+        dbController.emit('findAllMapItems', items => {
             res.send(items);
         });
     });
 
     app.get('/api/mapitem/:id', (req, res) => {
-        dbController.emit('findItem', (item) => {
+        dbController.emit('findItem', item => {
             res.send(item);
         });
     });
@@ -20,11 +19,11 @@ module.exports = function(app) {
     app.post('/api/mapitem/:id/update', jsonParser, (req, res) => {
         const updates = {},
             id = req.params.id;
-        Object.keys(req.body).forEach((key) => {
+        Object.keys(req.body).forEach(key => {
             updates[key] = req.body[key];
         });
 
-        dbController.emit('updateMapItem', id, updates, (ret) => {
+        dbController.emit('updateMapItem', id, updates, ret => {
             res.send(ret);
         });
     });

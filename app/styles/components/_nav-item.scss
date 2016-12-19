@@ -33,8 +33,11 @@
 }
 
 .nav-item-toggled {
-    background-color: $sandy-blue;
-    color: white;
+    background-color: $sandy-yellow;
+    color: $sandy-blue;
+    p {
+        color: $sandy-blue;
+    }
 }
 
 .top-nav-item-active {

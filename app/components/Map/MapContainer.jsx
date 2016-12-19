@@ -25,7 +25,8 @@ class MapContainer extends React.Component {
 
         this.state = {
             showForm: false,
-            bannerExpanded: false
+            bannerExpanded: false,
+            impactOpen: false
         };
 
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
@@ -33,6 +34,7 @@ class MapContainer extends React.Component {
         this.handleExpandBanner = this.handleExpandBanner.bind(this);
         this.handleOpenForm = this.handleOpenForm.bind(this);
         this.handleCloseForm = this.handleCloseForm.bind(this);
+        this.toggleImpact = this.toggleImpact.bind(this);
     }
 
     componentDidMount() {
@@ -64,19 +66,28 @@ class MapContainer extends React.Component {
 
     handleCloseBanner() {
         const { dispatch } = this.props;
+        this.setState({
+            bannerExpanded: false
+        });
         dispatch(actions.setSelectedProject(''));
     }
 
-    //TODO: Saturday Night - Here's where I left off
     handleExpandBanner() {
         this.setState({
             bannerExpanded: !this.state.bannerExpanded
         });
     }
 
-    render() {
-        const { isLoading, menu, popup, impactOpen, selectedProject, categories, projects } = this.props;
+    toggleImpact() {
+        this.setState({
+            impactOpen: !this.state.impactOpen
+        });
+    }
 
+    render() {
+        const { isLoading, menu, popup, selectedProject, categories, projects } = this.props;
+        const { impactOpen } = this.state;
+        console.log(impactOpen);
 
         const displayLoadingScreen = function() {
             if (isLoading) {
@@ -104,7 +115,7 @@ class MapContainer extends React.Component {
                             containerId={'map'}
                             projects={projects}
                         />
-                        <Nav />
+                        <Nav toggleImpact={this.toggleImpact} />
                         {/* <ProjectList categories={categories} projects={projects}  /> */}
                     </div>
                 </div>
@@ -123,7 +134,7 @@ class MapContainer extends React.Component {
                     projects={projects}
                     categories={categories}
                 />
-                <Impact open={impactOpen} />
+                <Impact open={impactOpen} toggle={this.toggleImpact} />
             </div>
         );
     }
@@ -135,7 +146,7 @@ MapContainer.propTypes = {
     menu: React.PropTypes.bool.isRequired,
     isLoading: React.PropTypes.bool,
     popup: React.PropTypes.object.isRequired,
-    impactOpen: React.PropTypes.bool.isRequired,
+    // impactOpen: React.PropTypes.bool.isRequired,
     selectedProject: React.PropTypes.string,
     projects: React.PropTypes.object.isRequired
 };
@@ -147,8 +158,8 @@ export default connect(state => ({
     selectedProject: state.selectedProject,
     categories: state.categories,
     menu: state.menu,
-    popup: state.popup,
-    impactOpen: state.impactOpen
+    popup: state.popup
+    // impactOpen: state.impactOpen
     //categoriesDescriptors: state.categoriesDescriptors
 }))(MapContainer);
 /*
