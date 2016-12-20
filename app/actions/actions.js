@@ -123,6 +123,7 @@ export const initializeProjectListFromDB = function() {
     return dispatch => {
         dispatch(dataIsLoading(true));
         axios.get('/api/mapitems').then(response => {
+            console.log('project list', response.data);
             dispatch(initializeProjectList(response.data));
             dispatch(initializeCategories(response.data));
             dispatch(dataIsLoading(false));
@@ -232,7 +233,7 @@ export const closeImpact = function() {
 export const startAddItem = function(data) {
     return dispatch => {
         dispatch(startLoading());
-        axios.post('api/mapitem', data)
+        axios.post('/api/mapitem', data)
             .then(response => {
                 console.log(response.data);
                 dispatch(stopLoading());
@@ -244,7 +245,7 @@ export const startAddItem = function(data) {
 export const startUpdateProject = function(id, updates) {
     return dispatch => {
         console.log(updates);
-        axios.post(`api/mapitem/${id}/update`, updates)
+        axios.post(`/api/mapitem/${id}/update`, updates)
             .then(response => {
                 console.log(response);
                 dispatch(updateProject(id, updates));
