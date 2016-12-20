@@ -5,12 +5,13 @@ import ReactTransitionGroup from 'react-addons-transition-group';
 // import * as redux from 'redux';
 import { connect } from 'react-redux';
 
-import Map from 'app/components/Map';
+import Map from 'app/components/Map/Map';
+import MapBanner from 'app/components/Map/MapBanner';
 import HoverPopup from 'app/components/HoverPopup';
-import Nav from 'app/components/Nav';
+import Nav from 'app/components/Nav/Nav';
 // import SideNav from 'app/components/SideNav';
 // import ProjectPanel from 'app/components/ProjectPanel';
-import ProjectList from 'app/components/ProjectList';
+// import ProjectList from 'app/components/ProjectList';
 import Menu from 'app/components/Menu';
 import AddItemForm from 'app/components/AddItemForm';
 import Impact from 'app/components/Impact';
@@ -23,12 +24,17 @@ class MapContainer extends React.Component {
         super(props);
 
         this.state = {
-            showForm: false
+            showForm: false,
+            bannerExpanded: false,
+            impactOpen: false
         };
 
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
+        this.handleCloseBanner = this.handleCloseBanner.bind(this);
+        this.handleExpandBanner = this.handleExpandBanner.bind(this);
         this.handleOpenForm = this.handleOpenForm.bind(this);
         this.handleCloseForm = this.handleCloseForm.bind(this);
+        this.toggleImpact = this.toggleImpact.bind(this);
     }
 
     componentDidMount() {
@@ -58,11 +64,30 @@ class MapContainer extends React.Component {
         });
     }
 
-    render() {
-        const { categories, isLoading, menu, popup, impactOpen } = this.props;
-        //console.log('re-render');
+    handleCloseBanner() {
+        const { dispatch } = this.props;
+        this.setState({
+            bannerExpanded: false
+        });
+        dispatch(actions.setSelectedProject(''));
+    }
 
-        const topNavItems = ['filter', 'labels', 'connections'];
+    handleExpandBanner() {
+        this.setState({
+            bannerExpanded: !this.state.bannerExpanded
+        });
+    }
+
+    toggleImpact() {
+        this.setState({
+            impactOpen: !this.state.impactOpen
+        });
+    }
+
+    render() {
+        const { isLoading, menu, popup, selectedProject, categories, projects } = this.props;
+        const { impactOpen } = this.state;
+        console.log(impactOpen);
 
         const displayLoadingScreen = function() {
             if (isLoading) {
@@ -79,14 +104,19 @@ class MapContainer extends React.Component {
         if (menu || impactOpen) {
             pageClass += ' blurred';
         }
+        // TODO: Fix project list
         return (
             <div>
                 <div className={pageClass}>
                     <div className='content-container'>
-                        <Map containerId={'map'} />
-                        <Nav pos='bottom' leftHeader='Categories' items={categories} />
-                        <Nav leftHeader='Map Options' items={topNavItems} pos='top' />
-                        <ProjectList />
+                        <Map
+                            categories={categories}
+                            selectedProject={selectedProject}
+                            containerId={'map'}
+                            projects={projects}
+                        />
+                        <Nav toggleImpact={this.toggleImpact} />
+                        {/* <ProjectList categories={categories} projects={projects}  /> */}
                     </div>
                 </div>
 
@@ -96,7 +126,15 @@ class MapContainer extends React.Component {
                     {menu && <Menu handleClose={this.handleCloseMenu} handleOpenForm={this.handleOpenForm} />}
                 </ReactTransitionGroup>
                 {this.state.showForm && <AddItemForm handleCloseForm={this.handleCloseForm} />}
-                <Impact open={impactOpen} />
+                <MapBanner
+                    handleClose={this.handleCloseBanner}
+                    handleExpand={this.handleExpandBanner}
+                    expanded={this.state.bannerExpanded}
+                    selectedProjectId={selectedProject}
+                    projects={projects}
+                    categories={categories}
+                />
+                <Impact open={impactOpen} toggle={this.toggleImpact} />
             </div>
         );
     }
@@ -108,22 +146,22 @@ MapContainer.propTypes = {
     menu: React.PropTypes.bool.isRequired,
     isLoading: React.PropTypes.bool,
     popup: React.PropTypes.object.isRequired,
-    impactOpen: React.PropTypes.bool.isRequired
+    // impactOpen: React.PropTypes.bool.isRequired,
+    selectedProject: React.PropTypes.string,
+    projects: React.PropTypes.object.isRequired
 };
 
-export default connect((state) => {
-    return {
-        isLoading: state.isLoading,
-        //projects: state.projects,
-        //currentCategory: state.currentCategory,
-        //selectedProject: state.selectedProject,
-        categories: state.categories,
-        menu: state.menu,
-        popup: state.popup,
-        impactOpen: state.impactOpen
-        //categoriesDescriptors: state.categoriesDescriptors
-    };
-})(MapContainer);
+export default connect(state => ({
+    isLoading: state.isLoading,
+    projects: state.projects,
+    //currentCategory: state.currentCategory,
+    selectedProject: state.selectedProject,
+    categories: state.categories,
+    menu: state.menu,
+    popup: state.popup
+    // impactOpen: state.impactOpen
+    //categoriesDescriptors: state.categoriesDescriptors
+}))(MapContainer);
 /*
 */
 /*

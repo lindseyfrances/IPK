@@ -28,6 +28,7 @@ import mapboxgl from 'mapbox-gl';
 import _ from 'underscore';
 import * as actions from 'app/actions/actions';
 import { filterListByProperty } from 'app/api/helpers';
+// import turf from '@turf/turf';
 
 class Map extends React.Component {
     constructor(props) {
@@ -35,7 +36,9 @@ class Map extends React.Component {
 
         //this.displayProjects = this.displayProjects.bind(this);
         this.showProjects = this.showProjects.bind(this);
+        this.isolateProject = this.isolateProject.bind(this);
         this.allLayers = [];
+        this.isolationLayers = [];
         this.projectsDiff = [];
         this.initMouseMove = this.initMouseMove.bind(this);
         this.initMapZoom = this.initMapZoom.bind(this);
@@ -46,7 +49,7 @@ class Map extends React.Component {
         this.projectConnections = [];
         this.initializeLayers = this.initializeLayers.bind(this);
         this.initializeGroups = this.initializeGroups.bind(this);
-        this.initializePolylines = this.initializePolylines.bind(this);
+        // this.initializePolylines = this.initializePolylines.bind(this);
         this.showConnections = this.showConnections.bind(this);
         this.clearConnections = this.clearConnections.bind(this);
         this.updateMapData = this.updateMapData.bind(this);
@@ -109,7 +112,13 @@ class Map extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { categories, projects, map, mapDisplay, projectListActive, dataIsLoading, selectedProject } = this.props;
+        const {
+            categories,
+            projects,
+            mapDisplay,
+            dataIsLoading,
+            selectedProject
+        } = this.props;
 
         // If the map hasn't loaded yet, do nothing
         if (!this.mapLoaded) {
@@ -117,11 +126,19 @@ class Map extends React.Component {
         }
 
 
+        // Did selectedProject change?
         if (!_.isEqual(prevProps.selectedProject, selectedProject)) {
-            if (selectedProject === '') {
+            // Make sure it exists
+            if (typeof selectedProject !== 'undefined') {
+                // If it's set to an empty string, go back to previous state
+                // TODO: Clean this up: handle two cases separately
                 this.clearConnections();
-            } else {
-                this.showConnections();
+                this.isolateProject(selectedProject);
+
+                if (selectedProject !== '') {
+                    // dispatch(actions.moveToProject(selectedProject));
+                    this.moveToProject(selectedProject);
+                }
             }
         }
 
@@ -170,23 +187,9 @@ class Map extends React.Component {
         // it won't take you back the second time
         // Maybe have projectListActive be set to zero when the map is panned
         // or zoomed
-        if (prevProps.projectListActive !== projectListActive) {
-            const prj = projects[projectListActive];
-            let loc;
-            if (prj.pointType === 'points') {
-                const locations = prj.locations;
-
-                loc = [locations[0].lon, locations[0].lat];
-            } else {
-                loc = [prj.longitude, prj.latitude];
-            }
-            this.map.flyTo({
-                center: loc,
-                zoom: 13.5,
-                pitch: map.pitch || 0,
-                bearing: map.bearing || 0
-            });
-        }
+        // if (prevProps.projectListActive !== projectListActive) {
+        //
+        // }
     }
 
     setMapPosition() {
@@ -203,34 +206,63 @@ class Map extends React.Component {
         this.map.fitBounds(map.bounds);
     }
 
-
     getVisibleCategories() {
         const { categories } = this.props;
-        return Object.keys(categories).filter((key) => {
-            return categories[key];
+        return Object.keys(categories).filter(key => categories[key].visible);
+    }
+
+    moveToProject(projectId) {
+        const { projects, map } = this.props;
+        const prj = projects[projectId];
+        let loc;
+        if (prj.pointType === 'points') {
+            const locations = prj.locations;
+
+            loc = [locations[0].lon, locations[0].lat];
+        } else {
+            loc = [prj.longitude, prj.latitude - 0.110];
+        }
+        this.map.flyTo({
+            center: loc,
+            zoom: 8,
+            pitch: map.pitch || 0,
+            bearing: map.bearing || 0
         });
     }
 
+    /**
+     * Hide connecting lines
+     * TODO: Test out an ever increasing number of layers added
+     * to map to make sure it doesn't cause memory issues
+     *
+     * Otherwise we can just clear every layer each time, so they are
+     * taken out of memory, but it may be slower to draw the same
+     * line again in the future
+    */
     clearConnections() {
-        console.log('should clear connections');
-        this.connections.forEach((conName) => {
-            if (this.map.getSource(conName)) {
-                this.map.removeSource(conName);
-            }
+        // hide connection lines
+        this.connections.forEach(conName => {
+            // if (this.map.getSource(conName)) {
+            //     this.map.removeSource(conName);
+            // }
             if (this.map.getLayer(conName)) {
-                this.map.removeLayer(conName);
+                this.map.setLayoutProperty(conName, 'visibility', 'none');
             }
         });
+
+        this.connections = [];
     }
 
+    /**
+     * Show all the connections for a specific project
+     * Creates layers and sources if need be,
+     * and shows appropriate layers
+    */
     showConnections() {
         const { selectedProject, projects } = this.props;
         const currentProject = projects[selectedProject];
-        currentProject.connections.forEach((con) => {
+        currentProject.connections.forEach(con => {
             const destinationPrj = projects[con];
-
-            // const p1 = projects[con[0]];
-            // const p2 = projects[con[1]];
 
             let origin = [currentProject.longitude, currentProject.latitude];
             let destination = [destinationPrj.longitude, destinationPrj.latitude];
@@ -260,7 +292,8 @@ class Map extends React.Component {
             };
 
             const conName = currentProject._id + destinationPrj._id;
-            console.log(conName);
+
+            // If the connection doesn't yet exist on the map, create it
             if (!this.map.getSource(conName)) {
                 this.map.addSource(conName, {
                     type: 'geojson',
@@ -268,6 +301,7 @@ class Map extends React.Component {
                 });
             }
 
+            // If the layer doesn't yet exist, then create it
             if (!this.map.getLayer(conName)) {
                 this.map.addLayer({
                     id: conName,
@@ -275,31 +309,35 @@ class Map extends React.Component {
                     type: 'line',
                     paint: {
                         'line-width': 1,
-                        'line-color': '#123456'
+                        'line-color': this.categoryColors[destinationPrj.category]
                     },
                     layout: {
                         visibility: 'visible'
                     }
                 });
-
-                this.connections.push(conName);
+            } else {
+                this.map.setLayoutProperty(conName, 'visibility', 'visible');
             }
-
-
-            // Add this line to it's layerGroup
-            // if (this.lineGroups[p1.category]) {
-            //     this.lineGroups[p1.category].push(conName);
-            // } else {
-            //     this.lineGroups[p1.category] = [conName];
-            // }
+            this.connections.push(conName);
         });
+
+        console.log('connections length', this.connections.length);
     }
 
+    /**
+     * Called once when the map first initializes
+     * Creates sources and layers for every single project and sets their
+     * visibility to hidden
+     *
+     * Needs to be able to be called at any point,
+     * so capture all reference to all layers to clear them
+     * out and start over if the need arises
+    */
     initializeLayers() {
         const { projects } = this.props;
 
         // Clear all layers out of the map
-        this.allLayers.forEach((id) => {
+        this.allLayers.forEach(id => {
             if (this.map.getLayer(id)) {
                 this.map.removeLayer(id);
             }
@@ -311,11 +349,12 @@ class Map extends React.Component {
             }
         });
         this.allLayers = [];
-        Object.keys(this.layerGroups).forEach((key) => {
+
+        Object.keys(this.layerGroups).forEach(key => {
             const group = this.layerGroups[key];
 
             // For each group of projects...
-            group.forEach((featureId) => {
+            group.forEach(featureId => {
                 if (projects[featureId]) {
                     const project = projects[featureId];
                     // const category = project.category;
@@ -364,6 +403,7 @@ class Map extends React.Component {
                                     visibility: 'none',
                                     'text-field': '{title}',
                                     'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                                    'text-size': 11,
                                     'text-offset': [1, 0],
                                     'text-anchor': 'left'
                                 }
@@ -375,18 +415,16 @@ class Map extends React.Component {
                                 type: 'geojson',
                                 data: {
                                     type: 'FeatureCollection',
-                                    features: locations.map((loc) => {
-                                        return {
-                                            type: 'Feature',
-                                            geometry: {
-                                                type: 'Point',
-                                                coordinates: [loc.lon, loc.lat]
-                                            },
-                                            properties: {
-                                                title: project.name
-                                            }
-                                        };
-                                    })
+                                    features: locations.map(loc => ({
+                                        type: 'Feature',
+                                        geometry: {
+                                            type: 'Point',
+                                            coordinates: [loc.lon, loc.lat]
+                                        },
+                                        properties: {
+                                            title: project.name
+                                        }
+                                    }))
                                 }
                             };
                             this.map.addSource(id, geojsonSrc);
@@ -426,65 +464,66 @@ class Map extends React.Component {
         });
     }
 
-    initializePolylines() {
-        const { projects } = this.props;
-        this.connections.forEach((con) => {
-            const p1 = projects[con[0]];
-            const p2 = projects[con[1]];
-
-            let origin = [p1.longitude, p1.latitude];
-            let destination = [p2.longitude, p2.latitude];
-
-            if (p1.pointType === 'points') {
-                const loc = p1.locations;
-                origin = [loc[0].lon, loc[0].lat];
-            }
-
-            if (p2.pointType === 'points') {
-                const loc = p2.locations;
-                destination = [loc[0].lon, loc[0].lat];
-            }
-            const line = {
-                type: 'FeatureCollection',
-                features: [{
-                    type: 'Feature',
-                    geometry: {
-                        type: 'LineString',
-                        coordinates: [
-                            origin,
-                            destination
-                        ]
-                    }
-                }]
-            };
-
-            const conName = con[0] + con[1];
-            this.map.addSource(conName, {
-                type: 'geojson',
-                data: line
-            });
-
-            this.map.addLayer({
-                id: conName,
-                source: conName,
-                type: 'line',
-                paint: {
-                    'line-width': 0.5,
-                    'line-color': '#555555'
-                },
-                layout: {
-                    visibility: 'none'
-                }
-            });
-
-            // Add this line to it's layerGroup
-            if (this.lineGroups[p1.category]) {
-                this.lineGroups[p1.category].push(conName);
-            } else {
-                this.lineGroups[p1.category] = [conName];
-            }
-        });
-    }
+    // FIXME: Not Currently Using this function at all
+    // initializePolylines() {
+    //     const { projects } = this.props;
+    //     this.connections.forEach(con => {
+    //         const p1 = projects[con[0]];
+    //         const p2 = projects[con[1]];
+    //
+    //         let origin = [p1.longitude, p1.latitude];
+    //         let destination = [p2.longitude, p2.latitude];
+    //
+    //         if (p1.pointType === 'points') {
+    //             const loc = p1.locations;
+    //             origin = [loc[0].lon, loc[0].lat];
+    //         }
+    //
+    //         if (p2.pointType === 'points') {
+    //             const loc = p2.locations;
+    //             destination = [loc[0].lon, loc[0].lat];
+    //         }
+    //         const line = {
+    //             type: 'FeatureCollection',
+    //             features: [{
+    //                 type: 'Feature',
+    //                 geometry: {
+    //                     type: 'LineString',
+    //                     coordinates: [
+    //                         origin,
+    //                         destination
+    //                     ]
+    //                 }
+    //             }]
+    //         };
+    //
+    //         const conName = con[0] + con[1];
+    //         this.map.addSource(conName, {
+    //             type: 'geojson',
+    //             data: line
+    //         });
+    //
+    //         this.map.addLayer({
+    //             id: conName,
+    //             source: conName,
+    //             type: 'line',
+    //             paint: {
+    //                 'line-width': 0.5,
+    //                 'line-color': '#555555'
+    //             },
+    //             layout: {
+    //                 visibility: 'none'
+    //             }
+    //         });
+    //
+    //         // Add this line to it's layerGroup
+    //         if (this.lineGroups[p1.category]) {
+    //             this.lineGroups[p1.category].push(conName);
+    //         } else {
+    //             this.lineGroups[p1.category] = [conName];
+    //         }
+    //     });
+    // }
 
     toggleLabels() {
         const { mapDisplay } = this.props;
@@ -492,8 +531,8 @@ class Map extends React.Component {
 
         // Need an array that has ONLY the -text layers
 
-        visibleCategories.forEach((cat) => {
-            this.labelGroups[cat].forEach((layer) => {
+        visibleCategories.forEach(cat => {
+            this.labelGroups[cat].forEach(layer => {
                 if (layer.indexOf('-text') !== -1) {
                     if (mapDisplay.labels === false) {
                         this.map.setLayoutProperty(layer, 'visibility', 'none');
@@ -510,8 +549,8 @@ class Map extends React.Component {
         const { mapDisplay } = this.props;
         const visibleCategories = this.getVisibleCategories();
 
-        visibleCategories.forEach((cat) => {
-            this.lineGroups[cat].forEach((layer) => {
+        visibleCategories.forEach(cat => {
+            this.lineGroups[cat].forEach(layer => {
                 if (mapDisplay.connections === false) {
                     this.map.setLayoutProperty(layer, 'visibility', 'none');
                 } else {
@@ -527,31 +566,31 @@ class Map extends React.Component {
         // this.connections = [];
         this.layerGroups = {};
         this.labelGroups = {};
-        Object.keys(projects).forEach((key) => {
+        Object.keys(projects).forEach(key => {
             const project = projects[key];
             const category = project.category;
             const id = project._id;
 
             if (project.pointType === 'point' || project.pointType === 'points') {
                 // For each project, loop through all other projects
-                Object.keys(projects).forEach((k) => {
-                    const p2 = projects[k];
-                    // If we're not looking at the same project
-                    if (key !== k) {
-                        // and if they're the same category
-                        if (p2.category === category) {
-                            // and if they have a keyword in common...
-                            let connection = false;
-                            if (project.keywords.length > 0) {
-                                project.keywords.forEach((keyword) => {
-                                    if (p2.keywords.indexOf(keyword) !== -1) {
-                                        connection = true;
-                                    }
-                                });
-                            }
-                        }
-                    }
-                });
+                // Object.keys(projects).forEach(k => {
+                //     const p2 = projects[k];
+                //     // If we're not looking at the same project
+                //     if (key !== k) {
+                //         // and if they're the same category
+                //         if (p2.category === category) {
+                //             // and if they have a keyword in common...
+                //             let connection = false;
+                //             if (project.keywords.length > 0) {
+                //                 project.keywords.forEach(keyword => {
+                //                     if (p2.keywords.indexOf(keyword) !== -1) {
+                //                         connection = true;
+                //                     }
+                //                 });
+                //             }
+                //         }
+                //     }
+                // });
 
                 if (this.layerGroups[category]) {
                     this.layerGroups[category].push(id);
@@ -567,8 +606,8 @@ class Map extends React.Component {
     updateMapData() {
         console.log('map data updated');
         const { categories } = this.props;
-        Object.keys(categories).forEach((cat) => {
-            this.categoryColors[cat] = '#000000'.replace(/0/g, () => { return (~~(Math.random() * 16)).toString(16); });
+        Object.keys(categories).forEach(cat => {
+            this.categoryColors[cat] = '#000000'.replace(/0/g, () => (~~(Math.random() * 16)).toString(16));
         });
 
         // Must happen in this order!
@@ -576,49 +615,150 @@ class Map extends React.Component {
         this.initializeLayers();
         //this.initializePolylines();
         this.initMouseMove();
-        this.initMouseClick();
+        this.initMouseDown();
         this.initMouseUp();
     }
 
+    /**
+     * Fires when selectedProject is changed from a project ID to an empty
+     * string ('')
+    */
+    exitIsolation() {
+        console.log(this);
+    }
+
+    /**
+     * Fires when a project is clicked -> i.e. when selectedProject changes
+     * to have a string value
+    */
+    isolateProject(selectedProject) {
+        console.log('isolating project');
+        const { projects } = this.props;
+
+        // If we have a selected project (i.e. !== '')
+        if (selectedProject) {
+            // Show label for that project and set it's circle color
+            if (this.map.getLayer(selectedProject)) {
+                this.map.setLayoutProperty(`${selectedProject}-text`, 'text-size', 14);
+                this.map.setLayoutProperty(`${selectedProject}-text`, 'visibility', 'visible');
+                this.map.setPaintProperty(selectedProject, 'circle-color', '#123456');
+            }
+
+            console.log('visible layers', this.visibleLayers);
+
+            // Hide previously visible isolation layers, if they exist
+            if (this.isolationLayers.length > 0) {
+                this.isolationLayers.forEach(layer => {
+                    // Make sure layer exists before trying to access it
+                    if (this.map.getLayer(layer)) {
+                        this.map.setLayoutProperty(layer, 'visibility', 'none');
+                        this.map.setLayoutProperty(`${layer}-text`, 'visibility', 'none');
+                        this.hoverableLayers.splice(this.hoverableLayers.indexOf(layer), 1);
+                    }
+                });
+                this.isolationLayers = [];
+            }
+
+            // Hide all visible layers
+            this.visibleLayers.forEach(layer => {
+                if (layer !== selectedProject) {
+                    this.map.setLayoutProperty(layer, 'visibility', 'none');
+                }
+
+                // Show this project, though
+                this.map.setLayoutProperty(selectedProject, 'visibility', 'visible');
+                this.map.setLayoutProperty(`${selectedProject}-text`, 'visibility', 'visible');
+            });
+
+            // Show connected layers
+            this.isolationLayers.push(selectedProject);
+            this.hoverableLayers.push(selectedProject);
+
+            // Show all connections
+            const prj = projects[selectedProject];
+            if (prj.connections.length > 0) {
+                prj.connections.forEach(conn => {
+                    // Try to get layer - if layer exists, show it
+                    if (this.map.getLayer(conn)) {
+                        this.map.setLayoutProperty(conn, 'visibility', 'visible');
+                        // this.map.setLayoutProperty(`${conn}-text`, 'visibility', 'visible');
+                        this.isolationLayers.push(conn);
+                        this.hoverableLayers.push(conn);
+                    }
+                });
+            }
+
+            // Show connecting lines
+            this.showConnections();
+        } else {
+            // Hide connected layers
+            this.isolationLayers.forEach(layer => {
+                if (this.map.getLayer(layer)) {
+                    this.map.setLayoutProperty(layer, 'visibility', 'none');
+                    this.map.setLayoutProperty(`${layer}-text`, 'visibility', 'none');
+                    this.hoverableLayers.splice(this.hoverableLayers.indexOf(layer), 1);
+                }
+            });
+            this.isolationLayers = [];
+
+            //
+            // Bring previously visible layers back
+            this.visibleLayers.forEach(layer => {
+                if (layer !== selectedProject) {
+                    this.map.setLayoutProperty(layer, 'visibility', 'visible');
+                    this.map.setPaintProperty(layer, 'circle-radius', this.circleRad);
+                    this.map.setPaintProperty(layer, 'circle-color', this.categoryColors[projects[layer].category]);
+                }
+            });
+        }
+    }
+
     showProjects(prevProps) {
-        const { categories, projects, mapDisplay } = this.props;
+        const { categories, projects, mapDisplay, selectedProject } = this.props;
+
+        if (selectedProject) {
+            return;
+        }
+
         const previousCategories = prevProps.categories;
 
         const visibleCategories = this.getVisibleCategories();
 
         const filteredProjects = filterListByProperty(projects, 'category', visibleCategories);
-        this.hoverableLayers = filteredProjects.map((prj) => {
-            return prj._id;
-        });
+        this.hoverableLayers = filteredProjects.map(prj => prj._id);
 
         // Projects are to be removed if their category was visible
         // last update, but is now not visible
-        const removableCategories = Object.keys(previousCategories).filter((key) => {
-            if (categories[key] === false && previousCategories[key] === true) {
+        const removableCategories = Object.keys(previousCategories).filter(key => {
+            if (categories[key].visible === false && previousCategories[key].visible === true) {
                 return true;
             }
             return false;
         });
 
+        console.log('show projects');
         this.visibleLayers = [];
-        visibleCategories.forEach((cat) => {
+        visibleCategories.forEach(cat => {
             const layers = this.layerGroups[cat];
             const labels = this.labelGroups[cat];
             const lines = this.lineGroups[cat];
             if (layers && layers.length !== 0) {
-                layers.forEach((l) => {
+                layers.forEach(l => {
                     this.map.setLayoutProperty(l, 'visibility', 'visible');
+                    this.map.setPaintProperty(l, 'circle-color', this.categoryColors[projects[l].category]);
+                    this.visibleLayers.push(l);
                 });
             }
             if (labels && labels.length !== 0) {
-                labels.forEach((l) => {
+                labels.forEach(l => {
                     if (mapDisplay.labels) {
                         this.map.setLayoutProperty(l, 'visibility', 'visible');
+                        this.map.setLayoutProperty(l, 'text-size', 11);
                     }
                 });
             }
             if (lines && lines.length !== 0) {
-                lines.forEach((l) => {
+                lines.forEach(l => {
                     if (mapDisplay.connections) {
                         this.map.setLayoutProperty(l, 'visibility', 'visible');
                     }
@@ -626,122 +766,65 @@ class Map extends React.Component {
             }
         });
 
-        removableCategories.forEach((cat) => {
+        removableCategories.forEach(cat => {
             const layers = this.layerGroups[cat];
             const labels = this.labelGroups[cat];
             const lines = this.lineGroups[cat];
             if (layers && layers.length !== 0) {
-                layers.forEach((l) => {
+                layers.forEach(l => {
                     this.map.setLayoutProperty(l, 'visibility', 'none');
                 });
             }
             if (labels && labels.length !== 0) {
-                labels.forEach((l) => {
+                labels.forEach(l => {
                     this.map.setLayoutProperty(l, 'visibility', 'none');
                 });
             }
             if (lines && lines.length !== 0) {
-                lines.forEach((l) => {
+                lines.forEach(l => {
                     this.map.setLayoutProperty(l, 'visibility', 'none');
                 });
             }
         });
+
+        console.log(this.visibleLayers);
     }
 
 
     initMouseUp() {
-        const { dispatch, projects, map } = this.props;
-        this.map.on('mouseup', (e) => {
-            const { selectedProject } = this.props;
+        const { dispatch } = this.props;
+        this.map.on('mouseup', e => {
+            // const { selectedProject } = this.props;
             const features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers });
 
-            console.log('is dragging state on mouseup', this.mouseState.isDragging);
+            // console.log('is dragging state on mouseup', this.mouseState.isDragging);
 
             if (features.length) {
                 console.log(features);
                 const prjId = features[0].layer.id;
-                const prj = projects[prjId];
+                // const prj = projects[prjId];
 
                 // TODO: Show Edit panel
                 // TODO: Show connections for the selected project, and change
                 // it's layer color
                 this.map.setPaintProperty(prjId, 'circle-color', '#654321');
-                this.map.setPaintProperty(prjId, 'circle-radius', this.circleRad + 10);
+                this.map.setPaintProperty(prjId, 'circle-radius', this.circleRad + 3);
                 dispatch(actions.setSelectedProject(prjId));
+                // dispatch(actions.moveToProject(prjId));
                 dispatch(actions.hidePopup());
-
-                let loc;
-                if (prj.pointType === 'points') {
-                    const locations = prj.locations;
-
-                    loc = [locations[0].lon, locations[0].lat];
-                } else {
-                    loc = [prj.longitude, prj.latitude];
-                }
-                this.map.flyTo({
-                    center: loc,
-                    zoom: 13.5,
-                    pitch: map.pitch || 0,
-                    bearing: map.bearing || 0
-                });
-            } else {
-                if (selectedProject !== '') {
-                    this.map.setPaintProperty(selectedProject, 'circle-color', this.categoryColors[projects[selectedProject].category]);
-                    this.map.setPaintProperty(selectedProject, 'circle-radius', this.circleRad);
-                    if (!this.mouseState.isDragging) {
-                        dispatch(actions.setSelectedProject(''));
-                    }
-                }
             }
+
             this.mouseState.isDragging = false;
             this.mouseState.isMouseDown = false;
         });
     }
-    initMouseClick() {
-        // const { dispatch, projects, map } = this.props;
-        this.map.on('mousedown', (e) => {
-            e.stopPropagation();
-            // const { selectedProject } = this.props;
-            // const features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers });
-            // console.log('on mousedown');
-            // console.log(features);
 
-            // Set mousedown state
+    /**
+     * Keep track of mouse state on click
+    */
+    initMouseDown() {
+        this.map.on('mousedown', () => {
             this.mouseState.isMouseDown = true;
-
-            // if (features.length > 0) {
-            //     const prjId = features[0].layer.id;
-            //     const prj = projects[prjId];
-            //
-            //     // TODO: Show Edit panel
-            //     // TODO: Show connections for the selected project, and change
-            //     // it's layer color
-            //     this.map.setPaintProperty(prjId, 'circle-color', '#654321');
-            //     this.map.setPaintProperty(prjId, 'circle-radius', this.circleRad + 10);
-            //     dispatch(actions.setSelectedProject(prjId));
-            //     dispatch(actions.hidePopup());
-            //
-            //     let loc;
-            //     if (prj.pointType === 'points') {
-            //         const locations = prj.locations;
-            //
-            //         loc = [locations[0].lon, locations[0].lat];
-            //     } else {
-            //         loc = [prj.longitude, prj.latitude];
-            //     }
-            //     this.map.flyTo({
-            //         center: loc,
-            //         zoom: 13.5,
-            //         pitch: map.pitch || 0,
-            //         bearing: map.bearing || 0
-            //     });
-            // } else {
-                // if (selectedProject !== '') {
-                //     this.map.setPaintProperty(selectedProject, 'circle-color', this.categoryColors[projects[selectedProject].category]);
-                //     this.map.setPaintProperty(selectedProject, 'circle-radius', this.circleRad);
-                //     dispatch(actions.setSelectedProject(''));
-                // }
-            // }
         });
     }
 
@@ -766,22 +849,17 @@ class Map extends React.Component {
     // data, or requires certain elements to exist,
     // it's safe to do it here
     initMouseMove() {
-        // If there's already a mouse handler...
-
         // When the mouse moves, check for
         // features, which we'll often just respond
-        // to by showing a popup display,
-        // but the possibilities are quite endless
+        // to by showing a popup display
         const { dispatch, projects } = this.props;
-        this.map.on('mousemove', (e) => {
+        this.map.on('mousemove', e => {
             const { popup } = this.props;
 
             // Set dragging state
             if (this.mouseState.isMouseDown) {
                 this.mouseState.isDragging = true;
             }
-            //console.log('moved');
-            //var { layers } = this.props;
 
             // Get features under mouse location (e.point)
             const features = this.map.queryRenderedFeatures(e.point, { layers: this.hoverableLayers });
@@ -808,8 +886,8 @@ class Map extends React.Component {
                         // hoving over), and make it's circle larger
                         this.hoveredProjectId = layerId;
                         dispatch(actions.showPopupWithProject(layerId, e.point));
-                        this.map.setPaintProperty(layerId, 'circle-color', '#000000');
-                        this.map.setPaintProperty(layerId, 'circle-radius', this.circleRad + 10);
+                        this.map.setPaintProperty(layerId, 'circle-color', '#123456');
+                        this.map.setPaintProperty(layerId, 'circle-radius', this.circleRad + 4);
                     }
                 }
             } else {
@@ -817,6 +895,8 @@ class Map extends React.Component {
                 // visible
                 if (popup.visible === true) {
                     dispatch(actions.hidePopup());
+
+                    // Reset hovered project to non-hovered state
                     if (this.hoveredProjectId) {
                         this.map.setPaintProperty(this.hoveredProjectId, 'circle-color', this.categoryColors[projects[this.hoveredProjectId].category]);
                         this.map.setPaintProperty(this.hoveredProjectId, 'circle-radius', this.circleRad);
@@ -840,7 +920,6 @@ Map.propTypes = {
     categories: React.PropTypes.object.isRequired,
     projects: React.PropTypes.object.isRequired,
     mapDisplay: React.PropTypes.object,
-    projectListActive: React.PropTypes.string,
     dataIsLoading: React.PropTypes.bool,
     containerId: React.PropTypes.string,
     dispatch: React.PropTypes.func.isRequired,
@@ -851,18 +930,9 @@ function mapStateToProps(state) {
     return {
         map: state.map,
         popup: state.popup,
-        categories: state.categories,
-        //appLocation: state.appLocation,
-        //visibleLayers: state.visibleLayers,
-        //allData: state.allData,
-        projects: state.projects,
-        //shouldShowLabels: state.shouldShowLabels,
-        //shouldShowLines: state.shouldShowLines,
         mapDisplay: state.mapDisplay,
-        //currentCategory: state.currentCategory,
         projectListActive: state.projectListActive,
-        dataIsLoading: state.dataIsLoading,
-        selectedProject: state.selectedProject
+        dataIsLoading: state.dataIsLoading
     };
 }
 

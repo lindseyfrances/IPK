@@ -1,0 +1,34 @@
+.searchbar {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 30px;
+
+    input {
+        background-color: $sandy-blue;
+        border: none;
+        // border-bottom: 2px solid $sandy-white;
+        height: 100%;
+
+        color: $sandy-white;
+    }
+
+    .input-bar {
+        display: block;
+        height: 1px;
+        width: 0px;
+        background-color: $sandy-white;
+        transition: width 0.2s ease-in-out;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    input:focus ~ .input-bar {
+        width: 100%;
+    }
+}
+

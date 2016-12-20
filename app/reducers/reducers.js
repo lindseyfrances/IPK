@@ -23,6 +23,22 @@ export const mapReducer = (state = {
     }
 };
 
+export const adminReducer = (state = {
+    isAdmin: false,
+    ids: []
+}, action) => {
+    switch (action.type) {
+        case 'IS_ADMIN': {
+            return {
+                isAdmin: true,
+                ids: action.ids
+            };
+        }
+        default:
+            return state;
+    }
+};
+
 export const impactScreenReducer = (state = false, action) => {
     switch (action.type) {
         case 'TOGGLE_IMPACT':
@@ -89,8 +105,11 @@ export const projectsReducer = (state = {}, action) => {
     switch (action.type) {
         case 'INITIALIZE_PROJECT_LIST': {
             const newState = {};
-            action.projects.forEach((prj) => {
-                newState[prj._id] = prj;
+            action.projects.forEach(prj => {
+                newState[prj._id] = {
+                    ...prj,
+                    visible: false
+                };
             });
             return newState;
         }
@@ -103,7 +122,7 @@ export const projectsReducer = (state = {}, action) => {
         case 'UPDATE_PROJECT': {
             const currentPrj = state[action.id];
             const updatedPrj = { ...currentPrj };
-            Object.keys(action.updates).forEach((prop) => {
+            Object.keys(action.updates).forEach(prop => {
                 updatedPrj[prop] = action.updates[prop];
             });
 
@@ -121,27 +140,33 @@ export const projectsReducer = (state = {}, action) => {
 
 export const categoriesReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'INITIALIZE_CATEGORIES': {
-            const cat = {};
-            action.projects.forEach((prj) => {
-                if (cat[prj.category]) {
-                    return;
-                }
-                cat[prj.category] = false;
-            });
-            return cat;
+        // case 'INITIALIZE_CATEGORIES': {
+        //     const cat = {};
+        //     action.projects.forEach(prj => {
+        //         if (cat[prj.category]) {
+        //             return;
+        //         }
+        //         cat[prj.category] = false;
+        //     });
+        //     return cat;
+        // }
+        case 'ADD_CATEGORIES': {
+            return action.categories;
         }
-        case 'ADD_CATEGORY': {
-            return {
-                ...state,
-                [action.category]: false
-            };
-        }
+        // case 'ADD_CATEGORY': {
+        //     return {
+        //         ...state,
+        //         [action.category]: false
+        //     };
+        // }
         case 'TOGGLE_CATEGORY': {
             // let toggled = !state[action.category];
             return {
                 ...state,
-                [action.category]: !state[action.category]
+                [action.category]: {
+                    ...state[action.category],
+                    visible: !state[action.category].visible
+                }
             };
         }
         default:
@@ -232,6 +257,15 @@ export const menuReducer = (state = false, action) => {
     switch (action.type) {
         case 'TOGGLE_MENU':
             return !state;
+        default:
+            return state;
+    }
+};
+
+export const bottomNavContentReducer = (state = '', action) => {
+    switch (action.type) {
+        case 'SET_BOTTOM_NAV_CONTENT':
+            return action.id;
         default:
             return state;
     }

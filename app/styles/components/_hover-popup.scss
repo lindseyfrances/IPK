@@ -5,13 +5,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: left;
-    z-index: 100;
+    z-index: 101;
     /*background-color: $purple-color-with-opacity;*/
-    background-color: rgba(40, 40, 40, 1);
+    background-color: $dark-background-color;
     visibility: hidden;
     border-radius: 5px;
     width: 300px;
-    height: 300px;
+    // height: 300px;
     padding: 0.5rem;
     h2, p, a, button {
         /*padding-left: 0.5rem;*/

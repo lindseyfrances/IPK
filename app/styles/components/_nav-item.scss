@@ -1,20 +1,43 @@
 .nav-item, .top-nav-item {
     /*width: 100%;*/
     cursor: pointer;
-    transition: all 0.5s;
+    // transition: all 0.5s;
     font-size: 0.7rem;
     margin: 0;
     padding: 0.7rem;
     color: white;
+    transition: background-color 0.3s ease-in;
+
+    // & > p {
+    //     background-color: blue;
+    // }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:after {
+        display: block;
+        content: '';
+        background-color:$sandy-white;
+        width: 0;
+        height: 1px;
+        transition: width 0.3s ease-in-out;
+    }
+
+    &:hover {
+        &:after {
+            width: 100%;
+        }
+    }
 }
 
 .nav-item-toggled {
-    background-color: white;
-    color: $purple-color;
-}
-
-.nav-item:hover {
-    opacity: 0.5;
+    background-color: $sandy-yellow;
+    color: $sandy-blue;
+    p {
+        color: $sandy-blue;
+    }
 }
 
 .top-nav-item-active {

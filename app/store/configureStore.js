@@ -2,7 +2,7 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import { impactScreenReducer, mapDisplayReducer, menuReducer, selectedProjectReducer, projectListActiveReducer, currentCategoryReducer, categoriesReducer, categoriesDescriptorsReducer, projectsReducer, loadingReducer, dataLoadingReducer, mapReducer, popupReducer } from 'app/reducers/reducers';
+import { adminReducer, bottomNavContentReducer, impactScreenReducer, mapDisplayReducer, menuReducer, selectedProjectReducer, projectListActiveReducer, currentCategoryReducer, categoriesReducer, categoriesDescriptorsReducer, projectsReducer, loadingReducer, dataLoadingReducer, mapReducer, popupReducer } from 'app/reducers/reducers';
 
 const configure = (initialState = {}) => {
     const reducer = redux.combineReducers({
@@ -18,7 +18,9 @@ const configure = (initialState = {}) => {
         selectedProject: selectedProjectReducer,
         mapDisplay: mapDisplayReducer,
         menu: menuReducer,
-        impactOpen: impactScreenReducer
+        impactOpen: impactScreenReducer,
+        bottomNavContent: bottomNavContentReducer,
+        admin: adminReducer
     });
 
     const store = redux.createStore(reducer, initialState, redux.compose(

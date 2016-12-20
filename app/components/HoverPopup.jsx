@@ -8,6 +8,8 @@ import ExternalLink from 'app/components/ExternalLink';
 import Select from 'react-select';
 import * as actions from 'app/actions/actions';
 
+// TODO: Remove edit feature from popup -> put it in the project banner or
+// project page?
 // TODO: Eventually add authentication to be able to add connections?
 // Or should we just tally how many times that connection has been submitted
 // and only show ones over a certain threshold?
@@ -146,14 +148,18 @@ class HoverPopup extends React.Component {
 
         const renderContent = () => {
             const { editing, selectValues } = this.state;
-            const options = Object.keys(projects).filter((key) => {
-                if (prj.category === projects[key].category) {
-                    return true;
-                }
-                return false;
-            }).map((key) => {
-                return { value: projects[key]._id, label: projects[key].name };
-            });
+            const options = Object.keys(projects).map(key => ({
+                value: projects[key]._id,
+                label: projects[key].name
+            }));
+            // const options = Object.keys(projects).filter((key) => {
+            //     if (prj.category === projects[key].category) {
+            //         return true;
+            //     }
+            //     return false;
+            // }).map((key) => {
+            //     return { value: projects[key]._id, label: projects[key].name };
+            // });
 
             // selectValues = prj.connections.map((con) => {
             //     return { value: con, label: projects[con].name };

@@ -3,12 +3,12 @@ import { findDOMNode } from 'react-dom';
 
 export class Menu extends React.Component {
     componentWillEnter(callback) {
-        const elt = findDOMNode(this);
+        // const elt = findDOMNode(this);
         //TODO: This doesn't really work :(
-        elt.style.right = '-200px';
-        elt.style.transition = 'right 0.5s';
-        elt.style.webkitTransition = 'right 0.5s';
-        elt.style.right = '0px';
+        // elt.style.right = '-200px';
+        // elt.style.transition = 'right 0.5s';
+        // elt.style.webkitTransition = 'right 0.5s';
+        // elt.style.right = '0px';
 
         setTimeout(() => {
             callback();

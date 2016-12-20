@@ -1,17 +1,31 @@
 .project-list {
-    position: absolute;
-    top: 50px;
-    left: 0;
+    // position: absolute;
+    // top: 50px;
+    // left: 0;
     height: auto;
-    max-width: 200px;
+    padding: 0;
+    margin: 0;
+    // max-width: 200px;
 
     li {
-        color: black;
         cursor: pointer;
-        transition: all 0.5s;
-        font-size: 10pt;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+        list-style: none;
+        margin: 0.5rem;
+        padding: 0.5rem;
+        background-color: $sandy-white;
+        color: $sandy-blue;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        p {
+            color: $sandy-blue;
+            flex-basis: 50%;
+        }
     }
     li:hover {
-        color: $purple-color;
+        background-color: white;
     }
 }

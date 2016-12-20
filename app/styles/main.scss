@@ -5,8 +5,8 @@
 @import 'components/points';
 @import 'components/hover-popup';
 @import 'components/side-nav';
-@import 'components/nav-item';
 @import 'components/nav';
+@import 'components/nav-item';
 @import 'components/landing-page';
 @import 'components/landing';
 @import 'components/layer-checkbox';
@@ -20,9 +20,16 @@
 @import 'components/menu';
 @import 'components/add-item-form';
 @import 'components/impact';
+@import 'components/map-banner';
+@import 'components/back-button';
+@import 'base/react-select/scss/default';
+@import 'components/searchbar';
 
+.Select-option {
+    font-size: 0.8rem;
+}
 body {
-    font-family: Georgia;
+    font-family: $main-font;
     background: $page-background-color;
     padding: 0;
     margin: 0;
@@ -45,3 +52,14 @@ button {
     -moz-filter: blur(3px);
 }
 
+.light-button {
+    background-color: $sandy-white;
+    color: $sandy-blue;
+    height: 35px;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+        background-color: white;
+    }
+}

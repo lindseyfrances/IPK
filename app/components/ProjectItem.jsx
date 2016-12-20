@@ -13,13 +13,17 @@ class ProjectItem extends React.Component {
         const { dispatch, project } = this.props;
         e.preventDefault();
         dispatch(actions.moveToProject(project._id));
+        dispatch(actions.setSelectedProject(project._id));
     }
     render() {
-        const { project } = this.props;
+        const { project, showDescription } = this.props;
+        const show = showDescription || false;
+        console.log('inside item', show);
 
         return (
-            <li>
-                <p onClick={this.handleClick}>{project.name}</p>
+            <li onClick={this.handleClick}>
+                <p>{project.name}</p>
+                {show && <p>{project.shortDesc}</p>}
             </li>
         );
     }
@@ -27,7 +31,8 @@ class ProjectItem extends React.Component {
 
 ProjectItem.propTypes = {
     dispatch: React.PropTypes.func.isRequired,
-    project: React.PropTypes.object.isRequired
+    project: React.PropTypes.object.isRequired,
+    showDescription: React.PropTypes.bool
 };
 
 export default connect()(ProjectItem);

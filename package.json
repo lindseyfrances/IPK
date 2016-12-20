@@ -66,10 +66,12 @@
     "webworkify-webpack": "1.0.6"
   },
   "dependencies": {
+    "@turf/turf": "^3.7.0",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "4.13.4",
     "jquery": "3.0.0",
+    "lodash": "^4.17.2",
     "mapbox-gl": "0.20.0",
     "mongoose": "^4.6.5",
     "randomcolor": "^0.4.4",
