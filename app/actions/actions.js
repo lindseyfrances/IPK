@@ -240,7 +240,7 @@ export const startAddItem = function(data) {
     };
 };
 
-// TODO: Implement this!!!!
+// TODO: Check that this is implemented properly...
 export const startUpdateProject = function(id, updates) {
     return dispatch => {
         console.log(updates);
