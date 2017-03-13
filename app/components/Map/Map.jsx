@@ -55,7 +55,7 @@ class Map extends React.Component {
         this.updateMapData = this.updateMapData.bind(this);
         this.toggleLabels = this.toggleLabels.bind(this);
         this.getVisibleCategories = this.getVisibleCategories.bind(this);
-        this.circleRad = 4;
+        this.circleRad = 8;
         this.circleColor = '#33cc33';
         this.groups = {};
         this.categoryColors = {};
@@ -88,7 +88,7 @@ class Map extends React.Component {
 
         this.map = new mapboxgl.Map({
             container: containerId,
-            style: 'mapbox://styles/mapbox/light-v9',
+            style: 'mapbox://styles/mapbox/satellite-v9',
             center: map.center,
             zoom: map.zoom,
             pitch: map.pitch
@@ -403,9 +403,12 @@ class Map extends React.Component {
                                     visibility: 'none',
                                     'text-field': '{title}',
                                     'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-                                    'text-size': 11,
+                                    'text-size': 24,
                                     'text-offset': [1, 0],
                                     'text-anchor': 'left'
+                                },
+                                paint: {
+                                    'text-color': '#ffffff'
                                 }
                             });
                             break;
@@ -451,7 +454,11 @@ class Map extends React.Component {
                                     'text-field': '{title}',
                                     'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
                                     'text-offset': [1, 0],
-                                    'text-anchor': 'left'
+                                    'text-anchor': 'left',
+                                    'text-size': 24
+                                },
+                                paint: {
+                                    'text-color': '#ffffff'
                                 }
                             });
                             break;
