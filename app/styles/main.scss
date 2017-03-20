@@ -1,11 +1,12 @@
 @import 'base/variables';
+@import '~hamburgers/_sass/hamburgers/hamburgers';
 
-@import 'components/map';
-@import 'components/map-container';
+@import 'components/map/map';
+@import 'components/map/map-container';
 @import 'components/points';
 @import 'components/hover-popup';
 @import 'components/side-nav';
-@import 'components/nav';
+@import 'components/nav/nav';
 @import 'components/nav-item';
 @import 'components/landing-page';
 @import 'components/landing';
@@ -17,13 +18,22 @@
 @import 'components/link';
 @import 'components/loading-screen';
 @import 'components/project-list';
-@import 'components/menu';
 @import 'components/add-item-form';
 @import 'components/impact';
 @import 'components/map-banner';
 @import 'components/back-button';
 @import 'base/react-select/scss/default';
 @import 'components/searchbar';
+
+@import 'components/categories-list/categories-list';
+
+@import 'components/project-details/project-details';
+
+// Page
+@import 'components/pages/page';
+// Individual Elements
+@import 'components/elements/menu';
+@import 'components/elements/loading-overlay';
 
 .Select-option {
     font-size: 0.8rem;
@@ -43,6 +53,19 @@ a {
 
 button {
     cursor: pointer;
+}
+
+h1 {
+    font-size: 1.2rem;
+}
+h2 {
+    font-size: 1rem;
+}
+h3 {
+    font-size: 1.1rem;
+}
+h1, h2, h3, p {
+    color: white;
 }
 
 .blurred {

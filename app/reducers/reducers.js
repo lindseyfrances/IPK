@@ -108,7 +108,8 @@ export const projectsReducer = (state = {}, action) => {
             action.projects.forEach(prj => {
                 newState[prj._id] = {
                     ...prj,
-                    visible: false
+                    visible: false,
+                    id: parseInt(prj.id.slice(3), 10)
                 };
             });
             return newState;
@@ -168,6 +169,15 @@ export const categoriesReducer = (state = {}, action) => {
                     visible: !state[action.category].visible
                 }
             };
+        }
+        case 'HIDE_ALL_CATEGORIES': {
+            return Object.keys(state).reduce((acc, cat) => {
+                acc[cat] = {
+                    ...state[cat]
+                }
+                acc[cat].visible = false;
+                return acc;
+            }, {});
         }
         default:
             return state;

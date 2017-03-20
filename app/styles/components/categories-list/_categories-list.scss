@@ -1,0 +1,41 @@
+.categories-list {
+    .category {
+        h2 {
+            padding: 1rem;
+            margin: 0;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+
+        li {
+            padding: 0.2rem 1rem;
+            color: white;
+            font-size: 0.8rem;
+
+            &:hover {
+                background-color: white;
+                color: black;
+            }
+
+            &.active {
+                background-color: white;
+                color: black;
+            }
+        }
+    }
+    ul {
+        padding: 0;
+        list-style: none;
+        cursor: pointer;
+    }
+
+    li {
+        // padding: 1rem;
+    }
+
+    .active {
+        background-color: #3c3c3c;
+    }
+}

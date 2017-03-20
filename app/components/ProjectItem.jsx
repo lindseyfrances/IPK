@@ -22,7 +22,7 @@ class ProjectItem extends React.Component {
 
         return (
             <li onClick={this.handleClick}>
-                <p>{project.name}</p>
+                <h3>{project.name}</h3>
                 {show && <p>{project.shortDesc}</p>}
             </li>
         );

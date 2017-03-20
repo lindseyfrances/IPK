@@ -1,0 +1,10 @@
+.menu {
+    outline: none;
+    .hamburger-inner {
+        background-color: white;
+
+        &:after, &:before {
+            background-color: white;
+        }
+    }
+}

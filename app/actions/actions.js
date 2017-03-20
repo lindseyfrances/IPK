@@ -84,13 +84,29 @@ export const initializeProjectList = function(projects) {
 export const initializeCategories = function(projects) {
     return dispatch => {
         const cat = {};
-        projects.forEach(prj => {
+        // const colors = ['#fff5eb','#fee6ce','#fdd0a2','#fdae6b','#fd8d3c','#f16913','#d94801','#a63603','#7f2704'];
+        const colors = ['#7bccc4','#4eb3d3','#2b8cbe','#0868ac','#084081'];
+        // const colors = [
+        //     '#a6cee3',
+        //     '#1f78b4',
+        //     '#b2df8a',
+        //     '#33a02c',
+        //     '#fb9a99',
+        //     '#e31a1c',
+        //     '#fdbf6f',
+        //     '#ff7f00',
+        //     '#cab2d6',
+        //     '#6a3d9a',
+        //     '#ffff99',
+        //     '#b15928'
+        // ];
+        projects.forEach((prj, i) => {
             if (cat[prj.category]) {
                 if (cat[prj.category].projects.indexOf(prj._id) === -1) {
                     cat[prj.category].projects.push(prj._id);
                 }
             } else {
-                cat[prj.category] = { visible: false, projects: [prj._id] };
+                cat[prj.category] = { visible: false, projects: [prj._id], color: colors[i % colors.length] };
             }
 
 
@@ -99,6 +115,8 @@ export const initializeCategories = function(projects) {
             //     dispatch(addCategory(prj.category));
             // }
         });
+
+        // Capture categories and set colors
         dispatch(addCategories(cat));
     };
 };
@@ -135,6 +153,12 @@ export const toggleCategory = function(category) {
     return {
         type: 'TOGGLE_CATEGORY',
         category
+    };
+};
+
+export const hideAllCategories = function() {
+    return {
+        type: 'HIDE_ALL_CATEGORIES'
     };
 };
 

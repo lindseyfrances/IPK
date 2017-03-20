@@ -54,7 +54,7 @@ class MapBanner extends React.Component {
             });
             closed = false;
         } else {
-            // If not project is selected, Check to see if any
+            // If no project is selected, Check to see if any
             // categories are visible, if so collect the visible projects
             // from the categories list
             Object.keys(categories).forEach(cat => {

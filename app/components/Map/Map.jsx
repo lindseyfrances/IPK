@@ -44,6 +44,7 @@ class Map extends React.Component {
         this.initMapZoom = this.initMapZoom.bind(this);
         this.layerGroups = {};
         this.labelGroups = {};
+        this.idGroups = {};
         this.lineGroups = {};
         this.connections = [];
         this.projectConnections = [];
@@ -55,7 +56,7 @@ class Map extends React.Component {
         this.updateMapData = this.updateMapData.bind(this);
         this.toggleLabels = this.toggleLabels.bind(this);
         this.getVisibleCategories = this.getVisibleCategories.bind(this);
-        this.circleRad = 8;
+        this.circleRad = 12;
         this.circleColor = '#33cc33';
         this.groups = {};
         this.categoryColors = {};
@@ -70,16 +71,11 @@ class Map extends React.Component {
         window.m = this;
     }
     componentDidMount() {
+        console.log('map mounted');
         const { containerId, map, dispatch } = this.props;
         this.elt = ReactDOM.findDOMNode(); //eslint-disable-line
         mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
         this.visibleLayers = [];
-
-        // Create category colors
-        //this.categoryColors = {};
-        //Object.keys(categories).forEach((cat) => {
-            //this.categoryColors[cat] = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
-        //});
 
         // const bounds = [
         //     [-74.277191, 40.482993],
@@ -121,10 +117,9 @@ class Map extends React.Component {
         } = this.props;
 
         // If the map hasn't loaded yet, do nothing
-        if (!this.mapLoaded) {
-            return;
-        }
-
+        // if (!this.mapLoaded) {
+        //     return;
+        // }
 
         // Did selectedProject change?
         if (!_.isEqual(prevProps.selectedProject, selectedProject)) {
@@ -142,7 +137,7 @@ class Map extends React.Component {
             }
         }
 
-        if (!_.isEqual(prevProps.dataIsLoading, dataIsLoading) && dataIsLoading === true) {
+        if (!_.isEqual(prevProps.dataIsLoading, dataIsLoading) && dataIsLoading === false) {
             this.updateMapData();
         }
 
@@ -190,6 +185,12 @@ class Map extends React.Component {
         // if (prevProps.projectListActive !== projectListActive) {
         //
         // }
+    }
+
+    componentWillUnmount() {
+        const { dispatch } = this.props;
+        dispatch(actions.setSelectedProject(''));
+        dispatch(actions.hideAllCategories());
     }
 
     setMapPosition() {
@@ -259,7 +260,7 @@ class Map extends React.Component {
      * and shows appropriate layers
     */
     showConnections() {
-        const { selectedProject, projects } = this.props;
+        const { selectedProject, projects, categories } = this.props;
         const currentProject = projects[selectedProject];
         currentProject.connections.forEach(con => {
             const destinationPrj = projects[con];
@@ -309,7 +310,7 @@ class Map extends React.Component {
                     type: 'line',
                     paint: {
                         'line-width': 1,
-                        'line-color': this.categoryColors[destinationPrj.category]
+                        'line-color': categories[destinationPrj.category].color
                     },
                     layout: {
                         visibility: 'visible'
@@ -334,7 +335,7 @@ class Map extends React.Component {
      * out and start over if the need arises
     */
     initializeLayers() {
-        const { projects } = this.props;
+        const { projects, categories } = this.props;
 
         // Clear all layers out of the map
         this.allLayers.forEach(id => {
@@ -375,7 +376,8 @@ class Map extends React.Component {
                                                 coordinates: [project.longitude, project.latitude]
                                             },
                                             properties: {
-                                                title: project.name
+                                                title: project.name,
+                                                prjId: project.id
                                             }
                                         }
                                     ]
@@ -388,10 +390,25 @@ class Map extends React.Component {
                                 source: id,
                                 paint: {
                                     'circle-radius': this.circleRad,
-                                    'circle-color': this.categoryColors[project.category]
+                                    'circle-color': categories[project.category].color
                                 },
                                 layout: {
                                     visibility: 'none'
+                                }
+                            });
+                            this.map.addLayer({
+                                id: `${id}-number`,
+                                type: 'symbol',
+                                interactive: true,
+                                source: id,
+                                layout: {
+                                    visibility: 'none',
+                                    'text-field': `${project.id}`,
+                                    'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                                    'text-size': 12
+                                },
+                                paint: {
+                                    'text-color': '#ffffff'
                                 }
                             });
                             this.map.addLayer({
@@ -438,7 +455,7 @@ class Map extends React.Component {
                                 source: id,
                                 paint: {
                                     'circle-radius': this.circleRad,
-                                    'circle-color': this.categoryColors[project.category]
+                                    'circle-color': categories[project.category].color
                                 },
                                 layout: {
                                     visibility: 'none'
@@ -456,6 +473,21 @@ class Map extends React.Component {
                                     'text-offset': [1, 0],
                                     'text-anchor': 'left',
                                     'text-size': 24
+                                },
+                                paint: {
+                                    'text-color': '#ffffff'
+                                }
+                            });
+                            this.map.addLayer({
+                                id: `${id}-number`,
+                                type: 'symbol',
+                                interactive: true,
+                                source: id,
+                                layout: {
+                                    visibility: 'none',
+                                    'text-field': `${project.id}`,
+                                    'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                                    'text-size': 12
                                 },
                                 paint: {
                                     'text-color': '#ffffff'
@@ -573,6 +605,7 @@ class Map extends React.Component {
         // this.connections = [];
         this.layerGroups = {};
         this.labelGroups = {};
+        this.idGroups = {};
         Object.keys(projects).forEach(key => {
             const project = projects[key];
             const category = project.category;
@@ -601,9 +634,11 @@ class Map extends React.Component {
 
                 if (this.layerGroups[category]) {
                     this.layerGroups[category].push(id);
+                    this.idGroups[category].push(`${id}-number`);
                     this.labelGroups[category].push(`${id}-text`);
                 } else {
                     this.layerGroups[category] = [id];
+                    this.idGroups[category] = [`${id}-number`];
                     this.labelGroups[category] = [`${id}-text`];
                 }
             }
@@ -612,11 +647,10 @@ class Map extends React.Component {
 
     updateMapData() {
         console.log('map data updated');
-        const { categories } = this.props;
-        Object.keys(categories).forEach(cat => {
-            this.categoryColors[cat] = '#000000'.replace(/0/g, () => (~~(Math.random() * 16)).toString(16));
-        });
-
+        // const { categories } = this.props;
+        // Object.keys(categories).forEach(cat => {
+        //     this.categoryColors[cat] = '#000000'.replace(/0/g, () => (~~(Math.random() * 16)).toString(16));
+        // });
         // Must happen in this order!
         this.initializeGroups();
         this.initializeLayers();
@@ -640,7 +674,7 @@ class Map extends React.Component {
     */
     isolateProject(selectedProject) {
         console.log('isolating project');
-        const { projects } = this.props;
+        const { projects, categories } = this.props;
 
         // If we have a selected project (i.e. !== '')
         if (selectedProject) {
@@ -648,6 +682,7 @@ class Map extends React.Component {
             if (this.map.getLayer(selectedProject)) {
                 this.map.setLayoutProperty(`${selectedProject}-text`, 'text-size', 14);
                 this.map.setLayoutProperty(`${selectedProject}-text`, 'visibility', 'visible');
+                this.map.setLayoutProperty(`${selectedProject}-number`, 'visibility', 'visible');
                 this.map.setPaintProperty(selectedProject, 'circle-color', '#123456');
             }
 
@@ -660,6 +695,7 @@ class Map extends React.Component {
                     if (this.map.getLayer(layer)) {
                         this.map.setLayoutProperty(layer, 'visibility', 'none');
                         this.map.setLayoutProperty(`${layer}-text`, 'visibility', 'none');
+                        this.map.setLayoutProperty(`${layer}-number`, 'visibility', 'none');
                         this.hoverableLayers.splice(this.hoverableLayers.indexOf(layer), 1);
                     }
                 });
@@ -670,11 +706,13 @@ class Map extends React.Component {
             this.visibleLayers.forEach(layer => {
                 if (layer !== selectedProject) {
                     this.map.setLayoutProperty(layer, 'visibility', 'none');
+                    this.map.setLayoutProperty(`${layer}-number`, 'visibility', 'none');
                 }
 
                 // Show this project, though
                 this.map.setLayoutProperty(selectedProject, 'visibility', 'visible');
                 this.map.setLayoutProperty(`${selectedProject}-text`, 'visibility', 'visible');
+                this.map.setLayoutProperty(`${selectedProject}-number`, 'visibility', 'visible');
             });
 
             // Show connected layers
@@ -703,6 +741,7 @@ class Map extends React.Component {
                 if (this.map.getLayer(layer)) {
                     this.map.setLayoutProperty(layer, 'visibility', 'none');
                     this.map.setLayoutProperty(`${layer}-text`, 'visibility', 'none');
+                    this.map.setLayoutProperty(`${layer}-number`, 'visibility', 'none');
                     this.hoverableLayers.splice(this.hoverableLayers.indexOf(layer), 1);
                 }
             });
@@ -713,8 +752,9 @@ class Map extends React.Component {
             this.visibleLayers.forEach(layer => {
                 if (layer !== selectedProject) {
                     this.map.setLayoutProperty(layer, 'visibility', 'visible');
+                    this.map.setLayoutProperty(`${layer}-number`, 'visibility', 'visible');
                     this.map.setPaintProperty(layer, 'circle-radius', this.circleRad);
-                    this.map.setPaintProperty(layer, 'circle-color', this.categoryColors[projects[layer].category]);
+                    this.map.setPaintProperty(layer, 'circle-color', categories[projects[layer].category].color);
                 }
             });
         }
@@ -748,11 +788,12 @@ class Map extends React.Component {
         visibleCategories.forEach(cat => {
             const layers = this.layerGroups[cat];
             const labels = this.labelGroups[cat];
+            const numbers = this.idGroups[cat];
             const lines = this.lineGroups[cat];
             if (layers && layers.length !== 0) {
                 layers.forEach(l => {
                     this.map.setLayoutProperty(l, 'visibility', 'visible');
-                    this.map.setPaintProperty(l, 'circle-color', this.categoryColors[projects[l].category]);
+                    this.map.setPaintProperty(l, 'circle-color', categories[projects[l].category].color);
                     this.visibleLayers.push(l);
                 });
             }
@@ -762,6 +803,11 @@ class Map extends React.Component {
                         this.map.setLayoutProperty(l, 'visibility', 'visible');
                         this.map.setLayoutProperty(l, 'text-size', 11);
                     }
+                });
+            }
+            if (numbers && numbers.length !== 0) {
+                numbers.forEach(l => {
+                    this.map.setLayoutProperty(l, 'visibility', 'visible');
                 });
             }
             if (lines && lines.length !== 0) {
@@ -776,6 +822,7 @@ class Map extends React.Component {
         removableCategories.forEach(cat => {
             const layers = this.layerGroups[cat];
             const labels = this.labelGroups[cat];
+            const numbers = this.idGroups[cat];
             const lines = this.lineGroups[cat];
             if (layers && layers.length !== 0) {
                 layers.forEach(l => {
@@ -784,6 +831,11 @@ class Map extends React.Component {
             }
             if (labels && labels.length !== 0) {
                 labels.forEach(l => {
+                    this.map.setLayoutProperty(l, 'visibility', 'none');
+                });
+            }
+            if (numbers && numbers.length !== 0) {
+                numbers.forEach(l => {
                     this.map.setLayoutProperty(l, 'visibility', 'none');
                 });
             }
@@ -859,7 +911,7 @@ class Map extends React.Component {
         // When the mouse moves, check for
         // features, which we'll often just respond
         // to by showing a popup display
-        const { dispatch, projects } = this.props;
+        const { dispatch, projects, categories } = this.props;
         this.map.on('mousemove', e => {
             const { popup } = this.props;
 
@@ -885,7 +937,7 @@ class Map extends React.Component {
                         // If we move directly from one project to another,
                         // resize circle of previous project
                         if (popup.currentProject) {
-                            this.map.setPaintProperty(popup.currentProject, 'circle-color', this.categoryColors[projects[popup.currentProject].category]);
+                            this.map.setPaintProperty(popup.currentProject, 'circle-color', categories[projects[popup.currentProject].category].color);
                             this.map.setPaintProperty(popup.currentProject, 'circle-radius', this.circleRad);
                         }
 
@@ -905,7 +957,7 @@ class Map extends React.Component {
 
                     // Reset hovered project to non-hovered state
                     if (this.hoveredProjectId) {
-                        this.map.setPaintProperty(this.hoveredProjectId, 'circle-color', this.categoryColors[projects[this.hoveredProjectId].category]);
+                        this.map.setPaintProperty(this.hoveredProjectId, 'circle-color', categories[projects[this.hoveredProjectId].category].color);
                         this.map.setPaintProperty(this.hoveredProjectId, 'circle-radius', this.circleRad);
                         this.hoveredProjectId = null;
                     }

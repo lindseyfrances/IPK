@@ -1,0 +1,19 @@
+.project-details {
+    position: relative;
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+    .back-button {
+        position: relative;
+    }
+
+    .content {
+        padding: 0 1rem;
+        p {
+            font-size: 0.8rem;
+        }
+    }
+}

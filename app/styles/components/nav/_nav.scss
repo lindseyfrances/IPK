@@ -1,0 +1,36 @@
+.nav {
+    // width: 100vw;
+    height: 60px;
+    background-color: $dark-blue;
+    display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 30;
+    position: relative;
+    padding: 0 1rem;
+
+    .nav-items {
+        align-items: center;
+        display: flex;
+    }
+
+    .menu {
+        .hamburger-box {
+            width: 35px;
+        }
+        .hamburger-inner {
+            width: 35px;
+            height: 2px;
+
+            &:after, &:before {
+                width: 35px;
+                height: 2px;
+            }
+        }
+        // position: absolute;
+        // height: 100%;
+        // right: 10px;
+    }
+}

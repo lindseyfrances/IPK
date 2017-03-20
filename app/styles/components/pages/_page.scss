@@ -1,0 +1,22 @@
+.page-content {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    &.col-2 {
+        display: flex;
+
+        .map-container {
+            flex: 2 1 70%;
+        }
+
+        .sidebar {
+            flex: 1 1 30%;
+            background-color: $dark-blue;
+            overflow-y: auto;
+        }
+    }
+}
+

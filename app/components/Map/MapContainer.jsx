@@ -15,7 +15,8 @@ import Nav from 'app/components/Nav/Nav';
 import Menu from 'app/components/Menu';
 import AddItemForm from 'app/components/AddItemForm';
 import Impact from 'app/components/Impact';
-
+import BackButton from 'app/components/BackButton';
+import LoadingOverlay from 'app/components/LoadingOverlay';
 
 import * as actions from 'app/actions/actions';
 
@@ -35,6 +36,7 @@ class MapContainer extends React.Component {
         this.handleOpenForm = this.handleOpenForm.bind(this);
         this.handleCloseForm = this.handleCloseForm.bind(this);
         this.toggleImpact = this.toggleImpact.bind(this);
+        this.handleBack = this.handleBack.bind(this);
     }
 
     componentDidMount() {
@@ -84,8 +86,13 @@ class MapContainer extends React.Component {
         });
     }
 
+    handleBack() {
+        const { dispatch } = this.props;
+        dispatch(actions.setSelectedProject(''));
+    }
+
     render() {
-        const { isLoading, menu, popup, selectedProject, categories, projects } = this.props;
+        const { dataIsLoading, isLoading, menu, popup, selectedProject, categories, projects } = this.props;
         const { impactOpen } = this.state;
         console.log(impactOpen);
 
@@ -100,43 +107,51 @@ class MapContainer extends React.Component {
             return false;
         };
 
-        let pageClass = 'page-container';
-        if (menu || impactOpen) {
-            pageClass += ' blurred';
-        }
-        // TODO: Fix project list
+        // let pageClass = 'page-container';
+        // if (menu || impactOpen) {
+        //     pageClass += ' blurred';
+        // }
         return (
-            <div>
-                <div className={pageClass}>
-                    <div className='content-container'>
-                        <Map
-                            categories={categories}
-                            selectedProject={selectedProject}
-                            containerId={'map'}
-                            projects={projects}
-                        />
-                        <Nav toggleImpact={this.toggleImpact} />
-                        {/* <ProjectList categories={categories} projects={projects}  /> */}
-                    </div>
-                </div>
-
-                {popup.visible && <HoverPopup />}
-                {displayLoadingScreen()}
-                <ReactTransitionGroup>
-                    {menu && <Menu handleClose={this.handleCloseMenu} handleOpenForm={this.handleOpenForm} />}
-                </ReactTransitionGroup>
-                {this.state.showForm && <AddItemForm handleCloseForm={this.handleCloseForm} />}
-                <MapBanner
-                    handleClose={this.handleCloseBanner}
-                    handleExpand={this.handleExpandBanner}
-                    expanded={this.state.bannerExpanded}
-                    selectedProjectId={selectedProject}
-                    projects={projects}
+            <div className='map-container'>
+                <Map
                     categories={categories}
+                    selectedProject={selectedProject}
+                    containerId={'map'}
+                    projects={projects}
                 />
-                <Impact open={impactOpen} toggle={this.toggleImpact} />
+                <LoadingOverlay waitFor={[isLoading, dataIsLoading]}/>
             </div>
         );
+        // return (
+        //     <div>
+        //         <div className={pageClass}>
+        //             <div className='content-container'>
+        //                 <Map
+        //                     categories={categories}
+        //                     selectedProject={selectedProject}
+        //                     containerId={'map'}
+        //                     projects={projects}
+        //                 />
+        //             </div>
+        //         </div>
+        //
+        //         {popup.visible && <HoverPopup />}
+        //         {displayLoadingScreen()}
+        //         <ReactTransitionGroup>
+        //             {menu && <Menu handleClose={this.handleCloseMenu} handleOpenForm={this.handleOpenForm} />}
+        //         </ReactTransitionGroup>
+        //         {this.state.showForm && <AddItemForm handleCloseForm={this.handleCloseForm} />}
+        //         <MapBanner
+        //             handleClose={this.handleCloseBanner}
+        //             handleExpand={this.handleExpandBanner}
+        //             expanded={this.state.bannerExpanded}
+        //             selectedProjectId={selectedProject}
+        //             projects={projects}
+        //             categories={categories}
+        //         />
+        //         <Impact open={impactOpen} toggle={this.toggleImpact} />
+        //     </div>
+        // );
     }
 }
 
@@ -148,7 +163,8 @@ MapContainer.propTypes = {
     popup: React.PropTypes.object.isRequired,
     // impactOpen: React.PropTypes.bool.isRequired,
     selectedProject: React.PropTypes.string,
-    projects: React.PropTypes.object.isRequired
+    projects: React.PropTypes.object.isRequired,
+    dataIsLoading: React.PropTypes.bool.isRequired
 };
 
 export default connect(state => ({
@@ -158,7 +174,8 @@ export default connect(state => ({
     selectedProject: state.selectedProject,
     categories: state.categories,
     menu: state.menu,
-    popup: state.popup
+    popup: state.popup,
+    dataIsLoading: state.dataIsLoading
     // impactOpen: state.impactOpen
     //categoriesDescriptors: state.categoriesDescriptors
 }))(MapContainer);
