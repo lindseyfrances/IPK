@@ -1,0 +1,24 @@
+.case-study-list {
+    padding: 1rem 8rem;
+    >div {
+        display: flex;
+        justify-content: center;
+    }
+
+    a {
+        padding: 0;
+        margin: 1rem;
+
+        div {
+            h2 {
+                text-align: center;
+                font-size: 1.4rem;
+            }
+            p {
+                font-size: 0.9rem;
+            }
+            padding: 2rem;
+            max-width: 400px;
+        }
+    }
+}

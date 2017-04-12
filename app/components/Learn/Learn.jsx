@@ -10,15 +10,11 @@ import Nav from 'app/components/Nav/Nav';
 
 class Learn extends React.Component {
     render() {
+        const { router, location } = this.props;
         return (
             <div className='page'>
                 <Nav title='Learn' />
-                <div className='page-content'>
-                    <MapContainer />
-                </div>
-                <div className='learn-banner'>
-                    <h1>Learn some shit</h1>
-                </div>
+                {this.props.children}
             </div>
         );
     }

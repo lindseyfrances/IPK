@@ -19,15 +19,20 @@ console.log(process.env.PWD);
 console.log(apiController);
 
 app.use(express.static('dist'));
-//app.use(express.static(process.env.PWD + '/static'));
-
-app.get('/map', function (request, response) {
-    console.log(process.env.PWD);
-
-    response.sendFile(path.resolve(process.env.PWD, 'dist', 'index.html'));
-});
 
 apiController(app);
+
+app.get('*', (req, res) => {
+    let p = path.resolve(process.env.PWD, 'dist', 'index.html');
+    res.sendFile(p);
+});
+
+// app.get('/map', function (request, response) {
+//     console.log(process.env.PWD);
+//
+//     response.sendFile(path.resolve(process.env.PWD, 'dist', 'index.html'));
+// });
+
 
 app.listen(PORT, function(err) {
     console.log('listening on port ' + PORT);

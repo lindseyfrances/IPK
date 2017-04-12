@@ -28,9 +28,9 @@ class Nav extends React.Component {
             if (open) {
                 return [
                     {title: 'Home', url: '/'},
-                    {title: 'Learn', url: 'learn'},
-                    {title: 'Explore', url: 'explore'},
-                    {title: 'Get Involved', url: 'get-involved'}
+                    {title: 'Learn', url: '/learn'},
+                    {title: 'Explore', url: '/explore'},
+                    {title: 'Get Involved', url: '/get-involved'}
                 ].map(item => <Link className='nav-item' to={item.url} key={item.title}><h1>{item.title}</h1></Link>);
             } else {
                 return <h1>{this.props.title}</h1>

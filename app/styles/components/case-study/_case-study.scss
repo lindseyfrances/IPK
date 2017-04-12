@@ -1,0 +1,30 @@
+.case-study {
+    position: absolute;
+    top: 60px;
+    display: flex;
+    flex-direction: column;
+
+    .case-study-map-container {
+        height: 60vh;
+        width: 100vw;
+    }
+
+    .case-study-panel {
+        flex-grow: 2;
+        padding: 1rem;
+        background-color: $dark-blue;
+        height: 40vh;
+        // h1, h2, h3, p {
+        //     margin: 0;
+        //     padding: 0;
+        // }
+    }
+
+    .floating-text {
+        position: absolute;
+        pointer-events: none;
+        p {
+            max-width: 400px;
+        }
+    }
+}

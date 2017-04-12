@@ -1,0 +1,52 @@
+.case-study-intro-content {
+    >div:first-child {
+        display: flex;
+        flex-direction: column;
+
+        .top-panel {
+            width: 100vw;
+            flex: 1 0 50vh;
+        }
+        .bottom-panel {
+            flex-grow: 1;
+
+            padding: 2rem;
+            img {
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+            }
+        }
+    }
+
+    #intro-section-2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 75rem;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2rem;
+
+        .node-list {
+            p {
+                font-size: 1rem;
+                color: $dark-text-color;
+            }
+        }
+    }
+
+    .video-wrapper {
+        position: relative;
+        padding-bottom: 60%;
+        padding-top: 25px;
+    }
+    .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-width: 1080px;
+        height: 100%;
+    }
+}

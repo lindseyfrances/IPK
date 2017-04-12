@@ -26,15 +26,14 @@ var configure = () => {
     // Shared plugins (i.e. both dev and prod) go here
     var shared = [
         new HtmlWebpackPlugin({
-            template: './app/index.html'
+            template: './app/index.html',
+            inject: false
         }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV),
                 MAPBOXGL_ACCESS_TOKEN: JSON.stringify(process.env.MAPBOXGL_ACCESS_TOKEN),
                 MONGO_DB_URI: JSON.stringify(process.env.MONGO_DB_URI)
-                //AWS_ACCESS_KEY: JSON.stringify(process.env.AWS_ACCESS_KEY),
-                //AWS_SECRET_KEY: JSON.stringify(process.env.AWS_SECRET_KEY)
             }
         })
     ];

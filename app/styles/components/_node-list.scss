@@ -1,0 +1,39 @@
+.node-list {
+    display: flex;
+    justify-content: space-around;
+    .node {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+
+        .node-circle {
+            width: 40px;
+            height: 40px;
+            background-color: green;
+            border-radius: 50%;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        &.active {
+            .node-circle {
+                background-color: yellow;
+            }
+        }
+
+        p {
+            text-align: center;
+            font-size: 0.7rem;
+            padding: 0.5rem;
+            margin: 0;
+        }
+
+        &:hover {
+            .node-circle {
+                background-color: yellow;
+            }
+        }
+    }
+}

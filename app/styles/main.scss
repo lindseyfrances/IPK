@@ -31,9 +31,17 @@
 
 // Page
 @import 'components/pages/page';
+@import 'components/container-sizing';
+
 // Individual Elements
 @import 'components/elements/menu';
 @import 'components/elements/loading-overlay';
+@import 'components/node-list';
+
+@import 'components/case-study/case-study';
+@import 'components/case-study/case-study-list';
+@import 'components/case-study/case-study-intro-content';
+
 
 .Select-option {
     font-size: 0.8rem;
@@ -43,6 +51,9 @@ body {
     background: $page-background-color;
     padding: 0;
     margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
 }
 
 a {
@@ -85,4 +96,22 @@ h1, h2, h3, p {
     &:hover {
         background-color: white;
     }
+}
+
+.section-dark {
+    background-color: $dark-blue;
+    >h1, >h2, >h3, >p {
+        color: white;
+    }
+}
+
+.section-light {
+    background-color: $page-background-color;
+    >h1, >h2, >h3, >p {
+        color: $dark-text-color;
+    }
+}
+
+.min-full-height {
+    min-height: 100vh;
 }
