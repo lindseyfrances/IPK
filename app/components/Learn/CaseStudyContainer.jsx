@@ -42,7 +42,7 @@ class CaseStudyContainer extends React.Component {
                         <h1>{caseStudy.headers.sectionOne}</h1>
                         <p>{caseStudy.introText}</p>
                     </div>
-                    <div className='panel right-col'>
+                    <div className='blue-border-4 panel right-col'>
                         <MapCore mapId='map1' mapData={caseStudy.mapData} />
                     </div>
                     <img onClick={this.changeCaseStudy} className='arrow left' src={leftArrow} />

@@ -4,6 +4,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+const logo = require('app/images/logo.png');
+console.log('logo', logo);
+
 class Nav extends React.Component {
     constructor(props) {
         super(props);
@@ -39,15 +42,17 @@ class Nav extends React.Component {
 
         return (
             <div className='nav'>
-                <h1>No Free Lunch</h1>
+                <img className='logo' src={`/${logo}`} alt='No Free Lunch Logo'/>
                 <div className='nav-items'>
-                    {renderNavItems()}
+                    <Link className='nav-item' to='/learn'>Learn</Link>
+                    <Link className='nav-item' to='/explore'>Explore</Link>
+                    <Link className='nav-item' to='/get-involved'>Get Involved</Link>
                 </div>
-                <button onClick={this.handleMenuClick} className={`menu hamburger hamburger--arrow ${open ? activeClsName : ''}`} type="button">
-                    <span className="hamburger-box">
-                        <span className="hamburger-inner"></span>
-                    </span>
-                </button>
+                {/* <button onClick={this.handleMenuClick} className={`menu hamburger hamburger--arrow ${open ? activeClsName : ''}`} type="button"> */}
+                {/*     <span className="hamburger-box"> */}
+                {/*         <span className="hamburger-inner"></span> */}
+                {/*     </span> */}
+                {/* </button> */}
             </div>
         );
     }

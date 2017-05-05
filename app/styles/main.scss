@@ -128,3 +128,7 @@ h1, h2, h3, p {
 .min-full-height {
     min-height: 100vh;
 }
+
+.blue-border-4 {
+    border: 4px solid $dark-blue;
+}

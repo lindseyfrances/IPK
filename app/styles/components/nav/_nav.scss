@@ -1,7 +1,7 @@
 .nav {
     // width: 100vw;
     height: $nav-height;
-    background-color: $dark-blue;
+    background-color: white;
     display: flex;
     // flex-direction: column;
     // align-items: center;
@@ -14,6 +14,17 @@
     .nav-items {
         align-items: center;
         display: flex;
+
+        .nav-item {
+            color: $dark-blue;
+            font-size: 1.3rem;
+        }
+    }
+
+    .logo {
+        height: 100%;
+        margin: 0;
+        padding: 0;
     }
 
     .menu {
