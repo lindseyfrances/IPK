@@ -6,7 +6,8 @@ app/data/build/*.shp
 app/data/build/*.dbf
 app/data/build/*.prj
 app/data/build/*.shx
-data/
+data/src
+data/build
 app/creds/*
 tmp/
 server/creds

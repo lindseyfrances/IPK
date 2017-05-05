@@ -1,0 +1,1853 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1195704,
+          40.6399937
+        ]
+      },
+      "properties": {
+        "Company Name": "Gaeta Interior\nDemolition",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Gaeta Interior\nDemolition",
+        "Address": "25 Van St,\nStaten Island,\nNY, 10310",
+        "Website / Contact Info": "www.gaetainc.com\n718-448-9093",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Brooklyn,\nManhattan,\nStaten Island",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard, bulk metal",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard, bulk metal",
+        "highlight": "",
+        "Other Services": "waste stream survey,  equipment for internal\ncollection (compactor, bins, bags, signs, etc.),\nstaff for assistance with initial building set-up"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.985468,
+          40.746496
+        ]
+      },
+      "properties": {
+        "Company Name": "M + G Carting\nLLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "M + G Carting\nLLC",
+        "Address": "303 5th Ave\n#1511, New\nYork, NY,\n10016",
+        "Website / Contact Info": "",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial",
+        "Locations": "Brooklyn,\nManhattan",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard,  bottles & cans",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard,  bottles & cans",
+        "highlight": "",
+        "Other Services": "waste stream survey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.735379,
+          40.771263
+        ]
+      },
+      "properties": {
+        "Company Name": "Green Bay\nSanitation\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Green Bay\nSanitation\nCorp.",
+        "Address": "253-19\nNorthern Blvd,\nLittle Neck,\nNY, 11363",
+        "Website / Contact Info": "Andrew Casagrande\n718-428-1939\ngreenbaysanitation@gmail.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), mixed use",
+        "Locations": "Queens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard,  bottles & cans, rigid\nplastics",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard,  bottles & cans, rigid\nplastics",
+        "highlight": "",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.841625,
+          40.76212
+        ]
+      },
+      "properties": {
+        "Company Name": "Tully\nEnvironmental\nInc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Tully\nEnvironmental\nInc.",
+        "Address": "127-50\nNorthern Blvd,\nFlushing, NY,\n11368",
+        "Website / Contact Info": "Dan Scully\n718-446-7000\ngreenbaysanitation@gmail.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial",
+        "Locations": "Queens",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.829897,
+          40.713522
+        ]
+      },
+      "properties": {
+        "Company Name": "Lioncage NYC,\nInc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Lioncage NYC,\nInc.",
+        "Address": "120-10\nQueens Blvd,\nKew Gardens,\nNY, 11415",
+        "Website / Contact Info": "www.lioncageshredding.com\nMoti Mitteldorf\n718-575-5466\nsupport@lioncage.com",
+        "Business Type Serviced": "office buildings, banks, law firms,\ndoctors' offices",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "high grade office paper",
+        "Materials Collected for Recycling": "high grade office paper",
+        "highlight": "",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.872777,
+          40.933852
+        ]
+      },
+      "properties": {
+        "Company Name": "Waste Management Of New York, LLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Waste Management Of New York, LLC",
+        "Address": "325 Yonkers\nAve, Yonkers,\nNY, 10701",
+        "Website / Contact Info": "www.wm.com\nDarryll Persad\n914-751-0250\ndpersad@wm.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.591653,
+          40.744763
+        ]
+      },
+      "properties": {
+        "Company Name": "Key Container\nService, Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Key Container\nService, Inc.",
+        "Address": "900\nMerchants\nConcourse,\nWestbury, NY,\n11590",
+        "Website / Contact Info": "Frank Giaquinto\n718-470-9080\nkeycontainerservice@yahoo.com",
+        "Business Type Serviced": "supermarkets/grocery stores, mixed-\nuse retail stores",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard, bottles & cans",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard, bottles & cans",
+        "highlight": "",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.813463,
+          40.769913
+        ]
+      },
+      "properties": {
+        "Company Name": "Everest\nRemoval Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Everest\nRemoval Inc.",
+        "Address": "150-64 32\nAve, Flushing,\nNY, 11354",
+        "Website / Contact Info": "Chris Christodoulou\n347-247-9057\neverestcy@aol.com",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Queens",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.887177,
+          40.808853
+        ]
+      },
+      "properties": {
+        "Company Name": "Sanitation\nSalvage Corp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Sanitation\nSalvage Corp.",
+        "Address": "421 Manida\nSt, Bronx NY,\n10474",
+        "Website / Contact Info": "www.sanitationsalvagecorp.com\nAndrew Squitieri\n718-893-9300\nasquitieri@sanitationsalvagecorp.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard,  bottles\n& cans, bulk metal, food waste",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard,  bottles\n& cans, bulk metal, food waste",
+        "highlight": "TRUE",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.984988,
+          40.681089
+        ]
+      },
+      "properties": {
+        "Company Name": "Quality Waste\nServices",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Quality Waste\nServices",
+        "Address": "260 Butler St,\nBrooklyn, NY,\n11271",
+        "Website / Contact Info": "Anthony Borruso\n718-643-4166\nqualitywaste@gmail.com",
+        "Business Type Serviced": "office buildings, mixed use",
+        "Locations": "Brooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard, bottles & cans, rigid\nplastics",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard, bottles & cans, rigid\nplastics",
+        "highlight": "",
+        "Other Services": "customized service"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.930151,
+          40.808284
+        ]
+      },
+      "properties": {
+        "Company Name": "Liverpool\nCarting Co.,\nInc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Liverpool\nCarting Co.,\nInc.",
+        "Address": "5 Bruckner\nBlvd, Bronx,\nNY, 10454",
+        "Website / Contact Info": "www.liverpoolnyc.com\nLouis G. Fava\n718-993-4525\nliverpoolcarting@verizon.net",
+        "Business Type Serviced": "office buildings, retail stores",
+        "Locations": "Bronx,\nManhattan",
+        "POPUPCONTENT": "corrugated cardboard, bottles & cans",
+        "Materials Collected for Recycling": "corrugated cardboard, bottles & cans",
+        "highlight": "",
+        "Other Services": "waste stream survey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.908105,
+          40.809632
+        ]
+      },
+      "properties": {
+        "Company Name": "Quest Haulage\nCorp",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Quest Haulage\nCorp",
+        "Address": "432 Wales\nAve, Bronx,\nNY, 10455",
+        "Website / Contact Info": "www.questhaulage.com\nEugene Alers\n734-723-6320\nbasuragene@gmail.com",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial",
+        "Locations": "Bronx,\nManhattan",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.65239,
+          40.62411
+        ]
+      },
+      "properties": {
+        "Company Name": "American\nSecurity\nShredding\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "American\nSecurity\nShredding\nCorp.",
+        "Address": "396 Brown\nCourt,\nOceanside,\nNY, 11572",
+        "Website / Contact Info": "www.americanshredding1.com\nMarybeth Lund\n516-766-2997\nmarybeth@americanshredding1.com",
+        "Business Type Serviced": "office buildings",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.005346,
+          40.716863
+        ]
+      },
+      "properties": {
+        "Company Name": "Empire State\nEnvironmental\nCompany LLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Empire State\nEnvironmental\nCompany LLC",
+        "Address": "81 Worth St,\nNew York, NY,\n10013",
+        "Website / Contact Info": "Michael Taormina\n212-431-5012\nesenvironmental32@gmail.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Manhattan",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.013555,
+          40.648436
+        ]
+      },
+      "properties": {
+        "Company Name": "Middle East\nManagement\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Middle East\nManagement\nCorp.",
+        "Address": "4823 3 Ave,\nBrooklyn, NY,\n11220",
+        "Website / Contact Info": "Adel Alahwas\n347-369-7441\nqwert675@gmail.com",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Brooklyn",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "highlight": "",
+        "Other Services": "customized service"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.935457,
+          40.587939
+        ]
+      },
+      "properties": {
+        "Company Name": "# 1 Waste\nRecycler Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "# 1 Waste\nRecycler Inc.",
+        "Address": "3023 Voorhies\nAve, Brooklyn,\nNY, 11235",
+        "Website / Contact Info": "Nasir Al Jahmi\n631-408-8071\nnumber1waste@gmail.com",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Brooklyn,\nManhattan",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "customized service"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.598023,
+          40.748752
+        ]
+      },
+      "properties": {
+        "Company Name": "Liberty Waste\n& Recycling",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Liberty Waste\n& Recycling",
+        "Address": "113 Rockaway\nAve,\nWestbury, NY,\n11590",
+        "Website / Contact Info": "Francesco Bellino\n516-523-1242\nchesko697@aol.com",
+        "Business Type Serviced": "",
+        "Locations": "",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, floor by floor site surveys"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.711963,
+          40.705103
+        ]
+      },
+      "properties": {
+        "Company Name": "Liberty Ashes\nInc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Liberty Ashes\nInc.",
+        "Address": "112 Phyllis\nCourt, Elmont,\nNY, 11003",
+        "Website / Contact Info": "Francesco Bellino\n718-739-7224\nchesko697@aol.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard,  bottles & cans, rigid\nplastics, bulk metal, food waste",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard,  bottles & cans, rigid\nplastics, bulk metal, food waste",
+        "highlight": "TRUE",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.),\nstaff for assistance with initial building set-up,\ncontainers, bins, loose pick-pickups, one-time\ncleanouts, roll-offs"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.940157,
+          40.726607
+        ]
+      },
+      "properties": {
+        "Company Name": "Bavaro\nCarting Corp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Bavaro\nCarting Corp.",
+        "Address": "649 Morgan\nAve, Brooklyn,\nNY, 11222",
+        "Website / Contact Info": "Sam J. Manfredi\n718-302-6672\nbavarocorp@yahoo.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Brooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.), staff for assistance with\ninitial building set-up"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.005332,
+          40.872964
+        ]
+      },
+      "properties": {
+        "Company Name": "Action Carting\nEnvironmental\nServices, Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Action Carting\nEnvironmental\nServices, Inc.",
+        "Address": "300 Frank Burr\nBlvd, Teaneck,\nNJ, 7666",
+        "Website / Contact Info": "www.actioncarting.com\nDan Wilson 973-286-7042\ndwilson@actioncarting.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, arenas or\nstadiums",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard,  bottles\n& cans, rigid plastics, food waste",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard,  bottles\n& cans, rigid plastics, food waste",
+        "highlight": "TRUE",
+        "Other Services": "waste stream survey,  equipment for internal\ncollection (compactor, bins, bags, signs, etc.),\nwaste audits and recycling analysis & reporting"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.581974,
+          40.653087
+        ]
+      },
+      "properties": {
+        "Company Name": "Time Shred\nServices Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Time Shred\nServices Inc.",
+        "Address": "120 Church St,\nFreeport, NY,\n11520",
+        "Website / Contact Info": "www.timeshred.com\nTimothy Leary\n718-855-1200\ntiml@timerecord.com",
+        "Business Type Serviced": "office buildings",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, customer discussions,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.) on-site shredding"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.996328,
+          40.662838
+        ]
+      },
+      "properties": {
+        "Company Name": "Falletta\nCarting Corp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Falletta\nCarting Corp.",
+        "Address": "162 21 St,\nBrooklyn, NY,\n11232",
+        "Website / Contact Info": "Sal Falletta\n718-788-0739\nsal@fallettacarting.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "corrugated cardboard, bottles & cans",
+        "Materials Collected for Recycling": "corrugated cardboard, bottles & cans",
+        "highlight": "",
+        "Other Services": "customized service"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.455107,
+          40.652709
+        ]
+      },
+      "properties": {
+        "Company Name": "Midland\nCarting, Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Midland\nCarting, Inc.",
+        "Address": "292 Bay Drive,\nMassapequa,\nNY, 11758",
+        "Website / Contact Info": "Greg Tricola\n516-799-8047\nmidlandcarting@optonline.net",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial",
+        "Locations": "Queens",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.187948,
+          40.667536
+        ]
+      },
+      "properties": {
+        "Company Name": "Century\nWaste\nServices LLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Century\nWaste\nServices LLC",
+        "Address": "623 Dowd\nAve, Elizabeth,\nNJ, 07201",
+        "Website / Contact Info": "www.centurywaste.com\nMarc Savino\n908-558-9540\nmsavino@centurywaste.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard,  bottles\n& cans, bulk metal, food waste",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard,  bottles\n& cans, bulk metal, food waste",
+        "highlight": "TRUE",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.116531,
+          40.979265
+        ]
+      },
+      "properties": {
+        "Company Name": "Aaa Shredding\nLLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Aaa Shredding\nLLC",
+        "Address": "PO Box 50,\nRidgewood ,\nNJ , 07450",
+        "Website / Contact Info": "David Nicoletti\n201-488-5015\naaashredding@aol.com",
+        "Business Type Serviced": "office buildings",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.330084,
+          40.786287
+        ]
+      },
+      "properties": {
+        "Company Name": "Flash\nRecycling\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Flash\nRecycling\nCorp.",
+        "Address": "PO Box 832,\nLivingston , NJ,\n07039",
+        "Website / Contact Info": "Billy Huang\n212-673-6194\nflashrecycling@yahoo.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Brooklyn,\nManhattan",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.770769,
+          40.710152
+        ]
+      },
+      "properties": {
+        "Company Name": "Royal Waste\nServices",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Royal Waste\nServices",
+        "Address": "187-40 Hollis\nAve, Hollis,\nNY, 11423",
+        "Website / Contact Info": "www.royalwaste.com\nAldo Pereira\n718-468-8679\ninfo@royalwaste.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use\narenas or stadiums",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\nand cans, rigid plastics, bulk metal\nfood waste",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\nand cans, rigid plastics, bulk metal\nfood waste",
+        "highlight": "TRUE",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.), staff for assistance with\ninitial building set-up"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.554016,
+          40.77486
+        ]
+      },
+      "properties": {
+        "Company Name": "Shred-It",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Shred-It",
+        "Address": "609-3\nCantiague\nRock Rd,\nWestbury, NY,\n11590",
+        "Website / Contact Info": "www.shredit.com\nBrandon Green\n800-257-9805\nbrandon.green@shredit.com",
+        "Business Type Serviced": "office buildings",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.409633,
+          41.392743
+        ]
+      },
+      "properties": {
+        "Company Name": "Empire Waste\nServices, Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Empire Waste\nServices, Inc.",
+        "Address": "910 Lexington\nBlvd , Bethel\nCT, 06801",
+        "Website / Contact Info": "John Frangoulis\n203-981-5173\njohnrecycles@yahoo.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use\narenas or stadiums,",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\nand cans, rigid plastics, bulk metal",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\nand cans, rigid plastics, bulk metal",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.159524,
+          40.552579
+        ]
+      },
+      "properties": {
+        "Company Name": "Scocozzo\nCarting Corp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Scocozzo\nCarting Corp.",
+        "Address": "67 E Figurea\nAve, Staten\nIsland, NY,\n10308",
+        "Website / Contact Info": "Michael Grosso\n718-356-3936",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Brooklyn,\nManhattan",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.787857,
+          40.704132
+        ]
+      },
+      "properties": {
+        "Company Name": "United\nSanitation,\nInc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "United\nSanitation,\nInc.",
+        "Address": "170-10\nDouglas Ave,\nJamaica, NY,\n11433",
+        "Website / Contact Info": "Anna Marie Taglienti\n718-658-7272\nunitedsanitation@aol.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Queens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard, bottles & cans,  rigid\nplastics",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard, bottles & cans,  rigid\nplastics",
+        "highlight": "",
+        "Other Services": "waste stream survey, staff for assistance with\ninitial building set-up"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.942867,
+          40.757899
+        ]
+      },
+      "properties": {
+        "Company Name": "Hermes\nWaste\nServices Corp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Hermes\nWaste\nServices Corp.",
+        "Address": "38-25 10 St,\nLong Island\nCity, NY,\n11101",
+        "Website / Contact Info": "Eddie Lopez\n718-361-5255\nelopez@hermeswaste.net",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.00407,
+          40.656181
+        ]
+      },
+      "properties": {
+        "Company Name": "Joe Morea &\nSons",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Joe Morea &\nSons",
+        "Address": "155 34 St,\nBrooklyn,, NY,\n11232",
+        "Website / Contact Info": "www.joemoreaandsons.com\nJoe Morea\n718-946-6161\njoemoreasons@aol.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Brooklyn",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.833542,
+          40.700854
+        ]
+      },
+      "properties": {
+        "Company Name": "Jm Contractor\nNY Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Jm Contractor\nNY Inc.",
+        "Address": "116-14\nBessemer St,\nRichmond Hill,\nNY, 11418",
+        "Website / Contact Info": "Jose I Martinez\n347-723-8668\nmartin7470@aol.com",
+        "Business Type Serviced": "laundromat, barbershops, residential",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard, bulk metal",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard, bulk metal",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.),\ndemolitions, cement work"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.911109,
+          40.717351
+        ]
+      },
+      "properties": {
+        "Company Name": "Basin Haulage\nInc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Basin Haulage\nInc.",
+        "Address": "57-01 Flushing\nAve, Maspeth,\nNY, 11378",
+        "Website / Contact Info": "www.basinhaulage.com\nStephen Spallino Jr\n718-366-6513\nstephenspallinojr@basinhaulage.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, rigid\nplastics, bulk metal",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, rigid\nplastics, bulk metal",
+        "highlight": "",
+        "Other Services": "waste stream estimate, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.992104,
+          40.673097
+        ]
+      },
+      "properties": {
+        "Company Name": "D&D Carting\nCo, Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "D&D Carting\nCo, Inc.",
+        "Address": "107 8 St,\nBrooklyn, NY,\n11215",
+        "Website / Contact Info": "www.ddcarting.com\nJohn Dinardi\n718-965-4790\njohn@ddcarting.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use\nresidential, retail stores, non-profit\norganization, events",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics, bulk metal,\ntextiles",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics, bulk metal,\ntextiles",
+        "highlight": "",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.), staff for assistance with\ninitial building set-up, help educate customers on\nwaste reduction  (recycling )"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.910468,
+          40.715954
+        ]
+      },
+      "properties": {
+        "Company Name": "USA Shred,\nLLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "USA Shred,\nLLC",
+        "Address": "56-01 Nurge\nAve, Maspeth,\nNY, 11378",
+        "Website / Contact Info": "www.usashred.info\nMichael Sheehan\n718-326-0384\ngeneralmanager@usashred.info",
+        "Business Type Serviced": "office buildings, industrial, mixed use\nstorefronts",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "mixed office paper",
+        "Materials Collected for Recycling": "mixed office paper",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.800936,
+          40.697658
+        ]
+      },
+      "properties": {
+        "Company Name": "Cinelli Carting\nCo.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Cinelli Carting\nCo.",
+        "Address": "150-11\nGuinzburg\nRoad, Jamaica,\nNY, 11433",
+        "Website / Contact Info": "www.cinellicarting.com\nFrank Cinelli\n718-523-1881\ninfo@cinellicarting.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Brooklyn,\nQueens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.) staff\nfor assistance with initial building set-up, needs of\ncustomers"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.501542,
+          40.689084
+        ]
+      },
+      "properties": {
+        "Company Name": "C.J.S\nSanitation\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "C.J.S\nSanitation\nCorp.",
+        "Address": "3562 Lufberry\nAve, Wantagh,\nNY, 11793",
+        "Website / Contact Info": "www.cjssanitation.com\nChristopher Sorice\n516-308-7735\nc.j.s.sanitation@gmail.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.799633,
+          41.042572
+        ]
+      },
+      "properties": {
+        "Company Name": "TJs Carting\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "TJs Carting\nCorp.",
+        "Address": "405 Tarrytown\nRd, White\nPlains, NY,\n10607",
+        "Website / Contact Info": "www.tjscarting.com\nTonia Summo\n914-421-0024\ntonia@tjscarting.com",
+        "Business Type Serviced": "food service establishments\n(restaurants, cafes, bars), auto repair",
+        "Locations": "Bronx,\nManhattan,\nQueens",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey,  roll off containers"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.939655,
+          40.818354
+        ]
+      },
+      "properties": {
+        "Company Name": "Mande\nRecycling\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Mande\nRecycling\nCorp.",
+        "Address": "152-154 W\n141 St, New\nYork, NY,\n10030",
+        "Website / Contact Info": "Hamidou Konate\n212-470-2359\nkkonate@nyc.rr.com",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Bronx,\nManhattan",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.145421,
+          40.768434
+        ]
+      },
+      "properties": {
+        "Company Name": "Chelsea\nSanitation\nService Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Chelsea\nSanitation\nService Inc.",
+        "Address": "PO Box 461,\nKearny, NJ,\n07032",
+        "Website / Contact Info": "www.chelseasanitation.com\nDominick P Incantalupo\n973-274-1008\ndincantalupo@chelseasanitation.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics, bulk metal,\ntextiles",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics, bulk metal,\ntextiles",
+        "highlight": "",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.), staff for assistance with\ninitial building set-up"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.145421,
+          40.768434
+        ]
+      },
+      "properties": {
+        "Company Name": "M&M\nSanitation\nCorporation",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "M&M\nSanitation\nCorporation",
+        "Address": "PO Box 497,\nKearny NJ,\n07032",
+        "Website / Contact Info": "www.mmsanit.com\nDominick P Incantalupo\n973-274-1002\ndincantalupo@mmsanit.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics, bulk metal,\ntextiles",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics, bulk metal,\ntextiles",
+        "highlight": "",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.), staff for assistance with\ninitial building set-up"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.28125,
+          40.915065
+        ]
+      },
+      "properties": {
+        "Company Name": "M& J Waste\nServices , Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "M& J Waste\nServices , Inc.",
+        "Address": "38 Pocahontas\nPath, Lincoln\nPark, NJ, 07035",
+        "Website / Contact Info": "Jeanean Smentkowski\n201-522-9286\nmjwaste@verizon.net",
+        "Business Type Serviced": "food service establishments\n(restaurants, cafes, bars)",
+        "Locations": "Brooklyn",
+        "POPUPCONTENT": "corrugated cardboard, food waste",
+        "Materials Collected for Recycling": "corrugated cardboard, food waste",
+        "highlight": "TRUE",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.893842,
+          40.681374
+        ]
+      },
+      "properties": {
+        "Company Name": "La Vega\nCarting Corp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "La Vega\nCarting Corp.",
+        "Address": "200 Highland\nBlvd,\nBrooklyn, NY,\n11207",
+        "Website / Contact Info": "Edwin Remigio\n347-787-0713\nLavegacartingcorp@Hotmail.Com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Brooklyn,\nQueens",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.482069,
+          40.744266
+        ]
+      },
+      "properties": {
+        "Company Name": "Crown Waste\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Crown Waste\nCorp.",
+        "Address": "PO Box 1133,\nBethpage, NY,\n11714",
+        "Website / Contact Info": "Chris Antonacci\n516-8275060\ncacrown@aol.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Brooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bulk\nmetal",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bulk\nmetal",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.927497,
+          40.63965
+        ]
+      },
+      "properties": {
+        "Company Name": "P.M. Waste &\nRubbish\nContractors,\nInc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "P.M. Waste &\nRubbish\nContractors,\nInc.",
+        "Address": "5112 Foster\nAve, Brooklyn,\nNY, 11203",
+        "Website / Contact Info": "www.pmwasteoptonline.net\nKathy Lewis\n718-451-0366",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), retail stores",
+        "Locations": "Brooklyn,\nManhattan",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.925305,
+          40.711051
+        ]
+      },
+      "properties": {
+        "Company Name": "Filco Carting\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Filco Carting\nCorp.",
+        "Address": "111 Gardner\nAve, Brooklyn,\nNY, 11237",
+        "Website / Contact Info": "www.filcocarting.com\nDomenic Monopoli\n718-456-5000\ndomenic@filcocarting.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use\narenas or stadiums",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, ,\nbottles and cans, rigid plastics, bulk\nmetal, textiles, food waste",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, ,\nbottles and cans, rigid plastics, bulk\nmetal, textiles, food waste",
+        "highlight": "TRUE",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.916551,
+          40.724073
+        ]
+      },
+      "properties": {
+        "Company Name": "Boro-Wide\nRecycling",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Boro-Wide\nRecycling",
+        "Address": "3 Railroad Pl,\nMaspeth, NY,\n11378",
+        "Website / Contact Info": "www.borowide.com\nBob Cristina\n718-326-7149\nbob@borowiderecycling.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use\narenas or stadiums",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics, bulk metal,\ntextiles, food waste",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, rigid plastics, bulk metal,\ntextiles, food waste",
+        "highlight": "TRUE",
+        "Other Services": "waste stream survey,  equipment for internal\ncollection (compactor, bins, bags, signs, etc.)\nconsultation on recycling"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.88575,
+          40.808877
+        ]
+      },
+      "properties": {
+        "Company Name": "Mid-Bronx\nHaulage Corp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Mid-Bronx\nHaulage Corp.",
+        "Address": "408 Coster St,\nBronx, NY,\n10474",
+        "Website / Contact Info": "www.midbronxhaulage.com\nLaura Park or Angelo Sirico\n718-893-4256\nmbh408@aol.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Bronx,\nManhattan",
+        "POPUPCONTENT": "corrugated cardboard, bulk metal,",
+        "Materials Collected for Recycling": "corrugated cardboard, bulk metal,",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.132369,
+          40.734953
+        ]
+      },
+      "properties": {
+        "Company Name": "The Newark\nGroup, Inc.\nDba Recycled\nFibers Div\nEastern\nRegion",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "The Newark\nGroup, Inc.\nDba Recycled\nFibers Div\nEastern\nRegion",
+        "Address": "60 Lockwood\nSt, Newark,\nNJ, 7105",
+        "Website / Contact Info": "www.caraustar.com\nChuck Stone\n973-465-3900\nchuck.stone@caraustar.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores,\nindustrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.), staff for assistance with\ninitial building set-up"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.132238,
+          40.641234
+        ]
+      },
+      "properties": {
+        "Company Name": "Flag Container\nServices Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Flag Container\nServices Inc.",
+        "Address": "11 Ferry St,\nStaten Island,\nNY, 10302",
+        "Website / Contact Info": "Peter Franchini\n718-720-4650\npfranchini-flagcont@si.rr.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), mixed use arenas or\nstadiums",
+        "Locations": "Brooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, review prior survey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.017248,
+          40.706887
+        ]
+      },
+      "properties": {
+        "Company Name": "Battery Park\nCity Parks\nConservancy\nCorporation",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Battery Park\nCity Parks\nConservancy\nCorporation",
+        "Address": "75 Battery Pl,\nNew York, NY,\n10280",
+        "Website / Contact Info": "www.bpcparks.org\nT Fleisher\n212-267-9700\ntfleisher@bpcparks.org",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Manhattan",
+        "POPUPCONTENT": "corrugated cardboard, food waste",
+        "Materials Collected for Recycling": "corrugated cardboard, food waste",
+        "highlight": "TRUE",
+        "Other Services": "customized service"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.800936,
+          40.697658
+        ]
+      },
+      "properties": {
+        "Company Name": "Cinelli Carting\nCo.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Cinelli Carting\nCo.",
+        "Address": "150-11\nGuinzburg\nRoad, Jamaica,\nNY, 11433",
+        "Website / Contact Info": "www.cinellicarting.com\nFrank Cinelli\n718-523-1881\ninfo@cinellicarting.com",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial",
+        "Locations": "Brooklyn,\nQueens",
+        "POPUPCONTENT": "corrugated cardboard, bulk metal",
+        "Materials Collected for Recycling": "corrugated cardboard, bulk metal",
+        "highlight": "",
+        "Other Services": "customized service , staff for assistance with\ninitial building set-up"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.020031,
+          40.643794
+        ]
+      },
+      "properties": {
+        "Company Name": "Shred Up Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Shred Up Inc.",
+        "Address": "259 58Th St,\nBrooklyn, NY,\n11220",
+        "Website / Contact Info": "www.shreduponline.com\nAvraham Blau\n718-234-1313\ninfo@shreduponline.com",
+        "Business Type Serviced": "office buildings",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.746758,
+          40.664719
+        ]
+      },
+      "properties": {
+        "Company Name": "Marvel\nSanitation",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Marvel\nSanitation",
+        "Address": "142-28 230 Th\nPl, Queens,\nNY, 11413",
+        "Website / Contact Info": "John Shields\n718-598-538\nmarvelsanitation@yahoo.com",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Brooklyn,\nQueens",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.929495,
+          40.707397
+        ]
+      },
+      "properties": {
+        "Company Name": "Kings County\nCarting Corp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Kings County\nCarting Corp.",
+        "Address": "108 Ingraham\nSt , Brooklyn,\nNY, 11229",
+        "Website / Contact Info": "www.kingscountycarting.com\nSal Giresi\n718-381-6505\nkingscccorp@gmail.com",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), mixed use",
+        "Locations": "Brooklyn,\nQueens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard, bottles & cans",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard, bottles & cans",
+        "highlight": "",
+        "Other Services": "waste stream survey,  equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.010923,
+          40.981102
+        ]
+      },
+      "properties": {
+        "Company Name": "Confidential\nShredding",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Confidential\nShredding",
+        "Address": "121 Woodland\nAve,\nWestwood,\nNJ, 7675",
+        "Website / Contact Info": "www.shredconfidential.com\nJoseph David\n201-573-1400\noffice@shredconfidential.com",
+        "Business Type Serviced": "office buildings",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.985145,
+          40.679835
+        ]
+      },
+      "properties": {
+        "Company Name": "Joe's Waste\nPaper\nCorporations",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Joe's Waste\nPaper\nCorporations",
+        "Address": "578 Degraw\nSt, Brooklyn,\nNY, 11215",
+        "Website / Contact Info": "Anthony M. Delvecchio\n646-302-0751\ntupu310@aol.com",
+        "Business Type Serviced": "industrial",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "high grade office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, canvas baskets"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.819148,
+          40.840697
+        ]
+      },
+      "properties": {
+        "Company Name": "Argento\nRubbish\nRemoval Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Argento\nRubbish\nRemoval Inc.",
+        "Address": "3286 Country\nClub Road,\nBronx, NY,\n10465",
+        "Website / Contact Info": "Adam Vionito\n718-824-4625",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), mixed use",
+        "Locations": "Bronx,\nManhattan",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.883728,
+          40.810295
+        ]
+      },
+      "properties": {
+        "Company Name": "Avid Waste\nSystems, Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Avid Waste\nSystems, Inc.",
+        "Address": "1330 Oak\nPoint Ave ,\nBronx, NY,\n10474",
+        "Website / Contact Info": "www.avidwaste.com\nBennett Velocci\n718-991-9700\nben.velocci@avidwaste.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, ,\nbottles and cans, bulk metal, food\nwaste",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, ,\nbottles and cans, bulk metal, food\nwaste",
+        "highlight": "",
+        "Other Services": "customized service, waste stream survey"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.700205,
+          40.722362
+        ]
+      },
+      "properties": {
+        "Company Name": "HPB Hauling &\nRecycling\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "HPB Hauling &\nRecycling\nCorp.",
+        "Address": "43 Aspen St,\nFloral Park,\nNY, 11001",
+        "Website / Contact Info": "Hans Berglund\n516-877-0100\nhpbhauling@verizon.net",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), mixed use",
+        "Locations": "Brooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "mixed office paper, corrugated\ncardboard, bottles & cans, bulk metal",
+        "Materials Collected for Recycling": "mixed office paper, corrugated\ncardboard, bottles & cans, bulk metal",
+        "highlight": "",
+        "Other Services": "waste stream survey, floor by floor site surveys,\nequipment for internal collection (compactor,\nbins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.101901,
+          40.902629
+        ]
+      },
+      "properties": {
+        "Company Name": "Rentacrate\nOpco LLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Rentacrate\nOpco LLC",
+        "Address": "74 Kenny Pl,\nSaddle Brook,\nNJ, 7663",
+        "Website / Contact Info": "www.rentacrate.com\nBrian Kaffee\n201-926-3897\nbkaffee@rentacrate.com",
+        "Business Type Serviced": "office buildings, industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.),\nstaff for assistance with initial building set-up"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.928409,
+          40.77503
+        ]
+      },
+      "properties": {
+        "Company Name": "D & N\nServices, Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "D & N\nServices, Inc.",
+        "Address": "25-54 14 St,\nAstoria, NY,\n11102",
+        "Website / Contact Info": "Nick Divittorio\n718-777-7140\ndandnic@aol.com",
+        "Business Type Serviced": "industrial, mixed use stone/marble\nshops, wood shops, body shops, glass\nshops",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "customized service"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.875915,
+          40.66411
+        ]
+      },
+      "properties": {
+        "Company Name": "Metropolitan\nRecycling",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Metropolitan\nRecycling",
+        "Address": "847 Shepherd\nAve, Brooklyn,\nNY, 11208",
+        "Website / Contact Info": "Marc Vorrasi\n718-257-8584\nmvorrasi@mprnyc.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, ,\nbottles and cans, rigid plastics, bulk\nmetal, food waste",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, ,\nbottles and cans, rigid plastics, bulk\nmetal, food waste",
+        "highlight": "TRUE",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.998265,
+          40.627998
+        ]
+      },
+      "properties": {
+        "Company Name": "Niro Carting",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Niro Carting",
+        "Address": "1325-61 St,\nBrooklyn, NY,\n11219",
+        "Website / Contact Info": "Frank Lomangino\n917-416-7229\npopagino1@aol.com",
+        "Business Type Serviced": "supermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Brooklyn",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.998341,
+          40.628054
+        ]
+      },
+      "properties": {
+        "Company Name": "Lomangino\nBros Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Lomangino\nBros Inc.",
+        "Address": "1321-61 St,\nBrooklyn, NY,\n11219",
+        "Website / Contact Info": "Leonard Lomangino\n718-871-7722\nlomanginobros@hotmail.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), mixed use",
+        "Locations": "Brooklyn",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.393155,
+          40.732687
+        ]
+      },
+      "properties": {
+        "Company Name": "Dp Transport\nInc. Dba:\nSafeway\nMedical\nSolutions &\nVeterinary\nMedical\nWaste Service",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Dp Transport\nInc. Dba:\nSafeway\nMedical\nSolutions &\nVeterinary\nMedical\nWaste Service",
+        "Address": "164 Cabot St,\nWest Babylon,\nNY, 11704",
+        "Website / Contact Info": "www.safewaymedsolutions.com\nThomas (Tucker) Lagnese\n631-249-0004\ntucker@safewaymedsolutions.com",
+        "Business Type Serviced": "office buildings, doctors‰Ûª offices,\nacupuncturists, funeral homes, walk-\nin health clinics, & veterinary\nhospitals",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)\nmedical waste sharps containers"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.962242,
+          40.695728
+        ]
+      },
+      "properties": {
+        "Company Name": "Industrial\nCarting",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Industrial\nCarting",
+        "Address": "65 Emerson\nPl, Brooklyn,\nNY, 11205",
+        "Website / Contact Info": "www.thesmartercarter.com\nStephen Leone\n718-622-1786\ninfo@thesmartercarter.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores,\nindustrial, mixed use",
+        "Locations": "Brooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, food\nwaste, textiles",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, food\nwaste, textiles",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys,  staff for assistance\nwith initial building set-up, evaluation of\ncustomer internal handling of waste materials"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.423346,
+          40.711566
+        ]
+      },
+      "properties": {
+        "Company Name": "Secureshred\nLLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Secureshred\nLLC",
+        "Address": "55 Toledo St,\nFarmingdale,\nNY, 11735",
+        "Website / Contact Info": "www.secureshredinfo.com\nCharles Mahoney\n917-757-3406\ncmahoney@secureshredinfo.com",
+        "Business Type Serviced": "office buildings, tenants in office\nbuildings",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, corrugated\ncardboard",
+        "Materials Collected for Recycling": "high grade office paper, corrugated\ncardboard",
+        "highlight": "",
+        "Other Services": "customized service"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.885928,
+          40.807653
+        ]
+      },
+      "properties": {
+        "Company Name": "Amro Carting\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Amro Carting\nCorp.",
+        "Address": "337 Coster St,\nBronx, NY,\n10474",
+        "Website / Contact Info": "www.amrocartingcorp.com\nElena Incognoli\n718-542-3236\naceydeucy@live.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars)",
+        "Locations": "Bronx,\nManhattan",
+        "POPUPCONTENT": "corrugated cardboard, bottles & cans",
+        "Materials Collected for Recycling": "corrugated cardboard, bottles & cans",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.843692,
+          40.759969
+        ]
+      },
+      "properties": {
+        "Company Name": "Crown\nContainer Co.\nInc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Crown\nContainer Co.\nInc.",
+        "Address": "126-46 34\nAve, Flushing,\nNY, 11368",
+        "Website / Contact Info": "www.crowncontainerco.com\nGerald Antonacci\n718-335-6845\ncrownja5957@aol.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial, mixed use",
+        "Locations": "Brooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, corrugated\ncardboard, bottles & cans, bulk\nmetal, textiles",
+        "Materials Collected for Recycling": "high grade office paper, corrugated\ncardboard, bottles & cans, bulk\nmetal, textiles",
+        "highlight": "",
+        "Other Services": "waste audit and surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.069628,
+          40.704503
+        ]
+      },
+      "properties": {
+        "Company Name": "Reliable Paper\nRecycling, Inc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Reliable Paper\nRecycling, Inc.",
+        "Address": "1 Caven Point\nAve, Jersey\nCity, NJ, 7305",
+        "Website / Contact Info": "www.reliablepaperrecycling.com\nLeonard Pirrello\n201-333-5244\nlenny@reliablepaperrecycling.com",
+        "Business Type Serviced": "industrial, printers commercial",
+        "Locations": "Brooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard",
+        "highlight": "",
+        "Other Services": "floor by floor site surveys, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.882129,
+          40.822052
+        ]
+      },
+      "properties": {
+        "Company Name": "Paper Service\nInc.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Paper Service\nInc.",
+        "Address": "960 Bronx\nRiver Ave,\nBronx, NY,\n10473",
+        "Website / Contact Info": "David\n718-991-3842\npaperservice@verizon.net",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bulk\nmetal",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bulk\nmetal",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.877684,
+          40.70654
+        ]
+      },
+      "properties": {
+        "Company Name": "Mr. T Carting\nCorp.",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Mr. T Carting\nCorp.",
+        "Address": "7310 Edsall\nAve, Glendale,\nNY, 11385",
+        "Website / Contact Info": "www.mrtcarting.com\nThomas N. Toscano\n718-821-9706\ntnt71@mrtcarting.com",
+        "Business Type Serviced": "office buildings,\nsupermarkets/grocery stores, food\nservice establishments (restaurants,\ncafes, bars), industrial",
+        "Locations": "Brooklyn,\nManhattan,\nQueens",
+        "POPUPCONTENT": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, bulk metal, food waste",
+        "Materials Collected for Recycling": "high grade office paper, mixed office\npaper, corrugated cardboard, bottles\n& cans, bulk metal, food waste",
+        "highlight": "TRUE",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.842318,
+          41.544172
+        ]
+      },
+      "properties": {
+        "Company Name": "Organix\nRecycling, LLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Organix\nRecycling, LLC",
+        "Address": "19065 Hickory\nCreek Drive,\nMokena, IL,\n60448",
+        "Website / Contact Info": "www.organixrecycling.com\n708-326-3900\nbillk@organixrecycling.com",
+        "Business Type Serviced": "supermarkets/grocery stores",
+        "Locations": "Bronx,\nBrooklyn,\nStaten Island",
+        "POPUPCONTENT": "corrugated cardboard, food waste",
+        "Materials Collected for Recycling": "corrugated cardboard, food waste",
+        "highlight": "TRUE",
+        "Other Services": "customized service, equipment for internal\ncollection (compactor, bins, bags, signs, etc.)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.699333,
+          40.879343
+        ]
+      },
+      "properties": {
+        "Company Name": "Veolia Es\nTechnical\nSolutions LLC",
+        "POPUPFIELDS": "Company Name, Address, Materials Collected for Recycling, Other Services",
+        "HASPOPUP": "TRUE",
+        "POPUPHEADER": "Veolia Es\nTechnical\nSolutions LLC",
+        "Address": "1 Eden Lane,\nFlanders, NJ,\n7836",
+        "Website / Contact Info": "www.veolia.com\nKevin Anderson\n973-347-7111\nkevin.anderson@veolia.com",
+        "Business Type Serviced": "office buildings, industrial",
+        "Locations": "Bronx,\nBrooklyn,\nManhattan,\nQueens,\nStaten Island",
+        "POPUPCONTENT": "corrugated cardboard",
+        "Materials Collected for Recycling": "corrugated cardboard",
+        "highlight": "",
+        "Other Services": "waste stream survey, equipment for internal\ncollection (compactor, bins, bags, signs, etc.),\nprovides services for the collection and disposal\nof hazardous wastes, medical wastes and e-\nwastes for recycling or disposal."
+      }
+    }
+  ]
+}
