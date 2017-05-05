@@ -16,6 +16,7 @@ class CaseStudy extends React.Component {
     constructor(props) {
         super(props);
         this.handleMouseMove = this.handleMouseMove.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
     getNodeData(id, story, pageNumber) {
         let data = nodes[id][story];
@@ -48,36 +49,41 @@ class CaseStudy extends React.Component {
         }
     }
 
+    changePage(pageNumber) {
+        this.props.handlePageNumberChange(pageNumber);
+    }
+
     render() {
         console.log('rerendering case study page');
-        const { params, router, location } = this.props;
-        console.log('location', location.pathname);
+        const { params, router, id, category, pageNumber } = this.props;
+        // console.log('location', location.pathname);
 
         // Get case study that matches the route
-        const caseStudy = caseStudies[params.caseStudy];
-        const pageData = this.getPageData(caseStudy.id, params.category, params.pageNumber);
-        const nodeList = nodes[caseStudy.id][params.category];
+        const caseStudy = caseStudies[id];
+        const pageData = caseStudy.pages.filter(page => {
+            if (page.story === category) {
+                return page.pageNumber === pageNumber;
+            }
+            return false;
+        })[0];
+
+        const nodeList = nodes[caseStudy.id][category];
 
         // Figure out which node is active
         let activeId;
+        let activeNode;
         nodeList.forEach(n => {
-            if (n.pageNumber === parseInt(params.pageNumber, 10)) {
+            if (n.pageNumber === parseInt(pageNumber, 10)) {
                 activeId = n.id;
+                activeNode = n;
             }
         });
-
-        const selectProjects = () => {
-            // if (params.category && params.pageNumber) {
-            //     // const pageData = this.getPageData(pages, caseStudy.id, params.category, params.pageNumber);
-            // }
-            return pageData.mapData;
-        };
 
         const renderPanelContent = () => {
             return (
                 <div className='case-study-panel'>
                     <h1>{pageData.storyDisplay}</h1>
-                    <NodeList nodes={nodeList} activeId={activeId}/>
+                    <NodeList handleClick={this.changePage} nodes={nodeList} activeId={activeId}/>
                     <h2>{pageData.content.header}</h2>
                     <p>{pageData.content.text}</p>
                 </div>
@@ -127,6 +133,7 @@ class CaseStudy extends React.Component {
                     default:
                         break;
                 }
+
                 return (
                     <div style={styles} className='floating-text'>
                         <h3>{pageData.floatingText.title}</h3>
@@ -138,13 +145,17 @@ class CaseStudy extends React.Component {
         }
 
         return (
-            <div style={{height: `${window.innerHeight - 60}px`}} className='case-study'>
-                <div id='case-study-map-container' className='case-study-map-container'>
-                    <MapCore onMouseMove={this.handleMouseMove} mapData={selectProjects()} />
-                    <CaseStudyPopup containerId='case-study-map-container'/>
+            <div className='case-study-story two-column'>
+                <div className='left-col'>
+                    {renderPanelContent()}
                 </div>
-                {renderPanelContent()}
-                {renderFloatingText()}
+                <div className='right-col'>
+                    <div id='case-study-map-container' className='case-study-map-container'>
+                        <MapCore mapId='case-study-map' onMouseMove={this.handleMouseMove} mapData={pageData.mapData} />
+                        <CaseStudyPopup containerId='case-study-map-container'/>
+                    </div>
+                    {renderFloatingText()}
+                </div>
 
             </div>
         );

@@ -1,4 +1,5 @@
-$main-font: sans-serif;
+$main-font: 'Raleway', sans-serif;
+$main-font-black: 'Raleway-black', sans-serif;
 $page-overlay-background-color: rgba(0,0,0,0.6);
 $button-background-color: rgba(100,100,100,0.8);
 $landing-text-color: lightgrey;
@@ -8,6 +9,8 @@ $background-color: #79BD8F;
 $purple-color: #551A8B;
 $purple-color-with-opacity: rgba(85, 26, 139, 0.8);
 /*$cyan: #96d7ff;*/
+
+/* COLOR SCHEMES */
 $cyan: #00afc3;
 $dark-cyan: #00404a;
 $some-other-purple: #7a0099;
@@ -26,8 +29,16 @@ $sandy-white: #EFECCA;
 $sandy-brown: #A7A37E;
 $sandy-yellow: #E6E2AF;
 
-$dark-blue: #225378;
-$dark-text-color: #4A4A4A;
+$dark-blue: #0F5284;
+$light-gray: #F3F2F0;
+
+
+/* ELEMENT STYLES */
+$page-background-color: $light-gray;
+$dark-text-color: $dark-blue;
 $light-text-color: white;
+
+$nav-height: 60px;
+
 
 

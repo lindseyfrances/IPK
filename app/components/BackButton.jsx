@@ -6,17 +6,10 @@
  */
 import React from 'react';
 
-class BackButton extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
-    render() {
-        return (
-            <div className='back-button' onClick={this.props.onClick} />
+function BackButton(props) {
+    return (
+        <div className='back-button' onClick={props.onClick} />
         );
-    }
 }
 
 BackButton.propTypes = {

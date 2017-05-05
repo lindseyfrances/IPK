@@ -1,21 +1,15 @@
 import React from 'react';
 import ReactTransitionGroup from 'react-addons-transition-group';
-// import $ from 'jquery';
-// import mapboxgl from 'mapbox-gl';
-// import * as redux from 'redux';
 import { connect } from 'react-redux';
 
 import Map from 'app/components/Map/Map';
-import MapBanner from 'app/components/Map/MapBanner';
-import HoverPopup from 'app/components/HoverPopup';
-import Nav from 'app/components/Nav/Nav';
-// import SideNav from 'app/components/SideNav';
-// import ProjectPanel from 'app/components/ProjectPanel';
-// import ProjectList from 'app/components/ProjectList';
-import Menu from 'app/components/Menu';
-import AddItemForm from 'app/components/AddItemForm';
-import Impact from 'app/components/Impact';
-import BackButton from 'app/components/BackButton';
+// import MapBanner from 'app/components/Map/MapBanner';
+// import HoverPopup from 'app/components/HoverPopup';
+// import Nav from 'app/components/Nav/Nav';
+// import Menu from 'app/components/Menu';
+// import AddItemForm from 'app/components/AddItemForm';
+// import Impact from 'app/components/Impact';
+// import BackButton from 'app/components/BackButton';
 import LoadingOverlay from 'app/components/LoadingOverlay';
 
 import * as actions from 'app/actions/actions';
@@ -31,8 +25,8 @@ class MapContainer extends React.Component {
         };
 
         this.handleCloseMenu = this.handleCloseMenu.bind(this);
-        this.handleCloseBanner = this.handleCloseBanner.bind(this);
-        this.handleExpandBanner = this.handleExpandBanner.bind(this);
+        // this.handleCloseBanner = this.handleCloseBanner.bind(this);
+        // this.handleExpandBanner = this.handleExpandBanner.bind(this);
         this.handleOpenForm = this.handleOpenForm.bind(this);
         this.handleCloseForm = this.handleCloseForm.bind(this);
         this.toggleImpact = this.toggleImpact.bind(this);
@@ -66,19 +60,19 @@ class MapContainer extends React.Component {
         });
     }
 
-    handleCloseBanner() {
-        const { dispatch } = this.props;
-        this.setState({
-            bannerExpanded: false
-        });
-        dispatch(actions.setSelectedProject(''));
-    }
+    // handleCloseBanner() {
+    //     const { dispatch } = this.props;
+    //     this.setState({
+    //         bannerExpanded: false
+    //     });
+    //     dispatch(actions.setSelectedProject(''));
+    // }
 
-    handleExpandBanner() {
-        this.setState({
-            bannerExpanded: !this.state.bannerExpanded
-        });
-    }
+    // handleExpandBanner() {
+    //     this.setState({
+    //         bannerExpanded: !this.state.bannerExpanded
+    //     });
+    // }
 
     toggleImpact() {
         this.setState({
@@ -107,10 +101,6 @@ class MapContainer extends React.Component {
             return false;
         };
 
-        // let pageClass = 'page-container';
-        // if (menu || impactOpen) {
-        //     pageClass += ' blurred';
-        // }
         return (
             <div className='map-container'>
                 <Map
@@ -122,36 +112,6 @@ class MapContainer extends React.Component {
                 <LoadingOverlay waitFor={[isLoading, dataIsLoading]}/>
             </div>
         );
-        // return (
-        //     <div>
-        //         <div className={pageClass}>
-        //             <div className='content-container'>
-        //                 <Map
-        //                     categories={categories}
-        //                     selectedProject={selectedProject}
-        //                     containerId={'map'}
-        //                     projects={projects}
-        //                 />
-        //             </div>
-        //         </div>
-        //
-        //         {popup.visible && <HoverPopup />}
-        //         {displayLoadingScreen()}
-        //         <ReactTransitionGroup>
-        //             {menu && <Menu handleClose={this.handleCloseMenu} handleOpenForm={this.handleOpenForm} />}
-        //         </ReactTransitionGroup>
-        //         {this.state.showForm && <AddItemForm handleCloseForm={this.handleCloseForm} />}
-        //         <MapBanner
-        //             handleClose={this.handleCloseBanner}
-        //             handleExpand={this.handleExpandBanner}
-        //             expanded={this.state.bannerExpanded}
-        //             selectedProjectId={selectedProject}
-        //             projects={projects}
-        //             categories={categories}
-        //         />
-        //         <Impact open={impactOpen} toggle={this.toggleImpact} />
-        //     </div>
-        // );
     }
 }
 
@@ -179,18 +139,3 @@ export default connect(state => ({
     // impactOpen: state.impactOpen
     //categoriesDescriptors: state.categoriesDescriptors
 }))(MapContainer);
-/*
-*/
-/*
-                        <div className='no-map' style={{visibility: showMap ? 'hidden' : 'visible'}}>
-                            <img src={require('app/images/bg1.png')} />
-                            {(() => {
-                                    if (currentCategory === '') {
-                                        return <h1>No Free Lunch</h1>;
-                                    } else {
-                                        return <p>{categoriesDescriptors[currentCategory]}</p>;
-                                    }
-                                })()}
-                        </div>
-                        {renderProjectPanel()}
-                        */

@@ -11,6 +11,7 @@ import CaseStudy from 'app/components/Learn/CaseStudy';
 import CaseStudyIntroduction from 'app/components/Learn/CaseStudyIntroduction';
 import CaseStudyPage from 'app/components/Learn/CaseStudyPage';
 import CaseStudyList from 'app/components/Learn/CaseStudyList';
+import CaseStudyContainer from 'app/components/Learn/CaseStudyContainer';
 
 export default (
     <Router history={browserHistory}>
@@ -19,8 +20,8 @@ export default (
             <Route path='/learn' component={Learn}>
                 <IndexRoute component={CaseStudyList} />
                 <Route path='/learn/:caseStudy'>
-                    <IndexRoute component={CaseStudyIntroduction} />
-                    <Route path='/learn/:caseStudy(/:category)(/:pageNumber)' component={CaseStudy} />
+                    <IndexRoute component={CaseStudyContainer} />
+                    {/* <Route path='/learn/:caseStudy/:category/:pageNumber' component={CaseStudy} /> */}
                 </Route>
             </Route>
             <Route path='/explore' component={Explore} />

@@ -17,10 +17,16 @@ export default props => {
                     clsName += ' active';
                 }
                 return (
-                    <Link key={node.to} to={node.to} className={clsName}>
-                        <div className='node-circle' />
-                        <p>{node.title}</p>
-                    </Link>
+                <div
+                    key={node.to}
+                    className={clsName}
+                    onClick={() => props.handleClick(node.pageNumber)}
+                >
+                        <div className='node-inner'>
+                            <p>{node.title}</p>
+                            <img />
+                        </div>
+                    </div>
                 );
             }
             )}

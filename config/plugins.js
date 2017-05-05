@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 var envFile = require('node-env-file');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Get development environment and current working directory
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -35,7 +36,10 @@ var configure = () => {
                 MAPBOXGL_ACCESS_TOKEN: JSON.stringify(process.env.MAPBOXGL_ACCESS_TOKEN),
                 MONGO_DB_URI: JSON.stringify(process.env.MONGO_DB_URI)
             }
-        })
+        }),
+        new CopyWebpackPlugin([
+            { from: './app/images/', to: './images/' }
+        ]),
     ];
 
     // Prod plugins here

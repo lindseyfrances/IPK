@@ -20,7 +20,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 process.env.PWD = process.cwd();
 
 module.exports = {
-    devtool: process.env.NODE_ENV === 'production' ? null : 'cheap-eval-source-map',
+    devtool: process.env.NODE_ENV === 'production' ? null : 'eval-source-map',
     entry: process.env.NODE_ENV === 'production' ?
         './app/app.jsx' : [
         'webpack-dev-server/client?http://localhost:8080',

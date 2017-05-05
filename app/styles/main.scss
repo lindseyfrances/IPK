@@ -38,14 +38,27 @@
 @import 'components/elements/loading-overlay';
 @import 'components/node-list';
 
-@import 'components/case-study/case-study';
-@import 'components/case-study/case-study-list';
-@import 'components/case-study/case-study-intro-content';
+// @import 'components/case-study/case-study';
+// @import 'components/case-study/case-study-list';
+// @import 'components/case-study/case-study-intro-content';
+@import 'components/case-study/case-study-container';
 
+@import url('https://fonts.googleapis.com/css?family=Raleway:Semi-Bold,Black');
 
 .Select-option {
     font-size: 0.8rem;
 }
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+  }
+
 body {
     font-family: $main-font;
     background: $page-background-color;
@@ -76,7 +89,7 @@ h3 {
     font-size: 1.1rem;
 }
 h1, h2, h3, p {
-    color: white;
+    color: $dark-text-color;
 }
 
 .blurred {

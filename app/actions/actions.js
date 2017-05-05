@@ -85,7 +85,13 @@ export const initializeCategories = function(projects) {
     return dispatch => {
         const cat = {};
         // const colors = ['#fff5eb','#fee6ce','#fdd0a2','#fdae6b','#fd8d3c','#f16913','#d94801','#a63603','#7f2704'];
-        const colors = ['#7bccc4','#4eb3d3','#2b8cbe','#0868ac','#084081'];
+        const colors = [
+            '#7bccc4',
+            '#4eb3d3',
+            '#2b8cbe',
+            '#0868ac',
+            '#084081'
+        ];
         // const colors = [
         //     '#a6cee3',
         //     '#1f78b4',
@@ -188,6 +194,20 @@ export const showPopupWithProject = function(id, point) {
         type: 'SHOW_POPUP_WITH_PROJECT',
         id,
         point
+    };
+};
+
+export const showCaseStudyPopupWithContent = function(content, point) {
+    return {
+        type: 'SHOW_CASE_STUDY_POPUP_WITH_CONTENT',
+        content,
+        point
+    };
+};
+
+export const hideCaseStudyPopup = function() {
+    return {
+        type: 'HIDE_CASE_STUDY_POPUP'
     };
 };
 

@@ -72,6 +72,25 @@ export const dataLoadingReducer = (state = false, action) => {
     }
 };
 
+export const caseStudyPopupReducer = (state = { visible: false, point: { x: 0, y: 0 }}, action) => {
+    switch (action.type) {
+        case 'SHOW_CASE_STUDY_POPUP_WITH_CONTENT':
+            return {
+                visible: true,
+                content: action.content,
+                point: action.point
+            };
+        case 'HIDE_CASE_STUDY_POPUP':
+            return {
+                visible: false,
+                content: {header: '', content: ''},
+                point: { x: 0, y: 0 }
+            };
+        default:
+            return state;
+    }
+};
+
 export const popupReducer = (state = { visible: false }, action) => {
     switch (action.type) {
         case 'HIDE_POPUP':
@@ -174,7 +193,7 @@ export const categoriesReducer = (state = {}, action) => {
             return Object.keys(state).reduce((acc, cat) => {
                 acc[cat] = {
                     ...state[cat]
-                }
+                };
                 acc[cat].visible = false;
                 return acc;
             }, {});

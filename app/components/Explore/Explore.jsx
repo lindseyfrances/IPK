@@ -7,6 +7,17 @@ import CategoriesList from 'app/components/CategoriesList/CategoriesList';
 import ProjectDetails from 'app/components/ProjectDetails/ProjectDetails';
 
 class Explore extends React.Component {
+    constructor(props) {
+        super(props);
+
+        // We want some state here to keep track of the navigation stack of
+        // selected projects.
+
+        this.state = {
+            navStack: []
+        };
+    }
+
     render() {
         const { projects, selectedProject } = this.props;
 
@@ -27,7 +38,13 @@ class Explore extends React.Component {
     }
 }
 
+Explore.propTypes = {
+    projects: React.PropTypes.object.isRequired,
+    selectedProject: React.PropTypes.object.isRequired,
+    dispatch: React.PropTypes.func.isRequired
+};
+
 export default connect(state => ({
     selectedProject: state.selectedProject,
     projects: state.projects
-}))(Explore)
+}))(Explore);
