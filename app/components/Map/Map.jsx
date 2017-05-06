@@ -77,11 +77,6 @@ class Map extends React.Component {
         mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
         this.visibleLayers = [];
 
-        // const bounds = [
-        //     [-74.277191, 40.482993],
-        //     [-73.688049, 40.925446]
-        // ];
-
         this.map = new mapboxgl.Map({
             container: containerId,
             style: 'mapbox://styles/mapbox/satellite-v9',
@@ -968,7 +963,7 @@ class Map extends React.Component {
 
     render() {
         return (
-            <div id='map' />
+            <div className='map' id={this.props.containerId} />
         );
     }
 }

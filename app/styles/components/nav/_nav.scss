@@ -17,14 +17,22 @@
 
         .nav-item {
             color: $dark-blue;
-            font-size: 1.3rem;
+            font-size: 1rem;
+
+            &.active {
+                border-bottom: 4px solid $dark-blue;
+            }
         }
     }
 
     .logo {
         height: 100%;
-        margin: 0;
         padding: 0;
+        margin: 0;
+        img {
+            height: 100%;
+            padding: 0.3rem 0rem;
+        }
     }
 
     .menu {

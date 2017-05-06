@@ -5,7 +5,7 @@
  * Distributed under terms of the MIT license.
  */
 import React from 'react';
-import LighthouseIntroduction from './pages/LighthouseIntroduction';
+import LighthouseIntroduction from './LighthouseIntroduction';
 
 class CaseStudyIntroduction extends React.Component {
     constructor(props) {

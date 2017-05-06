@@ -1,65 +1,40 @@
 /* eslint
     "class-methods-use-this": "off"
- */
+    */
 import React from 'react';
 import { Link } from 'react-router';
+import { ROUTER_PATHS } from 'app/constants/CONSTANTS';
+import Logo from 'app/components/SimpleElements/Logo';
 
-const logo = require('app/images/logo.png');
-console.log('logo', logo);
-
-class Nav extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: false
+const Nav = props => {
+    function createClassName(path) {
+        // XXX: dumb check - only checking if active path is contained in the larger
+        // url string.  Could lead to problems if the app is to grow, but for
+        // now it works.
+        if (props.activePath.indexOf(path) !== -1) {
+            return 'nav-item active';
         }
-
-        this.handleMenuClick = this.handleMenuClick.bind(this);
+        return 'nav-item';
     }
 
-    handleMenuClick() {
-        this.setState({
-            open: !this.state.open
-        });
-    }
-
-    render() {
-        const { open } = this.state;
-        const activeClsName = 'is-active';
-
-        const renderNavItems = () => {
-            if (open) {
-                return [
-                    {title: 'Home', url: '/'},
-                    {title: 'Learn', url: '/learn'},
-                    {title: 'Explore', url: '/explore'},
-                    {title: 'Get Involved', url: '/get-involved'}
-                ].map(item => <Link className='nav-item' to={item.url} key={item.title}><h1>{item.title}</h1></Link>);
-            } else {
-                return <h1>{this.props.title}</h1>
-            }
-        }
-
-        return (
-            <div className='nav'>
-                <img className='logo' src={`/${logo}`} alt='No Free Lunch Logo'/>
-                <div className='nav-items'>
-                    <Link className='nav-item' to='/learn'>Learn</Link>
-                    <Link className='nav-item' to='/explore'>Explore</Link>
-                    <Link className='nav-item' to='/get-involved'>Get Involved</Link>
-                </div>
-                {/* <button onClick={this.handleMenuClick} className={`menu hamburger hamburger--arrow ${open ? activeClsName : ''}`} type="button"> */}
-                {/*     <span className="hamburger-box"> */}
-                {/*         <span className="hamburger-inner"></span> */}
-                {/*     </span> */}
-                {/* </button> */}
+    return (
+        <div className='nav'>
+            <Logo to={ROUTER_PATHS.HOME} />
+            <div className='nav-items'>
+                <Link className={createClassName(ROUTER_PATHS.LEARN)} to={ROUTER_PATHS.LEARN}>Learn</Link>
+                <Link className={createClassName(ROUTER_PATHS.EXPLORE)} to={ROUTER_PATHS.EXPLORE}>Explore</Link>
+                <Link className={createClassName(ROUTER_PATHS.GETINVOLVED)} to={ROUTER_PATHS.GETINVOLVED}>Get Involved</Link>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
+
+Nav.defaultProps = {
+    activePath: '/'
+};
 
 Nav.propTypes = {
-    title: React.PropTypes.string.isRequired
+    activePath: React.PropTypes.string
 };
 
 export default Nav;

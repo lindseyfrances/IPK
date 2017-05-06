@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from 'app/actions/actions';
 
+import triangleup from 'app/images/triangleup.png';
+import triangledown from 'app/images/triangledown.png';
+
 class CategoriesList extends React.Component {
     constructor(props) {
         super(props);
@@ -23,17 +26,25 @@ class CategoriesList extends React.Component {
 
     render() {
         const { categories, projects, selectedProject } = this.props;
-
         return (
             <div className='categories-list'>
+                <h1>Explore...</h1>
+                <p>...our list of organizations, artists, greenspaces, and more, that are taking the food system into their own hands.</p>
+
                 <ul>
                 {Object.keys(categories).map(cat => {
                     const prjs = categories[cat].projects;
                     const isVisible = categories[cat].visible;
                     let bgColor = categories[cat].color;
+                    if (cat === '') {
+                        return;
+                    }
                     return (
                         <li key={cat} className={isVisible ? 'category active' : 'category'} onClick={(e) => { this.handleCategoryClick(e, cat) }}>
-                            <h2 style={{backgroundColor: bgColor}}>{cat}</h2>
+                            <div className='category-title'>
+                                <h3>{cat} ({prjs.length})</h3>
+                                <img src={isVisible ? triangleup : triangledown} />
+                            </div>
                             <ul>
                                 {isVisible && prjs.map(id => {
                                     return <li key={id} className={`${id === selectedProject ? 'active' : ''}`} onClick={e => { this.handleItemClick(e, id) }} key={id}>{projects[id].id}. {projects[id].name}</li>

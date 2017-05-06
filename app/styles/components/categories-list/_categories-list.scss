@@ -1,17 +1,51 @@
 .categories-list {
+    background-color: $page-background-color;
+    padding: 1rem;
+
     .category {
-        h2 {
-            padding: 1rem;
-            margin: 0;
+        margin: 0.3rem 0rem;
+
+        .category-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid $dark-blue;
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
 
             &:hover {
                 opacity: 0.5;
             }
+
+            h3, p {
+                margin: 0;
+            }
+
+            h3 {
+                font-family: 'Raleway-light';
+                font-size: 0.9rem;
+                color: $dark-blue;
+            }
+
+            img {
+                width: 12px;
+                height: 12px;
+            }
         }
+
+        &.active {
+            .category-title {
+                background-color: $dark-blue;
+                h3, p {
+                    color: $light-text-color;
+                }
+            }
+        }
+
 
         li {
             padding: 0.2rem 1rem;
-            color: white;
+            color: $dark-blue;
             font-size: 0.8rem;
 
             &:hover {
@@ -20,7 +54,7 @@
             }
 
             &.active {
-                background-color: white;
+                // background-color: white;
                 color: black;
             }
         }
@@ -33,9 +67,5 @@
 
     li {
         // padding: 1rem;
-    }
-
-    .active {
-        background-color: #3c3c3c;
     }
 }

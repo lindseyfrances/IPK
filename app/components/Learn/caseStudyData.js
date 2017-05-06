@@ -1,5 +1,5 @@
 import React from 'react';
-import LighthouseIntroduction from '../pages/LighthouseIntroduction';
+// import LighthouseIntroduction from '../pages/LighthouseIntroduction';
 
 const STORY_IDS = {
     LIGHTHOUSE: {
@@ -247,12 +247,13 @@ export const caseStudies = {
         videoSrc: 'https://player.vimeo.com/video/143381669',
         id: 'lighthouse',
         initialStory: 'waste',
+        stories: [STORY_IDS.LIGHTHOUSE.WASTE, STORY_IDS.LIGHTHOUSE.SOURCING],
         storySubHeader: 'Lighthouse touches a wide swathe of the food system. Explore the various ways in which they intervene.',
-        type: 'point',
-        label: 'Lighthouse Restaurant',
+        // type: 'point',
+        // label: 'Lighthouse Restaurant',
         pages: storyPages.filter(story => story.id === 'lighthouse'),
         introText: 'Of all the restaurants in New York City, why have we chosen this little Williamsburg spot to single out?  Lighthouse exemplifies what it means to participate in your food system.  Each leg of the tangled web that is the food system is carefully considered, from sourcing local ingredients, to recycling oyster shells, Lighthouse models what a sustainable restaurant can be.',
-        introContent: <LighthouseIntroduction />,
+        // introContent: <LighthouseIntroduction />,
         // mapCenter: [ 40.710818, -73.953722],
         mapData: {
             type: 'symbol',

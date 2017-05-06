@@ -1,22 +1,22 @@
 import React from 'react';
 import MapCore from 'app/components/Map/MapCore';
 import CaseStudyStory from 'app/components/Learn/CaseStudyStory';
-
-import { caseStudies } from './data/casestudies';
-
 import leftArrow from 'app/images/leftarrow.png';
 import rightArrow from 'app/images/rightarrow.png';
+import { caseStudies } from './caseStudyData';
 
 class CaseStudyContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            currentCaseStudy: caseStudies[this.props.params.caseStudy].id,
             storyCategory: caseStudies[this.props.params.caseStudy].initialStory,
             pageNumber: 1
         };
 
         this.handlePageNumberChange = this.handlePageNumberChange.bind(this);
+        this.changeStory = this.changeStory.bind(this);
     }
 
     handlePageNumberChange(pageNumber) {
@@ -26,15 +26,47 @@ class CaseStudyContainer extends React.Component {
     }
 
     // TODO: Implement these functions so the arrows work!
-    changeCaseStudy(id) {
-        console.log(id);
+    changeCaseStudy(dir) {
+        if (dir === 'next') {
+            console.log('next');
+            // this.setState({
+            //     currentCaseStudy: caseStudies[this.state.currentCaseStudy].next
+            // });
+        } else {
+            console.log('prev');
+            // this.setState({
+            //     currentCaseStudy: caseStudies[this.state.currentCaseStudy].previous
+            // });
+        }
     }
 
-    changeStory() {
+    getNextElement(arr, idx) {
+        return arr[idx + 1] || arr[0];
+    }
+    getPreviousElement(arr, idx) {
+        return arr[idx - 1] || arr[arr.length - 1];
+    }
+
+    changeStory(dir) {
+        const caseStudy = caseStudies[this.state.currentCaseStudy];
+        const { pages, stories } = caseStudy;
+        let nextStory;
+        const currentStoryIdx = stories.indexOf(this.state.storyCategory);
+
+        if (dir === 'next') {
+            nextStory = this.getNextElement(stories, currentStoryIdx);
+        } else {
+            nextStory = this.getPreviousElement(stories, currentStoryIdx);
+        }
+
+        this.setState({
+            storyCategory: nextStory,
+            pageNumber: 1
+        });
     }
 
     render() {
-        let caseStudy = caseStudies[this.props.params.caseStudy];
+        const caseStudy = caseStudies[this.props.params.caseStudy];
         return (
             <div className='case-study-container'>
                 <section className='case-study-section two-column top'>
@@ -45,8 +77,8 @@ class CaseStudyContainer extends React.Component {
                     <div className='blue-border-4 panel right-col'>
                         <MapCore mapId='map1' mapData={caseStudy.mapData} />
                     </div>
-                    <img onClick={this.changeCaseStudy} className='arrow left' src={leftArrow} />
-                    <img onClick={this.changeCaseStudy} className='arrow right' src={rightArrow} />
+                    <img onClick={() => this.changeCaseStudy('prev')} className='arrow left' src={leftArrow} alt='go to previous case study'/>
+                    <img onClick={() => this.changeCaseStudy('next')} className='arrow right' src={rightArrow} alt='go to next case study'/>
                 </section>
 
                 <section className='case-study-section height-80 white'>
@@ -54,7 +86,7 @@ class CaseStudyContainer extends React.Component {
                         <h1>{caseStudy.headers.sectionTwo}</h1>
                         <div className='centered'>
                             <div className='video-wrapper'>
-                                <iframe src={caseStudy.videoSrc} width="100%" frameBorder="0" allowFullScreen />
+                                <iframe src={caseStudy.videoSrc} width='100%' frameBorder='0' allowFullScreen />
                             </div>
                         </div>
                     </div>
@@ -69,13 +101,18 @@ class CaseStudyContainer extends React.Component {
                         id={this.props.params.caseStudy}
                         category={this.state.storyCategory}
                         handlePageNumberChange={this.handlePageNumberChange}
-                        pageNumber={this.state.pageNumber} />
-                    <img onClick={this.changeStory} className='arrow left' src={leftArrow} />
-                    <img onClick={this.changeStory} className='arrow right' src={rightArrow} />
+                        pageNumber={this.state.pageNumber}
+                    />
+                    <img onClick={() => this.changeStory('prev')} className='arrow left' src={leftArrow} alt='go to next page in the case study' />
+                    <img onClick={() => this.changeStory('next')} className='arrow right' src={rightArrow} alt='go to previous page in the case study' />
                 </section>
             </div>
         );
     }
 }
+
+CaseStudyContainer.propTypes = {
+    params: React.PropTypes.object.isRequired
+};
 
 export default CaseStudyContainer;

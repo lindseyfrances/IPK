@@ -16,7 +16,7 @@ class Learn extends React.Component {
         const { router, location } = this.props;
         return (
             <div className='page'>
-                <Nav title='Learn' />
+                <Nav activePath={location.pathname} title='Learn' />
                 {this.props.children}
             </div>
         );

@@ -106,7 +106,7 @@ class MapContainer extends React.Component {
                 <Map
                     categories={categories}
                     selectedProject={selectedProject}
-                    containerId={'map'}
+                    containerId='explore-map'
                     projects={projects}
                 />
                 <LoadingOverlay waitFor={[isLoading, dataIsLoading]}/>

@@ -5,7 +5,7 @@
  * for that format
 */
 import React from 'react';
-import { caseStudies, pages, nodes } from './data/casestudies';
+import { caseStudies, pages, nodes } from './caseStudyData';
 import { connect } from 'react-redux';
 import MapCore from '../Map/MapCore';
 import NodeList from './NodeList';
@@ -49,8 +49,8 @@ class CaseStudy extends React.Component {
         }
     }
 
-    changePage(pageNumber) {
-        this.props.handlePageNumberChange(pageNumber);
+    changePage(node) {
+        this.props.handlePageNumberChange(node.pageNumber);
     }
 
     render() {

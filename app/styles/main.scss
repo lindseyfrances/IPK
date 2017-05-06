@@ -3,11 +3,9 @@
 
 @import 'components/map/map';
 @import 'components/map/map-container';
-@import 'components/points';
 @import 'components/hover-popup';
 @import 'components/side-nav';
 @import 'components/nav/nav';
-@import 'components/nav-item';
 @import 'components/landing-page';
 @import 'components/landing';
 @import 'components/layer-checkbox';
@@ -39,11 +37,11 @@
 @import 'components/node-list';
 
 // @import 'components/case-study/case-study';
-// @import 'components/case-study/case-study-list';
+@import 'components/case-study/case-study-list';
 // @import 'components/case-study/case-study-intro-content';
 @import 'components/case-study/case-study-container';
 
-@import url('https://fonts.googleapis.com/css?family=Raleway:Semi-Bold,Black');
+@import url('https://fonts.googleapis.com/css?family=Raleway:Light,Semi-Bold,Black');
 
 .Select-option {
     font-size: 0.8rem;
@@ -129,6 +127,9 @@ h1, h2, h3, p {
     min-height: 100vh;
 }
 
+.border-blue-4 {
+    border: 4px solid $dark-blue;
+}
 .blue-border-4 {
     border: 4px solid $dark-blue;
 }

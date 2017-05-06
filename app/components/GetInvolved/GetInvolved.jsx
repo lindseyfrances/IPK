@@ -9,9 +9,10 @@ import Nav from 'app/components/Nav/Nav';
 
 class GetInvolved extends React.Component {
     render() {
+        const { location } = this.props;
         return (
             <div className='page'>
-                <Nav title='Get Involved' />
+                <Nav activePath={location.pathname} title='Get Involved' />
             </div>
         );
     }

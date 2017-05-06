@@ -19,11 +19,11 @@ class Explore extends React.Component {
     }
 
     render() {
-        const { projects, selectedProject } = this.props;
+        const { location, projects, selectedProject } = this.props;
 
         return (
             <div className='page'>
-                <Nav title='Explore' />
+                <Nav activePath={location.pathname} title='Explore' />
                 <div className='page-content col-2'>
                     <div className='sidebar'>
                         {selectedProject !== '' ?

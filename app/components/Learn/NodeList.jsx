@@ -1,9 +1,3 @@
-/*
- * NodeList.jsx
- * Copyright (C) 2017 jamiecharry <jamiecharry@Jamies-Air-2.home>
- *
- * Distributed under terms of the MIT license.
- */
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -20,7 +14,7 @@ export default props => {
                 <div
                     key={node.to}
                     className={clsName}
-                    onClick={() => props.handleClick(node.pageNumber)}
+                    onClick={() => props.handleClick(node)}
                 >
                         <div className='node-inner'>
                             <p>{node.title}</p>

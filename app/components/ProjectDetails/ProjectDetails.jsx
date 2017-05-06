@@ -5,7 +5,7 @@
  * Distributed under terms of the MIT license.
  */
 import React from 'react';
-import BackButton from 'app/components/BackButton';
+import BackButton from 'app/components/SimpleElements/BackButton';
 import * as actions from 'app/actions/actions';
 import ProjectList from 'app/components/ProjectList';
 
