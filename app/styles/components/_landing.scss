@@ -1,44 +1,81 @@
 .landing {
-    h1, p {
+    .full-height {
+        height: 100vh;
+    }
+
+    .full-page-centered {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bg {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: url('/images/high-res-food.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        z-index: -1;
+    }
+
+    img {
+        max-width: 400px;
+        padding-right: 1rem;
+        border-right: 4px solid $dark-blue;
+    }
+    p {
+        margin-left: 1rem;
         color: $dark-text-color;
     }
-    &>h1 {
-        margin-top: 100px;
-        padding: 0 2rem;
-    }
-    &>p {
-        padding: 0 2rem;
-    }
 
-    ul {
-        list-style: none;
-        margin: 2rem;
-        padding: 0;
+    .landing-2 {
+        background-color: $page-background-color;
+        padding: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
 
-        li {
-            background-color: $dark-blue;
-            margin-top: 1rem;
+        ul {
+            list-style: none;
+            margin: 2rem;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
 
-            a {
-                display: flex;
-                align-items: center;
+            li {
+                // background-color: $dark-blue;
+                margin-top: 1rem;
+                border: 4px solid $dark-blue;
+                max-width: 300px;
+                min-height: 300px;
+                margin: 2rem;
 
-                h2 {
-                    flex: 1 1 30%;
-                }
-                p {
-                    flex: 1 1 50%;
-                }
-                h2, p {
-                    margin: 0;
-                }
-                p {
+                a {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 2rem;
+                    h2 {
+                        flex: 1 1 30%;
+                        font-size: 1.4rem;
+                        margin-bottom: 1rem;
+                    }
+                    p {
+                        flex: 1 1 50%;
+                        font-size: 0.9rem;
+                    }
                 }
             }
         }
+
     }
 
-    a h2, a p {
-        color: $light-text-color;
-    }
+    // a h2, a p {
+    //     color: $light-text-color;
+    // }
 }

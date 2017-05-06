@@ -40,7 +40,7 @@ class Explore extends React.Component {
 
 Explore.propTypes = {
     projects: React.PropTypes.object.isRequired,
-    selectedProject: React.PropTypes.object.isRequired,
+    selectedProject: React.PropTypes.string.isRequired,
     dispatch: React.PropTypes.func.isRequired
 };
 

@@ -79,7 +79,7 @@ class Map extends React.Component {
 
         this.map = new mapboxgl.Map({
             container: containerId,
-            style: 'mapbox://styles/mapbox/satellite-v9',
+            style: 'mapbox://styles/mapbox/light-v9',
             center: map.center,
             zoom: map.zoom,
             pitch: map.pitch
