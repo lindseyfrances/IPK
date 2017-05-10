@@ -41,10 +41,6 @@ class CaseStudyPopup extends React.Component {
         const { popup } = this.props;
         const style = {
             visibility: popup.visible ? 'visible' : 'hidden'
-            // width: '300px',
-            // position: 'absolute',
-            // padding: '1rem',
-            // zIndex: 100
         };
 
         const renderContent = () => {
@@ -53,7 +49,7 @@ class CaseStudyPopup extends React.Component {
                 return contentFields.map(fieldName => {
                     const propName = fieldName[0] === ' ' ? fieldName.slice(1) : fieldName;
                     return (
-                        <div key={fieldName}>
+                        <div className='property-field' key={fieldName}>
                             <h4>{propName}</h4>
                             <p>{popup.content[propName]}</p>
                         </div>

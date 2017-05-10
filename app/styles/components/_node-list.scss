@@ -7,7 +7,7 @@
         align-items: center;
         margin: 0;
         padding: 0;
-        border: 2px solid $dark-blue;
+        border: 2px solid $primary-color;
         border-radius: 25px;
         height: 35px;
 
@@ -30,7 +30,7 @@
         }
 
         &.active {
-            background-color: $dark-blue;
+            background-color: $primary-color;
             p {
                 color: $light-text-color;
             }

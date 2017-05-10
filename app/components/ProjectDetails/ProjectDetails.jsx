@@ -8,6 +8,7 @@ import React from 'react';
 import BackButton from 'app/components/SimpleElements/BackButton';
 import * as actions from 'app/actions/actions';
 import ProjectList from 'app/components/ProjectList';
+import ExternalLink from 'app/components/SimpleElements/ExternalLink';
 
 class ProjectDetails extends React.Component {
     constructor(props) {
@@ -23,8 +24,10 @@ class ProjectDetails extends React.Component {
     render() {
         const { selectedProject, projects } = this.props;
         const project = projects[selectedProject];
-        const connections = [];
+        // const connections = [];
+        // lists holds connected projects, orgnaized by their categories
         const lists = {};
+
         project.connections.forEach(ckey=> {
             let conn = projects[ckey];
             let cat = conn.category;
@@ -42,7 +45,12 @@ class ProjectDetails extends React.Component {
                     <BackButton onClick={this.handleBack}/>
                 </div>
                 <div className='content'>
+                    <div className='contact'>
+                        <p>{project.address}</p>
+                        <ExternalLink url={project.link}>{project.link}</ExternalLink>
+                    </div>
                     <p>{project.description}</p>
+                    {Object.keys(lists).length !== 0 ? <h4>{project.name} is connected to, or works with, the following organizations:</h4> : null}
                     {Object.keys(lists).map(cat => <ProjectList key={cat} projectList={lists[cat]} showDescriptions />)}
                 </div>
             </div>

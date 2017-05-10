@@ -1,5 +1,5 @@
 /*
- * CaseStudy is responsible for rendering a single page of a case study story
+ * CaseStudyStory is responsible for rendering a single page of a case study story
  *
  * It expects data in a very particular format - see './data/casestudies.jsx'
  * for that format
@@ -12,15 +12,15 @@ import NodeList from './NodeList';
 import CaseStudyPopup from './CaseStudyPopup';
 import * as actions from 'app/actions/actions';
 
-class CaseStudy extends React.Component {
+class CaseStudyStory extends React.Component {
     constructor(props) {
         super(props);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.changePage = this.changePage.bind(this);
     }
-    getNodeData(id, story, pageNumber) {
-        let data = nodes[id][story];
-    }
+    // getNodeData(id, story, pageNumber) {
+    //     let data = nodes[id][story];
+    // }
     getPageData(id, story, pageNumber) {
         // Pull off map content specific to this site
         return pages.filter(page => {
@@ -145,16 +145,19 @@ class CaseStudy extends React.Component {
         }
 
         return (
-            <div className='case-study-story two-column'>
-                <div className='left-col'>
-                    {renderPanelContent()}
-                </div>
-                <div className='right-col'>
-                    <div id='case-study-map-container' className='case-study-map-container'>
-                        <MapCore mapId='case-study-map' onMouseMove={this.handleMouseMove} mapData={pageData.mapData} />
-                        <CaseStudyPopup containerId='case-study-map-container'/>
+            <div className='case-study-story'>
+                <div className='two-column'>
+                    <div className='left-col'>
+                        {renderPanelContent()}
                     </div>
-                    {renderFloatingText()}
+                    <div className='right-col'>
+                        <div id='case-study-map-container' className='case-study-map-container'>
+                            <MapCore mapId='case-study-map' onMouseMove={this.handleMouseMove} mapData={pageData.mapData} />
+                            <CaseStudyPopup containerId='case-study-map-container'/>
+                        </div>
+                        {renderFloatingText()}
+                        {pageData.floatingText && pageData.floatingText.image && <img className='floating-image' src={pageData.floatingText.image} />}
+                    </div>
                 </div>
 
             </div>
@@ -169,10 +172,10 @@ const mapCorePopupStyle = {
     backgroundColor: 'blue'
 };
 
-CaseStudy.contextTypes = {
+CaseStudyStory.contextTypes = {
     router: React.PropTypes.object
 };
 
 export default connect(state => ({
     popup: state.caseStudyPopup
-}))(CaseStudy);
+}))(CaseStudyStory);

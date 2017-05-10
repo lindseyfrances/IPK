@@ -2,6 +2,7 @@
     margin-top: 20px;
     position: relative;
 
+
     .title {
         display: flex;
         justify-content: space-between;
@@ -13,6 +14,9 @@
 
     .content {
         padding: 0 1rem;
+        h4 {
+            font-size: 0.9rem;
+        }
         p {
             font-size: 0.8rem;
         }

@@ -7,6 +7,7 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import _ from 'underscore';
+import { COLORS } from 'app/constants/CONSTANTS';
 
 class MapCore extends React.Component {
     constructor(props) {
@@ -144,7 +145,7 @@ class MapCore extends React.Component {
             layout: {
                 'text-field': '{LABEL}',
                 'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-                'text-size': 9,
+                'text-size': 12,
                 'text-offset': [1, 0],
                 'text-anchor': 'left'
             }
@@ -158,7 +159,7 @@ class MapCore extends React.Component {
             source: data.id,
             paint: {
                 'fill-color': data.fillColor || '#ffffff',
-                'fill-opacity': 0.8,
+                'fill-opacity': data.opacity || 0.8,
                 'fill-outline-color': data.fillOutlineColor || '#ffffff',
                 'fill-antialias': true
             }
@@ -313,8 +314,8 @@ class MapCore extends React.Component {
             interactive: true,
             source: point.id,
             paint: {
-                'circle-radius': 9,
-                'circle-color': '#2b8cbe'
+                'circle-radius': 7,
+                'circle-color': point.circleColor || COLORS.PRIMARY_COLOR
             },
             layout: {
                 visibility: 'visible'
@@ -329,12 +330,12 @@ class MapCore extends React.Component {
                 visibility: 'visible',
                 'text-field': '{title}',
                 'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-                'text-size': 24,
+                'text-size': 12,
                 'text-offset': [1, 0],
                 'text-anchor': 'left'
             },
             paint: {
-                'text-color': '#ffffff'
+                'text-color': COLORS.PRIMARY_COLOR
             }
         });
     }

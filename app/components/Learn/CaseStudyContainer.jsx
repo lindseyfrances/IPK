@@ -51,25 +51,36 @@ class CaseStudyContainer extends React.Component {
         const caseStudy = caseStudies[this.state.currentCaseStudy];
         const { pages, stories } = caseStudy;
         let nextStory;
-        const currentStoryIdx = stories.indexOf(this.state.storyCategory);
+        let currentStoryIdx;
+        stories.forEach((story, i) => {
+            if (story.id === this.state.storyCategory.id) {
+                currentStoryIdx = i;
+            }
+        });
+        // const currentStoryIdx = stories.indexOf(this.state.storyCategory);
 
-        if (dir === 'next') {
-            nextStory = this.getNextElement(stories, currentStoryIdx);
-        } else {
-            nextStory = this.getPreviousElement(stories, currentStoryIdx);
+        if (currentStoryIdx !== undefined) {
+            if (dir === 'next') {
+                nextStory = this.getNextElement(stories, currentStoryIdx);
+            } else if (dir === 'prev'){
+                nextStory = this.getPreviousElement(stories, currentStoryIdx);
+            } else if (dir) {
+                nextStory = dir;
+            }
+
+            this.setState({
+                storyCategory: nextStory,
+                pageNumber: 1
+            });
         }
 
-        this.setState({
-            storyCategory: nextStory,
-            pageNumber: 1
-        });
     }
 
     render() {
         const caseStudy = caseStudies[this.props.params.caseStudy];
         return (
             <div className='case-study-container'>
-                <section className='case-study-section two-column top'>
+                <section className='case-study-section two-column'>
                     <div className='panel left-col'>
                         <h1>{caseStudy.headers.sectionOne}</h1>
                         <p>{caseStudy.introText}</p>
@@ -82,24 +93,25 @@ class CaseStudyContainer extends React.Component {
                 </section>
 
                 <section className='case-study-section height-80 white'>
-                    <div className='section-padding'>
                         <h1>{caseStudy.headers.sectionTwo}</h1>
                         <div className='centered'>
                             <div className='video-wrapper'>
                                 <iframe src={caseStudy.videoSrc} width='100%' frameBorder='0' allowFullScreen />
                             </div>
                         </div>
-                    </div>
                 </section>
 
                 <section className='case-study-section full-height'>
                     <div className='case-study-story-intro'>
                         <h1>Explore the Food System</h1>
                         <p>{caseStudy.storySubHeader}</p>
+                        <ul className='case-study-story-list'>
+                            {caseStudy.stories.map(story => <li className={this.state.storyCategory.id === story.id ? 'active' : ''} onClick={() => this.changeStory(story)} key={story.id}>{story.display}</li>)}
+                        </ul>
                     </div>
                     <CaseStudyStory
                         id={this.props.params.caseStudy}
-                        category={this.state.storyCategory}
+                        category={this.state.storyCategory.id}
                         handlePageNumberChange={this.handlePageNumberChange}
                         pageNumber={this.state.pageNumber}
                     />

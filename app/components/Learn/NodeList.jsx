@@ -12,7 +12,7 @@ export default props => {
                 }
                 return (
                 <div
-                    key={node.to}
+                    key={node.id}
                     className={clsName}
                     onClick={() => props.handleClick(node)}
                 >

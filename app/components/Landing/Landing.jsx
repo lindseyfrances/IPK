@@ -13,6 +13,7 @@ export class Landing extends React.Component {
                     <div className='bg'/>
                     <div className='full-page-centered'>
                         <img src={logo} />
+                        <div className='bg-overlay'/>
                         <p>Our food system is a complex machine, ever changing, ever evolving.<br/>We’re here to help you make sense of it all.</p>
                     </div>
 

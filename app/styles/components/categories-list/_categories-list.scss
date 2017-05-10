@@ -9,7 +9,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 2px solid $dark-blue;
+            border: 2px solid $primary-color;
             border-radius: 25px;
             padding: 0.5rem 1rem;
 
@@ -24,7 +24,7 @@
             h3 {
                 font-family: 'Raleway-light';
                 font-size: 0.9rem;
-                color: $dark-blue;
+                color: $primary-color;
             }
 
             img {
@@ -35,7 +35,7 @@
 
         &.active {
             .category-title {
-                background-color: $dark-blue;
+                background-color: $primary-color;
                 h3, p {
                     color: $light-text-color;
                 }
@@ -45,7 +45,7 @@
 
         li {
             padding: 0.2rem 1rem;
-            color: $dark-blue;
+            color: $primary-color;
             font-size: 0.8rem;
 
             &:hover {

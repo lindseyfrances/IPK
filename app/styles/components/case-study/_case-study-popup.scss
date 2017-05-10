@@ -3,7 +3,13 @@
     position: absolute;
     padding: 1rem;
     z-index: 100;
-    background-color: $dark-blue;
+    background-color: $page-background-color;
+    border: $primary-border;
+    border-radius: 25px;
+    pointer-events: none;
     box-shadow: 3px 3px 5px 0px rgba(50, 50, 50, 0.75);
 
+    h4 {
+        color: $light-text-color;
+    }
 }

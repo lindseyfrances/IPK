@@ -7,8 +7,9 @@
     align-items: left;
     z-index: 101;
     /*background-color: $purple-color-with-opacity;*/
-    background-color: $dark-background-color;
+    background-color: $primary-color;
     visibility: hidden;
+    border: $primary-border;
     border-radius: 5px;
     width: 300px;
     // height: 300px;

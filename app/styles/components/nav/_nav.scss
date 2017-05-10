@@ -16,11 +16,11 @@
         display: flex;
 
         .nav-item {
-            color: $dark-blue;
+            color: $primary-color;
             font-size: 1rem;
 
             &.active {
-                border-bottom: 4px solid $dark-blue;
+                border-bottom: $primary-border;
             }
         }
     }

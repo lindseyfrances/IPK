@@ -18,11 +18,11 @@ class ProjectItem extends React.Component {
     render() {
         const { project, showDescription } = this.props;
         const show = showDescription || false;
-        console.log('inside item', show);
+        console.log('inside item', project);
 
         return (
             <li onClick={this.handleClick}>
-                <h3>{project.name}</h3>
+                <h3>{project.id}: {project.name}</h3>
                 {show && <p>{project.shortDesc}</p>}
             </li>
         );
