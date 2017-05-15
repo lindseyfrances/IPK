@@ -12,7 +12,7 @@
     }
 
     .bg-overlay {
-        position: fixed;
+        position: absolute;
         width: 100vw;
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.2);
@@ -31,23 +31,42 @@
         z-index: -1;
     }
 
-    img {
+    .logo {
         max-width: 400px;
         padding-right: 1rem;
-        border-right: 4px solid $primary-color;
+        border-right: 4px solid blue;
     }
+
+    .section-2-bg {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background: url('/images/soil-shovel.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        z-index: -1;       
+    }
+
     p {
         margin-left: 1rem;
-        color: $main-text-color;
+        color: $light-text-color;
+        font-size: 1.4rem;
+        letter-spacing: 2pt;
     }
 
     .landing-2 {
-        background-color: $page-background-color;
+        // background-color: $page-background-color;
         padding: 3rem;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        h1 {
+            font-size: 2rem;
+            letter-spacing: 2pt;
+            color: $light-text-color;
+        }
 
         ul {
             list-style: none;
@@ -58,7 +77,9 @@
 
             li {
                 margin-top: 1rem;
-                border: 4px solid $primary-color;
+                // background: linear-gradient(45deg, $dark-blue, $dark-green);
+                background: linear-gradient(45deg, #ffffc9, $primary-color);
+                // border: 4px solid $primary-color;
                 max-width: 300px;
                 min-height: 300px;
                 margin: 2rem;
@@ -72,6 +93,8 @@
                         flex: 1 1 30%;
                         font-size: 1.4rem;
                         margin-bottom: 1rem;
+                        letter-spacing: 2pt;
+                        color: $light-text-color;
                     }
                     p {
                         flex: 1 1 50%;

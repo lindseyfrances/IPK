@@ -19,10 +19,12 @@ const store = configure();
 //window.store = configureStore();
 
 // Initialize project list upon app start
-//import projectList from 'app/data/build/projectlist.csv';
+import projectList from 'app/data/build/project-list.csv';
 //store.dispatch(initializeProjectList(projectList));
 //store.dispatch(initializeCategories(projectList));
-store.dispatch(actions.initializeProjectListFromDB());
+// store.dispatch(actions.initializeProjectListFromDB());
+store.dispatch(actions.initializeProjectList(projectList));
+store.dispatch(actions.initializeCategories(projectList));
 
 ReactDOM.render(
     <div>

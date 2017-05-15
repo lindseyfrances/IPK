@@ -1,24 +1,39 @@
 .case-study-list {
-    padding: 1rem 8rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(to right, #ffffc9, white);
     >div {
-        display: flex;
-        justify-content: center;
+        position: absolute;
+        left: 0;
+        width: 100vw;
+        // display: flex;
+        // justify-content: flex-start;
+        // flex-wrap: wrap;
     }
 
     a {
         padding: 0;
-        margin: 1rem;
+        // margin: 1rem;
+        margin: 0;
 
         div {
+            // border: $primary-border;
+            height: 400px;
+            // background: url('/images/produce.jpg');
+            background-size: cover;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
             h2 {
-                text-align: center;
-                font-size: 1.4rem;
+                font-size: 1.7rem;
+                color: $light-text-color;
+                letter-spacing: 2pt;
             }
             p {
-                font-size: 0.9rem;
+                font-size: 1.3rem;
+                color: $light-text-color;
+                letter-spacing: 2pt;
             }
             padding: 2rem;
-            max-width: 400px;
+            // max-width: 400px;
         }
     }
 }

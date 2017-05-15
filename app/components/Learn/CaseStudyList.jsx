@@ -17,20 +17,47 @@ class CaseStudyList extends React.Component {
         return (
             <div className='case-study-list section-light'>
                 <h1>Choose a Case Study</h1>
-                <p>The food system is complicated. We've hand selected a few key case studies to help make things a bit easier to sift through.  Start by Selecting a case study below.</p>
+                <p>We've hand selected a few key case studies to help make things a bit easier to sift through. Start by Selecting a case study below.</p>
                 <div>
                     <Link to='/learn/lighthouse'>
-                        <div className='border-blue-4'>
-                            <h2>Lighthouse</h2>
-                            <p>Situated in Brooklyn, Lighthouse touches every aspect of the food system, from sustainable sourcing, to recycling oyster shells and everything in between.</p>
+                        <div
+                            style={{
+                                background: "url('/images/lighthousebrooklyn.jpg')",
+                                backgroundSize: 'cover',
+                                backgroundPosition: '50% 50%',
+                                backgroundRepeat: 'no-repeat'
+                            }}
+                        >
+                            <h2>LIGHTHOUSE RESTAURANT</h2>
+                            <p>One restaurant's approach to the tangled web of food.</p>
                         </div>
                     </Link>
-                    <Link to='learn/other-case-study'>
-                        <div className='border-blue-4'>
-                            <h2>Wheat in New York</h2>
-                            <p>Situated in Brooklyn, Lighthouse touches every aspect of the food system, from sustainable sourcing, to recycling oyster shells and everything in between.</p>
+                    <Link to='learn/wheat'>
+                        <div
+                            style={{
+                                background: "url('/images/tractor.jpg')",
+                                backgroundSize: 'cover',
+                                backgroundPosition: '50% 50%',
+                                backgroundRepeat: 'no-repeat'
+                            }}
+                        >
+                            <h2>A WHEAT STATE OF MIND</h2>
+                            <p>COMING SOON</p>
                         </div>
-            </Link>
+                    </Link>
+                    <Link to='learn/happy-valley'>
+                        <div
+                            style={{
+                                background: "url('/images/happy-cow.jpg')",
+                                backgroundSize: 'cover',
+                                backgroundPosition: '50% 50%',
+                                backgroundRepeat: 'no-repeat'
+                            }}
+                        >
+                            <h2>HAPPY VALLEY MEATS</h2>
+                            <p>COMING SOON</p>
+                        </div>
+                    </Link>
                 </div>
             </div>
         );

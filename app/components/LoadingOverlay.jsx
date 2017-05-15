@@ -1,3 +1,6 @@
+/*
+ * Loading animation borrowed from
+*/
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -13,7 +16,44 @@ class LoadingOverlay extends React.Component {
 
         return (
             <div className={isVisible ? 'loading-overlay visible' : 'loading-overlay hidden'}>
-                <h1>Loading</h1>
+                <div>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </div>
             </div>
         );
     }

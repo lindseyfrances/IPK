@@ -130,6 +130,6 @@ h1, h2, h3, p {
 .border-blue-4 {
     border: 4px solid $dark-blue;
 }
-.blue-border-4 {
-    border: 4px solid $dark-blue;
+.border-primary {
+    border: $primary-border;
 }

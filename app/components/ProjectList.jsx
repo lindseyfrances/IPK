@@ -15,7 +15,7 @@ class ProjectList extends React.Component {
         return (
             <ul className='project-list'>
                 {projectList.length > 0 && projectList[0].category}
-                {projectList.map(prj => <ProjectItem showDescription={show} key={prj._id} project={prj} />)}
+                {projectList.map(prj => <ProjectItem showDescription={show} key={prj.id} project={prj} />)}
             </ul>
         );
     }

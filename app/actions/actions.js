@@ -108,11 +108,11 @@ export const initializeCategories = function(projects) {
         // ];
         projects.forEach((prj, i) => {
             if (cat[prj.category]) {
-                if (cat[prj.category].projects.indexOf(prj._id) === -1) {
-                    cat[prj.category].projects.push(prj._id);
+                if (cat[prj.category].projects.indexOf(prj.id) === -1) {
+                    cat[prj.category].projects.push(prj.id);
                 }
             } else {
-                cat[prj.category] = { visible: false, projects: [prj._id], color: colors[i % colors.length] };
+                cat[prj.category] = { visible: false, projects: [prj.id], color: colors[i % colors.length] };
             }
 
 

@@ -2,24 +2,28 @@
     "global-require": "off"
 */
 import { COLORS } from 'app/constants/CONSTANTS';
-const STORY_IDS = {
+export const STORY_IDS = {
     LIGHTHOUSE: {
         WASTE: {
             id: 'waste',
-            display: 'Waste'
+            display: 'WASTE'
         },
         SOURCING: {
             id: 'sourcingAndAg',
-            display: 'Sourcing & Agriculture'
+            display: 'SOURCING & AGRICULTURE'
         }
-    }
+    },
 };
+export const CASE_STUDY_TYPES = {
+    REGULAR: 'regular',
+    SLIDESHOW: 'slideshow'
+}
 
 export const storyPages = [
     {
         id: 'lighthouse',
         story: 'waste',
-        storyDisplay: 'Waste',
+        storyDisplay: 'WASTE',
         pageNumber: 1,
         next: 2,
         floatingText: {
@@ -64,7 +68,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'waste',
-        storyDisplay: 'Waste',
+        storyDisplay: 'WASTE',
         pageNumber: 2,
         next: 3,
         last: 1,
@@ -91,7 +95,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'waste',
-        storyDisplay: 'Waste',
+        storyDisplay: 'WASTE',
         pageNumber: 3,
         next: 4,
         last: 2,
@@ -118,7 +122,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'waste',
-        storyDisplay: 'Waste',
+        storyDisplay: 'WASTE',
         pageNumber: 4,
         next: 5,
         last: 3,
@@ -158,7 +162,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'waste',
-        storyDisplay: 'Waste',
+        storyDisplay: 'WASTE',
         pageNumber: 5,
         next: 6,
         last: 4,
@@ -176,7 +180,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'waste',
-        storyDisplay: 'Waste',
+        storyDisplay: 'WASTE',
         pageNumber: 6,
         next: 7,
         last: 5,
@@ -203,7 +207,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'waste',
-        storyDisplay: 'Waste',
+        storyDisplay: 'WASTE',
         pageNumber: 7,
         next: 8,
         last: 6,
@@ -230,7 +234,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'waste',
-        storyDisplay: 'Waste',
+        storyDisplay: 'WASTE',
         pageNumber: 8,
         next: 9,
         last: 7,
@@ -257,7 +261,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'waste',
-        storyDisplay: 'Waste',
+        storyDisplay: 'WASTE',
         pageNumber: 9,
         last: 8,
         title: 'Wrap Up',
@@ -276,7 +280,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'sourcingAndAg',
-        storyDisplay: 'Sourcing & Agriculture',
+        storyDisplay: 'SOURCING & AGRICULTURE',
         pageNumber: 1,
         floatingText: {title: 'Population', text: 'The sheer size of New York City makes it pretty remarkable that we can supply enough food for everyone. Whether everyone has access to that food is a different story, but there\'s no doubt there\'s enough to go around.', position: 'top-left'},
         content: {header: 'Introduction', text: 'New York City houses over 8.5 million people. An estimated 5.7 million tons of food, both domestic and international, flow into New York City every year. That’s a lot So where does it all come from?  The answer, both over simplistically and quite accurately, is everywhere.'},
@@ -295,7 +299,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'sourcingAndAg',
-        storyDisplay: 'Sourcing & Agriculture',
+        storyDisplay: 'SOURCING & AGRICULTURE',
         pageNumber: 2,
         floatingText: {
             title: 'National Wholesalers',
@@ -323,7 +327,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'sourcingAndAg',
-        storyDisplay: 'Sourcing & Agriculture',
+        storyDisplay: 'SOURCING & AGRICULTURE',
         pageNumber: 3,
         floatingText: {
             title: 'Hunt\'s Point',
@@ -354,7 +358,7 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'sourcingAndAg',
-        storyDisplay: 'Sourcing & Agriculture',
+        storyDisplay: 'SOURCING & AGRICULTURE',
         pageNumber: 4,
         floatingText: {
             title: '',
@@ -394,11 +398,11 @@ export const storyPages = [
     {
         id: 'lighthouse',
         story: 'sourcingAndAg',
-        storyDisplay: 'Sourcing & Agriculture',
+        storyDisplay: 'SOURCING & AGRICULTURE',
         pageNumber: 5,
         floatingText: {
-            title: '',
-            text:  '',
+            title: 'NY Agricultural Districts',
+            text:  'Counties in New York State have the power to designate land as an Agricultural District, which provides legal protection from regulation or development that may impede the production of any farm that works the land within the district, unless there is a public health risk or concern.',
             position: 'top-left'
         },
         content: {
@@ -409,28 +413,79 @@ export const storyPages = [
             data: {
                 id: 'lighthouse-sourcing',
                 type: 'geojson',
-                featureType: 'circle',
-                data: '	https://s3.amazonaws.com/nfl-map-data/lighthouse-sourcing.geo.json',
-                circleColor: {
-                    property: 'type',
-                    type: 'categorical',
-                    stops: [
-                        ['farm', '#66c2a5'],
-                        ['producer', '#fc8d62'],
-                        ['products', '#8da0cb'],
-                        ['distributor', '#e78ac3'],
-                        ['shop', '#a6d854'],
-                        ['greenmarket', '#ffd92f']
-                    ],
-                }
+                featureType: 'fill',
+                data: 'https://s3.amazonaws.com/nfl-map-data/ny_ag_districts.geojson',
+                fillColor: 'blue'
             },
             center: {
                 latitude: 40.810951,
                 longitude: -73.8869236
             },
-            zoom: 9
+            zoom: 5
         }
-    }
+    },
+    {
+        id: 'lighthouse',
+        story: 'sourcingAndAg',
+        storyDisplay: 'SOURCING & AGRICULTURE',
+        pageNumber: 6,
+        floatingText: {
+            title: '',
+            text:  '',
+            position: 'top-left'
+        },
+        content: {
+            header: 'We Love Dairy',
+            text: 'As for what we farm, dairy production represents 44% of the New York’s total sales, totaling roughly $2.4 billion, the third highest in the country.*  Grains and beans come in 2nd, totaling 15% of sales, and Cattle and Calves in 3rd, grabbing 8% of sales.  Produce is quite low, fruits and vegetables combined only represents 11% of the market.  Lighthouse buys from Dairyland…Not sure how to finish this copy, tie it back to lighthouse'
+        },
+        mapData: {
+            type: 'symbol',
+            data: {
+                id: 'lighthouse',
+                icon: '/images/lighthouselogo_30px.png',
+                label: 'Lighthouse Restaurant',
+                type: 'symbol',
+                latitude: 40.710883,
+                longitude: -73.953847
+            },
+            center: {
+                latitude: 40.7108827,
+                longitude: -73.9560362
+            },
+            zoom: 12
+        }
+    },
+    {
+        id: 'lighthouse',
+        story: 'sourcingAndAg',
+        storyDisplay: 'SOURCING & AGRICULTURE',
+        pageNumber: 7,
+        floatingText: {
+            title: '',
+            text:  '',
+            position: 'top-left'
+        },
+        content: {
+            header: 'The Future of Food',
+            text: 'When thinking about local food, you might be tempted to say “can local farms really feed all of New York City?”  Probably not, but does that mean that the answer is an industrial scale production effort like what we have now?  Definitely not. Restaurants in New York often fall into the mold of our current system - strive for efficiency and cost effectiveness, which leads them to Hunt’s Point, or to a Wholesaler like White Rose But Lighthouse follows a different mentality - foster our communities by contributing to them. Be transparent. Know where your food comes from and how it gets to you. Only then can we start moving towards a more localized system that can feed our city.'
+        },
+        mapData: {
+            type: 'symbol',
+            data: {
+                id: 'lighthouse',
+                icon: '/images/lighthouselogo_30px.png',
+                label: 'Lighthouse Restaurant',
+                type: 'symbol',
+                latitude: 40.710883,
+                longitude: -73.953847
+            },
+            center: {
+                latitude: 40.7108827,
+                longitude: -73.9560362
+            },
+            zoom: 12
+        }
+    },
 ];
 
 export const caseStudies = {
@@ -440,6 +495,7 @@ export const caseStudies = {
             sectionOne: 'LIGHTHOUSE RESTAURANT',
             sectionTwo: 'MEET LIGHTHOUSE'
         },
+        type: CASE_STUDY_TYPES.REGULAR,
         videoSrc: 'https://player.vimeo.com/video/143381669',
         id: 'lighthouse',
         initialStory: STORY_IDS.LIGHTHOUSE.SOURCING,
@@ -467,6 +523,9 @@ export const caseStudies = {
             },
             zoom: 12
         }
+    },
+    wheat: {
+        type: CASE_STUDY_TYPES.SLIDESHOW
     }
 };
 
@@ -567,7 +626,7 @@ export const nodes = {
             },
             {
                 id: 'local',
-                title: 'Local',
+                title: 'Buying Local',
                 pageNumber: 5
             },
             {

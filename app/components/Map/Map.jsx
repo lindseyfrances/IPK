@@ -259,7 +259,11 @@ class Map extends React.Component {
     showConnections() {
         const { selectedProject, projects, categories } = this.props;
         const currentProject = projects[selectedProject];
-        currentProject.connections.forEach(con => {
+        let connections = [];
+        if (currentProject.connections !== '') {
+            connections = currentProject.connections.split(',');
+        }
+        connections.forEach(con => {
             const destinationPrj = projects[con];
 
             let origin = [currentProject.longitude, currentProject.latitude];
@@ -289,7 +293,7 @@ class Map extends React.Component {
                 }
             };
 
-            const conName = currentProject._id + destinationPrj._id;
+            const conName = currentProject.id + destinationPrj.id;
 
             // If the connection doesn't yet exist on the map, create it
             if (!this.map.getSource(conName)) {
@@ -312,7 +316,7 @@ class Map extends React.Component {
                     layout: {
                         visibility: 'visible'
                     }
-                }, currentProject._id);
+                }, currentProject.id);
                 // this.map.addLayer({
                 //     id: `${conName}-number`,
                 //     type: 'symbol',
@@ -375,7 +379,7 @@ class Map extends React.Component {
                 if (projects[featureId]) {
                     const project = projects[featureId];
                     // const category = project.category;
-                    const id = project._id;
+                    const id = project.id;
 
                     this.allLayers.push(id);
                     switch (project.pointType) {
@@ -414,7 +418,7 @@ class Map extends React.Component {
                                 source: id,
                                 layout: {
                                     visibility: 'none',
-                                    'text-field': '{prjId}',
+                                    'text-field': `${id.split('').slice(3).join('')}`,
                                     'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
                                     'text-size': 12
                                 },
@@ -441,7 +445,7 @@ class Map extends React.Component {
                             });
                             break;
                         case 'points': {
-                            const locations = project.locations;
+                            const locations = JSON.parse(project.locations);
                             const geojsonSrc = {
                                 type: 'geojson',
                                 data: {
@@ -496,7 +500,7 @@ class Map extends React.Component {
                                 source: id,
                                 layout: {
                                     visibility: 'none',
-                                    'text-field': `${project.id}`,
+                                    'text-field': `${project.id.split('').slice(3).join('')}`,
                                     'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
                                     'text-size': 12
                                 },
@@ -620,7 +624,7 @@ class Map extends React.Component {
         Object.keys(projects).forEach(key => {
             const project = projects[key];
             const category = project.category;
-            const id = project._id;
+            const id = project.id;
 
             if (project.pointType === 'point' || project.pointType === 'points') {
                 // For each project, loop through all other projects
@@ -735,8 +739,8 @@ class Map extends React.Component {
             // Show connecting lines
             this.showConnections();
 
-            if (prj.connections.length > 0) {
-                prj.connections.forEach(conn => {
+            if (prj.connections.split(',').length > 0) {
+                prj.connections.split(',').forEach(conn => {
                     // Try to get layer - if layer exists, show it
                     if (this.map.getLayer(conn)) {
                         this.map.setLayoutProperty(conn, 'visibility', 'visible');
@@ -784,7 +788,7 @@ class Map extends React.Component {
         const visibleCategories = this.getVisibleCategories();
 
         const filteredProjects = filterListByProperty(projects, 'category', visibleCategories);
-        this.hoverableLayers = filteredProjects.map(prj => prj._id);
+        this.hoverableLayers = filteredProjects.map(prj => prj.id);
 
         // Projects are to be removed if their category was visible
         // last update, but is now not visible

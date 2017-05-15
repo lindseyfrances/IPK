@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import bgimg from 'app/images/high-res-food.jpg';
 
 import logo from 'app/images/logo_white.png';
+import soilImg from 'app/images/soil-shovel.jpg';
 
 export class Landing extends React.Component {
     render() {
@@ -12,25 +13,28 @@ export class Landing extends React.Component {
                 <section className='landing-page landing-1 full-height'>
                     <div className='bg'/>
                     <div className='full-page-centered'>
-                        <img src={logo} />
+                        <img className='logo' src={logo} />
                         <div className='bg-overlay'/>
-                        <p>Our food system is a complex machine, ever changing, ever evolving.<br/>We’re here to help you make sense of it all.</p>
+                        <p>OUR FOOD SYSTEM IS A COMPLEX MACHINE.<br/>WE'RE HERE TO HELP YOU MAKE SENSE OF IT ALL.</p>
                     </div>
 
                 </section>
-                <section className='landing-page landing-2 full-height'>
-                    <h1>GO SOMEWhere</h1>
+                <section style={{position: 'relative'}} className='landing-page landing-2 full-height'>
+                    <div className='section-2-bg' />
+                    <div className='bg-overlay'/>
+                    {/* <img style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}} src={soilImg} /> */}
+                    <h1>START HERE</h1>
                     <ul>
                         <li><Link to='/learn'>
-                                <h2>Learn</h2>
+                                <h2>LEARN</h2>
                                 <p>See the food system through a few hand picked case studies</p>
                         </Link></li>
                         <li><Link to='/explore'>
-                                <h2>Explore</h2>
+                                <h2>EXPLORE</h2>
                                 <p>Freely search through our entire dataset.</p>
                         </Link></li>
                         <li><Link to='/get-involved'>
-                                <h2>Get Involved</h2>
+                                <h2>GET INVOLVED</h2>
                                 <p>Want to get your hands dirty?  Find out what you can do.</p>
                         </Link></li>
                     </ul>

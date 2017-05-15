@@ -28,15 +28,23 @@ class ProjectDetails extends React.Component {
         // lists holds connected projects, orgnaized by their categories
         const lists = {};
 
-        project.connections.forEach(ckey=> {
-            let conn = projects[ckey];
-            let cat = conn.category;
-            if (lists[cat]) {
-                lists[cat].push(conn);
-            } else {
-                lists[cat] = [conn];
-            }
-        });
+
+        let connections = [];
+        if (project.connections !== '') {
+            connections = project.connections.split(',');
+        }
+
+        if (connections.length) {
+            connections.forEach(ckey => {
+                let conn = projects[ckey];
+                let cat = conn.category;
+                if (lists[cat]) {
+                    lists[cat].push(conn);
+                } else {
+                    lists[cat] = [conn];
+                }
+            });
+        }
                         // {Object.keys(lists).map(cat => <ProjectList key={cat} projectList={lists[cat]} showDescriptions />)}
         return (
             <div className='project-details'>

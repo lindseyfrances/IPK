@@ -125,16 +125,16 @@ export const projectsReducer = (state = {}, action) => {
         case 'INITIALIZE_PROJECT_LIST': {
             const newState = {};
             action.projects.forEach(prj => {
-                newState[prj._id] = {
+                newState[prj.id] = {
                     ...prj,
                     visible: false,
-                    id: parseInt(prj.id.slice(3), 10)
+                    id: prj.id
                 };
             });
             return newState;
         }
         case 'ADD_PROJECT':
-            return { ...state, [action.project._id]: action.project };
+            return { ...state, [action.project.id]: action.project };
         //case 'REMOVE_PROJECT':
             //return state.filter((prj, i) => {
                 //return prj.id !== action.id;
