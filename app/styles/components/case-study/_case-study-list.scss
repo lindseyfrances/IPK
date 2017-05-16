@@ -14,13 +14,16 @@
         padding: 0;
         // margin: 1rem;
         margin: 0;
+        width: 100vw;
+        height: 400px;
+        position: relative;
 
         .bg-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 400px;
             z-index: 1;
             background: linear-gradient(to right, black, $dark-green);
             opacity: 0.2;
@@ -38,6 +41,7 @@
             // border: $primary-border;
             height: 400px;
             // background: url('/images/produce.jpg');
+            position: relative;
             background-size: cover;
             background-position: 50% 50%;
             background-repeat: no-repeat;

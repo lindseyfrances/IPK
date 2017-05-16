@@ -35,7 +35,7 @@ class CaseStudyList extends React.Component {
                             </div>
                         </div>
                     </Link>
-                    <Link to='learn/wheat'>
+                    <Link to='/learn'>
                         <div className='card'
                             style={{
                                 background: "url('/images/tractor.jpg')",
@@ -51,7 +51,7 @@ class CaseStudyList extends React.Component {
                             </div>
                         </div>
                     </Link>
-                    <Link to='learn/happy-valley'>
+                    <Link to='/learn'>
                         <div className='card'
                             style={{
                                 background: "url('/images/happy-cow.jpg')",

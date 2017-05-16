@@ -31,7 +31,7 @@ export const storyPages = [
         pageNumber: 1,
         next: 2,
         floatingText: {
-            title: 'New York City',
+            title: 'Landfills in NY State',
             text: 'New York City has a long history of trash. We used to dump it in the rivers. Then came landfills like Fresh Kills. Now we ship it all over the country (and sometimes the world).',
             position: 'top-left'
         },
