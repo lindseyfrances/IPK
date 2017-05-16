@@ -3,19 +3,41 @@
         height: 100vh;
     }
 
-    .full-page-centered {
-        width: 100%;
-        height: 100%;
+    h1 {
+        font-family: $display-font;
+        font-weight: normal;
+        font-size: 4rem;
+        // letter-spacing: 2pt;
+        color: $light-text-color;
+    }
+
+    .landing-page {
         display: flex;
         justify-content: center;
         align-items: center;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: url('/images/ricardo-gomez-angel-215895.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        z-index: -1;
+
+    }
+
+    .centered {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .bg-overlay {
         position: absolute;
         width: 100vw;
         height: 100vh;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.5);
         top: 0;
         left: 0;
         z-index: -1;
@@ -24,7 +46,7 @@
         position: fixed;
         width: 100vw;
         height: 100vh;
-        background: url('/images/high-res-food.jpg');
+        background: url('/images/ricardo-gomez-angel-215895.png');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;
@@ -37,76 +59,74 @@
         border-right: 4px solid blue;
     }
 
-    .section-2-bg {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        background: url('/images/soil-shovel.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        z-index: -1;       
-    }
-
     p {
-        margin-left: 1rem;
+        // margin-left: 1rem;
         color: $light-text-color;
         font-size: 1.4rem;
-        letter-spacing: 2pt;
+        // letter-spacing: 2pt;
     }
 
-    .landing-2 {
-        // background-color: $page-background-color;
-        padding: 3rem;
+    #learn-button {
+        background: url('/images/learn-button.png');
+    }
+    #explore-button {
+        background: url('/images/explore-button.png');
+    }
+    #engage-button {
+        background: url('/images/engage-button.png');
+    }
+
+    ul {
+        list-style: none;
+        // margin: 2rem;
+        margin: 0;
+        padding: 0;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        h1 {
-            font-size: 2rem;
-            letter-spacing: 2pt;
-            color: $light-text-color;
+        justify-content: space-around;
+        // background: linear-gradient(45deg, #90D7CC, #C7E690);
+
+        .middle-item {
+            margin-left: 2rem;
+            margin-right: 2rem;
         }
 
-        ul {
-            list-style: none;
-            margin: 2rem;
-            padding: 0;
-            display: flex;
-            justify-content: space-around;
+        // li:nth-child(1) {
+        //     background: linear-gradient(45deg, #85E2D4, #B5DC8F);
+        // }
+        // li:nth-child(2) {
+        //     background: linear-gradient(45deg, #90D7CC, #B5DC8F);
+        // }
+        // li:nth-child(3) {
+        //     background: linear-gradient(45deg, #90D7CC, #C7E690);
+        // }
 
-            li {
-                margin-top: 1rem;
-                // background: linear-gradient(45deg, $dark-blue, $dark-green);
-                background: linear-gradient(45deg, #ffffc9, $primary-color);
-                // border: 4px solid $primary-color;
-                max-width: 300px;
-                min-height: 300px;
-                margin: 2rem;
+        li {
+            // margin-top: 1rem;
+            // background: linear-gradient(45deg, #ffffc9, $primary-color);
+            max-width: 300px;
+            min-height: 300px;
+            border-radius: 10px;
+            // margin: 2rem;
 
-                a {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    padding: 2rem;
-                    h2 {
-                        flex: 1 1 30%;
-                        font-size: 1.4rem;
-                        margin-bottom: 1rem;
-                        letter-spacing: 2pt;
-                        color: $light-text-color;
-                    }
-                    p {
-                        flex: 1 1 50%;
-                        font-size: 0.9rem;
-                    }
+            a {
+                display: flex;
+                flex-direction: column;
+                // align-items: center;
+                padding: 2rem;
+                h2 {
+                    flex: 1 1 30%;
+                    font-size: 1.7rem;
+                    margin-bottom: 1rem;
+                    // letter-spacing: 2pt;
+                    font-family: $display-font;
+                    color: $light-text-color;
+                }
+                p {
+                    flex: 1 1 50%;
+                    font-size: 0.9rem;
+                    color: black;
                 }
             }
         }
-
     }
-
-    // a h2, a p {
-    //     color: $light-text-color;
-    // }
 }

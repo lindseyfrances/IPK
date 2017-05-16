@@ -41,7 +41,16 @@
 // @import 'components/case-study/case-study-intro-content';
 @import 'components/case-study/case-study-container';
 
-@import url('https://fonts.googleapis.com/css?family=Raleway:Light,Semi-Bold,Black');
+@import url('https://fonts.googleapis.com/css?family=Raleway:Thin,Extra-Light,Light,Semi-Bold,Black');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,400,900');
+
+@font-face {
+    font-family: 'Norwester';
+    src: url('./fonts/norwester/norwester.eot');
+    src: url('./fonts/norwester/norwester.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/norwester/norwester.woff') format('woff'),
+    url('./fonts/norwester/norwester.ttf') format('truetype');
+}
 
 .Select-option {
     font-size: 0.8rem;
@@ -85,6 +94,9 @@ h2 {
 }
 h3 {
     font-size: 1.1rem;
+}
+h1, h2, h3, h4 {
+    font-family: $display-font;
 }
 h1, h2, h3, p {
     color: $main-text-color;

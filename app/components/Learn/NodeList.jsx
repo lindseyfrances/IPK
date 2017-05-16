@@ -17,8 +17,6 @@ export default props => {
                     onClick={() => props.handleClick(node)}
                 >
                         <div className='node-inner'>
-                            <p>{node.title}</p>
-                            <img />
                         </div>
                     </div>
                 );

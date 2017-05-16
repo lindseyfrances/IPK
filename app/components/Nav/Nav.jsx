@@ -19,7 +19,7 @@ const Nav = props => {
 
     return (
         <div className='nav'>
-            <Logo to={ROUTER_PATHS.HOME} />
+            <Link to={ROUTER_PATHS.HOME}><h1>NO FREE LUNCH</h1></Link>
             <div className='nav-items'>
                 <Link className={createClassName(ROUTER_PATHS.LEARN)} to={ROUTER_PATHS.LEARN}>Learn</Link>
                 <Link className={createClassName(ROUTER_PATHS.EXPLORE)} to={ROUTER_PATHS.EXPLORE}>Explore</Link>

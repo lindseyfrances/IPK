@@ -1,4 +1,4 @@
-var path = require('path');
+const path = require('path');
 //var p = path.resolve('node_modules/mapbox-gl/js/render/shaders.js');
 //console.log(p);
 
@@ -50,6 +50,10 @@ module.exports = {
 
             test: /\.(png|jpg)$/,
             loader: 'url-loader?limit=8192'
+        },
+        {
+            test: /\.(otf|eot|ttf|woff|woff2)$/,
+            loader: 'file-loader?name=fonts/[name].[ext]'
         },
         //{
             //test: /aws-sdk/,

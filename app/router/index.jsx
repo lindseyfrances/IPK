@@ -1,3 +1,4 @@
+/* global window */
 import React from 'react';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router';
 
@@ -9,7 +10,7 @@ import CaseStudyList from 'app/components/Learn/CaseStudyList';
 import CaseStudyContainer from 'app/components/Learn/CaseStudyContainer';
 
 export default (
-    <Router history={browserHistory}>
+    <Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
         <Route path='/'>
             <Route path='/learn' component={Learn}>
                 <IndexRoute component={CaseStudyList} />

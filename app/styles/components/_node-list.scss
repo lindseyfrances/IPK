@@ -1,15 +1,19 @@
 .node-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .node {
         cursor: pointer;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
-        margin: 0;
+        margin: 10px;
         padding: 0;
-        border: 2px solid $primary-color;
-        border-radius: 25px;
-        height: 35px;
+        // border: 2px solid $primary-color;
+        border-radius: 50%;
+        height: 20px;
+        width: 20px;
 
         margin-top: 10px;
 
@@ -29,13 +33,10 @@
             }
         }
 
+        background-color: $inactive-color;
         &.active {
-            background-color: $primary-color;
-            p {
-                color: $light-text-color;
-            }
+            background-color: $active-color;
         }
-
 
         &:hover {
             .node-circle {

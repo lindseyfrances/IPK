@@ -6,11 +6,15 @@ export const STORY_IDS = {
     LIGHTHOUSE: {
         WASTE: {
             id: 'waste',
-            display: 'WASTE'
+            display: 'WASTE',
+            activeImg: '/images/waste-active.png',
+            inactiveImg: '/images/waste-inactive.png'
         },
         SOURCING: {
             id: 'sourcingAndAg',
-            display: 'SOURCING & AGRICULTURE'
+            display: 'SOURCING & AGRICULTURE',
+            activeImg: '/images/sourcing-active.png',
+            inactiveImg: '/images/sourcing-inactive.png'
         }
     },
 };
@@ -498,7 +502,7 @@ export const caseStudies = {
         type: CASE_STUDY_TYPES.REGULAR,
         videoSrc: 'https://player.vimeo.com/video/143381669',
         id: 'lighthouse',
-        initialStory: STORY_IDS.LIGHTHOUSE.SOURCING,
+        initialStory: STORY_IDS.LIGHTHOUSE.WASTE,
         stories: [STORY_IDS.LIGHTHOUSE.WASTE, STORY_IDS.LIGHTHOUSE.SOURCING],
         storySubHeader: 'Lighthouse touches a wide swathe of the food system. Explore the various ways in which they intervene.',
         // type: 'point',

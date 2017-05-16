@@ -1,5 +1,12 @@
-$main-font: 'Raleway-medium', sans-serif;
-$main-font-black: 'Raleway-black', sans-serif;
+// $main-font: 'Raleway-medium', sans-serif;
+// $main-font-black: 'Raleway-black', sans-serif;
+$display-font: 'Norwester', sans-serif;
+$main-font: 'Montserrat', sans-serif;
+$main-font-weight-light: 200;
+$main-font-weight-regular: 400;
+$main-font-weight-black: 900;
+
+
 $page-overlay-background-color: rgba(0,0,0,0.6);
 $button-background-color: rgba(100,100,100,0.8);
 $landing-text-color: lightgrey;
@@ -45,6 +52,8 @@ $primary-color: $light-green;
 $primary-border: 4px solid $primary-color;
 $thin-border: 2px solid $primary-color;
 $secondary-color: $light-green;
+$active-color: #50E3C2;
+$inactive-color: #B8E986;
 
 $nav-height: 60px;
 

@@ -20,7 +20,7 @@ class CaseStudyList extends React.Component {
                 <p>We've hand selected a few key case studies to help make things a bit easier to sift through. Start by Selecting a case study below.</p>
                 <div>
                     <Link to='/learn/lighthouse'>
-                        <div
+                        <div className='card'
                             style={{
                                 background: "url('/images/lighthousebrooklyn.jpg')",
                                 backgroundSize: 'cover',
@@ -28,12 +28,15 @@ class CaseStudyList extends React.Component {
                                 backgroundRepeat: 'no-repeat'
                             }}
                         >
-                            <h2>LIGHTHOUSE RESTAURANT</h2>
-                            <p>One restaurant's approach to the tangled web of food.</p>
+                            <div className='bg-overlay' />
+                            <div className='title'>
+                                <h2>LIGHTHOUSE RESTAURANT</h2>
+                                <p>One restaurant's approach to the tangled web of food.</p>
+                            </div>
                         </div>
                     </Link>
                     <Link to='learn/wheat'>
-                        <div
+                        <div className='card'
                             style={{
                                 background: "url('/images/tractor.jpg')",
                                 backgroundSize: 'cover',
@@ -41,12 +44,15 @@ class CaseStudyList extends React.Component {
                                 backgroundRepeat: 'no-repeat'
                             }}
                         >
-                            <h2>A WHEAT STATE OF MIND</h2>
-                            <p>COMING SOON</p>
+                            <div className='bg-overlay' />
+                            <div className='title'>
+                                <h2>A WHEAT STATE OF MIND</h2>
+                                <p>COMING SOON</p>
+                            </div>
                         </div>
                     </Link>
                     <Link to='learn/happy-valley'>
-                        <div
+                        <div className='card'
                             style={{
                                 background: "url('/images/happy-cow.jpg')",
                                 backgroundSize: 'cover',
@@ -54,8 +60,11 @@ class CaseStudyList extends React.Component {
                                 backgroundRepeat: 'no-repeat'
                             }}
                         >
-                            <h2>HAPPY VALLEY MEATS</h2>
-                            <p>COMING SOON</p>
+                            <div className='bg-overlay' />
+                            <div className='title'>
+                                <h2>HAPPY VALLEY MEATS</h2>
+                                <p>COMING SOON</p>
+                            </div>
                         </div>
                     </Link>
                 </div>

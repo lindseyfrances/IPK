@@ -145,25 +145,28 @@ class CaseStudyStory extends React.Component {
         }
 
         return (
-            <div className='case-study-story'>
-                <div className='two-column'>
-                    <div className='left-col'>
-                        {renderPanelContent()}
-                    </div>
-                    <div className='right-col'>
-                        <div id='case-study-map-container' className='case-study-map-container'>
-                            <MapCore mapId='case-study-map' onMouseMove={this.handleMouseMove} mapData={pageData.mapData} />
-                            <CaseStudyPopup containerId='case-study-map-container'/>
-                        </div>
-                        {renderFloatingText()}
-                        {pageData.floatingText && pageData.floatingText.image && <img className='floating-image' src={pageData.floatingText.image} />}
-                    </div>
-                </div>
-
+            <div id='case-study-story' className='case-study-story'>
+                <MapCore mapId='case-study-map' onMouseMove={this.handleMouseMove} mapData={pageData.mapData} />
+                {renderFloatingText()}
+                {pageData.floatingText && pageData.floatingText.image && <img className='floating-image' src={pageData.floatingText.image} />}
+                <CaseStudyPopup containerId='case-study-story'/>
             </div>
         );
     }
 }
+/*
+                    <div className='two-column'>
+                        <div className='left-col'>
+                            {renderPanelContent()}
+                        </div>
+                        <div className='right-col'>
+                            <div id='case-study-map-container' className='case-study-map-container'>
+                            </div>
+                            {renderFloatingText()}
+                            {pageData.floatingText && pageData.floatingText.image && <img className='floating-image' src={pageData.floatingText.image} />}
+                        </div>
+                    </div>
+                    */
 
 const mapCorePopupStyle = {
     position: 'absolute',
