@@ -29,7 +29,8 @@
             }
 
             h3 {
-                font-family: 'Raleway-light';
+                font-family: $main-font;
+                font-weight: $main-font-weight-black;
                 font-size: 0.9rem;
                 color: $light-text-color;
             }
