@@ -1,20 +1,27 @@
 .categories-list {
-    background-color: $page-background-color;
-    padding: 1rem;
+    padding: 1rem 0;
+
+    .intro-text {
+        padding: 0 1rem;
+    }
+
+    h1, h2, h3, h4, p {
+        color: $light-text-color;
+    }
 
     .category {
-        margin: 0.3rem 0rem;
+        // margin: 0.3rem 0rem;
 
         .category-title {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 2px solid $primary-color;
-            border-radius: 25px;
+            // border: 2px solid $primary-color;
+            // border-radius: 25px;
             padding: 0.5rem 1rem;
 
             &:hover {
-                opacity: 0.5;
+                background-color: $active-color;
             }
 
             h3, p {
@@ -24,7 +31,7 @@
             h3 {
                 font-family: 'Raleway-light';
                 font-size: 0.9rem;
-                color: $primary-color;
+                color: $light-text-color;
             }
 
             img {
@@ -35,22 +42,26 @@
 
         &.active {
             .category-title {
-                background-color: $primary-color;
+                background-color: $active-color;
                 h3, p {
                     color: $light-text-color;
                 }
             }
         }
 
+        ul {
+            padding: 0 1rem;
+        }
+
 
         li {
             padding: 0.2rem 1rem;
-            color: $primary-color;
+            color: $light-text-color;
             font-size: 0.8rem;
 
             &:hover {
-                background-color: white;
-                color: black;
+                background-color: $active-color;
+                // color: $light;
             }
 
             &.active {

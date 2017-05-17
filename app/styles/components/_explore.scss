@@ -1,0 +1,48 @@
+.explore-page {
+
+    .bg-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('/images/marta-reis-46688.png');
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+    }
+
+    .bg-img-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, $dark-blue, $dark-green);
+    }
+
+    .explore-content {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+
+        &.col-2 {
+            display: flex;
+
+            .map-container {
+                flex: 2 1 70%;
+                height: 100%;
+            }
+
+            .sidebar {
+                flex: 1 1 30%;
+                background-color: rgba(30, 30, 30, 0.5);
+                overflow-y: auto;
+            }
+        }
+    }
+}
+

@@ -22,9 +22,10 @@ class Explore extends React.Component {
         const { location, projects, selectedProject } = this.props;
 
         return (
-            <div className='page'>
+            <div className='page explore-page' >
+                <div className='bg-img' />
                 <Nav activePath={location.pathname} title='Explore' />
-                <div className='page-content col-2'>
+                <div className='explore-content col-2'>
                     <div className='sidebar'>
                         {selectedProject !== '' ?
                             <ProjectDetails dispatch={this.props.dispatch} projects={projects} selectedProject={selectedProject} /> :

@@ -28,8 +28,10 @@ class CategoriesList extends React.Component {
         const { categories, projects, selectedProject } = this.props;
         return (
             <div className='categories-list'>
-                <h1>Explore...</h1>
-                <p>...our list of organizations, artists, greenspaces, and more, that are taking the food system into their own hands.</p>
+                <div className='intro-text'>
+                    <h1>Explore...</h1>
+                    <p>...our list of organizations, artists, greenspaces, and more, that are taking the food system into their own hands.</p>
+                </div>
 
                 <ul>
                 {Object.keys(categories).map(cat => {

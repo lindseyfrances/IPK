@@ -6,6 +6,11 @@
     padding: 0;
     margin: 0;
     // max-width: 200px;
+    color: $light-text-color;
+
+    h1, h2, h3, h4, p {
+        color: $light-text-color;
+    }
 
 
     // color: white;
@@ -17,23 +22,27 @@
         margin: 0.5rem;
         padding: 0.5rem;
         display: flex;
-        border: 2px solid $light-green;
-        border-radius: 25px;
+        // border: 2px solid $light-green;
+        // border-radius: 25px;
         flex-direction: column;
 
         h3 {
-            color: $main-text-color;
+            color: $light-text-color;
             font-size: 1rem;
             margin: 0;
             margin-top: 10px;
         }
         p {
-            color: $main-text-color;
+            color: $light-text-color;
             flex-basis: 50%;
             font-size: 0.8rem;
         }
     }
     li:hover {
-        background-color: white;
+        background-color: $active-color;
+        color: black;
+        h3, p {
+            color: black;
+        }
     }
 }

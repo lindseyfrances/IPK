@@ -158,7 +158,6 @@ class CaseStudyContainer extends React.Component {
                                 justifyContent: 'center'
                             }}
                             className='case-study-section-dark height-80 white'>
-                                <h1>{caseStudy.headers.sectionTwo}</h1>
                                 <div style={{width: '100%'}} className='centered'>
                                     <div className='video-wrapper'>
                                         <iframe src={caseStudy.videoSrc} width='100%' frameBorder='0' allowFullScreen />
