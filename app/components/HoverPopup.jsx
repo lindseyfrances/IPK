@@ -4,7 +4,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import $ from 'jquery';
-import ExternalLink from 'app/components/ExternalLink';
+import ExternalLink from 'app/components/SimpleElements/ExternalLink';
 import Select from 'react-select';
 import * as actions from 'app/actions/actions';
 
@@ -16,14 +16,6 @@ import * as actions from 'app/actions/actions';
 class HoverPopup extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            editing: false,
-            selectValues: []
-        };
-        this.handleEdit = this.handleEdit.bind(this);
-        this.handleSelectChange = this.handleSelectChange.bind(this);
-        this.cancelEdit = this.cancelEdit.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -32,18 +24,9 @@ class HoverPopup extends React.Component {
         const prj = projects[currentProject];
 
         // Do not set state if there are no projects in the list yet
-        if (Object.getOwnPropertyNames(projects).length === 0) {
+        if (Object.keys(projects).length === 0) {
             return;
         }
-
-        // Set starting values for Select element
-        const values = prj.connections.map((con) => {
-            return { value: con, label: projects[con].name };
-        });
-        console.log(values);
-        this.setState({
-            selectValues: values
-        });
     }
 
     componentDidUpdate(prevProps) {
@@ -54,15 +37,13 @@ class HoverPopup extends React.Component {
             const w = this._elt.offsetWidth;
             const h = this._elt.offsetHeight;
 
-            let containerLeftOffset = 0;
-            const containerTopOffset = 0;
-            if ($('.content-container')) {
-                containerLeftOffset = $('.content-container')[0].offsetLeft;
-            }
+            let containerRect = document.getElementById(this.props.containerId).getBoundingClientRect();
+            let containerLeftOffset = containerRect.left;
+            let containerTopOffset = containerRect.top;
 
             // Defualt puts the popup to the upper left of the cursor
             if (point && visible) {
-                let left = `${point.x + -w + containerLeftOffset}px`,
+                let left = `${point.x + containerLeftOffset - w}px`,
                     top = `${point.y - h}px`;
 
                 // If the cursor is closer to the edge than the width of the
@@ -73,7 +54,7 @@ class HoverPopup extends React.Component {
 
                 // Same with y, but move to bottom of cursor
                 if (point.y < h) {
-                    top = `${point.y + containerTopOffset}px`;
+                    top = `${point.y}px`;
                 }
 
                 this._elt.style.left = left;
@@ -81,57 +62,6 @@ class HoverPopup extends React.Component {
             }
             this._elt.style.visibility = visible ? 'visible' : 'hidden';
         }
-
-        // set editing to false if we've hovered off a project
-        const prevProject = prevProps.popup.currentProject;
-        const { currentProject } = this.props.popup;
-        if (prevProject !== '' && currentProject === '') {
-            // We've hovered off a project, so set editing to false
-            // XXX: This has a bad smell...
-            // Shoudlnt' be updating state inside componentDidUpdate
-            this.setState({         // eslint-disable-line
-                editing: false
-            });
-        }
-
-        // selectValues = prj.connections.map((con) => {
-        //     return { value: con, label: projects[con].name };
-        // });
-    }
-
-    handleEdit(e) {
-        e.preventDefault();
-        this.setState({
-            editing: true
-        });
-    }
-
-    handleSelectChange(value) {
-        console.log(value);
-        this.setState({
-            selectValues: value
-        });
-    }
-
-    cancelEdit(e) {
-        e.preventDefault();
-        this.setState({
-            editing: false
-        });
-    }
-
-    handleSubmit(e) {
-        const { selectValues } = this.state;
-        const { dispatch, popup } = this.props;
-        const { currentProject } = popup;
-        e.preventDefault();
-        this.setState({
-            editing: false
-        });
-        const updates = {
-            connections: selectValues.map((val) => { return val.value; })
-        };
-        dispatch(actions.startUpdateProject(currentProject, updates));
     }
 
     render() {
@@ -146,62 +76,12 @@ class HoverPopup extends React.Component {
             return <div />;
         }
 
-        const renderContent = () => {
-            const { editing, selectValues } = this.state;
-            const options = Object.keys(projects).map(key => ({
-                value: projects[key]._id,
-                label: projects[key].name
-            }));
-            // const options = Object.keys(projects).filter((key) => {
-            //     if (prj.category === projects[key].category) {
-            //         return true;
-            //     }
-            //     return false;
-            // }).map((key) => {
-            //     return { value: projects[key]._id, label: projects[key].name };
-            // });
-
-            // selectValues = prj.connections.map((con) => {
-            //     return { value: con, label: projects[con].name };
-            // });
-            if (editing) {
-                return (
-                    <div>
-                        <h1>Edit Entry</h1>
-                        <p>Add up to 5 connections</p>
-                        <Select
-                            name='form-field-name'
-                            value={selectValues}
-                            options={options}
-                            onChange={this.handleSelectChange}
-                            multi
-                        />
-                        <button onClick={this.handleSubmit}>Submit</button>
-                        <button onClick={this.cancelEdit}>Cancel</button>
-                    </div>
-                );
-            }
-
-            return (
-                <div>
-                    <h2>{prj && prj.name}</h2>
-                    <ExternalLink dest={prj && prj.link}>Website</ExternalLink>
-                    <div className='hover-section'>
-                        <h4>About&nbsp;</h4>
-                        <p>{prj && prj.shortDesc}</p>
-                    </div>
-                    <div className='hover-section'>
-                        <h4>Keywords</h4>
-                        <p>{prj && prj.keywords.join(', ')}</p>
-                    </div>
-                    {/* <button title='Save project for later'>+</button> */}
-                    <button className='edit-project' title='edit' onClick={self.handleEdit}>Edit</button>
-                </div>
-            );
-        };
         return (
             <div id='hover-popup' ref={(c) => { self._elt = c; }}>
-                {renderContent()}
+                <div>
+                    <h2>{prj && prj.name}</h2>
+                    <p>{prj && prj.shortDesc}</p>
+                </div>
             </div>
         );
     }

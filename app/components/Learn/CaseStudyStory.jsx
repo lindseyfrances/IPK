@@ -41,6 +41,7 @@ class CaseStudyStory extends React.Component {
             let topFeature = features[0];
             let { properties } = topFeature;
 
+
             if (properties.HASPOPUP) {
                 dispatch(actions.showCaseStudyPopupWithContent(properties, evt.point));
             }

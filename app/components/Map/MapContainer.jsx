@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Map from 'app/components/Map/Map';
 // import MapBanner from 'app/components/Map/MapBanner';
-// import HoverPopup from 'app/components/HoverPopup';
+import HoverPopup from 'app/components/HoverPopup';
 // import Nav from 'app/components/Nav/Nav';
 // import Menu from 'app/components/Menu';
 // import AddItemForm from 'app/components/AddItemForm';
@@ -102,7 +102,7 @@ class MapContainer extends React.Component {
         };
 
         return (
-            <div className='map-container'>
+            <div id='map-container' className='map-container'>
                 <Map
                     categories={categories}
                     selectedProject={selectedProject}
@@ -110,6 +110,7 @@ class MapContainer extends React.Component {
                     projects={projects}
                 />
                 <LoadingOverlay waitFor={[isLoading, dataIsLoading]}/>
+                <HoverPopup containerId='map-container'/>
             </div>
         );
     }

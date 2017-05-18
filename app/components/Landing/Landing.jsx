@@ -17,17 +17,17 @@ function Landing() {
                         <p>OUR FOOD SYSTEM IS A COMPLEX MACHINE.<br/>WE'RE HERE TO HELP YOU MAKE SENSE OF IT ALL.</p>
                     </div>
                     <ul>
-                        <li id='learn-button'>
+                        <li className='button' id='learn-button'>
                             <Link to='/learn'>
                                 <h2>LEARN</h2>
                                 <p>See the food system through a few hand picked case studies</p>
                             </Link>
                         </li>
-                        <li id='explore-button' className='middle-item'><Link to='/explore'>
+                        <li className='button' id='explore-button' className='middle-item'><Link to='/explore'>
                                 <h2>EXPLORE</h2>
                                 <p>Freely search through our entire dataset.</p>
                         </Link></li>
-                        <li id='engage-button'><Link to='/get-involved'>
+                        <li className='button' id='engage-button'><Link to='/get-involved'>
                                 <h2>ENGAGE</h2>
                                 <p>Want to get your hands dirty?  Find out what you can do.</p>
                         </Link></li>

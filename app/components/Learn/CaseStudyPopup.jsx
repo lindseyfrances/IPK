@@ -12,12 +12,14 @@ class CaseStudyPopup extends React.Component {
             const h = this._elt.offsetHeight;
 
             let containerLeftOffset = 0;
-            const containerTopOffset = 0;
+            let containerTopOffset = 0;
+
             containerLeftOffset = document.getElementById(this.props.containerId).offsetLeft;
+            containerTopOffset = document.getElementById(this.props.containerId).offsetTop;
 
             // Defualt puts the popup to the upper left of the cursor
             if (point) {
-                let left = `${point.x + -w + containerLeftOffset}px`,
+                let left = `${point.x - w + containerLeftOffset}px`,
                     top = `${point.y - h}px`;
 
                 // If the cursor is closer to the edge than the width of the

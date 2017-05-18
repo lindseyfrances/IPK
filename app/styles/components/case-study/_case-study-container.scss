@@ -15,7 +15,7 @@
     }
     p {
         color: $light-text-color;
-        font-size: 1rem;
+        font-size: 0.9rem;
         // letter-spacing: 2pt;
     }
 
@@ -52,7 +52,6 @@
             margin-right: 10px;
             align-items: center;
             img {
-                flex: 0 0 50px;
                 width: 50px;
                 height: 50px;
             }
@@ -68,7 +67,7 @@
             margin: 0 1rem;
             padding: 0.5rem 1rem;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.7rem;
 
             &.active {
                 background-color: $primary-color;
@@ -110,6 +109,7 @@
         padding: 4rem;
     }
 
+
     .case-study-section-dark {
         @extend .case-study-section;
         background-color: rgba(20, 20, 20, 1);
@@ -150,7 +150,7 @@
 
         .top {
             flex: 0 0 50%;
-            padding: 4rem 4rem 0 4rem;
+            padding: 2rem;
             position: relative;
             z-index: 2;
             display: flex;
@@ -164,6 +164,9 @@
         }
 
         .story-header {
+            display: flex;
+            align-items: center;
+
             h1 {
                 font-family: $display-font;
                 text-align: right;
@@ -175,13 +178,18 @@
 
         .node-text {
             position: relative;
-            padding: 2rem;
+            padding: 2rem 0;
             height: 80%;
             borderRadius: 10px;
             display: flex;
             flex-direction: row;
             align-items: center;
             border-radius: 10px;
+
+            .node-content {
+                height: 100%;
+                overflow: auto;
+            }
 
             .node-blurred-bg {
                 position: absolute;
@@ -197,14 +205,14 @@
             .arrow {
                 cursor: pointer;
                 margin: 1rem;
-                height: 50px;
+                height: 30px;
             }
 
             h2 {
                 font-family: $display-font;
             }
             p {
-                font-size: 0.9rem;
+                font-size: 0.7rem;
             }
         }
 
@@ -222,6 +230,8 @@
         // display: flex;
         max-width: 1200px;
         // padding: 3vw 10vh;
+        height: 100%;
+        width: 100%;
         margin: 0 auto;
     }
 
@@ -330,7 +340,7 @@
 
         .case-study-popup {
             max-width: 500px;
-            position: absolute;
+            position: fixed;
             padding: 1rem;
             z-index: 100;
             background-color: $primary-color;
@@ -365,3 +375,75 @@
         }
     }
 }
+
+.case-study-container {
+    @media (min-width: 1200px) {
+        .case-study-section {
+            padding: 4rem 20rem;
+        }
+
+        .story-section {
+            .top {
+                padding: 2rem 16rem;
+            }
+        }
+
+    }
+
+    @media(min-width: 801px) and (max-width: 1199px) {
+        .story-section {
+            .top {
+                h1 {
+                    font-size: 1.4rem;
+                }
+                h2 {
+                    font-size: 1rem;
+                }
+                p {
+                    font-size: 0.9rem;
+                }
+
+                .node-text {
+                    p {
+                        font-size: 0.7rem;
+                    }
+                }
+                padding: 2rem 8rem;
+            }
+        }
+
+        .case-study-story-list {
+            .case-study-icon {
+                img {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+
+    }
+
+    @media (max-width: 800px) {
+        h1 {
+            font-size: 1.2rem;
+        }
+        h2 {
+            font-size: 1rem;
+        }
+        p {
+            font-size: 0.8rem;
+        }
+        .story-header {
+            h1 {
+                font-size: 0.9rem;
+            }
+        }
+
+        .story-section {
+            .top {
+                padding: 1rem;
+            }
+        }
+    }
+}
+

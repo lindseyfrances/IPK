@@ -35,7 +35,7 @@ export const storyPages = [
             text: 'New York City has a long history of trash. We used to dump it in the rivers. Then came landfills like Fresh Kills. Now we ship it all over the country (and sometimes the world).',
             position: 'top-left'
         },
-        content: { header: 'Introduction', text: 'Businesses in NYC produce about 5.5 million tons of waste per year* (not including demolition and construction). That\'s roughtly 350,000 garbe truck loads worth. Meanwhile, New York City spends hundreds of millions in contracts with waste haulers and landfill companies to take all of this waste out of sight and out of mind.' },
+        content: { header: 'Introduction', text: 'Businesses in NYC produce about 5.5 million tons of waste per year* (not including demolition and construction). That\'s roughtly 350,000 garbage truck loads worth. Meanwhile, New York City spends hundreds of millions of dollars in contracts with waste haulers and landfill companies to take all of this waste out of sight and out of mind.' },
         // zoom: 8,
         mapData: {
             center: {
@@ -136,7 +136,7 @@ export const storyPages = [
             position: 'top-left',
             image: require('app/images/recycling_rates_legend.png')
         },
-        content: { header: 'What\'s Collected?', text: '"The recycling rate for this giant waste stream is only about 25%, significantlyworse than the 40% commercial recycling rate published in Mayor Bloomberg’ 2011 PlaNYC update. Moreover, annual reports filed by private waste companies with the state suggest that recycling by major haulers may be much lower – only 9-13% in 201" Organic Waste makes up over 25% of the commercial waste stream.  Very little of it actually recycled.' },
+        content: { header: 'What\'s Collected?', text: '"The recycling rate for this giant waste stream is only about 25%, significantly worse than the 40% commercial recycling rate published in Mayor Bloomberg\'s 2011 PlaNYC update. Moreover, annual reports filed by private waste companies with the state suggest that recycling by major haulers may be much lower – only 9-13% in 201" Organic Waste makes up over 25% of the commercial waste stream.' },
         mapData: {
             data: {
                 id: 'recyling-rates',
@@ -312,7 +312,7 @@ export const storyPages = [
         },
         content: {
             header: 'A Countrywide Endeavor',
-            text: 'Much of the food that comes into the City is purchased by large National Wholesalers and Distributors - Sysco, White Rose, General Trading, C&S. These distributors purchase bulk from farms and other large food producers, then repack and distribute to businesses and consumers throughout the city. But they\'re not the only game i town...'
+            text: 'Much of the food that comes into the City is purchased by large National Wholesalers and Distributors - Sysco, White Rose, General Trading, C&S. These distributors purchase bulk from farms and other large food producers, then repack and distribute to businesses and consumers throughout the city. But they\'re not the only game in town...'
         },
         mapData: {
             data: {
@@ -508,7 +508,7 @@ export const caseStudies = {
         // type: 'point',
         // label: 'Lighthouse Restaurant',
         pages: storyPages.filter(story => story.id === 'lighthouse'),
-        introText: 'Of all the restaurants in New York City, why have we chosen this little Williamsburg spot to single out?  Lighthouse exemplifies what it means to participate in your food system.  Each leg of the tangled web that is the food system is carefully considered, from sourcing local ingredients, to recycling oyster shells, Lighthouse models what a sustainable restaurant can be.',
+        introText: 'Of all the restaurants in New York City, why have singled out this little Williamsburg spot? Lighthouse exemplifies what it means to participate in your food system. Each thread of the tangled web that is the food system is carefully considered: from sourcing local ingredients, to recycling oyster shells, Lighthouse exemplifies what a sustainable restaurant can be.',
         // introContent: <LighthouseIntroduction />,
         // mapCenter: [ 40.710818, -73.953722],
         mapData: {

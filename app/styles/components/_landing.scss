@@ -18,6 +18,7 @@
         position: fixed;
         width: 100vw;
         height: 100vh;
+        padding: 4rem;
         background: url('/images/ricardo-gomez-angel-215895.png');
         background-size: cover;
         background-repeat: no-repeat;
@@ -30,7 +31,9 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 100%;
     }
 
     .bg-overlay {
@@ -66,14 +69,30 @@
         // letter-spacing: 2pt;
     }
 
+    .button {
+        // width: 100%;
+        // height: 100%;
+        // flex-grow: 0;
+        // flex-shrink: 0;
+    }
+
     #learn-button {
         background: url('/images/learn-button.png');
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
     }
     #explore-button {
         background: url('/images/explore-button.png');
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
     }
     #engage-button {
         background: url('/images/engage-button.png');
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
     }
 
     ul {
@@ -103,8 +122,9 @@
         li {
             // margin-top: 1rem;
             // background: linear-gradient(45deg, #ffffc9, $primary-color);
-            max-width: 300px;
-            min-height: 300px;
+            width: 250px;
+            height: 250px;
+            // min-height: 250px;
             border-radius: 10px;
             // margin: 2rem;
 
@@ -115,16 +135,55 @@
                 padding: 2rem;
                 h2 {
                     flex: 1 1 30%;
-                    font-size: 1.7rem;
+                    font-size: 1.5rem;
                     margin-bottom: 1rem;
                     // letter-spacing: 2pt;
                     font-family: $display-font;
                     color: $light-text-color;
+                    margin: 0;
                 }
                 p {
                     flex: 1 1 50%;
                     font-size: 0.9rem;
                     color: black;
+                }
+            }
+        }
+    }
+}
+
+.landing {
+    @media (min-width: 1200px) {
+        .landing-page {
+            padding: 4 16rem;
+        }
+    }
+    @media (min-width: 801px) and (max-width: 1199px) {
+        .landing-page {
+            ul {
+                li {
+                    width: 200px;
+                    height: 200px;
+
+                    h2, p {
+                        margin: 0;
+                    }
+                }
+            }
+
+        }
+    }
+
+    @media (max-width: 800px) {
+        .landing-page {
+            ul {
+                li {
+                    width: 200px;
+                    height: 200px;
+
+                    h2, p {
+                        margin: 0;
+                    }
                 }
             }
         }

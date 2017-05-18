@@ -49,7 +49,7 @@ class CategoriesList extends React.Component {
                             </div>
                             <ul>
                                 {isVisible && prjs.map(id => {
-                                    return <li key={id} className={`${id === selectedProject ? 'active' : ''}`} onClick={e => { this.handleItemClick(e, id) }} key={id}>{projects[id].id}. {projects[id].name}</li>
+                                    return <li key={id} className={`${id === selectedProject ? 'active' : ''}`} onClick={e => { this.handleItemClick(e, id) }} key={id}>{projects[id].id.split('').slice(3).join('')}. {projects[id].name}</li>
                                 })}
                             </ul>
                         </li>

@@ -12,8 +12,8 @@ class ProjectItem extends React.Component {
     handleClick(e) {
         const { dispatch, project } = this.props;
         e.preventDefault();
-        dispatch(actions.moveToProject(project._id));
-        dispatch(actions.setSelectedProject(project._id));
+        dispatch(actions.moveToProject(project.id));
+        dispatch(actions.setSelectedProject(project.id));
     }
     render() {
         const { project, showDescription } = this.props;
@@ -22,7 +22,7 @@ class ProjectItem extends React.Component {
 
         return (
             <li onClick={this.handleClick}>
-                <h3>{project.id}: {project.name}</h3>
+                <h3>{project.id.split('').slice(3).join('')}: {project.name}</h3>
                 {show && <p>{project.shortDesc}</p>}
             </li>
         );

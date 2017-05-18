@@ -200,7 +200,7 @@ class CaseStudyContainer extends React.Component {
                                         <div className='node-text'>
                                             <div className='node-blurred-bg'/>
                                             <img onClick={() => this.changePageNumber('prev')} className='arrow left' src={leftArrow} alt='go to next page in the case study' />
-                                            <div>
+                                            <div className='node-content'>
                                                 <h2>{pageData.content.header}</h2>
                                                 <p>{pageData.content.text}</p>
                                             </div>
