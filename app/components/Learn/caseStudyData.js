@@ -529,7 +529,33 @@ export const caseStudies = {
         }
     },
     wheat: {
-        type: CASE_STUDY_TYPES.SLIDESHOW
+        type: CASE_STUDY_TYPES.SLIDESHOW,
+        pages: [
+            {
+                pageNumber: 1,
+                backgroundImage: '/images/jez-timms-2831.jpg',
+                content: [
+                    {
+                        text: 'Human\'s didn\'t cultivate wheat - wheat domesticated us.',
+                        loc: 'top-left'
+                    },
+                    {
+                        text: 'Wheat was the first crop that transitioned us from hunter gatherers to growers and harvesters.',
+                        loc: 'bottom-right'
+                    }
+                ]
+            },
+            {
+                pageNumber: 2,
+                backgroundImage: '/images/joanna-kosinska-127887.png',
+                content: []
+            },
+            {
+                pageNumber: 3,
+                backgroundImage: '',
+                content: []
+            }
+        ]
     }
 };
 

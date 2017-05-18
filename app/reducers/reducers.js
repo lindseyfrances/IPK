@@ -110,6 +110,25 @@ export const popupReducer = (state = { visible: false }, action) => {
     }
 };
 
+export const navReducer = (state = {closed: false}, action) => {
+    switch (action.type) {
+        case 'OPEN_NAV':
+            return {
+                closed: false
+            };
+        case 'CLOSE_NAV':
+            return {
+                closed: true
+            };
+        case 'TOGGLE_NAV':
+            return {
+                closed: !state.closed
+            };
+        default:
+            return state;
+    }
+};
+
 export const sideNavReducer = (state = false, action) => {
     switch (action.type) {
         case 'TOGGLE_SIDE_NAV':

@@ -1,0 +1,27 @@
+.slideshow {
+    .slideshow-page {
+        padding-top: 60px;
+
+    }
+
+    .arrow {
+        position: absolute;
+        &.next {
+            top: 45%;
+            right: 10px;
+        }
+
+        &.last {
+            top: 45%;
+            left: 10px;
+        }
+    }
+
+    .page-animation-enter {
+        opacity: 1;
+    }
+
+    .page-animation-leave {
+        opacity: 0;
+    }
+}

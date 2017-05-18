@@ -9,8 +9,12 @@ import Learn from 'app/components/Learn/Learn';
 import CaseStudyList from 'app/components/Learn/CaseStudyList';
 import CaseStudyContainer from 'app/components/Learn/CaseStudyContainer';
 
+const onRouterUpdate = () => {
+    window.scrollTo(0, 0);
+};
+
 export default (
-    <Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
+    <Router onUpdate={onRouterUpdate} history={browserHistory}>
         <Route path='/'>
             <Route path='/learn' component={Learn}>
                 <IndexRoute component={CaseStudyList} />

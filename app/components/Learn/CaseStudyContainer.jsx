@@ -1,6 +1,7 @@
 import React from 'react';
 import MapCore from 'app/components/Map/MapCore';
 import CaseStudyStory from 'app/components/Learn/CaseStudyStory';
+import CaseStudySlideshow from 'app/components/Learn/CaseStudySlideshow';
 import NodeList from 'app/components/Learn/NodeList';
 import leftArrow from 'app/images/leftarrow.png';
 import rightArrow from 'app/images/rightarrow.png';
@@ -16,6 +17,7 @@ class CaseStudyContainer extends React.Component {
             pageNumber: 1
         };
 
+        this.renderRegularCaseStudy = this.renderRegularCaseStudy.bind(this);
         this.handlePageNumberChange = this.handlePageNumberChange.bind(this);
         this.changeStory = this.changeStory.bind(this);
         this.changePageNumber = this.changePageNumber.bind(this);
@@ -109,7 +111,7 @@ class CaseStudyContainer extends React.Component {
 
     }
 
-    render() {
+    renderRegularCaseStudy() {
         const caseStudy = caseStudies[this.props.params.caseStudy];
         const nodeList = nodes[caseStudy.id][this.state.storyCategory.id];
 
@@ -129,102 +131,110 @@ class CaseStudyContainer extends React.Component {
                 activeNode = n;
             }
         });
+
+        return (
+            <div className='case-study-container'>
+                <section
+                    style={{
+                    background: `url('/images/lighthousebrooklyn.jpg')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition:  '50% 50%',
+                    backgroundRepeat: 'no-repeat',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                    }}
+                    className='case-study-section'>
+                    <div className='bg-overlay'/>
+                    <div style={{position: 'relative', zIndex: 2}} className='panel left-col'>
+                        <h1>{caseStudy.headers.sectionOne}</h1>
+                        <p>{caseStudy.introText}</p>
+                    </div>
+                </section>
+
+                <section
+                    style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
+                    }}
+                    className='case-study-section-dark height-80 white'>
+                    <div style={{width: '100%'}} className='centered'>
+                        <div className='video-wrapper'>
+                            <iframe src={caseStudy.videoSrc} width='100%' frameBorder='0' allowFullScreen />
+                        </div>
+                    </div>
+                </section>
+
+                <section
+                    style={{
+                    background: `url('/images/joanna-kosinska-127887.png')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: '50% 50%',
+                    backgroundRepeat: 'no-repeat',
+                    padding: '0 4rem'
+                    }}
+                    className='case-study-section full-height story-section'
+                >
+                    <div className='bg-overlay'/>
+                    <div className='top'>
+                        <div className='story-header row center col-20'>
+                            <h1>EXPLORE THE FOOD SYSTEM</h1>
+                            <p>{caseStudy.storySubHeader}</p>
+                        </div>
+                        <div className='row col-80'>
+                            <div className='row-20 flex-full-center'>
+                                <div className='case-study-story-list'>
+                                    {/* {caseStudy.stories.map(story => <li className={this.state.storyCategory.id === story.id ? 'active' : ''} onClick={() => this.changeStory(story)} key={story.id}>{story.display}</li>)} */}
+                                    {caseStudy.stories.map(story => {
+                                    return (
+                                    <div className={this.state.storyCategory.id === story.id ? 'case-study-icon active' : 'case-study-icon'} key={story.id} onClick={() => this.changeStory(story)}>
+                                        <p>{story.display}</p>
+                                        <img src={this.state.storyCategory.id === story.id ? story.activeImg : story.inactiveImg} />
+                                    </div>
+                                    );
+                                    })}
+                                </div>
+                            </div>
+                            <div className='row-80 node-container'>
+                                <NodeList handleClick={this.handlePageNumberChange} activeId={activeId} nodes={nodeList} />
+                                <div className='node-text'>
+                                    <div className='node-blurred-bg'/>
+                                    <img onClick={() => this.changePageNumber('prev')} className='arrow left' src={leftArrow} alt='go to next page in the case study' />
+                                    <div className='node-content'>
+                                        <h2>{pageData.content.header}</h2>
+                                        <p>{pageData.content.text}</p>
+                                    </div>
+                                    <img onClick={() => this.changePageNumber('next')} className='arrow right' src={rightArrow} alt='go to previous page in the case study' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='bottom'>
+                        <CaseStudyStory
+                            id={this.props.params.caseStudy}
+                            category={this.state.storyCategory.id}
+                            handlePageNumberChange={this.handlePageNumberChange}
+                            pageNumber={this.state.pageNumber}
+                        />
+                    </div>
+
+                </section>
+            </div>
+            );
+    }
+
+    renderSlideshow() {
+        return <CaseStudySlideshow id={this.props.params.caseStudy} />;
+    }
+
+    render() {
+        const caseStudy = caseStudies[this.props.params.caseStudy];
         switch (caseStudy.type) {
             case CASE_STUDY_TYPES.REGULAR:
-                return (
-                    <div className='case-study-container'>
-                        <section
-                            style={{
-                                background: `url('/images/lighthousebrooklyn.jpg')`,
-                                backgroundSize: 'cover',
-                                backgroundPosition:  '50% 50%',
-                                backgroundRepeat: 'no-repeat',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}
-                            className='case-study-section'>
-                            <div className='bg-overlay'/>
-                            <div style={{position: 'relative', zIndex: 2}} className='panel left-col'>
-                                <h1>{caseStudy.headers.sectionOne}</h1>
-                                <p>{caseStudy.introText}</p>
-                            </div>
-                        </section>
-
-                        <section
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center'
-                            }}
-                            className='case-study-section-dark height-80 white'>
-                                <div style={{width: '100%'}} className='centered'>
-                                    <div className='video-wrapper'>
-                                        <iframe src={caseStudy.videoSrc} width='100%' frameBorder='0' allowFullScreen />
-                                    </div>
-                                </div>
-                        </section>
-
-                        <section
-                            style={{
-                                background: `url('/images/joanna-kosinska-127887.png')`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: '50% 50%',
-                                backgroundRepeat: 'no-repeat',
-                                padding: '0 4rem'
-                            }}
-                            className='case-study-section full-height story-section'
-                        >
-                            <div className='bg-overlay'/>
-                            <div className='top'>
-                                <div className='story-header row center col-20'>
-                                    <h1>EXPLORE THE FOOD SYSTEM</h1>
-                                    <p>{caseStudy.storySubHeader}</p>
-                                </div>
-                                <div className='row col-80'>
-                                    <div className='row-20 flex-full-center'>
-                                        <div className='case-study-story-list'>
-                                            {/* {caseStudy.stories.map(story => <li className={this.state.storyCategory.id === story.id ? 'active' : ''} onClick={() => this.changeStory(story)} key={story.id}>{story.display}</li>)} */}
-                                            {caseStudy.stories.map(story => {
-                                                return (
-                                                <div className={this.state.storyCategory.id === story.id ? 'case-study-icon active' : 'case-study-icon'} key={story.id} onClick={() => this.changeStory(story)}>
-                                                    <p>{story.display}</p>
-                                                    <img src={this.state.storyCategory.id === story.id ? story.activeImg : story.inactiveImg} />
-                                                </div>
-                                                );
-                                            })}
-                                        </div>
-                                    </div>
-                                    <div className='row-80 node-container'>
-                                        <NodeList handleClick={this.handlePageNumberChange} activeId={activeId} nodes={nodeList} />
-                                        <div className='node-text'>
-                                            <div className='node-blurred-bg'/>
-                                            <img onClick={() => this.changePageNumber('prev')} className='arrow left' src={leftArrow} alt='go to next page in the case study' />
-                                            <div className='node-content'>
-                                                <h2>{pageData.content.header}</h2>
-                                                <p>{pageData.content.text}</p>
-                                            </div>
-                                            <img onClick={() => this.changePageNumber('next')} className='arrow right' src={rightArrow} alt='go to previous page in the case study' />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='bottom'>
-                                <CaseStudyStory
-                                    id={this.props.params.caseStudy}
-                                    category={this.state.storyCategory.id}
-                                    handlePageNumberChange={this.handlePageNumberChange}
-                                    pageNumber={this.state.pageNumber}
-                                />
-                            </div>
-
-                        </section>
-                    </div>
-                );
+                return this.renderRegularCaseStudy();
             case CASE_STUDY_TYPES.SLIDESHOW:
-                return (
-                    <div>slideshow</div>
-                );
+                return this.renderSlideshow();
             default:
                 return (
                     <div></div>

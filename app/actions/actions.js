@@ -319,3 +319,21 @@ export const clearBottomNavContent = function() {
         id: ''
     };
 };
+
+export const openNav = function() {
+    return {
+        type: 'OPEN_NAV'
+    };
+};
+
+export const closeNav = function() {
+    return {
+        type: 'CLOSE_NAV'
+    };
+};
+
+export const toggleNav = function() {
+    return {
+        type: 'TOGGLE_NAV'
+    };
+};

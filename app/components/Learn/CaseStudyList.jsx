@@ -35,7 +35,7 @@ class CaseStudyList extends React.Component {
                             </div>
                         </div>
                     </Link>
-                    <Link to='/learn'>
+                    <Link to='/learn/wheat'>
                         <div className='card'
                             style={{
                                 background: "url('/images/tractor.jpg')",
@@ -46,7 +46,7 @@ class CaseStudyList extends React.Component {
                         >
                             <div className='bg-overlay' />
                             <div className='title'>
-                                <h2>A WHEAT STATE OF MIND</h2>
+                                <h2>WHO WHAT WHEN WHERE WHEAT</h2>
                                 <p>COMING SOON</p>
                             </div>
                         </div>
@@ -54,7 +54,7 @@ class CaseStudyList extends React.Component {
                     <Link to='/learn'>
                         <div className='card'
                             style={{
-                                background: "url('/images/happy-cow.jpg')",
+                                background: "url('/images/roman-arkhipov-123618.jpg')",
                                 backgroundSize: 'cover',
                                 backgroundPosition: '50% 50%',
                                 backgroundRepeat: 'no-repeat'
@@ -62,7 +62,7 @@ class CaseStudyList extends React.Component {
                         >
                             <div className='bg-overlay' />
                             <div className='title'>
-                                <h2>HAPPY VALLEY MEATS</h2>
+                                <h2>NYC FOOD VENDORS</h2>
                                 <p>COMING SOON</p>
                             </div>
                         </div>
