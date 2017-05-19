@@ -19,7 +19,8 @@ import {
     mapReducer,
     popupReducer,
     caseStudyPopupReducer,
-    navReducer
+    navReducer,
+    slideShowPopupReducer
 } from 'app/reducers/reducers';
 
 const configure = (initialState = {}) => {
@@ -40,7 +41,8 @@ const configure = (initialState = {}) => {
         bottomNavContent: bottomNavContentReducer,
         admin: adminReducer,
         caseStudyPopup: caseStudyPopupReducer,
-        nav: navReducer
+        nav: navReducer,
+        slideshowPopup: slideShowPopupReducer
     });
 
     const store = redux.createStore(reducer, initialState, redux.compose(

@@ -318,3 +318,26 @@ export const bottomNavContentReducer = (state = '', action) => {
             return state;
     }
 };
+
+export const slideShowPopupReducer = (state = {
+    visible: false,
+    id: '',
+    point: {x: 0, y: 0}
+}, action) => {
+    switch (action.type) {
+        case 'SET_SLIDESHOW_POPUP_CONTENT':
+            return {
+                visible: true,
+                id: action.id,
+                point: action.point
+            };
+        case 'HIDE_SLIDESHOW_POPUP':
+            return {
+                ...state,
+                visible: false,
+                id: ''
+            };
+        default:
+            return state;
+    }
+};

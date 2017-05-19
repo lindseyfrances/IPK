@@ -349,6 +349,19 @@
             border-radius: 25px;
             pointer-events: none;
 
+            h1, h2, h3, h4, p {
+                color: $light-text-color;
+            }
+            h1 {
+                font-size: 1.1rem;
+                margin: 0;
+                padding: 0;
+            }
+            p {
+                font-size: 0.7rem;
+            }
+
+
             .property-field {
                 display: flex;
                 align-items: center;
@@ -356,23 +369,18 @@
 
                 h4 {
                     flex: 1 1 50%;
-                    font-size: 0.9rem;
+                    font-size: 0.7rem;
+                    margin: 0;
+                    padding: 0;
                 }
                 p {
                     text-align: right;
                     flex: 1 1 50%;
-                    font-size: 0.9rem;
+                    font-size: 0.7rem;
+                    margin: 0;
+                    padding: 0;
                 }
             }
-
-            h1, h2, h3, h4, p {
-                color: $light-text-color;
-            }
-
-            p {
-                font-size: 9pt;
-            }
-
         }
     }
 }

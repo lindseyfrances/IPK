@@ -1,6 +1,8 @@
 /* eslint
     "global-require": "off"
 */
+import React from 'react';
+import Hoverable from 'app/components/SimpleElements/Hoverable';
 import { COLORS } from 'app/constants/CONSTANTS';
 export const STORY_IDS = {
     LIGHTHOUSE: {
@@ -536,28 +538,157 @@ export const caseStudies = {
                 backgroundImage: '/images/jez-timms-2831.jpg',
                 content: [
                     {
-                        text: 'Human\'s didn\'t cultivate wheat - wheat domesticated us.',
+                        text:<p>Human's didn't cultivate wheat - wheat domesticated us.</p>,
                         loc: 'top-left'
                     },
                     {
-                        text: 'Wheat was the first crop that transitioned us from hunter gatherers to growers and harvesters.',
+                        text: <p>Wheat was the first crop that transitioned us from hunter gatherers to growers and harvesters.</p>,
                         loc: 'bottom-right'
                     }
                 ]
             },
             {
                 pageNumber: 2,
-                backgroundImage: '/images/joanna-kosinska-127887.png',
-                content: []
+                backgroundImage: '/images/gristmill_compressed.jpg',
+                content: [
+                    {
+                        text: <p>Before wheat production moved out west by the early 19th Century, New York was the region's breadbasket with gristmill spread throughout the Hudson Valley.</p>,
+                        loc: 'top-right',
+                    },
+                    {
+                        text: <p>A <Hoverable id='gristmill-old'>gristmill</Hoverable> is a mechanism for grinding grains into flour. While the process remains essentially the same, the <Hoverable id='gristmill-new'>hardware</Hoverable> has evolved quite a bit from the old wooden mills of the past.</p>,
+                        loc: 'bottom-middle'
+                    }
+                ]
             },
             {
                 pageNumber: 3,
-                backgroundImage: '',
-                content: []
+                backgroundImage: '/images/gristmill_compressed.jpg',
+                content: [
+                    {
+                        text: <p>With the loss of that infrastructure came the loss of that milling knowledge.</p>,
+                        loc: 'top-middle'
+                    }
+                ]
+            },
+            {
+                pageNumber: 4,
+                backgroundImage: '/images/white-bread.jpg',
+                content: [
+                    {
+                        text: <p>By the late 1800’s white bread started making its slow but steady creep into the American diet and by the 1920’s it became a symbol of industrialization, modernity and the automation of food production.</p>,
+                        loc: 'middle-middle'
+                    }
+                ]
+            },
+            {
+                pageNumber: 5,
+                backgroundImage: '/images/wheat-kernals.jpg',
+                content: [
+                    {
+                        text: <p>The processing of wheat into white bread removes the bran and germ nutrient layers in order to secure a longer shelf life.</p>,
+                        loc: 'middle-left'
+                    },
+                    {
+                        text: <p>To compensate for the loss of these nutritional components, flour became enriched with synthetic vitamins to restore the nutritional value that had been processed out, but is still missing the fiber from the original wheat product.</p>,
+                        loc: 'bottom-right'
+                    }
+                ]
+            },
+            {
+                pageNumber: 6,
+                backgroundImage: '/images/static-background.png',
+                content: [
+                    {
+                        text:
+                            <div
+                                style={{
+                                    width: '100vw',
+                                    height: '100vh',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexDirection: 'column'
+                                }}
+                            >
+                                    <p>Nothing screams healthy like enriched Wonderbread!</p>
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/GEfWShkO4Ac" frameBorder="0" allowFullScreen></iframe>
+                            </div>
+                    }
+                ]
+            },
+            {
+                pageNumber: 7,
+                backgroundImage: '/images/wheat-farmer.jpg',
+                content: [
+                    {
+                        text: <p>Many industrially produced white and wheat breads also have added stabilizers, preservatives, artificial flavors and enhancers.</p>,
+                        loc: 'top-left'
+                    }
+                ]
+            },
+            {
+                pageNumber: 8,
+                backgroundImage: '/images/seitan.jpg',
+                content: [
+                    {
+                        text: <p>One of the most recent enhancers is vital wheat gluten a powder made from wheat gluten also known as seitan: first appearing in 6th Century china and a vegetarian staple for centuries.</p>,
+                        loc: 'middle-left'
+                    }
+                ]
+            },
+            {
+                pageNumber: 9,
+                backgroundImage: '/images/seitan.jpg',
+                content: [
+                    {
+                        text: <p>Vital wheat gluten   increases shelf life and acts as a binder; because it’s so versatile, food companies have added it not only to bread but to pastas, snacks, cereals, and crackers, and as a thickener in hundreds of foods and even in some cosmetics.   It’s this extreme exposure that is being considered a cause for the meteoric rise in gluten intolerance – not to be confused with celiac disease.</p>,
+                        loc: 'top-right'
+                    }
+                ]
+            },
+            {
+                pageNumber: 10,
+                backgroundImage: '/images/baguette.jpg',
+                content: [
+                    {
+                        text: <p>Since the revival of Artisanal / craft bread / regional grain wheat diversity is rising and you can find breads made with new varieties and flavor expressions.</p>,
+                        loc: 'bottom-left'
+                    }
+                ]
             }
         ]
     }
 };
+
+/*
+ * A terrible way to do this, again, but I'm pressed for time...
+*/
+export const slideshowPopupContent = {
+    wheat: {
+        1: {},
+        2: {
+            'gristmill-old': {
+                image: '/images/gristmill_closeup_old.jpg',
+                text: 'an old style gristmill',
+                dir: 'top-left'
+            },
+            'gristmill-new': {
+                image: '/images/gristmill_closeup_new.jpg',
+                text: 'A newer, industrial gristmill',
+                dir: 'top-left'
+            }
+        },
+        3: {},
+        4: {},
+        5: {},
+        6: {},
+        7: {},
+        8: {},
+        9: {},
+        10: {}
+    }
+}
 
 export const nodes = {
     lighthouse: {

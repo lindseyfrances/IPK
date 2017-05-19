@@ -337,3 +337,17 @@ export const toggleNav = function() {
         type: 'TOGGLE_NAV'
     };
 };
+
+export const setSlideShowPopupContent = function(id, point) {
+    return {
+        type: 'SET_SLIDESHOW_POPUP_CONTENT',
+        id,
+        point
+    };
+};
+
+export const hideSlideShowPopup = function() {
+    return {
+        type: 'HIDE_SLIDESHOW_POPUP'
+    };
+};

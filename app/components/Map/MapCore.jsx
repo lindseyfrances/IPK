@@ -342,8 +342,9 @@ class MapCore extends React.Component {
 
     render() {
         return (
-            <div style={{ width: '100%', height: '100%' }}>
+            <div id='case-study-map-container' style={{ width: '100%', height: '100%' }}>
                 <div style={{ width: '100%', height: '100%' }} id={this.props.mapId} />
+                {this.props.children}
             </div>
         );
     }

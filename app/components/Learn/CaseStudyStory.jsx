@@ -147,10 +147,11 @@ class CaseStudyStory extends React.Component {
 
         return (
             <div id='case-study-story' className='case-study-story'>
-                <MapCore mapId='case-study-map' onMouseMove={this.handleMouseMove} mapData={pageData.mapData} />
+                <MapCore mapId='case-study-map' onMouseMove={this.handleMouseMove} mapData={pageData.mapData}>
+                <CaseStudyPopup containerId='case-study-map-container'/>
+    </MapCore>
                 {renderFloatingText()}
                 {pageData.floatingText && pageData.floatingText.image && <img className='floating-image' src={pageData.floatingText.image} />}
-                <CaseStudyPopup containerId='case-study-story'/>
             </div>
         );
     }
