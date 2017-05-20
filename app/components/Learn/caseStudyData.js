@@ -3,6 +3,7 @@
 */
 import React from 'react';
 import Hoverable from 'app/components/SimpleElements/Hoverable';
+import ExternalLink from 'app/components/SimpleElements/ExternalLink';
 import { COLORS } from 'app/constants/CONSTANTS';
 export const STORY_IDS = {
     LIGHTHOUSE: {
@@ -557,7 +558,7 @@ export const caseStudies = {
                     },
                     {
                         text: <p>A <Hoverable id='gristmill-old'>gristmill</Hoverable> is a mechanism for grinding grains into flour. While the process remains essentially the same, the <Hoverable id='gristmill-new'>hardware</Hoverable> has evolved quite a bit from the old wooden mills of the past.</p>,
-                        loc: 'bottom-middle'
+                        loc: 'bottom-left'
                     }
                 ]
             },
@@ -611,7 +612,7 @@ export const caseStudies = {
                                     flexDirection: 'column'
                                 }}
                             >
-                                    <p>Nothing screams healthy like enriched Wonderbread!</p>
+                                    <p style={{textAlign: 'center', padding: '0 6rem'}}>Many industrially produced white and wheat breads also have added stabilizers, preservatives, artificial flavors and enhancers.</p>
                                     <iframe width="560" height="315" src="https://www.youtube.com/embed/GEfWShkO4Ac" frameBorder="0" allowFullScreen></iframe>
                             </div>
                     }
@@ -622,8 +623,12 @@ export const caseStudies = {
                 backgroundImage: '/images/wheat-farmer.jpg',
                 content: [
                     {
-                        text: <p>Many industrially produced white and wheat breads also have added stabilizers, preservatives, artificial flavors and enhancers.</p>,
+                        text: <p>When grown as an industrialized, subsidized mono-crop, wheat problematically influences the biodiversity and ecosystem balance in the regions it is grown.</p>,
                         loc: 'top-left'
+                    },
+                    {
+                        text: <p>Monsanto's use of Roundup Ready Wheat - employing the <ExternalLink url='http://www.ecowatch.com/why-is-glyphosate-sprayed-on-crops-right-before-harvest-1882187755.html'>herbicide glyphosate</ExternalLink> - has been deemed a likely carcinogenic by the World Health Organization and a contributor to Colony Collapse Disorder in Bees.</p>,
+                        loc: 'bottom-right'
                     }
                 ]
             },
@@ -642,7 +647,7 @@ export const caseStudies = {
                 backgroundImage: '/images/seitan.jpg',
                 content: [
                     {
-                        text: <p>Vital wheat gluten   increases shelf life and acts as a binder; because it’s so versatile, food companies have added it not only to bread but to pastas, snacks, cereals, and crackers, and as a thickener in hundreds of foods and even in some cosmetics.   It’s this extreme exposure that is being considered a cause for the meteoric rise in gluten intolerance – not to be confused with celiac disease.</p>,
+                        text: <p><ExternalLink url='http://www.newyorker.com/magazine/2014/11/03/grain'>Vital wheat gluten</ExternalLink> increases shelf life and acts as a binder; because it's so versatile, food companies have added it not only to bread but to pastas, snacks, cereals, and crackers, and as a thickener in hundreds of foods and even in some cosmetics. It's this extreme exposure that is being considered a cause for the meteoric rise in gluten intolerance – not to be confused with celiac disease.</p>,
                         loc: 'top-right'
                     }
                 ]
@@ -652,7 +657,7 @@ export const caseStudies = {
                 backgroundImage: '/images/baguette.jpg',
                 content: [
                     {
-                        text: <p>Since the revival of Artisanal / craft bread / regional grain wheat diversity is rising and you can find breads made with new varieties and flavor expressions.</p>,
+                        text: <p>Since the revival of <ExternalLink url='http://www.biencuit.com/'>artisanal</ExternalLink> / <ExternalLink url='https://hotbreadkitchen.org/'>craft bread</ExternalLink> / <ExternalLink url='https://www.grownyc.org/grains/about'>regional grain wheat diversity</ExternalLink> is rising and you can find breads made with new varieties and flavor expressions.</p>,
                         loc: 'bottom-left'
                     }
                 ]

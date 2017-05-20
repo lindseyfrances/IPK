@@ -62,7 +62,7 @@ class CaseStudyList extends React.Component {
                         >
                             <div className='bg-overlay' />
                             <div className='title'>
-                                <h2>NYC FOOD VENDORS</h2>
+                                <h2>NYC STREET FOOD VENDORS</h2>
                                 <p>COMING SOON</p>
                             </div>
                         </div>
