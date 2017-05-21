@@ -72,6 +72,7 @@ class Nav extends React.Component {
                     <Link className={createItemClassName(ROUTER_PATHS.LEARN)} to={ROUTER_PATHS.LEARN}>Learn</Link>
                     <Link className={createItemClassName(ROUTER_PATHS.EXPLORE)} to={ROUTER_PATHS.EXPLORE}>Explore</Link>
                     <Link className={createItemClassName(ROUTER_PATHS.GETINVOLVED)} to={ROUTER_PATHS.GETINVOLVED}>Get Involved</Link>
+                    <Link className={createItemClassName(ROUTER_PATHS.ABOUT)} to={ROUTER_PATHS.ABOUT}>About</Link>
                 </div>
             </div>
         );

@@ -8,6 +8,7 @@ import GetInvolved from 'app/components/GetInvolved/GetInvolved';
 import Learn from 'app/components/Learn/Learn';
 import CaseStudyList from 'app/components/Learn/CaseStudyList';
 import CaseStudyContainer from 'app/components/Learn/CaseStudyContainer';
+import About from 'app/components/About';
 
 const onRouterUpdate = () => {
     window.scrollTo(0, 0);
@@ -24,6 +25,7 @@ export default (
             </Route>
             <Route path='/explore' component={Explore} />
             <Route path='/get-involved' component={GetInvolved} />
+            <Route path='/about' component={About} />
             <IndexRoute component={Landing} />
         </Route>
     </Router>

@@ -1,0 +1,155 @@
+.get-involved {
+    h1, h2, h3, h4, p {
+        color: white;
+    }
+
+    p {
+        font-weight: 200;
+    }
+
+    .bg {
+        background: url('/images/vlad-shapochnikov-127858.png');
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .bg-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        background: linear-gradient(45deg, $dark-blue, $dark-green);
+        opacity: 0.5;
+    }
+
+    .content {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+        // padding: 0 16rem;
+        max-width: 600px;
+        margin: 0 auto;
+        min-height: 500px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        @media (max-width: 800px) {
+            padding: 0 4rem;
+
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            // border-bottom: 3px solid white;
+            font-weight: 200;
+            width: 100%;
+            height: 40px;
+            font-size: 2rem;
+            color: white;
+            outline: none;
+            text-align: center;
+        }
+        input::placeholder {
+            color: white;
+            font-size: 2rem;
+        }
+
+        .choice {
+            padding: 1rem;
+            cursor: pointer;
+            &.active {
+                background-color: $active-color;
+                color: white;
+            }
+        }
+
+        .involved-page {
+            margin-bottom: 3rem;
+        }
+
+        .buttons {
+            display: flex;
+            width: 100%;
+            height: 40px;
+
+            button {
+                font-family: $display-font;
+                flex: 0 0 50%;
+                margin: 0.2rem;
+                background-color: $active-color;
+                color: white;
+                border: none;
+                font-size: 1.5rem;
+
+                &.hidden {
+                    visibility: hidden;
+                    pointer-events: none;
+                }
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+
+        }
+        p {
+            font-size: 1.5rem;
+        }
+    }
+
+    .arrow {
+        position: fixed;
+        height: 30px;
+        cursor: pointer;
+        &.next {
+            top: 50%;
+            right: 10px;
+        }
+
+        &.last {
+            top: 45%;
+            left: 10px;
+        }
+        z-index: 10;
+    }
+
+    .indicators-list {
+        display: flex;
+        flex-direction: row;
+        // position: fixed;
+        // z-index: 10;
+        // bottom: 0;
+        width: 100%;
+        justify-content: center;
+
+        .page-indicator {
+            cursor: pointer;
+            color: transparent;
+            margin: 0 2rem;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: rgba(120, 120, 120, 0.5);
+
+            &.active {
+                background-color: $active-color;
+            }
+
+        }
+    }
+}

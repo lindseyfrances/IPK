@@ -2,7 +2,8 @@ export const ROUTER_PATHS = {
     HOME: '/',
     EXPLORE: '/explore',
     LEARN: '/learn',
-    GETINVOLVED: '/get-involved'
+    GETINVOLVED: '/get-involved',
+    ABOUT: '/about'
 };
 
 export const COLORS = {

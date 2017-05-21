@@ -511,7 +511,7 @@ export const caseStudies = {
         // type: 'point',
         // label: 'Lighthouse Restaurant',
         pages: storyPages.filter(story => story.id === 'lighthouse'),
-        introText: 'Of all the restaurants in New York City, why have singled out this little Williamsburg spot? Lighthouse exemplifies what it means to participate in your food system. Each thread of the tangled web that is the food system is carefully considered: from sourcing local ingredients, to recycling oyster shells, Lighthouse exemplifies what a sustainable restaurant can be.',
+        introText: 'Of all the restaurants in New York City, why have we singled out this little Williamsburg spot? Lighthouse exemplifies what it means to participate in your food system. Each thread of the tangled web that is the food system is carefully considered: from sourcing local ingredients, to recycling oyster shells, Lighthouse exemplifies what a sustainable restaurant can be.',
         // introContent: <LighthouseIntroduction />,
         // mapCenter: [ 40.710818, -73.953722],
         mapData: {
