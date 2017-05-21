@@ -443,7 +443,7 @@ export const storyPages = [
         },
         content: {
             header: 'We Love Dairy',
-            text: 'As for what we farm, dairy production represents 44% of the New York’s total sales, totaling roughly $2.4 billion, the third highest in the country.*  Grains and beans come in 2nd, totaling 15% of sales, and Cattle and Calves in 3rd, grabbing 8% of sales.  Produce is quite low, fruits and vegetables combined only represents 11% of the market.  Lighthouse buys from Dairyland…Not sure how to finish this copy, tie it back to lighthouse'
+            text: 'As for what we farm, dairy production represents 44% of the New York’s total sales, totaling roughly $2.4 billion, the third highest in the country.*  Grains and beans come in 2nd, totaling 15% of sales, and Cattle and Calves in 3rd, grabbing 8% of sales.  Produce is quite low, fruits and vegetables combined only represents 11% of the market.'
         },
         mapData: {
             type: 'symbol',
