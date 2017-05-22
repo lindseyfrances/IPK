@@ -46,7 +46,7 @@ class CaseStudyList extends React.Component {
                         >
                             <div className='bg-overlay' />
                             <div className='title'>
-                                <h2>WHO WHAT WHEN WHERE WHEAT</h2>
+                                <h2>WHO WHAT WHERE WHEN WHEAT</h2>
                             </div>
                         </div>
                     </Link>

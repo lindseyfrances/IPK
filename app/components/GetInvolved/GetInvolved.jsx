@@ -71,7 +71,7 @@ const pages = [
         inputPlaceholder: 'ENTER # HOURS'
     },
     {
-        header: 'ANALSYS',
+        header: 'ANALYSIS',
         type: 'analysis',
         id: 'analysis',
         text: 'Education is the answer!<br/> From the looks of your answers, you really are well-intentioned, but you could make a more meaningful impact on the environment if you became involved with local organizations.<br/><br/>Make sure to check out our Explore page for more information.'
