@@ -503,7 +503,7 @@ export const caseStudies = {
             sectionTwo: 'MEET LIGHTHOUSE'
         },
         type: CASE_STUDY_TYPES.REGULAR,
-        videoSrc: 'https://player.vimeo.com/video/143381669',
+        videoSrc: 'https://player.vimeo.com/video/218415945',
         id: 'lighthouse',
         initialStory: STORY_IDS.LIGHTHOUSE.WASTE,
         stories: [STORY_IDS.LIGHTHOUSE.WASTE, STORY_IDS.LIGHTHOUSE.SOURCING],
