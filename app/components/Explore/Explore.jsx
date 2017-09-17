@@ -10,9 +10,9 @@ class Explore extends React.Component {
     constructor(props) {
         super(props);
 
-        // We want some state here to keep track of the navigation stack of
-        // selected projects.
-
+        // TODO: We want some state here to keep track of the navigation stack of
+        // selected projects. So when a user goes back, they go back to the
+        // previous item on the stack, rather than back to the main list
         this.state = {
             navStack: []
         };

@@ -9,6 +9,10 @@ import mapboxgl from 'mapbox-gl';
 import _ from 'underscore';
 import { COLORS } from 'app/constants/CONSTANTS';
 
+/**
+ * MapCore is a simpler implementation of a Map that takes geojson directly, or
+ * an array of points that have a label, id, and a longitude and latitude
+*/
 class MapCore extends React.Component {
     constructor(props) {
         super(props);

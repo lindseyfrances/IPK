@@ -1,6 +1,10 @@
 /* global window */
 /****************************************************
  *  Map component
+ *      This map is what shows up on the Explore tab.
+ *      It's quite a bit more complicated than MapCore because it's
+ *      designed to take a lot more information, and do quite a bit more.
+ *
  *      This component manages it's own state
  *      because it should be in charge of what
  *      layers and sources are on it.
@@ -72,9 +76,11 @@ class Map extends React.Component {
         window.m = this;
     }
     componentDidMount() {
-        console.log('map mounted');
         const { containerId, map, dispatch } = this.props;
         this.elt = ReactDOM.findDOMNode(); //eslint-disable-line
+
+        // Stored as an environment variable in Heroku, as well as in our
+        // webpack config
         mapboxgl.accessToken = process.env.MAPBOXGL_ACCESS_TOKEN;
         this.visibleLayers = [];
 
