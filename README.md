@@ -1,6 +1,23 @@
-##Notes (rather, things to remember)
+## Getting Started ##
+### Running locally ###
+run locally using
+`npm run dev`
 
-####Mapbox config
+and build the production bundle using
+`npm run build`
+
+### Pushing to herkoku ###
+The site is hosted using a free heroku account -> if you have heroku toolbelt
+installed, and everything is set up properly, you should be able to push
+changes to heroku by simply typing `git push heroku master`, after you've
+commited all your changes. You MUST rebuild the bundle before pushing to
+heroku, though, if you want to see your changes update. `npm run build` will
+build the production bundle. You then commit the new bundle, then push to git
+and then to heroku.
+
+## Notes (rather, things to remember) ##
+
+#### Mapbox config ####
 Mapbox doesn't configure out of the box with webpack... See:
 (https://github.com/mapbox/mapbox-gl-js#using-mapbox-gl-js-with-webpack) for
 Mapbox's instructions on setting up webpack.
@@ -53,7 +70,7 @@ NOTE: keep an eye on the version of React - everything works with 15.1.0, but
 had to upgrade to 15.2.1 to introduce ReactCSSTransitionGroup. Fingers crossed
 nothing break
 
-####Babel install - a few issues:
+#### Babel install - a few issues: ####
 Originally I followed Babel's setup instructions, which had me installing `babel`
 directly - i.e. npm install `babel`, but apparently the functionality has shifted
 into `babel-core`. `babel` is depracated.  When I attempted to push webpack to build on heroku, rather
@@ -62,11 +79,11 @@ I found that there was an issue with the `babel` library, and it suggested
 switching to `babel-core`.  `babel-core` and `babel-loader` were approriately set up
 fixed this issue.
 
-####Note: don't track compiled files, it can mess with heroku deployment. 
-####Double NOTE: Uglifying through webpack breaks aws-sdk...dont do it for now
+#### Note: don't track compiled files, it can mess with heroku deployment. ####
+#### Double NOTE: Uglifying through webpack breaks aws-sdk...dont do it for now ####
 Anything built by webpack should be ignored in version control
 
-###File structure - so I can remember in a few weeks from now
+### File structure - so I can remember in a few weeks from now ###
 ---
 ```
 .
