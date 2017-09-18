@@ -66,51 +66,13 @@ We also need to alias webworkify-webpack
 
 There's a strange issue where if using versions of `webworkify-webpack` other than *1.0.6*, an error is thrown in the browser - `Cannot read property "call" of undefined` - which is resolved by locking in webworkify to version *1.0.6*
 
-NOTE: keep an eye on the version of React - everything works with 15.1.0, but
-had to upgrade to 15.2.1 to introduce ReactCSSTransitionGroup. Fingers crossed
-nothing break
-
+## Old, solved issues ##
 #### Babel install - a few issues: ####
 Originally I followed Babel's setup instructions, which had me installing `babel`
 directly - i.e. npm install `babel`, but apparently the functionality has shifted
-into `babel-core`. `babel` is depracated.  When I attempted to push webpack to build on heroku, rather
+into `babel-core`. `babel` is deprecated.  When I attempted to push webpack to build on heroku, rather
 than prior to deploy, everything worked fine, but checking heroku's logs
 I found that there was an issue with the `babel` library, and it suggested
 switching to `babel-core`.  `babel-core` and `babel-loader` were approriately set up
 fixed this issue.
 
-#### Note: don't track compiled files, it can mess with heroku deployment. ####
-#### Double NOTE: Uglifying through webpack breaks aws-sdk...dont do it for now ####
-Anything built by webpack should be ignored in version control
-
-### File structure - so I can remember in a few weeks from now ###
----
-```
-.
-├── README.md
-├── app
-│   ├── app.js
-│   ├── components
-│   │   ├── Map.js
-│   │   └── PointsOverlay.js
-│   ├── data
-│   │   ├── Water_Quality_complaints_Scrubbed_2014_2016.csv
-│   │   ├── nyc_reservoir_locations.csv
-│   │   └── out.json
-│   ├── index.html
-│   └── styles
-│       ├── components
-│       │   ├── _map.scss
-│       │   └── _points.scss
-│       └── main.scss
-├── config
-│   ├── loaders.js
-│   └── plugins.js
-├── dist
-│   ├── 1.bundle.js
-│   ├── bundle.js
-│   └── index.html
-├── package.json
-├── server.js
-└── webpack.config.js
-```
